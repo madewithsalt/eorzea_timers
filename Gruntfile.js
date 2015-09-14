@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     // Metadata.
     pkg: grunt.file.readJSON('package.json'),
-    app: {
+    config: {
       src: './assets',
       lib: './bower_components'
     },
@@ -21,67 +21,34 @@ module.exports = function(grunt) {
         }
     },
     concat: {
-      options: {
-        banner: '<%= banner %>',
-        stripBanners: true
+      lib: {
+        src: [
+            '<%= config.lib %>/jquery/dist/jquery.js',
+            '<%= config.lib %>/bootstrap/dist/js/bootstrap.js',
+            '<%= config.lib %>/underscore/underscore.js',
+            '<%= config.lib %>/backbone/backbone.js',
+            '<%= config.lib %>/backbone.marionette/lib/core/backbone.marionette.js',
+            '<%= config.lib %>/moment/moment.js',
+          ],
+        dest: 'js/lib.js'
       },
-      dist: {
-        src: ['<%= app.src %>/js/**/*.js'],
+      main: {
+        src: [
+          '<%= config.src %>/js/**/*.js'
+        ],
         dest: 'js/main.js'
       }
     },
-    uglify: {
-      options: {
-        banner: '<%= banner %>'
-      },
-      dist: {
-        src: '<%= concat.dist.dest %>',
-        dest: 'dist/<%= pkg.name %>.min.js'
-      }
-    },
-    jshint: {
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        unused: true,
-        boss: true,
-        eqnull: true,
-        browser: true,
-        globals: {}
-      },
-      gruntfile: {
-        src: 'Gruntfile.js'
-      },
-      lib_test: {
-        src: ['lib/**/*.js', 'test/**/*.js']
-      }
-    },
-    qunit: {
-      files: ['test/**/*.html']
-    },
     watch: {
       gruntfile: {
-        files: '<%= app.src %>/js',
+        files: '<%= config.src %>/js/**/*',
         tasks: ['concat']
-      },
-      // lib_test: {
-      //   files: '<%= jshint.lib_test.src %>',
-      //   tasks: ['jshint:lib_test', 'qunit']
-      // }
+      }
     }
   });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-serve');
 

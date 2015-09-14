@@ -15,5 +15,9 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "moment": "momentjs#~2.10.6"
+  }
 }
