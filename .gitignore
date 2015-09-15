@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+.DS_Store
 
 # Runtime data
 pids
@@ -28,3 +29,4 @@ node_modules
 
 
 bower_components
+dist

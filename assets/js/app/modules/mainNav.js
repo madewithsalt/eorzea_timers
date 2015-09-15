@@ -10,13 +10,17 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
 		},
 
 		onBeforeShow: function() {
-			this.clock.show(new App.Views.Clock());
+			this.clock.show(new App.Views.Clock({
+				model: this.model
+			}));
 		}
 	});
 
 
     App.on('start', function() {
-        App.navRegion.show(new Nav.BaseView());
+        App.navRegion.show(new Nav.BaseView({
+        	model: new App.Entities.Clock()
+        }));
     });
 
 
