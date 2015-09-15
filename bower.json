@@ -18,6 +18,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.5",
+    "handlebars": "~4.0.2",
     "moment": "momentjs#~2.10.6"
   }
 }

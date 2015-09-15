@@ -13,6 +13,9 @@
   },
   "dependencies": {
     "grunt": "^0.4.5",
+    "grunt-contrib-handlebars": "^0.10.2",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-exec": "^0.4.6",
     "grunt-serve": "^0.1.6"
   }
 }
