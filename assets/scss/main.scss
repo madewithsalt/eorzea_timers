@@ -1,0 +1,29 @@
+@import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
+@import '../../bower_components/font-awesome/scss/font-awesome';
+
+@import 'icons';
+@import 'home';
+@import 'nodes';
+
+.primary-nav {
+    .clock-region {
+        display: inline-block;
+
+        .clock {
+            color: #fff;
+            padding: 15px;
+            font-size: 18px;
+            line-height: 20px;
+            height: 50px;
+            @include transition(background-color 300ms ease-in);
+
+            &.am {
+                background-color: #77C3B9;
+            }
+
+            &.pm {
+                background-color: #C167FF;
+            }
+        }
+    }
+}

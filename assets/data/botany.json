@@ -1,11 +1,12 @@
 [
-	{
-		"name": "Test One",
-		"icon": "",
-		"region": "Coerthas Central Highlands",
-		"pos": "21x, 17y",
-		"slot": "6",
-		"times": ["8:00 AM", "8:00 PM"],
-		"is_collectable": true
-	}
+    {
+        "name": "Test One",
+        "icon": "",
+        "location": "Coerthas Central Highlands",
+        "pos": "21x, 17y",
+        "slot": "6",
+        "duration": "0:55",
+        "times": ["8:00 AM", "8:00 PM"],
+        "is_collectable": true
+    }
 ]

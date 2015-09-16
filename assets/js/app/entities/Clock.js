@@ -17,9 +17,14 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
 
         setTime: function() {
 	        var eorzeaTime = this.getEorzeaTime();
-	        var result = moment.utc(eorzeaTime).format('h:mm A');
+	        var result = moment.utc(eorzeaTime);
 
-            this.set({ 'time': result }, { trigger: true });
+            this.set({ 
+                'time': result.format('h:mm A'),
+                'meridiem': result.format('A'),
+                'hour': parseFloat(result.format('H')),
+                'minute': parseFloat(result.format('m'))
+            }, { trigger: true });
         },
 
         getEorzeaTime: function() {

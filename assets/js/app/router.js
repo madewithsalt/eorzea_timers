@@ -1,20 +1,13 @@
 (function(App, Marionette, Backbone) {
-	App.Router = Marionette.AppRouter.extend({
-		routes: {
-			'': 'index',
-			'big-clock': 'showBigClock'
-		},
+    App.Router = Marionette.AppRouter.extend({
+        routes: {
+            '': 'index'
+        },
 
-		index: function() {
-			console.log('go to index');
-		},
-
-		showBigClock: function() {
-			console.log('Big clock please!');
-		}
-
-
-	});
+        index: function() {
+            App.commands.execute('show:home');
+        }
+    });
 
 
 })(App, Marionette, Backbone);

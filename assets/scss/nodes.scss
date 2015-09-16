@@ -1,0 +1,28 @@
+
+.node {
+    
+    &.node-slim {
+        @extend .clearfix;
+        @extend .alert;
+        border: 1px solid #ccc;
+        padding: 6px;
+
+        .node-heading {
+            float: left;
+
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            .title {
+                font-weight: bold;
+            }
+        }
+
+        .node-body {
+            float: right;
+        }
+        
+    }
+}

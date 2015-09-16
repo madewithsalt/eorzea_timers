@@ -27,9 +27,6 @@ window.App = (function(Backbone, Marionette) {
 
     App.on('before:start', function() {
         this.router = new App.Router();
-        this.radio = Backbone.Wreqr.radio.channel('app');
-
-        Backbone.history.start();
 
         App.addRegions({
             mainRegion: '#main-region',
@@ -38,12 +35,17 @@ window.App = (function(Backbone, Marionette) {
 
         // page title time config
         var $title = $('#page-title'),
-            clock = new App.Entities.Clock(),
             titleContent = 'Eorzea Timers';
 
-        clock.on('change', function() {
-            $title.text(clock.get('time') + ' ' + titleContent);
+        App.masterClock = new App.Entities.Clock();
+
+        App.masterClock.on('change', function() {
+            $title.text(this.get('time') + ' ' + titleContent);
         });
+    });
+
+    App.on('start', function() {
+        Backbone.history.start();
     });
 
     return App;

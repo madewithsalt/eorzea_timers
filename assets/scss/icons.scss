@@ -1,0 +1,24 @@
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+
+    &.botany {
+        background-image: url('/img/botanistmenu.png');
+    }
+
+    &.mining {
+        background-image: url('/img/minermenu.png');
+    }
+
+    &.fishing {
+        background-image: url('/img/fishermenu.png');
+    }
+
+    &.custom {
+        background-image: url('/img/custom_timer.png');
+    }
+}

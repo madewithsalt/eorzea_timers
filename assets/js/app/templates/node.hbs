@@ -1,0 +1,15 @@
+<div class="node-heading">
+    <span class="icon {{type}}"></span>
+    <span class="time">{{ time }}</span>
+    <span class="title">{{ name }}</span>
+</div>
+<div class="node-body">
+    {{#if isActive}}
+        <div class="time-remaining">{{ remaining }}</div>
+    {{/if}}
+    {{#if location }}
+        <div class="location">{{ location }}, {{ pos }}</div>
+    {{/if}}
+    <div class="duration">{{ duration }}</div>
+</div>
+<div class="node-footer"></div>

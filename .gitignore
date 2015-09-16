@@ -2,6 +2,8 @@
 logs
 *.log
 .DS_Store
+.sass-cache/*
+
 
 # Runtime data
 pids

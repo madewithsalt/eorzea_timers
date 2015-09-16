@@ -1,0 +1,48 @@
+
+.home {
+    .jumbotron {
+        text-align: center;
+        position: relative;
+        @include transition(height 200ms ease-in);
+
+        &.closed {
+            height: 15px;
+            overflow: hidden;
+            padding: 30px;
+
+            .jumbo-content {
+                display: none;
+            }
+
+            .collapse-toggle {
+                .fa {
+                    @extend .fa-plus;
+                }
+            }
+        }
+
+        .clock {
+            font-size: 90px;
+        }
+
+        .collapse-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+
+            .fa {
+                @extend .fa-minus;
+            }
+
+            .toggle-link {
+                cursor: pointer;
+            }
+        } 
+    }
+
+    .filter-menu {
+        .btn {
+            min-width: 75px;
+        }
+    }
+}
