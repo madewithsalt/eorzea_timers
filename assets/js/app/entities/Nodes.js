@@ -3,6 +3,14 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
     var Node = Backbone.Model.extend({
             initialize: function() {
                 this.set('id', _.uniqueId('node-'));
+
+                App.masterClock.on('change', _.bind(this.getTimeDiff, this));
+            },
+
+            getTimeDiff: function() {
+                var currentTime = App.masterClock.get('time');
+
+                debugger;
             }
         }),
         NodeColl = Backbone.Collection.extend({

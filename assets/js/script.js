@@ -1,5 +1,7 @@
 $(function() {
 
-    App.start();
+    if(typeof App !== 'undefined') {
+        App.start();
+    }
 
 });

@@ -51,14 +51,21 @@ module.exports = function(grunt) {
             },
             main: {
                 src: [
+                    '<%= config.src %>/js/helpers/{,**/}*.js',
+                    '<%= config.src %>/js/*.js'
+                ],
+                dest: '<%= config.dist %>/js/main.js'
+            },
+            app: {
+                src: [
                     '<%= config.src %>/js/app/app.js',
                     '<%= config.src %>/js/app/router.js',
                     '<%= config.src %>/js/app/views/{,**/}*.js',
                     '<%= config.src %>/js/app/components/{,**/}*.js',
                     '<%= config.src %>/js/app/modules/{,**/}*.js',
-                    '<%= config.src %>/js/{,**/}*.js'
+                    '<%= config.src %>/js/app/{,**/}*.js'
                 ],
-                dest: '<%= config.dist %>/js/main.js'
+                dest: '<%= config.dist %>/js/app.js'
             }
         },
         watch: {
@@ -98,11 +105,17 @@ module.exports = function(grunt) {
                     '<%= config.src %>/fonts/**/*',
                 ],
                 tasks: ['copy:fonts']
+            },
+            tests: {
+                files: [
+                    './tests/**/*',
+                ],
+                tasks: ['copy:test']
             }
         },
         exec: {
-            handlebars: 'handlebars <%= config.app %>/templates/* -f <%= config.dist %>/js/templates.js',
-            sass: 'sass <%= config.src %>/scss/main.scss <%= config.dist %>/css/main.css'
+            handlebars: 'handlebars <%= config.app %>/templates/{,**/}*.hbs -f <%= config.dist %>/js/templates.js -r <%= config.app %>/templates',
+            sass: 'mkdir -p <%= config.dist %>/css && sass <%= config.src %>/scss/main.scss <%= config.dist %>/css/main.css'
         },
         copy: {
             assets: {
@@ -139,7 +152,17 @@ module.exports = function(grunt) {
                     src: ['*.html'],
                     dest: '<%= config.dist %>/'
                 }]
+            },
+            test: {
+                files: [{
+                    expand: true,
+                    src: ['./tests/**/*'],
+                    dest: '<%= config.dist %>'
+                }]
             }
+        },
+        clean: {
+            dist: ['<%= config.dist %>']
         }
 
     });
@@ -150,9 +173,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-exec');
 
     // Default task.
-    grunt.registerTask('default', ['copy', 'concat', 'exec:handlebars', 'exec:sass', 'watch']);
+    grunt.registerTask('default', ['clean', 'copy', 'concat', 'exec:handlebars', 'exec:sass', 'watch']);
 
 };

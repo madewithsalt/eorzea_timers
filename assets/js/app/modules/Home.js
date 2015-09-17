@@ -1,7 +1,7 @@
 App.module("Home", function(Home, App, Backbone, Marionette, $, _){
 
     Home.JumboTronView = Marionette.LayoutView.extend({
-        template: 'jumbotron',
+        template: 'home/jumbotron',
         className: 'jumbotron',
 
         regions: {
@@ -32,7 +32,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
 
 
     Home.NodeView = Marionette.ItemView.extend({
-        template: 'node',
+        template: 'home/node',
         className: 'node node-slim'
     });
 
@@ -41,7 +41,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
     });
 
 	Home.BaseView = Marionette.LayoutView.extend({
-		template: 'home',
+		template: 'home/home',
 		className: 'home',
 
         regions: {
