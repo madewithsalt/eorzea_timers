@@ -6,6 +6,26 @@
         @extend .alert;
         border: 1px solid #ccc;
         padding: 6px;
+        margin-bottom: 4px;
+        cursor: pointer;
+        @include transition(all 200ms ease-in);
+
+        &:hover, &.selected {
+            background-color: $state-info-bg;
+            border-color: $state-info-border;
+        }
+
+        &.selected {
+            border-width: 3px;
+        }
+
+        &.warning {
+            @extend .alert-warning;
+        }
+
+        &.urgent {
+            @extend .alert-danger;
+        }
 
         .node-heading {
             float: left;

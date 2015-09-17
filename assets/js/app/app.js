@@ -38,6 +38,10 @@ window.App = (function(Backbone, Marionette) {
             titleContent = 'Eorzea Timers';
 
         App.masterClock = new App.Entities.Clock();
+        App.collections = {
+            botany: new App.Entities.BotanyNodes(),
+            mining: new App.Entities.MiningNodes()
+        };
 
         App.masterClock.on('change', function() {
             $title.text(this.get('time') + ' ' + titleContent);
@@ -45,7 +49,26 @@ window.App = (function(Backbone, Marionette) {
     });
 
     App.on('start', function() {
-        Backbone.history.start();
+        var tasks = _.map(this.collections, function(coll, name) {
+            return function(callback) {
+                coll.fetch({
+                    success: function() {
+                        callback(null, coll);
+                    },
+                    error: function(xhr, status, err) {
+                        callback(err, coll);
+                    }
+                })
+            }
+        });
+
+        async.parallel(tasks, function(err, results) {
+            if(err) {
+                return console.error('Something blew up.', err);
+            }
+            
+            Backbone.history.start();
+        });
     });
 
     return App;

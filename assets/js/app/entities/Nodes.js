@@ -4,15 +4,59 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             initialize: function() {
                 this.set('id', _.uniqueId('node-'));
 
-                App.masterClock.on('change', _.bind(this.getTimeDiff, this));
+                this.getTimeDiff();
+                this.listenTo(App.masterClock, 'change', _.bind(this.getTimeDiff, this));
+            },
+
+            getDurationInfo: function() {
+                if(!this.get('duration')) { return; }
+                var duration = this.get('duration'),
+                    dur = TIME_HELPERS.getDurationObjectFromString(duration),
+                    str = TIME_HELPERS.getTimeStringFromDuration(this.get('time'), this.get('duration'));
+
+                return {
+                    duration: dur, 
+                    end_time: str,
+                    end_time_obj: TIME_HELPERS.getTimeObjFromString(str)
+                }
             },
 
             getTimeDiff: function() {
-                var currentTime = App.masterClock.get('time');
+                var currentTime = App.masterClock.get('time'),
+                    activeTime = this.get('time'),
+                    durationInfo = this.getDurationInfo(),
+                    currentTimeObj = TIME_HELPERS.getTimeObjFromString(currentTime),
+                    activeTimeObj = TIME_HELPERS.getTimeObjFromString(activeTime),
+                    timeStartUntil = TIME_HELPERS.getTimeDifference(currentTime, activeTime),
+                    earthTimeUntil = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeStartUntil)),
+                    timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time),
+                    earthTimeRemaining,
+                    isActive = false;
 
-                debugger;
+
+                // crazy booleans!
+                //current hour is greater than the active hour and less than or equal to end time hour
+                var withinStartTime = currentTimeObj.hour > activeTimeObj.hour || 
+                        currentTimeObj.hour === activeTimeObj.hour && currentTimeObj.minute >= activeTimeObj.minute,
+                    withinEndTime = currentTimeObj.hour < durationInfo.end_time_obj.hour || 
+                        currentTimeObj.hour === durationInfo.end_time_obj.hour && currentTimeObj.minute <= durationInfo.end_time_obj.minute;
+
+                if (withinStartTime && withinEndTime) {
+                    isActive = true;
+                    var timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time);
+                    earthTimeRemaining = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeRemaining));
+                }
+                
+                this.set({
+                    'active': isActive,
+                    'time_until': timeStartUntil,
+                    'time_remaining': timeRemaining,
+                    'earth_time_until': earthTimeUntil,
+                    'earth_time_remaining': earthTimeRemaining
+                });
             }
         }),
+
         NodeColl = Backbone.Collection.extend({
             model: Node,
             parse: function(resp) {

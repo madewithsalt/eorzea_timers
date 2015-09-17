@@ -2,11 +2,14 @@
     <span class="icon {{type}}"></span>
     <span class="time">{{ time }}</span>
     <span class="title">{{ name }}</span>
+    {{#if active}}
+        <span class="time-remaining">[
+            <i class="fa fa-globe"></i>
+            {{ earth_time_remaining.minutes }}m {{ earth_time_remaining.seconds }}s
+        ]</span>
+    {{/if}}
 </div>
 <div class="node-body">
-    {{#if isActive}}
-        <div class="time-remaining">{{ remaining }}</div>
-    {{/if}}
     {{#if location }}
         <div class="location">{{ location }}, {{ pos }}</div>
     {{/if}}

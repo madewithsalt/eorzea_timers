@@ -2,7 +2,7 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
 
 	Nav.BaseView = Marionette.LayoutView.extend({
 		template: 'main-nav',
-		className: 'navbar navbar-default',
+		className: 'navbar navbar-default navbar-fixed-top',
 
 		regions: {
 			clock: '.clock-region',
