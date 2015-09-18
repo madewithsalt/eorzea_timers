@@ -149,7 +149,7 @@ module.exports = function(grunt) {
             html: {
                 files: [{
                     expand: true,
-                    src: ['*.html'],
+                    src: ['*.html', 'CNAME'],
                     dest: '<%= config.dist %>/'
                 }]
             },

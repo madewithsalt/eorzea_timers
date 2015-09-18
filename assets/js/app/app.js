@@ -74,6 +74,7 @@ window.App = (function(Backbone, Marionette) {
                     },
                     error: function(xhr, status, err) {
                         callback(coll.type + ' ' + err, coll);
+                        return console.error('Something blew up.', arguments);
                     }
                 })
             }
@@ -87,7 +88,7 @@ window.App = (function(Backbone, Marionette) {
                 error: function(xhr, status, err) {
                     // do not act on an error for settings, as once created it will work fine.
                     callback(null, App.userSettings);
-                    return console.error('Settings: ', status, err);
+                    return console.error('Settings: ', arguments);
                 }
             })
         });
@@ -97,7 +98,6 @@ window.App = (function(Backbone, Marionette) {
                 App.errorsRegion.show(new App.Views.Error({
                     message: err
                 }));
-                return console.error('Something blew up.', err);
             }
 
             App.errorsRegion.reset();
