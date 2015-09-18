@@ -1,16 +1,35 @@
 <div class="container">
     <div class="jumbotron-region"></div>
-    <div class="col-md-12 nodes-filter">
-        <div class="filter-label">Filter by:</div>
-        <div class="btn-group filter-menu">
-            <div class="btn btn-primary active">All</div>
-            <div class="btn btn-primary botany"><span class="icon botany"></span> Botany</div>
-            <div class="btn btn-primary mining"><span class="icon mining"></span>  Mining</div>
-            <div class="btn btn-primary fishing"><span class="icon fishing"></span> Fishing</div>
-            <div class="btn btn-primary custom"><span class="icon custom"></span> Custom</div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="nodes-filter">
+                    <div class="filter-label">Filter by:</div>
+                    <div class="btn-group filter-menu">
+                        <div class="btn btn-primary active all" data-target="all">All</div>
+                        <div class="btn btn-primary botany" data-target="botany"><span class="icon botany"></span> Botany</div>
+                        <div class="btn btn-primary mining" data-target="mining"><span class="icon mining"></span>  Mining</div>
+                        {{!-- <div class="btn btn-primary fishing"><span class="icon fishing"></span> Fishing</div>--}}
+                        <div class="btn btn-primary custom" data-target="custom"><span class="icon custom"></span> Custom</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 align-right">
+                <div class="btn-group">
+                    <a href="#timers/new" class="btn btn-default new-timer-btn btn-lg"><i class="fa fa-plus"></i> New Timer</a>
+                </div>
+            </div>
         </div>
-        <div class="btn-group pull-right">
-            <a href="#timers/new" class="btn btn-default"><i class="fa fa-plus"></i> New Timer</a>
+        <div class="row">
+            <div class="search-menu col-md-6">
+                <div class="filter-list-form">
+                    <div class="form-group">
+                        <label>Filter List:</label>
+                        <input type="text" class="form-control node-search-input" />
+                        <small>Search by: Name or Location</small>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-md-12">
@@ -31,5 +50,4 @@
         <h3>After That:</h3>
         <div class="other-nodes-region"></div>
     </div>
-
 </div>

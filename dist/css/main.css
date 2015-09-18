@@ -7851,6 +7851,10 @@ button.close {
   min-height: 43px;
   vertical-align: middle;
   line-height: 30px; }
+.home .new-timer-btn {
+  margin-top: 12px; }
+.home .filter-list-form {
+  margin-top: 12px; }
 
 .watch-list .watch-settings-link {
   vertical-align: middle;
@@ -7899,5 +7903,11 @@ body {
       background-color: #77C3B9; }
     .primary-nav .clock-region .clock.pm {
       background-color: #C167FF; }
+
+.align-right {
+  text-align: right; }
+
+.align-left {
+  text-align: left; }
 
 /*# sourceMappingURL=main.css.map */

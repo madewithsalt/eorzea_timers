@@ -1,7 +1,7 @@
 <div class="node-heading">
     <span class="icon {{type}}"></span>
     <span class="time">{{ time }}</span>
-    <span class="title">{{ name }}</span>
+    <span class="title">{{ name }}{{#if slot}} [slot {{ slot }}]{{/if}}</span>
     {{#if active}}
         <span class="time-remaining">[
             <i class="fa fa-globe"></i>

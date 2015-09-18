@@ -45,7 +45,8 @@ module.exports = function(grunt) {
                     '<%= config.lib %>/backbone.wreqr/lib/backbone.wreqr.js',
                     '<%= config.lib %>/backbone.marionette/lib/backbone.marionette.js',
                     '<%= config.lib %>/moment/moment.js',
-                    '<%= config.lib %>/isotope/dist/isotope.pkgd.js'
+                    '<%= config.lib %>/isotope/dist/isotope.pkgd.js',
+                    '<%= config.lib %>/fuse.js/src/fuse.js'
                 ],
                 dest: '<%= config.dist %>/js/lib.js'
             },

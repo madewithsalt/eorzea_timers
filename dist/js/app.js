@@ -167,7 +167,7 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _){
     });
 
 });
-App.module("Home", function(Home, App, Backbone, Marionette, $, _){
+App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
     Home.JumboTronView = Marionette.LayoutView.extend({
         template: 'home/jumbotron',
@@ -176,7 +176,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
                 'jumbotron'
             ];
 
-            if(App.userSettings.get('homeClockCollapsed')) {
+            if (App.userSettings.get('homeClockCollapsed')) {
                 classes.push('closed');
             }
 
@@ -188,7 +188,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
         },
 
         events: {
-            'click .toggle-link': 'triggerToggle' 
+            'click .toggle-link': 'triggerToggle'
         },
 
         initialize: function() {
@@ -211,7 +211,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
         triggerToggle: function() {
             var collapsed = this.collapsed;
 
-            if(collapsed) {
+            if (collapsed) {
                 this.$el.removeClass('closed');
             } else {
                 this.$el.addClass('closed');
@@ -228,7 +228,8 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
 
         attributes: function() {
             return {
-                'data-id': this.model.get('id')
+                'data-id': this.model.get('id'),
+                'data-type': this.model.get('type')
             }
         },
 
@@ -237,17 +238,22 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
                 'node', 'node-slim'
             ];
 
-            if(this.model.get('active')) {
+            if (this.model.get('active')) {
                 var earthRem = this.model.get('earth_time_remaining');
-                
-                if(earthRem.minutes <= 1) {
+
+                if (earthRem.minutes <= 1) {
                     classes.push('urgent');
-                } else if(earthRem.minutes <= 6) {
+                } else if (earthRem.minutes <= 6) {
                     classes.push('warning');
                 }
             }
 
-            if(this.model.get('selected')) {
+            // set by search criteria.
+            if(this.model.get('hidden')) {
+                classes.push('hidden');
+            }
+
+            if (this.model.get('selected')) {
                 classes.push('selected');
             }
 
@@ -258,7 +264,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
             var self = this;
 
             this.listenTo(this.model, 'change', function() {
-                if(this.model.get('active')) {
+                if (this.model.get('active')) {
                     this.render();
                 }
             });
@@ -271,7 +277,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
 
             this.model.set('selected', !selected);
             this.$el.toggleClass('selected');
-            if(!selected) {
+            if (!selected) {
                 App.vent.trigger('node:selected', this.model);
             } else {
                 App.vent.trigger('node:deselected', this.model);
@@ -291,6 +297,16 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
         template: 'home/home',
         className: 'home',
 
+        events: {
+            'keyup .node-search-input': 'triggerSearch',
+            'click .filter-menu .btn': 'triggerFilter'
+        },
+
+        ui: {
+            search: '.node-search-input',
+            filterItem: '.filter-menu .btn'
+        },
+
         regions: {
             'jumbotron': '.jumbotron-region',
             'activeNodes': '.active-nodes-region',
@@ -300,7 +316,18 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
         },
 
         initialize: function() {
-            var self = this;
+            var self = this,
+                collections = [
+                    App.collections.botany,
+                    App.collections.mining,
+                    App.collections.custom
+                ],
+                // create a flattened json list of all nodes for search purposes.
+                searchCollections = _.map(App.collections, function(coll) {
+                    return coll.toJSON();
+                });
+
+            searchCollections = _.flatten(searchCollections);
 
             this._currentHour = App.masterClock.get('hour');
 
@@ -310,19 +337,78 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
             // let individual views (when active) handle countdowns.
             this.listenTo(App.masterClock, 'change', function() {
                 // be sure to check for race-conditioned nodes that missed the last hour rollover
-                if(self._currentHour !== App.masterClock.get('hour') || self.collections.active.where({ active: false }).length ) {
+                if (self._currentHour !== App.masterClock.get('hour') || self.collections.active.where({
+                    active: false
+                }).length) {
                     self._currentHour = App.masterClock.get('hour');
                     self.sortCollections();
                     self.showLists();
                 }
             });
 
+            this.fuse = new Fuse(searchCollections, {
+                keys: ['name', 'location'],
+                threshold: 0.3,
+                id: 'id'
+            });
+
+            this.filteringBy = 'all';
+        },
+
+        triggerSearch: function() {
+            var val = this.ui.search.val(),
+                result;
+
+            if(val.length <= 3) {
+                this.searchList = [];
+                this.clearSearch();
+                return;
+            }
+
+            result = this.fuse.search(val);
+
+            this.searchList = result;
+            this.hideExcludedSearch();
+        },
+
+        clearSearch: function() {
+            this.$('.node').show();
+        },
+
+        hideExcludedSearch: function() {
+            var self = this,
+                results = this.searchList;
+
+            this.$('.node').hide();
+            _.each(results, function(id) {
+                self.$('.node[data-id="' + id + '"]').not('[data-type="' + self.filteringBy + '"]').show();
+            });
+        },
+
+        triggerFilter: function(evt) {
+            var $el = $(evt.currentTarget),
+                target = $el.data('target');
+
+            this.ui.filterItem.removeClass('active');
+            $el.addClass('active');
+            
+            this.filteringBy = target;
+            this.$('.node').show();
+
+            if(target !== 'all') {
+                this.$('.node').not('[data-type="' + target + '"]').hide();
+            }
         },
 
         sortCollections: function() {
             var self = this,
                 data = [],
-                active = [], oneHour = [], twoHour = [], theRest = [],
+                active = [],
+                oneHour = [],
+                twoHour = [],
+                theRest = [],
+                searchList = this.searchList || [],
+                filteringBy = this.filteringBy,
                 watchedNodes = App.collections.watched,
                 collections = [
                     App.collections.botany,
@@ -336,17 +422,33 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
                 two_hour: new Backbone.Collection(),
                 the_rest: new Backbone.Collection()
             };
-            
+
             _.each(collections, function(coll) {
                 coll.each(function(model) {
                     var item = model.toJSON(),
                         isWatched = watchedNodes.get(item.id);
 
-                    if(isWatched) {
+                    if (isWatched) {
                         model.set('selected', true);
                     }
 
-                    if(item.active) {
+                    if(item.type === filteringBy || filteringBy === 'all' || !filteringBy) {
+                        model.set('hidden', false); 
+                    } else {
+                        model.set('hidden', true);
+                    }
+
+                    if(searchList.length) {
+                        var excluded = _.indexOf(searchList, item.id) !== -1;
+
+                        if(excluded) { 
+                            model.set('hidden', true); 
+                        } else if(item.type === filteringBy || filteringBy === 'all' ) {
+                            model.set('hidden', false);
+                        }
+                    }
+
+                    if (item.active) {
                         return active.push(model);
                     }
 
@@ -354,11 +456,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
                         hours = timeUntil.hours,
                         minutes = timeUntil.minutes;
 
-                    if(hours === 0 && minutes > 0 || hours === 1) {
+                    if (hours === 0 && minutes > 0 || hours === 1) {
                         return oneHour.push(model);
                     }
 
-                    if(hours === 1 && minutes > 0 || hours === 2) {
+                    if (hours === 1 && minutes > 0 || hours === 2) {
                         return twoHour.push(model);
                     }
 
@@ -375,7 +477,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
         },
 
         onBeforeShow: function() {
-            var self = this;                
+            var self = this;
 
             // jumbotron master clock
             this.jumbotron.show(new Home.JumboTronView());
