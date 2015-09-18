@@ -2,9 +2,14 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
     var Node = Backbone.Model.extend({
             initialize: function() {
-                this.set('id', _.uniqueId('node-'));
-
                 this.getTimeDiff();
+
+                var id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
+                            return item.split(' ').join('-').toLowerCase();
+                        }).join('-');
+
+                this.set('id', id);
+
                 this.listenTo(App.masterClock, 'change', _.bind(this.getTimeDiff, this));
             },
 
@@ -96,5 +101,16 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         url: '/data/mining.json'
     });
 
+    Entities.CustomNodes = Backbone.Collection.extend({
+        model: Node,
+        type: 'custom',
+        localStorage: new Backbone.LocalStorage('CustomNodes')
+    });
+
+    Entities.WatchedNodes = Backbone.Collection.extend({
+        model: Node,
+        type: 'watched',
+        localStorage: new Backbone.LocalStorage('WatchedNodes')
+    });
 
 });

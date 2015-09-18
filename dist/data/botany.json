@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Test One",
+        "icon": "",
+        "location": "Coerthas Central Highlands",
+        "pos": "x21,y17",
+        "slot": "6",
+        "duration": "0:55",
+        "times": ["8:00 AM", "8:00 PM"],
+        "is_collectable": true
+    }
+]

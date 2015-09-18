@@ -22,6 +22,7 @@
     "backbone.marionette": "~2.4.3",
     "bootstrap-sass": "bootstrap-sass-official#~3.3.5",
     "font-awesome": "fontawesome#~4.4.0",
+    "fuse.js": "~1.2.2",
     "handlebars": "~4.0.2",
     "isotope": "~2.2.2",
     "moment": "momentjs#~2.10.6"

@@ -2,7 +2,17 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
 
     Home.JumboTronView = Marionette.LayoutView.extend({
         template: 'home/jumbotron',
-        className: 'jumbotron',
+        className: function() {
+            var classes = [
+                'jumbotron'
+            ];
+
+            if(App.userSettings.get('homeClockCollapsed')) {
+                classes.push('closed');
+            }
+
+            return classes.join(' ');
+        },
 
         regions: {
             'clock': '.clock-region'
@@ -12,9 +22,13 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
             'click .toggle-link': 'triggerToggle' 
         },
 
+        initialize: function() {
+            this.collapsed = App.userSettings.get('homeClockCollapsed') || false;
+        },
+
         serializeData: function() {
             return {
-                collapsed: this.collapsed || false 
+                collapsed: this.collapsed
             };
         },
 
@@ -26,13 +40,28 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
         },
 
         triggerToggle: function() {
-            this.$el.toggleClass('closed');
+            var collapsed = this.collapsed;
+
+            if(collapsed) {
+                this.$el.removeClass('closed');
+            } else {
+                this.$el.addClass('closed');
+            }
+
+            this.collapsed = !collapsed;
+            App.userSettings.save('homeClockCollapsed', !collapsed);
         }
     });
 
 
     Home.NodeView = Marionette.ItemView.extend({
         template: 'home/node',
+
+        attributes: function() {
+            return {
+                'data-id': this.model.get('id')
+            }
+        },
 
         className: function() {
             var classes = [
@@ -73,6 +102,15 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
 
             this.model.set('selected', !selected);
             this.$el.toggleClass('selected');
+            if(!selected) {
+                App.vent.trigger('node:selected', this.model);
+            } else {
+                App.vent.trigger('node:deselected', this.model);
+            }
+        },
+
+        onBeforeDestroy: function() {
+            this.$el.off();
         }
     });
 
@@ -80,9 +118,9 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
         childView: Home.NodeView
     });
 
-	Home.BaseView = Marionette.LayoutView.extend({
-		template: 'home/home',
-		className: 'home',
+    Home.BaseView = Marionette.LayoutView.extend({
+        template: 'home/home',
+        className: 'home',
 
         regions: {
             'jumbotron': '.jumbotron-region',
@@ -115,7 +153,13 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
         sortCollections: function() {
             var self = this,
                 data = [],
-                active = [], oneHour = [], twoHour = [], theRest = [];
+                active = [], oneHour = [], twoHour = [], theRest = [],
+                watchedNodes = App.collections.watched,
+                collections = [
+                    App.collections.botany,
+                    App.collections.mining,
+                    App.collections.custom
+                ];
 
             this.collections = {
                 active: new Backbone.Collection(),
@@ -124,9 +168,14 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
                 the_rest: new Backbone.Collection()
             };
             
-            _.each(App.collections, function(coll) {
+            _.each(collections, function(coll) {
                 coll.each(function(model) {
-                    var item = model.toJSON();
+                    var item = model.toJSON(),
+                        isWatched = watchedNodes.get(item.id);
+
+                    if(isWatched) {
+                        model.set('selected', true);
+                    }
 
                     if(item.active) {
                         return active.push(model);
@@ -181,15 +230,12 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _){
                 collection: this.collections.the_rest
             }));
         }
-	});
+    });
 
-
-
-
-	App.on('before:start', function() {
-		App.commands.setHandler('show:home', function() {
-			App.mainRegion.show(new Home.BaseView());
-		});
-	});
+    App.on('before:start', function() {
+        App.commands.setHandler('show:home', function() {
+            App.mainRegion.show(new Home.BaseView());
+        });
+    });
 
 });

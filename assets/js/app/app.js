@@ -30,7 +30,8 @@ window.App = (function(Backbone, Marionette) {
 
         App.addRegions({
             mainRegion: '#main-region',
-            navRegion: '#nav-region'
+            navRegion: '#nav-region',
+            errorsRegion: '#error-region'
         });
 
         // page title time config
@@ -40,12 +41,28 @@ window.App = (function(Backbone, Marionette) {
         App.masterClock = new App.Entities.Clock();
         App.collections = {
             botany: new App.Entities.BotanyNodes(),
-            mining: new App.Entities.MiningNodes()
+            mining: new App.Entities.MiningNodes(),
+            custom: new App.Entities.CustomNodes(),
+            watched: new App.Entities.WatchedNodes()
         };
+
+        App.userSettings = new App.Entities.Settings({ id: 'appUserSettings' });
 
         App.masterClock.on('change', function() {
             $title.text(this.get('time') + ' ' + titleContent);
         });
+
+        App.vent.on('node:selected', function(model) {
+            var data = model.toJSON();
+            App.collections.watched.add(data);
+            App.collections.watched.get(data.id).save();
+        });
+
+        App.vent.on('node:deselected', function(model) {
+            var data = model.toJSON();
+            App.collections.watched.get(data.id).destroy();
+        });
+
     });
 
     App.on('start', function() {
@@ -56,17 +73,35 @@ window.App = (function(Backbone, Marionette) {
                         callback(null, coll);
                     },
                     error: function(xhr, status, err) {
-                        callback(err, coll);
+                        callback(status, coll);
                     }
                 })
             }
         });
 
+        tasks.push(function(callback) {
+            App.userSettings.fetch({
+                success: function(model) {
+                    callback(null, model);
+                },
+                error: function(xhr, status, err) {
+                    // do not act on an error for settings, as once created it will work fine.
+                    callback(null, App.userSettings);
+                    return console.error('Settings: ', status, err);
+                }
+            })
+        });
+
         async.parallel(tasks, function(err, results) {
-            if(err) {
+            if (err) {
+                App.errorsRegion.show(new App.Views.Error({
+                    message: err
+                }));
                 return console.error('Something blew up.', err);
             }
-            
+
+            App.errorsRegion.reset();
+
             Backbone.history.start();
         });
     });
