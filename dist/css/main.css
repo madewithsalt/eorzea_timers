@@ -7862,6 +7862,9 @@ button.close {
   margin-left: 20px;
   margin-top: -4px; }
 
+.custom-timer .times-list {
+  margin-bottom: 8px; }
+
 .node.node-slim {
   border: 1px solid #ccc;
   padding: 6px;
@@ -7909,5 +7912,10 @@ body {
 
 .align-left {
   text-align: left; }
+
+.parsley-error {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442; }
 
 /*# sourceMappingURL=main.css.map */

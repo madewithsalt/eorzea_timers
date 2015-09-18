@@ -2,6 +2,14 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
     var Node = Backbone.Model.extend({
             initialize: function() {
+                if(!this.get('name') || !this.get('times')) { 
+                    return console.error('Cannot instantiate Nodes without initial data due to setup requirements.');
+                }
+
+                this.setupData();
+            },
+
+            setupData: function() {
                 this.getTimeDiff();
 
                 var id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
@@ -74,6 +82,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     });
 
                 _.each(list, function(item) {
+                    if(item.time && _.isString(item.time)) {
+                        return;
+                    }
+                    
                     if (_.isArray(item.times) && item.times.length > 1) {
                         _.each(item.times, function(time) {
                             results.push(_.extend({
@@ -90,6 +102,8 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                 return results;
             }
         });
+
+    Entities.Node = Node;
 
     Entities.BotanyNodes = NodeColl.extend({
         type: 'botany',

@@ -4,6 +4,7 @@
 @import 'icons';
 @import 'home';
 @import 'watch-list';
+@import 'custom-timer';
 @import 'nodes';
 
 body {
@@ -39,6 +40,12 @@ body {
 
 .align-left {
     text-align: left;
+}
+
+.parsley-error {
+    background-color: $state-danger-bg;
+    border-color: $state-danger-border;
+    color: $state-danger-text;
 }
 
 

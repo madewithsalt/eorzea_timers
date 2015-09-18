@@ -154,6 +154,123 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _){
 
 
 });
+App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+
+    var TimeSlot = Marionette.ItemView.extend({
+        template: 'custom-timer/time-slot'
+    });
+
+    Views.CustomTimer = Marionette.ItemView.extend({
+        template: 'custom-timer',
+        className: 'custom-timer',
+
+        ui: {
+            form: 'form'
+        },
+
+        events: {
+            'click .add-time': 'triggerAddTime',
+            'click .rem-time': 'triggerRemTime',
+            'click .btn-save': 'triggerSave'
+        },
+
+        serializeData: function() {
+            var data = this.model ? this.model.toJSON() : { times: [ '12:00 AM' ] },
+                times = _.map(data.times, function(time, idx) {
+                    var hour = time.split(' ')[0].split(':')[0],
+                        min = time.split(' ')[0].split(':')[1],
+                        meridien = time.split(' ')[1];
+
+                    return {
+                        idx: idx,
+                        hour: hour,
+                        min: min,
+                        meridien: meridien
+                    }
+                });
+
+            return _.extend({}, data, {
+                times: times
+            });
+        },
+
+        triggerAddTime: function() {
+            var slot = new TimeSlot();
+
+            slot.render();
+            this.$('.times-list').append(slot.el);
+        },
+
+        triggerRemTime: function(evt) {
+            var $el = $(evt.currentTarget);
+            $el.parents('.form-time').remove();
+        },
+
+        triggerSave: function(evt) {
+            var isValid = this.ui.form.parsley().validate();
+
+            if(isValid) {
+                this.saveNode();
+            }
+        },
+
+        processFormData: function() {
+            var values = this.ui.form.serializeArray(),
+                ignore = ['hour', 'min', 'mer', 'xpos', 'ypos', 'duration-hours', 'duration-min'],
+                output = {
+                    type: 'custom',
+                    times: []
+                };
+
+            _.each(values, function(item) {
+                if(_.indexOf(ignore, item.name) > -1) {
+                    return;
+                }
+
+                output[item.name] = item.value;
+            });
+
+            var $times = this.$('.form-time');
+
+            $times.each(function() {
+                var $el = $(this),
+                    hr = $el.find('input[name="hour"]').val(),
+                    min = $el.find('input[name="min"]').val(),
+                    mer = $el.find('select').val();
+
+                output.time = hr + ':' + min + ' ' + mer;
+            });
+
+            var xPos = _.find(values, { name: 'xpos' }),
+                yPos = _.find(values, { name: 'ypos' });
+
+            if(xPos && yPos) {
+                output.pos = 'x' + xPos.value + ',' + 'y' + yPos.value;
+            }
+
+            var durMin = _.find(values, { name: 'duration-min' }).value,
+                durHour = _.find(values, { name: 'duration-hours' }).value;
+
+            output.duration = durHour + ':' + durMin;
+
+
+            return output;
+        },
+
+        saveNode: function() {
+            var data = this.processFormData(),
+                model = this.model ? this.model : new App.Entities.Node(data);
+
+            // possibly allow multiple times in one node, but it will be annoying to add/edit
+            // as the collections parse each time as a diff model/node.
+
+            App.collections.custom.add(model);
+            model.save();
+            this.trigger('modal:close');
+        }
+    });
+
+});
 App.module("Views", function(Views, App, Backbone, Marionette, $, _){
 
     Views.Error = Marionette.ItemView.extend({
@@ -166,6 +283,39 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _){
         }
     });
 
+});
+App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+
+    Views.Modal = Marionette.LayoutView.extend({
+        template: 'modal',
+        className: 'modal fade',
+        regions: {
+            body: '.modal-body'
+        },
+
+        serializeData: function() {
+            return {
+                title: this.options.title,
+                footerButtons: this.options.footerButtons
+            }
+        },
+
+        onBeforeShow: function() {
+            var self = this;
+
+            if(this.options.childView) {
+                var child = new this.options.childView({
+                    model: this.model
+                });
+
+                this.body.show(child);
+
+                this.listenTo(child, 'modal:close', function() {
+                    self.$el.modal('hide');
+                });
+            }
+        }
+    });
 });
 App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
@@ -299,7 +449,8 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
         events: {
             'keyup .node-search-input': 'triggerSearch',
-            'click .filter-menu .btn': 'triggerFilter'
+            'click .filter-menu .btn': 'triggerFilter',
+            'click .new-timer-btn': 'triggerNewTimer'
         },
 
         ui: {
@@ -312,7 +463,8 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             'activeNodes': '.active-nodes-region',
             'nextHourNodes': '.next-hour-nodes-region',
             'twoHourNodes': '.two-hour-nodes-region',
-            'otherNodes': '.other-nodes-region'
+            'otherNodes': '.other-nodes-region',
+            'newTimerModal': '.new-timer-modal-region'
         },
 
         initialize: function() {
@@ -332,6 +484,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             this._currentHour = App.masterClock.get('hour');
 
             this.sortCollections();
+
+            this.listenTo(App.collections.custom, 'add remove', function() {
+                self.sortCollections();
+                self.showLists();
+            });
 
             // only update lists every hour for performance
             // let individual views (when active) handle countdowns.
@@ -353,6 +510,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             });
 
             this.filteringBy = 'all';
+
+            this.listenTo(App.vent, 'node:create', function() {
+                self.sortCollections();
+                self.showLists();
+            });
         },
 
         triggerSearch: function() {
@@ -398,6 +560,17 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             if(target !== 'all') {
                 this.$('.node').not('[data-type="' + target + '"]').hide();
             }
+        },
+
+        triggerNewTimer: function() {
+            var modal = new App.Views.Modal({
+                    childView: App.Views.CustomTimer,
+                    title: 'New Custom Timer'
+                });
+
+            this.newTimerModal.show(modal);
+            modal.$el.modal();
+            modal.on('hidden.bs.modal', _.bind(this.newTimerModal.reset, this));
         },
 
         sortCollections: function() {
@@ -669,6 +842,14 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
     var Node = Backbone.Model.extend({
             initialize: function() {
+                if(!this.get('name') || !this.get('times')) { 
+                    return console.error('Cannot instantiate Nodes without initial data due to setup requirements.');
+                }
+
+                this.setupData();
+            },
+
+            setupData: function() {
                 this.getTimeDiff();
 
                 var id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
@@ -741,6 +922,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     });
 
                 _.each(list, function(item) {
+                    if(item.time && _.isString(item.time)) {
+                        return;
+                    }
+                    
                     if (_.isArray(item.times) && item.times.length > 1) {
                         _.each(item.times, function(time) {
                             results.push(_.extend({
@@ -757,6 +942,8 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                 return results;
             }
         });
+
+    Entities.Node = Node;
 
     Entities.BotanyNodes = NodeColl.extend({
         type: 'botany',

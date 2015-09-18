@@ -130,7 +130,8 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
         events: {
             'keyup .node-search-input': 'triggerSearch',
-            'click .filter-menu .btn': 'triggerFilter'
+            'click .filter-menu .btn': 'triggerFilter',
+            'click .new-timer-btn': 'triggerNewTimer'
         },
 
         ui: {
@@ -143,7 +144,8 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             'activeNodes': '.active-nodes-region',
             'nextHourNodes': '.next-hour-nodes-region',
             'twoHourNodes': '.two-hour-nodes-region',
-            'otherNodes': '.other-nodes-region'
+            'otherNodes': '.other-nodes-region',
+            'newTimerModal': '.new-timer-modal-region'
         },
 
         initialize: function() {
@@ -163,6 +165,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             this._currentHour = App.masterClock.get('hour');
 
             this.sortCollections();
+
+            this.listenTo(App.collections.custom, 'add remove', function() {
+                self.sortCollections();
+                self.showLists();
+            });
 
             // only update lists every hour for performance
             // let individual views (when active) handle countdowns.
@@ -184,6 +191,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             });
 
             this.filteringBy = 'all';
+
+            this.listenTo(App.vent, 'node:create', function() {
+                self.sortCollections();
+                self.showLists();
+            });
         },
 
         triggerSearch: function() {
@@ -229,6 +241,17 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             if(target !== 'all') {
                 this.$('.node').not('[data-type="' + target + '"]').hide();
             }
+        },
+
+        triggerNewTimer: function() {
+            var modal = new App.Views.Modal({
+                    childView: App.Views.CustomTimer,
+                    title: 'New Custom Timer'
+                });
+
+            this.newTimerModal.show(modal);
+            modal.$el.modal();
+            modal.on('hidden.bs.modal', _.bind(this.newTimerModal.reset, this));
         },
 
         sortCollections: function() {

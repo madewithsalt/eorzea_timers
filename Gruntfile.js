@@ -37,7 +37,7 @@ module.exports = function(grunt) {
                 src: [
                     '<%= config.lib %>/jquery/dist/jquery.js',
                     '<%= config.lib %>/async/lib/async.js',
-                    '<%= config.lib %>/bootstrap/dist/js/bootstrap.js',
+                    '<%= config.lib %>/bootstrap-sass/assets/javascripts/bootstrap.js',
                     '<%= config.lib %>/underscore/underscore.js',
                     '<%= config.lib %>/backbone/backbone.js',
                     '<%= config.lib %>/backbone.localStorage/backbone.localStorage.js',
@@ -46,7 +46,8 @@ module.exports = function(grunt) {
                     '<%= config.lib %>/backbone.marionette/lib/backbone.marionette.js',
                     '<%= config.lib %>/moment/moment.js',
                     '<%= config.lib %>/isotope/dist/isotope.pkgd.js',
-                    '<%= config.lib %>/fuse.js/src/fuse.js'
+                    '<%= config.lib %>/fuse.js/src/fuse.js',
+                    '<%= config.lib %>/parsleyjs/dist/parsley.js'
                 ],
                 dest: '<%= config.dist %>/js/lib.js'
             },
