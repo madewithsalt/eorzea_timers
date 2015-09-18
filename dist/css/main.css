@@ -7887,6 +7887,8 @@ button.close {
       font-weight: bold; }
   .node.node-slim .node-body {
     float: right; }
+    .node.node-slim .node-body .location {
+      display: inline-block; }
 
 body {
   padding: 60px 0; }

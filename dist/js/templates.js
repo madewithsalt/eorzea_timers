@@ -92,6 +92,8 @@ templates['home/node.hbs'] = template({"1":function(container,depth0,helpers,par
     + ", "
     + alias3(((helper = (helper = helpers.pos || (depth0 != null ? depth0.pos : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"pos","hash":{},"data":data}) : helper)))
     + "</div>\n";
+},"7":function(container,depth0,helpers,partials,data) {
+    return "        <a class=\"btn btn-danger btn-xs btn-delete\"><i class=\"fa fa-times\"></i></a>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
 
@@ -106,7 +108,9 @@ templates['home/node.hbs'] = template({"1":function(container,depth0,helpers,par
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "</div>\n<div class=\"node-body\">\n"
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.location : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "</div>\n";
+    + "\n"
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isCustom : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n</div>\n";
 },"useData":true});
 templates['main-nav/main-nav.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<a href=\"#\" class=\"navbar-brand\">Eorzea Timers</a>\n<div class=\"clock-region pull-right\"></div>\n<div class=\"menu-region pull-right\"></div>\n";

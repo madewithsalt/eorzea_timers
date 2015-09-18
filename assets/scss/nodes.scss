@@ -42,6 +42,10 @@
 
         .node-body {
             float: right;
+
+            .location {
+                display: inline-block;
+            }
         }
         
     }

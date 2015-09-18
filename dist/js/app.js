@@ -376,11 +376,21 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
     Home.NodeView = Marionette.ItemView.extend({
         template: 'home/node',
 
+        events: {
+            'click .btn-delete': 'deleteNode'
+        },
+
         attributes: function() {
             return {
                 'data-id': this.model.get('id'),
                 'data-type': this.model.get('type')
             }
+        },
+
+        serializeData: function() {
+            return _.extend({
+                isCustom: this.model.get('type') === 'custom'
+            }, this.model.toJSON());
         },
 
         className: function() {
@@ -436,6 +446,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
         onBeforeDestroy: function() {
             this.$el.off();
+        },
+
+        deleteNode: function(evt) {
+            evt.stopPropagation();
+            this.model.destroy();
         }
     });
 
@@ -468,24 +483,15 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
         },
 
         initialize: function() {
-            var self = this,
-                collections = [
-                    App.collections.botany,
-                    App.collections.mining,
-                    App.collections.custom
-                ],
-                // create a flattened json list of all nodes for search purposes.
-                searchCollections = _.map(App.collections, function(coll) {
-                    return coll.toJSON();
-                });
-
-            searchCollections = _.flatten(searchCollections);
+            var self = this;
 
             this._currentHour = App.masterClock.get('hour');
 
+            this.configureSearchList();
             this.sortCollections();
 
             this.listenTo(App.collections.custom, 'add remove', function() {
+                self.configureSearchList();
                 self.sortCollections();
                 self.showLists();
             });
@@ -503,7 +509,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 }
             });
 
-            this.fuse = new Fuse(searchCollections, {
+            this.fuse = new Fuse(this.searchCollections, {
                 keys: ['name', 'location'],
                 threshold: 0.3,
                 id: 'id'
@@ -515,6 +521,21 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 self.sortCollections();
                 self.showLists();
             });
+        },
+
+        configureSearchList: function() {
+            var collections = [
+                    App.collections.botany,
+                    App.collections.mining,
+                    App.collections.custom
+                ],
+                // create a flattened json list of all nodes for search purposes.
+                searchCollections = _.map(App.collections, function(coll) {
+                    return coll.toJSON();
+                });
+
+            this.searchCollections = _.flatten(searchCollections);
+
         },
 
         triggerSearch: function() {
