@@ -73,7 +73,7 @@ window.App = (function(Backbone, Marionette) {
                         callback(null, coll);
                     },
                     error: function(xhr, status, err) {
-                        callback(status, coll);
+                        callback(coll.type + ' ' + err, coll);
                     }
                 })
             }
