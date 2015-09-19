@@ -14,7 +14,7 @@
             border: 3px solid #ccc;
             position: relative;
             padding: 0;
-            height: 190px;
+            height: 210px;
         }
 
         &.botany.active .node-content {
@@ -35,8 +35,6 @@
             background-color: #FFEDFF;
         }
 
-
-
         .node-heading {
             padding: 4px 15px;
             border-bottom: 1px solid #ccc;
@@ -51,6 +49,17 @@
             }
         }
 
+        .node-footer {
+            padding-top: 4px;
+            margin-top: 4px;
+            border-top: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .title {
+            margin-bottom: 8px;
+        }
+
         .btn-delete {
             position: absolute;
             top: 4px;
@@ -62,9 +71,19 @@
             text-align: center;
         }
 
+        .time-remaining, .time-until {
+            font-weight: bold;
+            line-height: 34px;
+            margin-bottom: 8px;
+            @include transition(font-size 200ms ease-in);
+        }
+
+        .time-until {
+            font-size: 30px;
+        }
+
         .time-remaining {
             font-size: 38px;
-            font-weight: bold;
         }
 
     }

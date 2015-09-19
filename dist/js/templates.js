@@ -191,21 +191,49 @@ templates['watch-list/base.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":fu
 templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     return "        <a class=\"btn btn-danger btn-xs btn-delete\"><i class=\"fa fa-times\"></i></a>\n";
 },"3":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+
+  return "        <div class=\"small\"><i>time remaining:</i></div>\n        <div class=\"time-remaining\">\n            "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.minutes : stack1), depth0))
+    + "m "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.seconds : stack1), depth0))
+    + "s\n        </div>\n";
+},"5":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+
+  return "        <div class=\"small\"><i>time until:</i></div>\n        <div class=\"time-until\">\n"
+    + ((stack1 = helpers["if"].call(depth0,((stack1 = (depth0 != null ? depth0.earth_time_until : depth0)) != null ? stack1.hours : stack1),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "            "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_until : depth0)) != null ? stack1.minutes : stack1), depth0))
+    + "m "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_until : depth0)) != null ? stack1.seconds : stack1), depth0))
+    + "s\n        </div>\n";
+},"6":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "                "
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.earth_time_until : depth0)) != null ? stack1.hours : stack1), depth0))
+    + "h\n";
+},"8":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "            <div class=\"slot\">[slot "
     + container.escapeExpression(((helper = (helper = helpers.slot || (depth0 != null ? depth0.slot : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"slot","hash":{},"data":data}) : helper)))
     + "]</div>\n";
-},"5":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
+},"10":function(container,depth0,helpers,partials,data) {
+    var helper;
 
   return "            <div class=\"location\">"
-    + alias3(((helper = (helper = helpers.location || (depth0 != null ? depth0.location : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"location","hash":{},"data":data}) : helper)))
-    + ", "
-    + alias3(((helper = (helper = helpers.pos || (depth0 != null ? depth0.pos : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"pos","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.location || (depth0 != null ? depth0.location : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"location","hash":{},"data":data}) : helper)))
+    + "</div>\n";
+},"12":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "            <div class=\"pos\">"
+    + container.escapeExpression(((helper = (helper = helpers.pos || (depth0 != null ? depth0.pos : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"pos","hash":{},"data":data}) : helper)))
     + "</div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression, alias4=container.lambda;
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
 
   return "<div class=\"node-content\">\n"
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isCustom : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -215,13 +243,12 @@ templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpe
     + alias3(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
     + "</span>\n    </div>\n    <div class=\"node-body\">\n        <div class=\"title\">"
     + alias3(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"name","hash":{},"data":data}) : helper)))
-    + "</div>\n        <div class=\"time-remaining\">\n            "
-    + alias3(alias4(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.minutes : stack1), depth0))
-    + "m "
-    + alias3(alias4(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.seconds : stack1), depth0))
-    + "s\n        </div>\n"
-    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.slot : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.location : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\n</div>";
+    + "</div>\n"
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.slot : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </div>\n    <div class=\"node-footer\">\n"
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.location : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.pos : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </div>\n\n</div>";
 },"useData":true});
 })();

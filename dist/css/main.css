@@ -7875,7 +7875,7 @@ button.close {
   border: 3px solid #ccc;
   position: relative;
   padding: 0;
-  height: 190px; }
+  height: 210px; }
 .node.node-block.botany.active .node-content {
   border-color: #32710D;
   color: #32710D;
@@ -7898,6 +7898,13 @@ button.close {
     height: 18px;
     margin-right: 8px;
     margin-left: -8px; }
+.node.node-block .node-footer {
+  padding-top: 4px;
+  margin-top: 4px;
+  border-top: 1px solid #ccc;
+  text-align: center; }
+.node.node-block .title {
+  margin-bottom: 8px; }
 .node.node-block .btn-delete {
   position: absolute;
   top: 4px;
@@ -7905,9 +7912,17 @@ button.close {
 .node.node-block .node-body {
   padding: 6px;
   text-align: center; }
+.node.node-block .time-remaining, .node.node-block .time-until {
+  font-weight: bold;
+  line-height: 34px;
+  margin-bottom: 8px;
+  -webkit-transition: font-size 200ms ease-in;
+  -o-transition: font-size 200ms ease-in;
+  transition: font-size 200ms ease-in; }
+.node.node-block .time-until {
+  font-size: 30px; }
 .node.node-block .time-remaining {
-  font-size: 38px;
-  font-weight: bold; }
+  font-size: 38px; }
 .node.node-slim .node-content {
   margin-bottom: 4px;
   padding: 6px; }

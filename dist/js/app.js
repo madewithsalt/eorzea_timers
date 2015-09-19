@@ -842,13 +842,6 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
     WatchList.NodeList = Marionette.CollectionView.extend({
         className: 'watched-node-list',
         childView: WatchList.NodeView,
-
-        onRender: function() {
-            // this.$el.isotope({
-            //     itemSelector: '.node'
-            // });
-        }
-
     });
 
 

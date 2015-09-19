@@ -9,14 +9,31 @@
     </div>
     <div class="node-body">
         <div class="title">{{ name }}</div>
+        {{#if active}}
+        <div class="small"><i>time remaining:</i></div>
         <div class="time-remaining">
             {{ earth_time_remaining.minutes }}m {{ earth_time_remaining.seconds }}s
         </div>
+        {{else}}
+        <div class="small"><i>time until:</i></div>
+        <div class="time-until">
+            {{#if earth_time_until.hours }}
+                {{ earth_time_until.hours }}h
+            {{/if}} 
+            {{ earth_time_until.minutes }}m {{ earth_time_until.seconds }}s
+        </div>
+        {{/if}}
         {{#if slot}}
             <div class="slot">[slot {{ slot }}]</div>
         {{/if}}
+    </div>
+    <div class="node-footer">
         {{#if location }}
-            <div class="location">{{ location }}, {{ pos }}</div>
+            <div class="location">{{ location }}</div>
+        {{/if}}
+        {{#if pos }}
+            <div class="pos">{{ pos }}</div>
         {{/if}}
     </div>
+
 </div>
