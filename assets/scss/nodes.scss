@@ -1,31 +1,97 @@
 
 .node {
-    
-    &.node-slim {
-        @extend .clearfix;
-        @extend .alert;
-        border: 1px solid #ccc;
-        padding: 6px;
-        margin-bottom: 4px;
-        cursor: pointer;
-        @include transition(all 200ms ease-in);
 
-        &:hover, &.selected {
+    .node-content {
+        @extend .clearfix;
+        @extend .alert;    
+        @include transition(all 200ms ease-in);
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+    
+    &.node-block {
+        .node-content {
+            border: 3px solid #ccc;
+            position: relative;
+            padding: 0;
+            height: 190px;
+        }
+
+        &.botany.active .node-content {
+            border-color: $botany;
+            color: $botany;
+            background-color: #E6F2DE; 
+        }
+
+        &.mining.active .node-content {
+            border-color: $mining;
+            color: $mining;
+            background-color: #FFF6F0; 
+        }
+
+        &.custom.active .node-content {
+            color: $custom;
+            border-color: $custom;
+            background-color: #FFEDFF;
+        }
+
+
+
+        .node-heading {
+            padding: 4px 15px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 4px;
+            min-height: 30px;
+
+            .icon {
+                width: 18px;
+                height: 18px;
+                margin-right: 8px;
+                margin-left: -8px;
+            }
+        }
+
+        .btn-delete {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+        }
+
+        .node-body {
+            padding: 6px;
+            text-align: center;
+        }
+
+        .time-remaining {
+            font-size: 38px;
+            font-weight: bold;
+        }
+
+    }
+
+    &.node-slim {
+        .node-content {
+            margin-bottom: 4px;
+            padding: 6px;
+        }
+
+        &:hover  .node-content, &.selected  .node-content {
             background-color: $state-info-bg;
             border-color: $state-info-border;
         }
 
-        &.selected {
+        &.selected  .node-content {
             border-width: 3px;
         }
 
-        &.warning {
+        &.warning .node-content {
             @extend .alert-warning;
         }
 
-        &.urgent {
+        &.urgent .node-content {
             @extend .alert-danger;
         }
+
 
         .node-heading {
             float: left;

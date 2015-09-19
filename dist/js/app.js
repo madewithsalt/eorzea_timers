@@ -336,17 +336,21 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
         serializeData: function() {
             return _.extend({
-                isCustom: this.model.get('type') === 'custom'
+                isCustom: this.model.get('type') === 'custom',
+                isActive: this.model.get('active')
             }, this.model.toJSON());
         },
 
         className: function() {
             var classes = [
-                'node'
+                'node',
+                this.model.get('type')
             ];
 
             if (this.model.get('active')) {
                 var earthRem = this.model.get('earth_time_remaining');
+
+                classes.push('active');
 
                 if (earthRem.minutes <= 1) {
                     classes.push('urgent');
@@ -373,6 +377,7 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             this.listenTo(this.model, 'change', function() {
                 if (this.model.get('active')) {
                     this.render();
+                    this.trigger('change');
                 }
             });
 
@@ -459,9 +464,12 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
 
     Home.NodeView = App.Views.NodeView.extend({
+        className: function() {
+            return 'node-slim ' + App.Views.NodeView.prototype.className.apply(this, arguments);
+        }
         
     });
-    
+
     Home.NodeList = Marionette.CollectionView.extend({
         childView: Home.NodeView
     });
@@ -500,8 +508,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
             this.listenTo(App.collections.custom, 'add remove', function() {
                 self.configureSearchList();
-                self.sortCollections();
-                self.showLists();
+                self.sortAndShowLists();
             });
 
             // only update lists every hour for performance
@@ -512,8 +519,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     active: false
                 }).length) {
                     self._currentHour = App.masterClock.get('hour');
-                    self.sortCollections();
-                    self.showLists();
+                    self.sortAndShowLists();
                 }
             });
 
@@ -526,9 +532,13 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             this.filteringBy = 'all';
 
             this.listenTo(App.vent, 'node:create', function() {
-                self.sortCollections();
-                self.showLists();
+                self.sortAndShowLists();
             });
+        },
+
+        sortAndShowLists: function() {
+            this.sortCollections();
+            this.showLists();
         },
 
         configureSearchList: function() {
@@ -641,7 +651,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     }
 
                     if(searchList.length) {
-                        var excluded = _.indexOf(searchList, item.id) !== -1;
+                        var excluded = _.indexOf(searchList, item.id) === -1;
 
                         if(excluded) { 
                             model.set('hidden', true); 
@@ -807,15 +817,41 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         onBeforeShow: function() {
+            this.showList();
+        },
 
+        showList: function() {
+            this.list.show(new WatchList.NodeList({
+                collection: this.collection
+            }));
         }
     });
 
     WatchList.NodeView = App.Views.NodeView.extend({
+        template: 'watch-list/node',
+
+        className: function() {
+            return 'node-block col-md-3 col-sm-6 col-xs-6 ' + App.Views.NodeView.prototype.className.apply(this, arguments);
+        },
+
+        modelEvents: {
+            'change': 'render'
+        }
+    });
+
+    WatchList.NodeList = Marionette.CollectionView.extend({
+        className: 'watched-node-list',
+        childView: WatchList.NodeView,
+
+        onRender: function() {
+            // this.$el.isotope({
+            //     itemSelector: '.node'
+            // });
+        }
 
     });
 
-    
+
 
     App.on('before:start', function() {
         App.commands.setHandler('show:watchList', function() {
@@ -890,7 +926,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
     var Node = Backbone.Model.extend({
             initialize: function() {
-                if(!this.get('name') || !this.get('times')) { 
+                if (!this.get('name') || !this.get('times')) {
                     return console.error('Cannot instantiate Nodes without initial data due to setup requirements.');
                 }
 
@@ -901,8 +937,8 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                 this.getTimeDiff();
 
                 var id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
-                            return item.split(' ').join('-').toLowerCase();
-                        }).join('-');
+                    return item.split(' ').join('-').toLowerCase();
+                }).join('-');
 
                 this.set('id', id);
 
@@ -910,13 +946,15 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             },
 
             getDurationInfo: function() {
-                if(!this.get('duration')) { return; }
+                if (!this.get('duration')) {
+                    return;
+                }
                 var duration = this.get('duration'),
                     dur = TIME_HELPERS.getDurationObjectFromString(duration),
                     str = TIME_HELPERS.getTimeStringFromDuration(this.get('time'), this.get('duration'));
 
                 return {
-                    duration: dur, 
+                    duration: dur,
                     end_time: str,
                     end_time_obj: TIME_HELPERS.getTimeObjFromString(str)
                 }
@@ -931,23 +969,20 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     timeStartUntil = TIME_HELPERS.getTimeDifference(currentTime, activeTime),
                     earthTimeUntil = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeStartUntil)),
                     timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time),
-                    earthTimeRemaining,
+                    earthTimeRemaining = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeRemaining)),
                     isActive = false;
-
 
                 // crazy booleans!
                 //current hour is greater than the active hour and less than or equal to end time hour
-                var withinStartTime = currentTimeObj.hour > activeTimeObj.hour || 
-                        currentTimeObj.hour === activeTimeObj.hour && currentTimeObj.minute >= activeTimeObj.minute,
-                    withinEndTime = currentTimeObj.hour < durationInfo.end_time_obj.hour || 
-                        currentTimeObj.hour === durationInfo.end_time_obj.hour && currentTimeObj.minute <= durationInfo.end_time_obj.minute;
+                var withinStartTime = currentTimeObj.hour > activeTimeObj.hour ||
+                    currentTimeObj.hour === activeTimeObj.hour && currentTimeObj.minute >= activeTimeObj.minute,
+                    withinEndTime = currentTimeObj.hour < durationInfo.end_time_obj.hour ||
+                    currentTimeObj.hour === durationInfo.end_time_obj.hour && currentTimeObj.minute <= durationInfo.end_time_obj.minute;
 
                 if (withinStartTime && withinEndTime) {
                     isActive = true;
-                    var timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time);
-                    earthTimeRemaining = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeRemaining));
                 }
-                
+
                 this.set({
                     'active': isActive,
                     'time_until': timeStartUntil,
@@ -970,10 +1005,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     });
 
                 _.each(list, function(item) {
-                    if(item.time && _.isString(item.time)) {
+                    if (item.time && _.isString(item.time)) {
                         return;
                     }
-                    
+
                     if (_.isArray(item.times) && item.times.length > 1) {
                         _.each(item.times, function(time) {
                             results.push(_.extend({

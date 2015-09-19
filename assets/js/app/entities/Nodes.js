@@ -2,7 +2,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
     var Node = Backbone.Model.extend({
             initialize: function() {
-                if(!this.get('name') || !this.get('times')) { 
+                if (!this.get('name') || !this.get('times')) {
                     return console.error('Cannot instantiate Nodes without initial data due to setup requirements.');
                 }
 
@@ -13,8 +13,8 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                 this.getTimeDiff();
 
                 var id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
-                            return item.split(' ').join('-').toLowerCase();
-                        }).join('-');
+                    return item.split(' ').join('-').toLowerCase();
+                }).join('-');
 
                 this.set('id', id);
 
@@ -22,13 +22,15 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             },
 
             getDurationInfo: function() {
-                if(!this.get('duration')) { return; }
+                if (!this.get('duration')) {
+                    return;
+                }
                 var duration = this.get('duration'),
                     dur = TIME_HELPERS.getDurationObjectFromString(duration),
                     str = TIME_HELPERS.getTimeStringFromDuration(this.get('time'), this.get('duration'));
 
                 return {
-                    duration: dur, 
+                    duration: dur,
                     end_time: str,
                     end_time_obj: TIME_HELPERS.getTimeObjFromString(str)
                 }
@@ -43,23 +45,20 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     timeStartUntil = TIME_HELPERS.getTimeDifference(currentTime, activeTime),
                     earthTimeUntil = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeStartUntil)),
                     timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time),
-                    earthTimeRemaining,
+                    earthTimeRemaining = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeRemaining)),
                     isActive = false;
-
 
                 // crazy booleans!
                 //current hour is greater than the active hour and less than or equal to end time hour
-                var withinStartTime = currentTimeObj.hour > activeTimeObj.hour || 
-                        currentTimeObj.hour === activeTimeObj.hour && currentTimeObj.minute >= activeTimeObj.minute,
-                    withinEndTime = currentTimeObj.hour < durationInfo.end_time_obj.hour || 
-                        currentTimeObj.hour === durationInfo.end_time_obj.hour && currentTimeObj.minute <= durationInfo.end_time_obj.minute;
+                var withinStartTime = currentTimeObj.hour > activeTimeObj.hour ||
+                    currentTimeObj.hour === activeTimeObj.hour && currentTimeObj.minute >= activeTimeObj.minute,
+                    withinEndTime = currentTimeObj.hour < durationInfo.end_time_obj.hour ||
+                    currentTimeObj.hour === durationInfo.end_time_obj.hour && currentTimeObj.minute <= durationInfo.end_time_obj.minute;
 
                 if (withinStartTime && withinEndTime) {
                     isActive = true;
-                    var timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time);
-                    earthTimeRemaining = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeRemaining));
                 }
-                
+
                 this.set({
                     'active': isActive,
                     'time_until': timeStartUntil,
@@ -82,10 +81,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     });
 
                 _.each(list, function(item) {
-                    if(item.time && _.isString(item.time)) {
+                    if (item.time && _.isString(item.time)) {
                         return;
                     }
-                    
+
                     if (_.isArray(item.times) && item.times.length > 1) {
                         _.each(item.times, function(time) {
                             results.push(_.extend({

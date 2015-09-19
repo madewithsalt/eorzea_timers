@@ -1,21 +1,23 @@
-<div class="node-heading">
-    <span class="icon {{type}}"></span>
-    <span class="time">{{ time }}</span>
-    <span class="title">{{ name }}{{#if slot}} [slot {{ slot }}]{{/if}}</span>
-    {{#if active}}
-        <span class="time-remaining">[
-            <i class="fa fa-globe"></i>
-            {{ earth_time_remaining.minutes }}m {{ earth_time_remaining.seconds }}s
-        ]</span>
-    {{/if}}
-</div>
-<div class="node-body">
-    {{#if location }}
-        <div class="location">{{ location }}, {{ pos }}</div>
-    {{/if}}
+<div class="node-content">
+    <div class="node-heading">
+        <span class="icon {{type}}"></span>
+        <span class="time">{{ time }}</span>
+        <span class="title">{{ name }}{{#if slot}} [slot {{ slot }}]{{/if}}</span>
+        {{#if isActive}}
+            <span class="time-remaining">[
+                <i class="fa fa-globe"></i>
+                {{ earth_time_remaining.minutes }}m {{ earth_time_remaining.seconds }}s
+            ]</span>
+        {{/if}}
+    </div>
+    <div class="node-body">
+        {{#if location }}
+            <div class="location">{{ location }}, {{ pos }}</div>
+        {{/if}}
 
-    {{#if isCustom }}
-        <a class="btn btn-danger btn-xs btn-delete"><i class="fa fa-times"></i></a>
-    {{/if}}
+        {{#if isCustom }}
+            <a class="btn btn-danger btn-xs btn-delete"><i class="fa fa-times"></i></a>
+        {{/if}}
 
+    </div>
 </div>

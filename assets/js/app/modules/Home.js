@@ -55,9 +55,12 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
 
     Home.NodeView = App.Views.NodeView.extend({
+        className: function() {
+            return 'node-slim ' + App.Views.NodeView.prototype.className.apply(this, arguments);
+        }
         
     });
-    
+
     Home.NodeList = Marionette.CollectionView.extend({
         childView: Home.NodeView
     });
@@ -96,8 +99,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
             this.listenTo(App.collections.custom, 'add remove', function() {
                 self.configureSearchList();
-                self.sortCollections();
-                self.showLists();
+                self.sortAndShowLists();
             });
 
             // only update lists every hour for performance
@@ -108,8 +110,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     active: false
                 }).length) {
                     self._currentHour = App.masterClock.get('hour');
-                    self.sortCollections();
-                    self.showLists();
+                    self.sortAndShowLists();
                 }
             });
 
@@ -122,9 +123,13 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             this.filteringBy = 'all';
 
             this.listenTo(App.vent, 'node:create', function() {
-                self.sortCollections();
-                self.showLists();
+                self.sortAndShowLists();
             });
+        },
+
+        sortAndShowLists: function() {
+            this.sortCollections();
+            this.showLists();
         },
 
         configureSearchList: function() {
@@ -237,7 +242,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     }
 
                     if(searchList.length) {
-                        var excluded = _.indexOf(searchList, item.id) !== -1;
+                        var excluded = _.indexOf(searchList, item.id) === -1;
 
                         if(excluded) { 
                             model.set('hidden', true); 

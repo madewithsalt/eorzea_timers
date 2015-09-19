@@ -17,17 +17,21 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
         serializeData: function() {
             return _.extend({
-                isCustom: this.model.get('type') === 'custom'
+                isCustom: this.model.get('type') === 'custom',
+                isActive: this.model.get('active')
             }, this.model.toJSON());
         },
 
         className: function() {
             var classes = [
-                'node'
+                'node',
+                this.model.get('type')
             ];
 
             if (this.model.get('active')) {
                 var earthRem = this.model.get('earth_time_remaining');
+
+                classes.push('active');
 
                 if (earthRem.minutes <= 1) {
                     classes.push('urgent');
@@ -54,6 +58,7 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             this.listenTo(this.model, 'change', function() {
                 if (this.model.get('active')) {
                     this.render();
+                    this.trigger('change');
                 }
             });
 

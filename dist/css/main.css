@@ -4343,21 +4343,21 @@ a.thumbnail:focus,
 a.thumbnail.active {
   border-color: #337ab7; }
 
-.alert, .node.node-slim {
+.alert, .node .node-content {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px; }
-  .alert h4, .node.node-slim h4 {
+  .alert h4, .node .node-content h4 {
     margin-top: 0;
     color: inherit; }
-  .alert .alert-link, .node.node-slim .alert-link {
+  .alert .alert-link, .node .node-content .alert-link {
     font-weight: bold; }
-  .alert > p, .node.node-slim > p,
+  .alert > p, .node .node-content > p,
   .alert > ul,
-  .node.node-slim > ul {
+  .node .node-content > ul {
     margin-bottom: 0; }
-  .alert > p + p, .node.node-slim > p + p {
+  .alert > p + p, .node .node-content > p + p {
     margin-top: 5px; }
 
 .alert-dismissable,
@@ -4388,22 +4388,22 @@ a.thumbnail.active {
   .alert-info .alert-link {
     color: #245269; }
 
-.alert-warning, .node.node-slim.warning {
+.alert-warning, .node.node-slim.warning .node-content {
   background-color: #fcf8e3;
   border-color: #faebcc;
   color: #8a6d3b; }
-  .alert-warning hr, .node.node-slim.warning hr {
+  .alert-warning hr, .node.node-slim.warning .node-content hr {
     border-top-color: #f7e1b5; }
-  .alert-warning .alert-link, .node.node-slim.warning .alert-link {
+  .alert-warning .alert-link, .node.node-slim.warning .node-content .alert-link {
     color: #66512c; }
 
-.alert-danger, .node.node-slim.urgent {
+.alert-danger, .node.node-slim.urgent .node-content {
   background-color: #f2dede;
   border-color: #ebccd1;
   color: #a94442; }
-  .alert-danger hr, .node.node-slim.urgent hr {
+  .alert-danger hr, .node.node-slim.urgent .node-content hr {
     border-top-color: #e4b9c0; }
-  .alert-danger .alert-link, .node.node-slim.urgent .alert-link {
+  .alert-danger .alert-link, .node.node-slim.urgent .node-content .alert-link {
     color: #843534; }
 
 @-webkit-keyframes progress-bar-stripes {
@@ -5580,10 +5580,10 @@ button.close {
 
   .carousel-indicators {
     bottom: 20px; } }
-.clearfix:before, .node.node-slim:before, .clearfix:after, .node.node-slim:after {
+.clearfix:before, .node .node-content:before, .clearfix:after, .node .node-content:after {
   content: " ";
   display: table; }
-.clearfix:after, .node.node-slim:after {
+.clearfix:after, .node .node-content:after {
   clear: both; }
 
 .center-block {
@@ -7865,30 +7865,68 @@ button.close {
 .custom-timer .times-list {
   margin-bottom: 8px; }
 
-.node.node-slim {
-  border: 1px solid #ccc;
-  padding: 6px;
-  margin-bottom: 4px;
-  cursor: pointer;
+.node .node-content {
   -webkit-transition: all 200ms ease-in;
   -o-transition: all 200ms ease-in;
-  transition: all 200ms ease-in; }
-  .node.node-slim:hover, .node.node-slim.selected {
-    background-color: #d9edf7;
-    border-color: #bce8f1; }
-  .node.node-slim.selected {
-    border-width: 3px; }
-  .node.node-slim .node-heading {
-    float: left; }
-    .node.node-slim .node-heading .icon {
-      width: 20px;
-      height: 20px; }
-    .node.node-slim .node-heading .title {
-      font-weight: bold; }
-  .node.node-slim .node-body {
-    float: right; }
-    .node.node-slim .node-body .location {
-      display: inline-block; }
+  transition: all 200ms ease-in;
+  border: 1px solid #ccc;
+  cursor: pointer; }
+.node.node-block .node-content {
+  border: 3px solid #ccc;
+  position: relative;
+  padding: 0;
+  height: 190px; }
+.node.node-block.botany.active .node-content {
+  border-color: #32710D;
+  color: #32710D;
+  background-color: #E6F2DE; }
+.node.node-block.mining.active .node-content {
+  border-color: #B2774A;
+  color: #B2774A;
+  background-color: #FFF6F0; }
+.node.node-block.custom.active .node-content {
+  color: #D36CD1;
+  border-color: #D36CD1;
+  background-color: #FFEDFF; }
+.node.node-block .node-heading {
+  padding: 4px 15px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 4px;
+  min-height: 30px; }
+  .node.node-block .node-heading .icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    margin-left: -8px; }
+.node.node-block .btn-delete {
+  position: absolute;
+  top: 4px;
+  right: 4px; }
+.node.node-block .node-body {
+  padding: 6px;
+  text-align: center; }
+.node.node-block .time-remaining {
+  font-size: 38px;
+  font-weight: bold; }
+.node.node-slim .node-content {
+  margin-bottom: 4px;
+  padding: 6px; }
+.node.node-slim:hover .node-content, .node.node-slim.selected .node-content {
+  background-color: #d9edf7;
+  border-color: #bce8f1; }
+.node.node-slim.selected .node-content {
+  border-width: 3px; }
+.node.node-slim .node-heading {
+  float: left; }
+  .node.node-slim .node-heading .icon {
+    width: 20px;
+    height: 20px; }
+  .node.node-slim .node-heading .title {
+    font-weight: bold; }
+.node.node-slim .node-body {
+  float: right; }
+  .node.node-slim .node-body .location {
+    display: inline-block; }
 
 body {
   padding: 60px 0; }
