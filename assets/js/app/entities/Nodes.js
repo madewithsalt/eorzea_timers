@@ -123,7 +123,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
     Entities.WatchedNodes = Backbone.Collection.extend({
         model: Node,
         type: 'watched',
-        localStorage: new Backbone.LocalStorage('WatchedNodes')
+        localStorage: new Backbone.LocalStorage('WatchedNodes'),
+        comparator: function(model) {
+            return !model.get('active') || (model.get('earth_time_until').minutes < 10 && model.get('earth_time_until').hours === 0);
+        }
     });
 
 });

@@ -1,4 +1,4 @@
-<div class="node-content">
+<div class="node-content {{classes}}">
     {{#if isCustom }}
         <a class="btn btn-danger btn-xs btn-delete"><i class="fa fa-times"></i></a>
     {{/if}}
@@ -11,13 +11,13 @@
         <div class="title">{{ name }}</div>
         {{#if active}}
         <div class="small"><i>time remaining:</i></div>
-        <div class="time-remaining">
+        <div class="earth-time time-remaining">
             {{ earth_time_remaining.minutes }}m {{ earth_time_remaining.seconds }}s
         </div>
         {{else}}
         <div class="small"><i>time until:</i></div>
-        <div class="time-until">
-            {{#if earth_time_until.hours }}
+        <div class="earth-time time-until">
+            {{#if untilHours }}
                 {{ earth_time_until.hours }}h
             {{/if}} 
             {{ earth_time_until.minutes }}m {{ earth_time_until.seconds }}s

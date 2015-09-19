@@ -88,7 +88,9 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
 
-  return "<div class=\"node-content\">\n    <div class=\"node-heading\">\n        <span class=\"icon "
+  return "<div class=\"node-content "
+    + alias3(((helper = (helper = helpers.classes || (depth0 != null ? depth0.classes : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"classes","hash":{},"data":data}) : helper)))
+    + "\">\n    <div class=\"node-heading\">\n        <span class=\"icon "
     + alias3(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"type","hash":{},"data":data}) : helper)))
     + "\"></span>\n        <span class=\"time\">"
     + alias3(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
@@ -193,7 +195,7 @@ templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpe
 },"3":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
-  return "        <div class=\"small\"><i>time remaining:</i></div>\n        <div class=\"time-remaining\">\n            "
+  return "        <div class=\"small\"><i>time remaining:</i></div>\n        <div class=\"earth-time time-remaining\">\n            "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.minutes : stack1), depth0))
     + "m "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.seconds : stack1), depth0))
@@ -201,8 +203,8 @@ templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpe
 },"5":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
-  return "        <div class=\"small\"><i>time until:</i></div>\n        <div class=\"time-until\">\n"
-    + ((stack1 = helpers["if"].call(depth0,((stack1 = (depth0 != null ? depth0.earth_time_until : depth0)) != null ? stack1.hours : stack1),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+  return "        <div class=\"small\"><i>time until:</i></div>\n        <div class=\"earth-time time-until\">\n"
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.untilHours : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "            "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_until : depth0)) != null ? stack1.minutes : stack1), depth0))
     + "m "
@@ -235,7 +237,9 @@ templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpe
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
 
-  return "<div class=\"node-content\">\n"
+  return "<div class=\"node-content "
+    + alias3(((helper = (helper = helpers.classes || (depth0 != null ? depth0.classes : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"classes","hash":{},"data":data}) : helper)))
+    + "\">\n"
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isCustom : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n    <div class=\"node-heading\">\n        <span class=\"icon "
     + alias3(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"type","hash":{},"data":data}) : helper)))

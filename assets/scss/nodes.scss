@@ -15,24 +15,40 @@
             position: relative;
             padding: 0;
             height: 210px;
-        }
 
-        &.botany.active .node-content {
-            border-color: $botany;
-            color: $botany;
-            background-color: #E6F2DE; 
-        }
+            &.active {
+                &.botany {
+                    border-color: $botany;
+                    color: $botany;
+                    background-color: #E6F2DE; 
+                }
 
-        &.mining.active .node-content {
-            border-color: $mining;
-            color: $mining;
-            background-color: #FFF6F0; 
-        }
+                &.mining {
+                    border-color: $mining;
+                    color: $mining;
+                    background-color: #FFF6F0; 
+                }
 
-        &.custom.active .node-content {
-            color: $custom;
-            border-color: $custom;
-            background-color: #FFEDFF;
+                &.custom {
+                    color: $custom;
+                    border-color: $custom;
+                    background-color: #FFEDFF;
+                }
+            }
+
+            &.warning {
+                .earth-time {
+                    @extend .text-warning;
+                }
+            }
+
+            &.urgent {
+                .earth-time {
+                    @extend .text-danger;
+                }
+            }
+
+
         }
 
         .node-heading {
@@ -92,25 +108,25 @@
         .node-content {
             margin-bottom: 4px;
             padding: 6px;
+
+            &.warning {
+                @extend .alert-warning;
+            }
+
+            &.urgent {
+                @extend .alert-danger;
+            }
+
         }
 
-        &:hover  .node-content, &.selected  .node-content {
+        &:hover  .node-content, .node-content.selected {
             background-color: $state-info-bg;
             border-color: $state-info-border;
         }
 
-        &.selected  .node-content {
+        .node-content.selected {
             border-width: 3px;
         }
-
-        &.warning .node-content {
-            @extend .alert-warning;
-        }
-
-        &.urgent .node-content {
-            @extend .alert-danger;
-        }
-
 
         .node-heading {
             float: left;

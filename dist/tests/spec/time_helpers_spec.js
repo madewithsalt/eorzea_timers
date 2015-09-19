@@ -109,6 +109,7 @@ describe('Time Helpers Spec', function() {
             expect(result.minutes).toBe(10);
             expect(result.seconds).toBe(0);
         });
+
     });
 
     describe('getTimeStringFromDuration', function() {
@@ -121,7 +122,7 @@ describe('Time Helpers Spec', function() {
     });
 
     describe('getTimeObjFromString', function() {
-        it('should return 13 hour 0 minute', function() {
+        it('should return 13 hour 0 minutes', function() {
             var result = helper.getTimeObjFromString('1:00 PM');
 
             expect(result.hour).toBe(13);

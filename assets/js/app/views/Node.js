@@ -18,13 +18,13 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         serializeData: function() {
             return _.extend({
                 isCustom: this.model.get('type') === 'custom',
-                isActive: this.model.get('active')
+                isActive: this.model.get('active'),
+                classes: this.getContentClasses()
             }, this.model.toJSON());
         },
 
-        className: function() {
+        getContentClasses: function() {
             var classes = [
-                'node',
                 this.model.get('type')
             ];
 
@@ -40,13 +40,21 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                 }
             }
 
+            if (this.model.get('selected')) {
+                classes.push('selected');
+            }
+
+            return classes.join(' ');
+        },
+
+        className: function() {
+            var classes = [
+                'node'
+            ];
+
             // set by search criteria.
             if (this.model.get('hidden')) {
                 classes.push('hidden');
-            }
-
-            if (this.model.get('selected')) {
-                classes.push('selected');
             }
 
             return classes.join(' ');

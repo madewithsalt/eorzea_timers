@@ -337,13 +337,13 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         serializeData: function() {
             return _.extend({
                 isCustom: this.model.get('type') === 'custom',
-                isActive: this.model.get('active')
+                isActive: this.model.get('active'),
+                classes: this.getContentClasses()
             }, this.model.toJSON());
         },
 
-        className: function() {
+        getContentClasses: function() {
             var classes = [
-                'node',
                 this.model.get('type')
             ];
 
@@ -359,13 +359,21 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                 }
             }
 
+            if (this.model.get('selected')) {
+                classes.push('selected');
+            }
+
+            return classes.join(' ');
+        },
+
+        className: function() {
+            var classes = [
+                'node'
+            ];
+
             // set by search criteria.
             if (this.model.get('hidden')) {
                 classes.push('hidden');
-            }
-
-            if (this.model.get('selected')) {
-                classes.push('selected');
             }
 
             return classes.join(' ');
@@ -836,12 +844,32 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
 
         modelEvents: {
             'change': 'render'
+        },
+
+        serializeData: function() {
+            return _.extend({
+                isCustom: this.model.get('type') === 'custom',
+                isActive: this.model.get('active'),
+                untilHours: this.model.get('earth_time_until').hours > 0,
+                classes: this.getContentClasses()
+            }, this.model.toJSON());
         }
     });
 
     WatchList.NodeList = Marionette.CollectionView.extend({
         className: 'watched-node-list',
         childView: WatchList.NodeView,
+
+        initialize: function() {
+            var self = this;
+
+            this.collection.sort();
+            this.listenTo(App.masterClock, 'change', function() {
+                if(self.collection.where({ active: true }).length) {
+                    self.collection.sort();
+                }
+            });
+        }
     });
 
 
@@ -1040,7 +1068,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
     Entities.WatchedNodes = Backbone.Collection.extend({
         model: Node,
         type: 'watched',
-        localStorage: new Backbone.LocalStorage('WatchedNodes')
+        localStorage: new Backbone.LocalStorage('WatchedNodes'),
+        comparator: function(model) {
+            return !model.get('active') || (model.get('earth_time_until').minutes < 10 && model.get('earth_time_until').hours === 0);
+        }
     });
 
 });
