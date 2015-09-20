@@ -9,6 +9,10 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
             modal: '.modal-region'
         },
 
+        events: {
+            'click .watch-settings-link': 'showSettings'
+        },
+
         initialize: function() {
             this.collection = App.collections.watched;
         },
@@ -21,6 +25,18 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
             this.list.show(new WatchList.NodeList({
                 collection: this.collection
             }));
+        },
+
+        showSettings: function() {
+            var modal = new App.Views.Modal({
+                    childView: WatchList.Preferences,
+                    title: 'Watch List Preferences',
+                    model: App.userSettings
+                });
+
+            this.modal.show(modal);
+            modal.$el.modal();
+            modal.on('hidden.bs.modal', _.bind(this.modal.reset, this));            
         }
     });
 
@@ -59,7 +75,27 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         }
     });
 
+    WatchList.Preferences = Marionette.LayoutView.extend({
+        template: 'watch-list/preferences',
+        className: 'preferences-form',
+        
+        serializeData: function() {
+            var data = this.model.toJSON();
 
+
+            return _.extend({
+                soundList: [
+                    {
+                        name: 'none',
+                        value: 'none'
+                    },
+                    {
+                        
+                    }
+                ]
+            }, data);
+        }
+    });
 
     App.on('before:start', function() {
         App.commands.setHandler('show:watchList', function() {

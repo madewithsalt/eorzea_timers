@@ -1,0 +1,60 @@
+
+<form>
+    <div class="form-group">
+        <label>Notification Time</label>
+        <div class="form-inline">
+            <div class="radio">
+                <label class="radio-inline">
+                    <input type="radio" name="alarm-time" id="alarm-time1" value="0" />
+                    0 hours (at time)
+                </label>
+            </div>
+            <div class="radio">
+                <label class="radio-inline">
+                    <input type="radio" name="alarm-time" id="alarm-time2" value="1" />
+                    1 Hour
+                </label>
+            </div>
+            <div class="radio">
+                <label class="radio-inline">
+                    <input type="radio" name="alarm-time" id="alarm-time3" value="2" />
+                    2 Hours
+                </label>
+            </div>
+            <div class="radio">
+                <label class="radio-inline">
+                    <input type="radio" name="alarm-time" id="alarm-time2" value="3" />
+                    3 Hours
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Notice Style</label>
+        <div class="form-inline">
+            <div class="radio">
+                <label class="radio-inline">
+                    <input type="radio" name="alarm-style" id="alarm-style1" value="alert" />
+                    Browser alert
+                </label>
+            </div>
+            <div class="radio">
+                <label class="radio-inline">
+                    <input type="radio" name="alarm-style" id="alarm-style2" value="popup" />
+                    In-window pop-up (nicer)
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Alert Sound</label>
+        <select class="form-control sound-option-list" name="alarm-sound"></select>
+    </div>
+    <div class="form-actions align-right">
+        <a class="btn btn-primary btn-save">Save</a>
+        <a class="btn btn-default btn-close" data-dismiss="modal">Cancel</a>
+    </div>
+</form>
+
+
+

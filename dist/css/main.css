@@ -7863,6 +7863,8 @@ button.close {
   display: inline-block;
   margin-left: 20px;
   margin-top: -4px; }
+.watch-list .preferences-form .radio-inline {
+  margin-right: 6px; }
 
 .custom-timer .times-list {
   margin-bottom: 8px; }
@@ -7873,11 +7875,17 @@ button.close {
   transition: all 200ms ease-in;
   border: 1px solid #ccc;
   cursor: pointer; }
+.node.node-block:hover .node-content {
+  opacity: 0.5; }
 .node.node-block .node-content {
   border: 3px solid #ccc;
   position: relative;
   padding: 0;
-  height: 210px; }
+  height: 220px; }
+  .node.node-block .node-content .earth-time {
+    -webkit-transition: all 200ms ease-in;
+    -o-transition: all 200ms ease-in;
+    transition: all 200ms ease-in; }
   .node.node-block .node-content.active.botany {
     border-color: #32710D;
     color: #32710D;

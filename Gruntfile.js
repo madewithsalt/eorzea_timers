@@ -42,6 +42,7 @@ module.exports = function(grunt) {
                     '<%= config.lib %>/backbone/backbone.js',
                     '<%= config.lib %>/backbone.localStorage/backbone.localStorage.js',
                     '<%= config.lib %>/handlebars/handlebars.runtime.js',
+                    '<%= config.lib %>/swag/lib/swag.js',
                     '<%= config.lib %>/backbone.wreqr/lib/backbone.wreqr.js',
                     '<%= config.lib %>/backbone.marionette/lib/backbone.marionette.js',
                     '<%= config.lib %>/moment/moment.js',

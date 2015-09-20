@@ -3,7 +3,8 @@
         routes: {
             '': 'index',
             'index': 'index',
-            'watch-list': 'watchList'
+            'watch-list': 'watchList',
+            'about': 'about'
         },
 
         index: function() {
@@ -14,6 +15,11 @@
         watchList: function() {
             App.commands.execute('show:watchList');
             App.vent.trigger('nav:update', 'watch-list');
+        },
+
+        about: function() {
+            App.commands.execute('show:about');
+            App.vent.trigger('nav:update', 'about');
         }
 
     });
