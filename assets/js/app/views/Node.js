@@ -77,11 +77,12 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             var selected = this.model.get('selected') || false;
 
             this.model.set('selected', !selected);
-            this.$el.toggleClass('selected');
             if (!selected) {
                 App.vent.trigger('node:selected', this.model);
+                this.$('.node-content').addClass('selected');
             } else {
                 App.vent.trigger('node:deselected', this.model);
+                this.$('.node-content').removeClass('selected');
             }
         },
 
