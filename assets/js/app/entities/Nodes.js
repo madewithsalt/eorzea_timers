@@ -125,7 +125,19 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         type: 'watched',
         localStorage: new Backbone.LocalStorage('WatchedNodes'),
         comparator: function(model) {
-            return !model.get('active') || (model.get('earth_time_until').minutes < 10 && model.get('earth_time_until').hours === 0);
+            var weight = 100;
+
+            if(model.get('active')) {
+                weight -= 30;
+            }
+
+            if(model.get('earth_time_until').minutes < 5 && model.get('earth_time_until').hours === 0) {
+                weight -= 20
+            } else if (model.get('earth_time_until').minutes < 10 && model.get('earth_time_until').hours === 0) {
+                weight -= 10;
+            }
+
+            return weight;
         }
     });
 

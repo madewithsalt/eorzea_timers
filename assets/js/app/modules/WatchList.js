@@ -54,9 +54,7 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
 
             this.collection.sort();
             this.listenTo(App.masterClock, 'change', function() {
-                if(self.collection.where({ active: true }).length) {
-                    self.collection.sort();
-                }
+                self.collection.sort();
             });
         }
     });
