@@ -15,7 +15,7 @@ This was developed on a Mac, I am not sure how to configure on a PC. Sorry!
 ## Installation
 
 One line to awesome!:  
-`git clone git@github.com:tnbKristi/eorzea_timers.git && cd eorzea_timers && npm install && bower install`
+```git clone git@github.com:tnbKristi/eorzea_timers.git && cd eorzea_timers && npm install && bower install```
 
 ### Development
 
