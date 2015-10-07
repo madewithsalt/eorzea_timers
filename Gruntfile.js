@@ -182,5 +182,7 @@ module.exports = function(grunt) {
 
     // Default task.
     grunt.registerTask('default', ['clean', 'copy', 'concat', 'exec:handlebars', 'exec:sass', 'watch']);
+    grunt.registerTask('publish', ['exec:publish']);
+
 
 };
