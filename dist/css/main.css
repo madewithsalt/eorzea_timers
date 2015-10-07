@@ -7848,7 +7848,10 @@ button.close {
     right: 15px; }
     .home .jumbotron .collapse-toggle .toggle-link {
       cursor: pointer; }
-.home .filter-menu .btn {
+.home .nodes-filter {
+  display: inline-block;
+  margin-right: 8px; }
+.home .filter-menu .btn, .home .attr-menu .btn {
   min-width: 75px;
   min-height: 43px;
   vertical-align: middle;

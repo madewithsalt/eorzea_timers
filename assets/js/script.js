@@ -1,7 +1,7 @@
 $(function() {
 
     if(typeof App !== 'undefined') {
-        App.start({ version: '1.1' });
+        App.start({ version: '1.2' });
     }
 
 });

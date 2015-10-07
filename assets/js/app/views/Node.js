@@ -9,9 +9,13 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         },
 
         attributes: function() {
+            var data = this.model.toJSON();
+
             return {
-                'data-id': this.model.get('id'),
-                'data-type': this.model.get('type')
+                'data-id': data.id,
+                'data-type': data.type,
+                'is_collectable': data.is_collectable || null,
+                'is_ephemeral': data.is_ephemeral
             }
         },
 

@@ -72,12 +72,14 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
         events: {
             'keyup .node-search-input': 'triggerSearch',
             'click .filter-menu .btn': 'triggerFilter',
+            'click .attr-menu .btn': 'triggerAttrFilter',
             'click .new-timer-btn': 'triggerNewTimer'
         },
 
         ui: {
             search: '.node-search-input',
-            filterItem: '.filter-menu .btn'
+            filterItem: '.filter-menu .btn',
+            attrItem: '.attr-menu .btn'
         },
 
         regions: {
@@ -192,11 +194,39 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             $el.addClass('active');
             
             this.filteringBy = target;
+            
+            this.showFilteredNodes();
+        },
+
+        triggerAttrFilter: function(evt) {
+            var self = this,
+                $el = $(evt.currentTarget),
+                target = $el.data('target');
+
+            this.attrFilters = [];
+            $el.toggleClass('active');
+
+            this.ui.attrItem.each(function() {
+                if($(this).hasClass('active')) {
+                    self.attrFilters.push($(this).data('target'));
+                }
+            });
+
+            this.showFilteredNodes();
+        }, 
+
+        showFilteredNodes: function() {
+            var self = this;
+
             this.$('.node').show();
 
-            if(target !== 'all') {
-                this.$('.node').not('[data-type="' + target + '"]').hide();
+            if(this.filteringBy !== 'all') {
+                this.$('.node').not('[data-type="' + this.filteringBy + '"]').hide();
             }
+
+            _.each(this.attrFilters, function(filter) {
+                self.$('.node').not('[' + filter + ']').hide();
+            });
         },
 
         triggerNewTimer: function() {

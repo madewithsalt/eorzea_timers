@@ -40,7 +40,12 @@
         } 
     }
 
-    .filter-menu {
+    .nodes-filter {
+        display: inline-block;
+        margin-right: 8px;
+    }
+
+    .filter-menu, .attr-menu {
         .btn {
             min-width: 75px;
             min-height: 43px;
