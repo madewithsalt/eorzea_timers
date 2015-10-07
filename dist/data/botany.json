@@ -427,7 +427,7 @@
         "icon": "",
         "location": "The Churning Mists",
         "pos": "x24,y6",
-        "slot": "3",
+        "slot": "7",
         "duration": "0:55",
         "times": ["12:00 AM", "12:00 PM"],
         "is_collectable": true

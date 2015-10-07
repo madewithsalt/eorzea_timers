@@ -165,7 +165,7 @@
         "name": "Fire Cluster",
         "icon": "",
         "location": "Mor Dhona",
-        "slot": "2",
+        "slot": "3",
         "pos": "x28,y12",
         "duration": "3:00",
         "times": ["1:00 PM", "5:00 PM", "9:00 PM"],
