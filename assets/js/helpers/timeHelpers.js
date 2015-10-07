@@ -55,26 +55,18 @@ window.TIME_HELPERS = (function() {
                 times[idx] = self.getTimeObjFromString(time);
             });
 
-            var timeA = times['0'],
-                timeB = times['1'],
-                diff = timeB.hour - timeA.hour;
+            var timeA, timeB, diff;
 
-            hours = diff > 12 ? diff - 12 : diff;
-            hours > 24 ? hours - 24 : hours;
+            timeA = (times[0].hour * 60) + times[0].minute;
+            timeB = (times[1].hour * 60) + times[1].minute;
 
-            minutes = timeB.minute - timeA.minute;
+            diff = timeB - timeA;
 
-            if (hours < 0) {
-                hours = hours + 24
-            } else if (hours === 24) {
-                hours = 0;
-            }
+            hours = Math.floor(diff / 60);
+            minutes = diff - (hours * 60);
 
-            if (minutes < 0) {
-                minutes = minutes + 60;
-                if (hours === 1) {
-                    hours = 0;
-                }
+            if(hours < 0) {
+                hours = hours + 24;
             }
 
             return {

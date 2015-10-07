@@ -37,6 +37,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             },
 
             getTimeDiff: function() {
+                if(App.collections.watched.where({'id': this.get('id')}).length) {
+                    debugger;
+                }
+
                 var currentTime = App.masterClock.get('time'),
                     activeTime = this.get('time'),
                     durationInfo = this.getDurationInfo(),

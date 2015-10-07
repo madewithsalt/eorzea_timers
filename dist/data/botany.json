@@ -449,5 +449,36 @@
         "duration": "0:55",
         "times": ["12:00 AM", "12:00 PM"],
         "is_collectable": true
+    },{
+        "name": "Granular Clay",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x13,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Peat Moss",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x13,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Black Soil",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x13,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
     }
+
 ]
