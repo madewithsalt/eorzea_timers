@@ -413,5 +413,215 @@
         "duration": "0:55",
         "times": ["12:00 AM", "12:00 PM"],
         "is_collectable": true
+    },{
+        "name": "Fire Cluster",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x17,y27",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Fire Moraine",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x17,y27",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Fire Rock",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x17,y27",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Fire Rock",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x17,y27",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Fire Moraine",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x17,y27",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Fire Cluster",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x26,y24",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Fire Moraine",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x26,y24",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Fire Rock",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x26,y24",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Fire Moraine",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x26,y24",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Fire Cluster",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x29,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Fire Moraine",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x29,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Fire Rock",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x29,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Fire Moraine",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x29,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Lightning Cluster",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x34,y30",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Lightning Moraine",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x34,y30",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Lightning Rock",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x34,y30",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Lightning Moraine",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x34,y30",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Lightning Cluster",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x21,y28",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Lightning Moraine",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x21,y28",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Lightning Rock",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x21,y28",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Lightning Moraine",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x21,y28",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
     }
     ]

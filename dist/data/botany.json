@@ -479,6 +479,176 @@
         "times": ["4:00 AM"],
         "is_collectable": true,
         "is_ephemeral": true
+    },{
+        "name": "Earth Cluster",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x13,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Wind Cluster",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y14",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Highland Oregano",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y14",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Fury Mint",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y14",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Clary Sage",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y14",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Earth Cluster",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x10,y32",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Granular Clay",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x10,y32",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Peat Moss",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x10,y32",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Black Soil",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x10,y32",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Earth Cluster",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x19,y29",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Granular Clay",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x19,y29",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Peat Moss",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x19,y29",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Black Soil",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x19,y29",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Wind Cluster",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x26,y35 x23,y12",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Highland Oregano",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x26,y35 x23,y12",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Fury Mint",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x26,y35 x23,y12",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Clary Sage",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x26,y35 x23,y12",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
     }
 
 ]
