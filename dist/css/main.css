@@ -7963,8 +7963,7 @@ button.close {
   .node.node-slim .node-heading .title {
     font-weight: bold; }
 .node.node-slim .node-info {
-  display: inline-block;
-  float: left; }
+  display: inline-block; }
 .node.node-slim .node-body {
   float: right; }
   .node.node-slim .node-body .location {
