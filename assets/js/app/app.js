@@ -65,7 +65,9 @@ window.App = (function(Backbone, Marionette) {
 
     });
 
-    App.on('start', function() {
+    App.on('start', function(options) {
+        App.version = options.version;
+
         var tasks = _.map(this.collections, function(coll, name) {
             return function(callback) {
                 coll.fetch({

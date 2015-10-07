@@ -65,7 +65,9 @@ window.App = (function(Backbone, Marionette) {
 
     });
 
-    App.on('start', function() {
+    App.on('start', function(options) {
+        App.version = options.version;
+
         var tasks = _.map(this.collections, function(coll, name) {
             return function(callback) {
                 coll.fetch({
@@ -426,7 +428,13 @@ App.module("About", function(About, App, Backbone, Marionette, $, _) {
 
 
     About.BaseView = Marionette.ItemView.extend({
-        template: 'about'
+        template: 'about',
+
+        serializeData: function() {
+            return {
+                version: App.version
+            };
+        }
     });
 
     App.on('before:start', function() {

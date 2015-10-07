@@ -2,7 +2,13 @@ App.module("About", function(About, App, Backbone, Marionette, $, _) {
 
 
     About.BaseView = Marionette.ItemView.extend({
-        template: 'about'
+        template: 'about',
+
+        serializeData: function() {
+            return {
+                version: App.version
+            };
+        }
     });
 
     App.on('before:start', function() {
