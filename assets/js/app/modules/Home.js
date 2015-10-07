@@ -127,7 +127,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
             this.fuse = new Fuse(this.searchCollections, {
                 keys: ['name', 'location'],
-                threshold: 0.0,
+                threshold: 0.3,
                 id: 'id'
             });
 
