@@ -15,7 +15,8 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
 
         serializeData: function() {
             return {
-                version: App.version
+                version: App.version,
+                colorScheme: App.userSettings.get('colorScheme') || 'light'
             };
         },
 
@@ -25,12 +26,20 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
 			}));
 
             this.menu.show(new Nav.Menu());
+            this.toggleStyle();
 		},
 
         toggleStyle: function(evt) {
-            var target = $(evt.currentTarget).data('target');
+            var target;
 
-            $('.css-toggle').removeClass('active');
+            if(evt) {
+                target = $(evt.currentTarget).data('target');
+                $('.css-toggle').removeClass('active');
+    
+            } else {
+                target = App.userSettings.get('colorScheme') || 'light';
+            }
+
             if(target === 'dark') {
                 $('head').append('<link id="dark" rel="stylesheet" type="text/css" href="css/dark.css" >');
                 $('.css-toggle.light').addClass('active');
@@ -39,7 +48,7 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
                 $('.css-toggle.dark').addClass('active');
             }
 
-
+            App.userSettings.save('colorScheme', target);
         }
 	});
 

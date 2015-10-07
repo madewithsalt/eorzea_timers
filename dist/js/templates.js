@@ -146,12 +146,18 @@ templates['home/home.hbs'] = template({"1":function(container,depth0,helpers,par
 templates['home/jumbotron.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"collapse-toggle\">\n    <a class=\"toggle-link btn btn-default\">\n        <i class=\"fa\"></i>\n    </a>\n</div>\n<div class=\"jumbo-content\">\n    <div class=\"clock-region\"></div>\n    <p>Eorzean Time</p>    \n</div>\n";
 },"useData":true});
-templates['main-nav/main-nav.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper;
+templates['main-nav/main-nav.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    return "active";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=helpers.helperMissing;
 
   return "<a href=\"#\" class=\"navbar-brand\">Eorzea Timers <small>v"
-    + container.escapeExpression(((helper = (helper = helpers.version || (depth0 != null ? depth0.version : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"version","hash":{},"data":data}) : helper)))
-    + "</small></a>\n<div class=\"pull-left\">\n    <a class=\"css-toggle menu-link light\" data-target=\"light\"><i class=\"fa fa-sun-o\"></i></a>\n    <a class=\"css-toggle menu-link active dark\" data-target=\"dark\"><i class=\"fa fa-moon-o\"></i></a>\n</div>\n<div class=\"clock-region pull-right\"></div>\n<a class=\"pull-right menu-link menu-toggle\" data-toggle=\"collapse\" href=\"#menu\"><i class=\"fa fa-bars\"></i></a>\n<div class=\"menu-region pull-right\"></div>\n";
+    + container.escapeExpression(((helper = (helper = helpers.version || (depth0 != null ? depth0.version : depth0)) != null ? helper : alias1),(typeof helper === "function" ? helper.call(depth0,{"name":"version","hash":{},"data":data}) : helper)))
+    + "</small></a>\n<div class=\"pull-left\">\n    <a class=\"css-toggle menu-link "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,(depth0 != null ? depth0.colorScheme : depth0),"dark",{"name":"is","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " light\" data-target=\"light\"><i class=\"fa fa-sun-o\"></i></a>\n    <a class=\"css-toggle menu-link "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,(depth0 != null ? depth0.colorScheme : depth0),"light",{"name":"is","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " dark\" data-target=\"dark\"><i class=\"fa fa-moon-o\"></i></a>\n</div>\n<div class=\"clock-region pull-right\"></div>\n<a class=\"pull-right menu-link menu-toggle\" data-toggle=\"collapse\" href=\"#menu\"><i class=\"fa fa-bars\"></i></a>\n<div class=\"menu-region pull-right\"></div>\n";
 },"useData":true});
 templates['main-nav/menu.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
