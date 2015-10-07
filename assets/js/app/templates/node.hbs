@@ -2,18 +2,20 @@
     <div class="node-heading">
         <span class="icon {{type}}"></span>
         <span class="time">{{ time }}</span>
-        <span class="title">
-            {{ name }}
-            {{#if slot}} [slot {{ slot }}]{{/if}}
-            {{#if is_collectable}}<i class="fa fa-cube"></i>{{/if}}
-            {{#if is_ephemeral}}<i class="fa fa-star"></i>{{/if}}
-        </span>
-        {{#if isActive}}
-            <span class="time-remaining">[
-                <i class="fa fa-globe"></i>
-                {{ earth_time_remaining.minutes }}m {{ earth_time_remaining.seconds }}s
-            ]</span>
-        {{/if}}
+
+        <div class="node-info"> 
+            <span class="title">
+                {{ name }}
+                {{#if slot}} [slot {{ slot }}]{{/if}}
+                {{#if is_collectable}}<i class="fa fa-cube"></i>{{/if}}
+                {{#if is_ephemeral}}<i class="fa fa-star"></i>{{/if}}
+            </span>
+            {{#if isActive}}
+                <span class="time-remaining">[
+                    {{ earth_time_remaining.minutes }}m {{ earth_time_remaining.seconds }}s
+                ]</span>
+            {{/if}}
+        </div>
     </div>
     <div class="node-body">
         {{#if location }}

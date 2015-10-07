@@ -3,9 +3,9 @@
 templates['about.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
-  return "<div class=\"container\">\n    <div class=\"col-md-12\">\n        <h2>Eorzea Timers - An Open Source Project.</h2>\n        <h3>Version: "
+  return "<div class=\"container\">\n    <div class=\"col-md-12\">\n        <h2>Eorzea Timers - An Open Source Project.</h2>\n        <h3 class=\"bordered-header\">Version: "
     + container.escapeExpression(((helper = (helper = helpers.version || (depth0 != null ? depth0.version : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"version","hash":{},"data":data}) : helper)))
-    + " (<a target=\"_blank\" href=\"https://github.com/tnbKristi/eorzea_timers/releases\">release notes</a>)</h3>\n        <p>Please report bugs and data errors at the Github repository <a target=\"_blank\" href=\"https://github.com/tnbKristi/eorzea_timers\">here</a>, or contribute to the code via pull request.</p>\n        <p>Created by Kesha Thorne from Marlboro, a Gathering &amp; Crafting nut. :]</p>\n        <h3>App Features</h3>\n        <ul>\n            <li>Completely client-side code - no server requests needed to keep time up to date, so it's more accurate</li>\n            <li>Uses LocalStorage to save your preferences and watch lists.</li>\n            <li>Add your own custom timers! Saved via LocalStorage until you remove them.</li>\n            <li>Slots, and x/y coordinates included with all known unspoiled node locations.</li>\n            <li>Incredibly easy to update and contribute! <a target=\"_blank\" href=\"https://github.com/tnbKristi/eorzea_timers\">Learn more here.</a></li>\n        </ul>\n        <h3>Wish List</h3>\n        <p>There's a few things I haven't added yet that I'd like to, or need a hand with. <a target=\"_blank\" href=\"https://github.com/tnbKristi/eorzea_timers\">Check them out at the github repo here.</a> </p>\n    </div>\n</div>";
+    + " (<a target=\"_blank\" href=\"https://github.com/tnbKristi/eorzea_timers/releases\">release notes</a>)</h3>\n        \n        <p>Please report bugs and data errors at the Github repository <a target=\"_blank\" href=\"https://github.com/tnbKristi/eorzea_timers\">here</a>, or contribute to the code via pull request. <br/> Keep in mind I am a real human with a job, and disrespectful comments &amp; angry demands will be ignored.</p>\n\n        <p>Thanks for your kind support and appreciation for this project.</p>\n\n        <h3 class=\"bordered-header\">App Features</h3>\n        <ul>\n            <li>Uses LocalStorage to save your preferences and watch lists.</li>\n            <li>Add your own custom timers! Saved via LocalStorage until you remove them.</li>\n            <li>Slots, and x/y coordinates included with all known unspoiled node locations.</li>\n            <li>Incredibly easy to update and contribute! <a target=\"_blank\" href=\"https://github.com/tnbKristi/eorzea_timers\">Learn more here.</a></li>\n        </ul>\n\n        <h3 class=\"bordered-header\">F.A.Q</h3>\n\n        <h4>The time seems off by ~3 Eorzean minutes. What's up with that?</h4>\n        <p>Eorzean time is calculated from Epoch time -- one hour is 2 minutes, 55 seconds Earth time. Because of this, sometimes the math that rounds the time up or down can be off by about 30 seconds.</p>\n        <p>If your time is off by much more than 3 minutes, your computer/phone's time may be off. Check out <a href=\"http://time.is/\" target=\"_blank\">http://time.is/</a> to see if it's a time sync issue.</p>\n\n        <h4>There's a bunch of other timers out there. Why make another one?</h4>\n        <p>A few reasons, actually!</p>\n        <ul>\n            <li>I'm a web developer + huge gathering crazie. I wanted to build something that was exactly what I wanted as I spend a LOT of time gathering and staring at this timer screen. :)</li>\n            <li>There isn't an open-source project for timers. I'd rather share my work and hope others help make it better.</li>\n            <li>I frankly didn't like the look/feel or features of what exists currently!</li>\n        </ul>\n        <p>I think it's great that there are lots of options, and I encourage you to <i>not</i> use mine if it doesn't work for you. :) </p>\n\n        <h4>Can you add [insert feature here]?</h4>\n\n        <p>Probably! Please make an suggestion as an issue on the github repo <a target=\"_blank\" href=\"https://github.com/tnbKristi/eorzea_timers\">here</a>!\n    </div>\n</div>";
 },"useData":true});
 templates['clock.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
@@ -81,11 +81,11 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
 },"7":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
-  return "            <span class=\"time-remaining\">[\n                <i class=\"fa fa-globe\"></i>\n                "
+  return "                <span class=\"time-remaining\">[\n                    "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.minutes : stack1), depth0))
     + "m "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.seconds : stack1), depth0))
-    + "s\n            ]</span>\n";
+    + "s\n                ]</span>\n";
 },"9":function(container,depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
 
@@ -105,17 +105,17 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
     + alias3(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"type","hash":{},"data":data}) : helper)))
     + "\"></span>\n        <span class=\"time\">"
     + alias3(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
-    + "</span>\n        <span class=\"title\">\n            "
+    + "</span>\n\n        <div class=\"node-info\"> \n            <span class=\"title\">\n                "
     + alias3(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"name","hash":{},"data":data}) : helper)))
-    + "\n            "
+    + "\n                "
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.slot : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n            "
+    + "\n                "
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.is_collectable : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n            "
+    + "\n                "
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.is_ephemeral : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n        </span>\n"
+    + "\n            </span>\n"
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isActive : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\n    <div class=\"node-body\">\n"
+    + "        </div>\n    </div>\n    <div class=\"node-body\">\n"
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.location : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isCustom : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -129,48 +129,6 @@ templates['home/home.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function
 },"useData":true});
 templates['home/jumbotron.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"collapse-toggle\">\n    <a class=\"toggle-link btn btn-default\">\n        <i class=\"fa\"></i>\n    </a>\n</div>\n<div class=\"jumbo-content\">\n    <div class=\"clock-region\"></div>\n    <p>Eorzean Time</p>    \n</div>\n";
-},"useData":true});
-templates['home/node.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return " [slot "
-    + container.escapeExpression(((helper = (helper = helpers.slot || (depth0 != null ? depth0.slot : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"slot","hash":{},"data":data}) : helper)))
-    + "]";
-},"3":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
-
-  return "        <span class=\"time-remaining\">[\n            <i class=\"fa fa-globe\"></i>\n            "
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.minutes : stack1), depth0))
-    + "m "
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.seconds : stack1), depth0))
-    + "s\n        ]</span>\n";
-},"5":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
-
-  return "        <div class=\"location\">"
-    + alias3(((helper = (helper = helpers.location || (depth0 != null ? depth0.location : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"location","hash":{},"data":data}) : helper)))
-    + ", "
-    + alias3(((helper = (helper = helpers.pos || (depth0 != null ? depth0.pos : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"pos","hash":{},"data":data}) : helper)))
-    + "</div>\n";
-},"7":function(container,depth0,helpers,partials,data) {
-    return "        <a class=\"btn btn-danger btn-xs btn-delete\"><i class=\"fa fa-times\"></i></a>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
-
-  return "<div class=\"node-heading\">\n    <span class=\"icon "
-    + alias3(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"type","hash":{},"data":data}) : helper)))
-    + "\"></span>\n    <span class=\"time\">"
-    + alias3(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
-    + "</span>\n    <span class=\"title\">"
-    + alias3(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"name","hash":{},"data":data}) : helper)))
-    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.slot : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "</span>\n"
-    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "</div>\n<div class=\"node-body\">\n"
-    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.location : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n"
-    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isCustom : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n</div>\n";
 },"useData":true});
 templates['main-nav/main-nav.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
@@ -203,7 +161,7 @@ templates['main-nav/menu.hbs'] = template({"1":function(container,depth0,helpers
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "    <ul class=\"nav navbar-nav collapse\" id=\"menu\">\n"
+  return "    <ul class=\"nav navbar-nav\" id=\"menu\">\n"
     + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.menuItems : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n    </ul>\n";
 },"useData":true});

@@ -12,6 +12,12 @@ body {
     padding: 60px 0;
 }
 
+.bordered-header {
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
 .primary-nav {
     .menu-toggle {
         padding: 15px 15px;
@@ -72,5 +78,12 @@ body {
             }
         }
     }
+}
+
+@media(max-width: 400px) {
+    body {
+        padding: 100px 0;
+    }
+
 }
 
