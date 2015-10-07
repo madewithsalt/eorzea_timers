@@ -724,10 +724,10 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 ];
 
             this.collections = {
-                active: new Backbone.Collection(),
-                one_hour: new Backbone.Collection(),
-                two_hour: new Backbone.Collection(),
-                the_rest: new Backbone.Collection()
+                active: new App.Entities.NodeList(),
+                one_hour: new App.Entities.NodeList(),
+                two_hour: new App.Entities.NodeList(),
+                the_rest: new App.Entities.NodeList()
             };
 
             _.each(collections, function(coll) {
@@ -1107,6 +1107,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                 }).join('-');
 
                 this.set('id', id);
+                this.set('time_obj', TIME_HELPERS.getTimeObjFromString(this.get('time')));
 
                 this.listenTo(App.masterClock, 'change', _.bind(this.getTimeDiff, this));
             },
@@ -1228,6 +1229,15 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             }
 
             return weight;
+        }
+    });
+
+
+    Entities.NodeList = Backbone.Collection.extend({
+        comparator: function(model) {
+            var time = model.get('time_until');
+
+            return (time.hours * 60) + time.minutes;
         }
     });
 

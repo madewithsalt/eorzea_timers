@@ -17,6 +17,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                 }).join('-');
 
                 this.set('id', id);
+                this.set('time_obj', TIME_HELPERS.getTimeObjFromString(this.get('time')));
 
                 this.listenTo(App.masterClock, 'change', _.bind(this.getTimeDiff, this));
             },
@@ -138,6 +139,15 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             }
 
             return weight;
+        }
+    });
+
+
+    Entities.NodeList = Backbone.Collection.extend({
+        comparator: function(model) {
+            var time = model.get('time_until');
+
+            return (time.hours * 60) + time.minutes;
         }
     });
 

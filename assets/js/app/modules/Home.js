@@ -271,10 +271,10 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 ];
 
             this.collections = {
-                active: new Backbone.Collection(),
-                one_hour: new Backbone.Collection(),
-                two_hour: new Backbone.Collection(),
-                the_rest: new Backbone.Collection()
+                active: new App.Entities.NodeList(),
+                one_hour: new App.Entities.NodeList(),
+                two_hour: new App.Entities.NodeList(),
+                the_rest: new App.Entities.NodeList()
             };
 
             _.each(collections, function(coll) {
