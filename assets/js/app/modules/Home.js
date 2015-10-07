@@ -173,7 +173,14 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
             this.$('.node').hide();
             _.each(results, function(id) {
-                self.$('.node[data-id="' + id + '"]').not('[data-type="' + self.filteringBy + '"]').show();
+                var target = '.node[data-id="' + id + '"]';
+                
+                if(self.filteringBy !== 'all') {
+                    self.$(target).filter('[data-type="' + self.filteringBy + '"]').show();
+                
+                } else {
+                    self.$(target).show();
+                }
             });
         },
 
