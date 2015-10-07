@@ -149,6 +149,10 @@
             }
         }
 
+        .node-info {
+            display: inline-block;
+        }
+
         .node-body {
             float: right;
 
@@ -158,4 +162,30 @@
         }
         
     }
+}
+
+@media(max-width: 500px) {
+    .node {
+        &.node-slim {
+            .node-info {
+                display: block;
+                width: 100%;
+                padding-left: 30px;
+            }
+
+            .node-body {
+                float: none;
+                text-align: left;
+                clear: both;
+                margin-top: 6px;
+                margin-left: 30px;
+            }
+
+            .location {
+                display: block;
+                text-align: left;
+            }
+        }
+    }
+
 }

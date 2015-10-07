@@ -44,7 +44,7 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         template: 'watch-list/node',
 
         className: function() {
-            return 'node-block col-md-3 col-sm-6 col-xs-6 ' + App.Views.NodeView.prototype.className.apply(this, arguments);
+            return 'node-block col-md-3 col-sm-6 col-xs-12 ' + App.Views.NodeView.prototype.className.apply(this, arguments);
         },
 
         modelEvents: {

@@ -165,7 +165,7 @@ window.TIME_HELPERS = (function() {
 $(function() {
 
     if(typeof App !== 'undefined') {
-        App.start({ version: '1.2' });
+        App.start({ version: '1.3' });
     }
 
 });

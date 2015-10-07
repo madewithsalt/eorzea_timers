@@ -12,7 +12,19 @@ body {
     padding: 60px 0;
 }
 
+.bordered-header {
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
 .primary-nav {
+    .menu-toggle {
+        padding: 15px 15px;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
     .clock-region {
         display: inline-block;
 
@@ -49,4 +61,29 @@ body {
     color: $state-danger-text;
 }
 
+
+@media(max-width: 768px) {
+    .primary-nav {
+        .menu-region {
+            clear: both;
+            float: none !important;
+            margin: 0 15px;
+        }
+
+        .navbar-nav {
+            display: none;
+
+            &.collapsing, &.in {
+                display: block;
+            }
+        }
+    }
+}
+
+@media(max-width: 400px) {
+    body {
+        padding: 100px 0;
+    }
+
+}
 
