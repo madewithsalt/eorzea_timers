@@ -7959,6 +7959,10 @@ button.close {
 body {
   padding: 60px 0; }
 
+.primary-nav .menu-toggle {
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px; }
 .primary-nav .clock-region {
   display: inline-block; }
   .primary-nav .clock-region .clock {
@@ -7985,5 +7989,15 @@ body {
   background-color: #f2dede;
   border-color: #ebccd1;
   color: #a94442; }
+
+@media (max-width: 768px) {
+  .primary-nav .menu-region {
+    clear: both;
+    float: none !important;
+    margin: 0 15px; }
+  .primary-nav .navbar-nav {
+    display: none; }
+    .primary-nav .navbar-nav.collapsing, .primary-nav .navbar-nav.in {
+      display: block; } }
 
 /*# sourceMappingURL=main.css.map */

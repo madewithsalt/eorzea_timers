@@ -13,6 +13,12 @@ body {
 }
 
 .primary-nav {
+    .menu-toggle {
+        padding: 15px 15px;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
     .clock-region {
         display: inline-block;
 
@@ -49,4 +55,22 @@ body {
     color: $state-danger-text;
 }
 
+
+@media(max-width: 768px) {
+    .primary-nav {
+        .menu-region {
+            clear: both;
+            float: none !important;
+            margin: 0 15px;
+        }
+
+        .navbar-nav {
+            display: none;
+
+            &.collapsing, &.in {
+                display: block;
+            }
+        }
+    }
+}
 

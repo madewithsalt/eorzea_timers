@@ -177,7 +177,7 @@ templates['main-nav/main-nav.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":
 
   return "<a href=\"#\" class=\"navbar-brand\">Eorzea Timers <small>v"
     + container.escapeExpression(((helper = (helper = helpers.version || (depth0 != null ? depth0.version : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"version","hash":{},"data":data}) : helper)))
-    + "</small></a>\n<div class=\"clock-region pull-right\"></div>\n<div class=\"menu-region pull-right\"></div>\n";
+    + "</small></a>\n<div class=\"clock-region pull-right\"></div>\n<a class=\"pull-right visible-sm-block visible-xs-block menu-toggle\" data-toggle=\"collapse\" href=\"#menu\"><i class=\"fa fa-bars\"></i></a>\n<div class=\"menu-region pull-right\"></div>\n";
 },"useData":true});
 templates['main-nav/menu.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
@@ -203,7 +203,7 @@ templates['main-nav/menu.hbs'] = template({"1":function(container,depth0,helpers
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "    <ul class=\"nav navbar-nav\">\n"
+  return "    <ul class=\"nav navbar-nav collapse\" id=\"menu\">\n"
     + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.menuItems : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n    </ul>\n";
 },"useData":true});
