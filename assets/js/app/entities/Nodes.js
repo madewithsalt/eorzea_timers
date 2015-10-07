@@ -145,9 +145,16 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
     Entities.NodeList = Backbone.Collection.extend({
         comparator: function(model) {
-            var time = model.get('time_until');
+            var time = model.get('time_until'),
+                active = model.get('active'),
+                timeRemaining = model.get('time_remaining');
 
-            return (time.hours * 60) + time.minutes;
+            if(active) {
+                return (timeRemaining.hours * 60) + timeRemaining.minutes;
+            } else {
+                return (time.hours * 60) + time.minutes;
+            }
+
         }
     });
 

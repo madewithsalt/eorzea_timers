@@ -127,7 +127,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
             this.fuse = new Fuse(this.searchCollections, {
                 keys: ['name', 'location'],
-                threshold: 0.3,
+                threshold: 0.0,
                 id: 'id'
             });
 
@@ -163,7 +163,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             var val = this.ui.search.val(),
                 result;
 
-            if(val.length <= 3) {
+            if(val.length <= 2) {
                 this.searchList = [];
                 this.clearSearch();
                 return;
@@ -177,23 +177,40 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
         },
 
         clearSearch: function() {
-            this.$('.node').show();
+            this.showFilteredNodes();
         },
 
         hideExcludedSearch: function() {
             var self = this,
                 results = this.searchList;
 
+            if(!results || !results.length) { return; }
+
             this.$('.node').hide();
+
             _.each(results, function(id) {
-                var target = '.node[data-id="' + id + '"]';
-                
-                if(self.filteringBy !== 'all') {
-                    self.$(target).filter('[data-type="' + self.filteringBy + '"]').show();
-                
-                } else {
-                    self.$(target).show();
+                var target = '.node[data-id="' + id + '"]',
+                    filter = '[data-type="' + self.filteringBy + '"]',
+                    $el;
+
+                if(self.attrFilters.length) {
+                    _.each(self.attrFilters, function(attr) {
+                        $el = self.$(target).filter('[' + attr + ']');
+                    });
                 }
+
+                if(self.filteringBy !== 'all') {
+                    if($el) {
+                        $el = $el.filter(filter);
+                    } else {
+                        $el = self.$(target).filter(filter)
+                    }
+                }
+
+                if($el.length) {
+                    $el.show();
+                }
+
             });
         },
 
@@ -241,6 +258,9 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             _.each(this.attrFilters, function(filter) {
                 self.$('.node').not('[' + filter + ']').hide();
             });
+
+
+            this.hideExcludedSearch();
         },
 
         triggerNewTimer: function() {
@@ -304,11 +324,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                         hours = timeUntil.hours,
                         minutes = timeUntil.minutes;
 
-                    if (hours === 0 && minutes > 0 || hours === 1) {
+                    if (hours === 0 && minutes > 0) {
                         return oneHour.push(model);
                     }
 
-                    if (hours === 1 && minutes > 0 || hours === 2) {
+                    if (hours === 1 && minutes > 0) {
                         return twoHour.push(model);
                     }
 
@@ -330,10 +350,6 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             // jumbotron master clock
             this.jumbotron.show(new Home.JumboTronView());
             this.showLists();
-
-            // trigger filtering settings
-            this.showFilteredNodes();
-
         },
 
         showLists: function() {
@@ -352,6 +368,9 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             this.otherNodes.show(new Home.NodeList({
                 collection: this.collections.the_rest
             }));
+
+            // trigger filtering settings
+            this.showFilteredNodes();
         }
     });
 
