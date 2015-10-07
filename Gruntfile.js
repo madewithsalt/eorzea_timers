@@ -119,7 +119,7 @@ module.exports = function(grunt) {
         exec: {
             handlebars: 'handlebars <%= config.app %>/templates/{,**/}*.hbs -f <%= config.dist %>/js/templates.js -r <%= config.app %>/templates',
             sass: 'mkdir -p <%= config.dist %>/css && sass <%= config.src %>/scss/main.scss <%= config.dist %>/css/main.css',
-            publish: 'git subtree push --prefix dist origin gh-pages'
+            publish: 'git add . && git commit -m \'publish\' && git push && git subtree push --prefix dist origin gh-pages'
         },
         copy: {
             assets: {
@@ -182,7 +182,7 @@ module.exports = function(grunt) {
 
     // Default task.
     grunt.registerTask('default', ['clean', 'copy', 'concat', 'exec:handlebars', 'exec:sass', 'watch']);
-    grunt.registerTask('publish', ['exec:publish']);
+    grunt.registerTask('publish', ['clean', 'copy', 'concat', 'exec:handlebars', 'exec:sass', 'exec:publish']);
 
 
 };
