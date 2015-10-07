@@ -205,11 +205,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     } else {
                         $el = self.$(target).filter(filter)
                     }
+                } else {
+                    $el = self.$(target);
                 }
 
-                if($el.length) {
-                    $el.show();
-                }
+                $el.show();
 
             });
         },
