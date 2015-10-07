@@ -59,7 +59,10 @@ window.App = (function(Backbone, Marionette) {
         });
 
         App.vent.on('node:deselected', function(model) {
-            var data = model.toJSON();
+            var data = model.toJSON(),
+                type = data.type;
+
+            App.collections[type].get(data.id).set({ selected: false });
             App.collections.watched.get(data.id).destroy();
         });
 
