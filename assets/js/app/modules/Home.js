@@ -91,6 +91,15 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             'newTimerModal': '.new-timer-modal-region'
         },
 
+        serializeData: function() {
+            var settings = App.userSettings.toJSON();
+            
+            return {
+                filteringBy: settings.filteringBy || 'all',
+                attrFilters: settings.attrFilters || []
+            };
+        },
+
         initialize: function() {
             var self = this;
 
@@ -122,7 +131,8 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 id: 'id'
             });
 
-            this.filteringBy = 'all';
+            this.filteringBy = App.userSettings.get('filteringBy') || 'all';
+            this.attrFilters = App.userSettings.get('attrFilters') || [];
 
             this.listenTo(App.vent, 'node:create', function() {
                 self.sortAndShowLists();
@@ -162,6 +172,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             result = this.fuse.search(val);
 
             this.searchList = result;
+
             this.hideExcludedSearch();
         },
 
@@ -194,6 +205,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             $el.addClass('active');
             
             this.filteringBy = target;
+            App.userSettings.save('filteringBy', target);
             
             this.showFilteredNodes();
         },
@@ -211,6 +223,8 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     self.attrFilters.push($(this).data('target'));
                 }
             });
+
+            App.userSettings.save('attrFilters', this.attrFilters);
 
             this.showFilteredNodes();
         }, 
@@ -268,14 +282,8 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     var item = model.toJSON(),
                         isWatched = watchedNodes.get(item.id);
 
-                    if (isWatched) {
+                    if(isWatched) {
                         model.set('selected', true);
-                    }
-
-                    if(item.type === filteringBy || filteringBy === 'all' || !filteringBy) {
-                        model.set('hidden', false); 
-                    } else {
-                        model.set('hidden', true);
                     }
 
                     if(searchList.length) {
@@ -322,6 +330,10 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             // jumbotron master clock
             this.jumbotron.show(new Home.JumboTronView());
             this.showLists();
+
+            // trigger filtering settings
+            this.showFilteredNodes();
+
         },
 
         showLists: function() {

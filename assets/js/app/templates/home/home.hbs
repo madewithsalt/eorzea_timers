@@ -6,18 +6,18 @@
                 <div class="nodes-filter">
                     <div class="filter-label">Filter by:</div>
                     <div class="btn-group filter-menu">
-                        <div class="btn btn-primary active all" data-target="all">All</div>
-                        <div class="btn btn-primary botany" data-target="botany"><span class="icon botany"></span> Botany</div>
-                        <div class="btn btn-primary mining" data-target="mining"><span class="icon mining"></span>  Mining</div>
+                        <div class="btn btn-primary {{#is filteringBy 'all' }}active{{/is}} all" data-target="all">All</div>
+                        <div class="btn btn-primary {{#is filteringBy 'botany' }}active{{/is}} botany" data-target="botany"><span class="icon botany"></span> Botany</div>
+                        <div class="btn btn-primary {{#is filteringBy 'mining' }}active{{/is}} mining" data-target="mining"><span class="icon mining"></span>  Mining</div>
                         {{!-- <div class="btn btn-primary fishing"><span class="icon fishing"></span> Fishing</div>--}}
-                        <div class="btn btn-primary custom" data-target="custom"><span class="icon custom"></span> Custom</div>
+                        <div class="btn btn-primary {{#is filteringBy 'custom' }}active{{/is}} custom" data-target="custom"><span class="icon custom"></span> Custom</div>
                     </div>                        
                 </div>
                 <div class="nodes-filter">
                     <div class="filter-label">Special attributes:</div>                        
                     <div class="btn-group attr-menu">
-                        <div class="btn btn-default is_collectable" data-target="is_collectable"><span class="fa fa-cube"></span> Collectable</div>
-                        <div class="btn btn-default is_ephemeral" data-target="is_ephemeral"><span class="fa fa-star"></span> Ephemeral</div>
+                        <div class="btn btn-default {{#inArray attrFilters 'is_collectable'}}active{{/inArray}} is_collectable" data-target="is_collectable"><span class="fa fa-cube"></span> Collectable</div>
+                        <div class="btn btn-default {{#inArray attrFilters 'is_ephemeral'}}active{{/inArray}} is_ephemeral" data-target="is_ephemeral"><span class="fa fa-star"></span> Ephemeral</div>
                     </div>                        
                 </div>
             </div>
