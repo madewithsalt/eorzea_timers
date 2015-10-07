@@ -1,6 +1,7 @@
 window.App = (function(Backbone, Marionette) {
 
     moment().utc();
+    Swag.registerHelpers(window.Handlebars);
 
     var Router,
         App = new Marionette.Application();

@@ -12,6 +12,10 @@ body {
     padding: 60px 0;
 }
 
+* {
+    @include animation(all 300ms ease-out);
+}
+
 .bordered-header {
     padding-bottom: 4px;
     margin-bottom: 8px;
@@ -19,10 +23,25 @@ body {
 }
 
 .primary-nav {
-    .menu-toggle {
+
+    .menu-link {
         padding: 15px 15px;
         font-size: 18px;
         line-height: 20px;
+        display: inline-block;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
+    .css-toggle {
+        display: none;
+        cursor: pointer;
+
+        &.active {
+            display: inline-block;
+        }
     }
 
     .clock-region {
@@ -64,6 +83,10 @@ body {
 
 @media(max-width: 768px) {
     .primary-nav {
+        .menu-toggle {
+            display: inline-block;
+        }
+
         .menu-region {
             clear: both;
             float: none !important;

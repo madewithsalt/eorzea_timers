@@ -9,6 +9,10 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
 			menu: '.menu-region'
 		},
 
+        events: {
+            'click .css-toggle': 'toggleStyle'
+        },
+
         serializeData: function() {
             return {
                 version: App.version
@@ -21,7 +25,22 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
 			}));
 
             this.menu.show(new Nav.Menu());
-		}
+		},
+
+        toggleStyle: function(evt) {
+            var target = $(evt.currentTarget).data('target');
+
+            $('.css-toggle').removeClass('active');
+            if(target === 'dark') {
+                $('head').append('<link id="dark" rel="stylesheet" type="text/css" href="css/dark.css" >');
+                $('.css-toggle.light').addClass('active');
+            } else {
+                $('head').find('#dark').remove();
+                $('.css-toggle.dark').addClass('active');
+            }
+
+
+        }
 	});
 
     Nav.Menu = Marionette.ItemView.extend({

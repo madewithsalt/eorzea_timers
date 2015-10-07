@@ -7851,11 +7851,13 @@ button.close {
 .home .nodes-filter {
   display: inline-block;
   margin-right: 8px; }
-.home .filter-menu .btn, .home .attr-menu .btn {
-  min-width: 75px;
-  min-height: 43px;
-  vertical-align: middle;
-  line-height: 30px; }
+.home .filter-menu, .home .attr-menu {
+  margin-bottom: 12px; }
+  .home .filter-menu .btn, .home .attr-menu .btn {
+    min-width: 75px;
+    min-height: 43px;
+    vertical-align: middle;
+    line-height: 30px; }
 .home .new-timer-btn {
   margin-top: 12px; }
 .home .filter-list-form {
@@ -7986,15 +7988,28 @@ button.close {
 body {
   padding: 60px 0; }
 
+* {
+  -webkit-animation: all 300ms ease-out;
+  -o-animation: all 300ms ease-out;
+  animation: all 300ms ease-out; }
+
 .bordered-header {
   padding-bottom: 4px;
   margin-bottom: 8px;
   border-bottom: 1px solid #ccc; }
 
-.primary-nav .menu-toggle {
+.primary-nav .menu-link {
   padding: 15px 15px;
   font-size: 18px;
-  line-height: 20px; }
+  line-height: 20px;
+  display: inline-block; }
+.primary-nav .menu-toggle {
+  display: none; }
+.primary-nav .css-toggle {
+  display: none;
+  cursor: pointer; }
+  .primary-nav .css-toggle.active {
+    display: inline-block; }
 .primary-nav .clock-region {
   display: inline-block; }
   .primary-nav .clock-region .clock {
@@ -8023,6 +8038,8 @@ body {
   color: #a94442; }
 
 @media (max-width: 768px) {
+  .primary-nav .menu-toggle {
+    display: inline-block; }
   .primary-nav .menu-region {
     clear: both;
     float: none !important;

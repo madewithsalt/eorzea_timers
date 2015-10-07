@@ -1,0 +1,26 @@
+@import 'dark/base';
+
+.node {
+
+  &.node-block {
+    .node-content {
+      &.active {
+        &.botany {
+
+        }
+      }
+    }
+  }
+
+
+  &.node-slim {
+    .node-content {
+      &.warning {
+      }
+
+      &.urgent {
+      }
+
+    }
+  }
+}

@@ -99,7 +99,7 @@ module.exports = function(grunt) {
                 files: [
                     '<%= config.src %>/sound/**/*',
                     '<%= config.src %>/data/**/*',
-                    '<%= config.src %>/img/**/*',
+                    '<%= config.src %>/img/**/*'
                 ],
                 tasks: ['copy:assets']
             },
@@ -118,7 +118,7 @@ module.exports = function(grunt) {
         },
         exec: {
             handlebars: 'handlebars <%= config.app %>/templates/{,**/}*.hbs -f <%= config.dist %>/js/templates.js -r <%= config.app %>/templates',
-            sass: 'mkdir -p <%= config.dist %>/css && sass <%= config.src %>/scss/main.scss <%= config.dist %>/css/main.css',
+            sass: 'mkdir -p <%= config.dist %>/css && sass <%= config.src %>/scss/main.scss <%= config.dist %>/css/main.css && sass <%= config.src %>/scss/dark.scss <%= config.dist %>/css/dark.css',
             publish: 'git subtree push --prefix dist origin gh-pages'
         },
         copy: {

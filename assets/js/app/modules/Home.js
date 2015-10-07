@@ -91,6 +91,15 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             'newTimerModal': '.new-timer-modal-region'
         },
 
+        serializeData: function() {
+            var settings = App.userSettings.toJSON();
+            
+            return {
+                filteringBy: settings.filteringBy || 'all',
+                attrFilters: settings.attrFilters || []
+            };
+        },
+
         initialize: function() {
             var self = this;
 
@@ -118,11 +127,12 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
 
             this.fuse = new Fuse(this.searchCollections, {
                 keys: ['name', 'location'],
-                threshold: 0.3,
+                threshold: 0.0,
                 id: 'id'
             });
 
-            this.filteringBy = 'all';
+            this.filteringBy = App.userSettings.get('filteringBy') || 'all';
+            this.attrFilters = App.userSettings.get('attrFilters') || [];
 
             this.listenTo(App.vent, 'node:create', function() {
                 self.sortAndShowLists();
@@ -153,7 +163,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             var val = this.ui.search.val(),
                 result;
 
-            if(val.length <= 3) {
+            if(val.length <= 2) {
                 this.searchList = [];
                 this.clearSearch();
                 return;
@@ -162,27 +172,45 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             result = this.fuse.search(val);
 
             this.searchList = result;
+
             this.hideExcludedSearch();
         },
 
         clearSearch: function() {
-            this.$('.node').show();
+            this.showFilteredNodes();
         },
 
         hideExcludedSearch: function() {
             var self = this,
                 results = this.searchList;
 
+            if(!results || !results.length) { return; }
+
             this.$('.node').hide();
+
             _.each(results, function(id) {
-                var target = '.node[data-id="' + id + '"]';
-                
-                if(self.filteringBy !== 'all') {
-                    self.$(target).filter('[data-type="' + self.filteringBy + '"]').show();
-                
-                } else {
-                    self.$(target).show();
+                var target = '.node[data-id="' + id + '"]',
+                    filter = '[data-type="' + self.filteringBy + '"]',
+                    $el;
+
+                if(self.attrFilters.length) {
+                    _.each(self.attrFilters, function(attr) {
+                        $el = self.$(target).filter('[' + attr + ']');
+                    });
                 }
+
+                if(self.filteringBy !== 'all') {
+                    if($el) {
+                        $el = $el.filter(filter);
+                    } else {
+                        $el = self.$(target).filter(filter)
+                    }
+                }
+
+                if($el.length) {
+                    $el.show();
+                }
+
             });
         },
 
@@ -194,6 +222,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             $el.addClass('active');
             
             this.filteringBy = target;
+            App.userSettings.save('filteringBy', target);
             
             this.showFilteredNodes();
         },
@@ -212,6 +241,8 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 }
             });
 
+            App.userSettings.save('attrFilters', this.attrFilters);
+
             this.showFilteredNodes();
         }, 
 
@@ -227,6 +258,9 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             _.each(this.attrFilters, function(filter) {
                 self.$('.node').not('[' + filter + ']').hide();
             });
+
+
+            this.hideExcludedSearch();
         },
 
         triggerNewTimer: function() {
@@ -257,10 +291,10 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 ];
 
             this.collections = {
-                active: new Backbone.Collection(),
-                one_hour: new Backbone.Collection(),
-                two_hour: new Backbone.Collection(),
-                the_rest: new Backbone.Collection()
+                active: new App.Entities.NodeList(),
+                one_hour: new App.Entities.NodeList(),
+                two_hour: new App.Entities.NodeList(),
+                the_rest: new App.Entities.NodeList()
             };
 
             _.each(collections, function(coll) {
@@ -268,14 +302,8 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     var item = model.toJSON(),
                         isWatched = watchedNodes.get(item.id);
 
-                    if (isWatched) {
+                    if(isWatched) {
                         model.set('selected', true);
-                    }
-
-                    if(item.type === filteringBy || filteringBy === 'all' || !filteringBy) {
-                        model.set('hidden', false); 
-                    } else {
-                        model.set('hidden', true);
                     }
 
                     if(searchList.length) {
@@ -296,11 +324,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                         hours = timeUntil.hours,
                         minutes = timeUntil.minutes;
 
-                    if (hours === 0 && minutes > 0 || hours === 1) {
+                    if (hours === 0 && minutes > 0) {
                         return oneHour.push(model);
                     }
 
-                    if (hours === 1 && minutes > 0 || hours === 2) {
+                    if (hours === 1 && minutes > 0) {
                         return twoHour.push(model);
                     }
 
@@ -340,6 +368,9 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             this.otherNodes.show(new Home.NodeList({
                 collection: this.collections.the_rest
             }));
+
+            // trigger filtering settings
+            this.showFilteredNodes();
         }
     });
 
