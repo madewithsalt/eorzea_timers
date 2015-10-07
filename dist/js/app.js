@@ -809,6 +809,13 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
 			clock: '.clock-region',
 			menu: '.menu-region'
 		},
+
+        serializeData: function() {
+            return {
+                version: App.version
+            };
+        },
+
 		onBeforeShow: function() {
 			this.clock.show(new App.Views.Clock({
 				model: this.model

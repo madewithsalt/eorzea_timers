@@ -173,7 +173,11 @@ templates['home/node.hbs'] = template({"1":function(container,depth0,helpers,par
     + "\n</div>\n";
 },"useData":true});
 templates['main-nav/main-nav.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<a href=\"#\" class=\"navbar-brand\">Eorzea Timers</a>\n<div class=\"clock-region pull-right\"></div>\n<div class=\"menu-region pull-right\"></div>\n";
+    var helper;
+
+  return "<a href=\"#\" class=\"navbar-brand\">Eorzea Timers <small>v"
+    + container.escapeExpression(((helper = (helper = helpers.version || (depth0 != null ? depth0.version : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"version","hash":{},"data":data}) : helper)))
+    + "</small></a>\n<div class=\"clock-region pull-right\"></div>\n<div class=\"menu-region pull-right\"></div>\n";
 },"useData":true});
 templates['main-nav/menu.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
