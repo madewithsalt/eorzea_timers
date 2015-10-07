@@ -28,7 +28,7 @@ I typically keep 2 console tabs open, one for watching changes to the code, and 
 
 ## Testing
 
-There is a jasmine specrunner set up at `/test/specRunner.html`. Be sure to write any tests for data logic where needed.
+There is a jasmine specrunner set up at `/test/SpecRunner.html`. Be sure to write any tests for data logic where needed.
 Views should always be simple enough to need minimal testing, and instead rely on data changes to render.
 
 
