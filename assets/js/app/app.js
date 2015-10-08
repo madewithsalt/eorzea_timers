@@ -32,7 +32,8 @@ window.App = (function(Backbone, Marionette) {
         App.addRegions({
             mainRegion: '#main-region',
             navRegion: '#nav-region',
-            errorsRegion: '#error-region'
+            errorsRegion: '#error-region',
+            modalRegion: '#modal-region'
         });
 
         // page title time config
@@ -67,6 +68,41 @@ window.App = (function(Backbone, Marionette) {
             App.collections.watched.get(data.id).destroy();
         });
 
+        App.vent.on('node:delete', function(model) {
+            var data = model.toJSON(),
+                type = data.type,
+                watched = App.collections.watched.get(data.id);
+
+            if(watched) {
+                watched.destroy();
+            }
+
+            App.collections.custom.get(data.id).destroy();
+        });
+
+        App.vent.on('customTimer:create', function() {
+            var modal = new App.Views.Modal({
+                    childView: App.Views.CustomTimer,
+                    title: 'New Custom Timer'
+                });
+
+            App.modalRegion.show(modal);
+            modal.$el.modal();
+            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
+        });
+
+
+        App.vent.on('customTimer:edit', function(model) {
+            var modal = new App.Views.Modal({
+                    childView: App.Views.CustomTimer,
+                    title: 'New Custom Timer',
+                    model: model
+                });
+
+            App.modalRegion.show(modal);
+            modal.$el.modal();
+            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, App));
+        });
     });
 
     App.on('start', function(options) {
