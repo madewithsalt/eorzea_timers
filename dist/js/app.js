@@ -659,7 +659,6 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 result;
 
             if(val.length <= 2) {
-                this.searchList = [];
                 this.clearSearch();
                 return;
             }
@@ -672,6 +671,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
         },
 
         clearSearch: function() {
+            this.searchList = [];
             this.showFilteredNodes();
         },
 

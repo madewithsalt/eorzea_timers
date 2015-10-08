@@ -130,6 +130,7 @@
         &:hover  .node-content, .node-content.selected {
             background-color: $state-info-bg;
             border-color: $state-info-border;
+            color: $state-info-text;
         }
 
         .node-content.selected {

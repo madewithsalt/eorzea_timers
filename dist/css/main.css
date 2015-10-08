@@ -7954,7 +7954,8 @@ button.close {
   padding: 6px; }
 .node.node-slim:hover .node-content, .node.node-slim .node-content.selected {
   background-color: #d9edf7;
-  border-color: #bce8f1; }
+  border-color: #bce8f1;
+  color: #31708f; }
 .node.node-slim .node-content.selected {
   border-width: 3px; }
 .node.node-slim .node-heading {
