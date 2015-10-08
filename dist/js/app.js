@@ -284,8 +284,11 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                     min = $el.find('input[name="min"]').val(),
                     mer = $el.find('select').val();
 
-                output.time = hr + ':' + min + ' ' + mer;
+                output.times.push(hr + ':' + min + ' ' + mer);
             });
+
+            // only supporting one time for now.
+            output.time = output.times[0];
 
             var xPos = _.find(values, { name: 'xpos' }),
                 yPos = _.find(values, { name: 'ypos' });
@@ -298,7 +301,6 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                 durHour = _.find(values, { name: 'duration-hours' }).value;
 
             output.duration = durHour + ':' + durMin;
-
 
             return output;
         },
