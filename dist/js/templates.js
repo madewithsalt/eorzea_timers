@@ -17,11 +17,11 @@ templates['custom-timer.hbs'] = template({"1":function(container,depth0,helpers,
 
   return "                    <div class=\"form-group form-inline form-time\" data-index=\""
     + alias3(((helper = (helper = helpers.idx || (depth0 != null ? depth0.idx : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"idx","hash":{},"data":data}) : helper)))
-    + "\">\n                        <div class=\"input-group col-md-3\">\n                            <div class=\"input-group-addon\">hour</div>\n                            <input type=\"number\" name=\"hour\" value=\""
+    + "\">\n                        <div class=\"input-group col-md-3\">\n                            <div class=\"input-group-addon\">hour</div>\n                            <input type=\"number\" name=\"hour\" data-parsley-range=\"[1, 12]\" value=\""
     + alias3(((helper = (helper = helpers.hour || (depth0 != null ? depth0.hour : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"hour","hash":{},"data":data}) : helper)))
     + "\" class=\"form-control\" required data-parsley-errors-messages-disabled />\n                        </div>\n                        <div class=\"input-group col-md-3\">\n                            <div class=\"input-group-addon\">minute</div>\n                            <input type=\"number\" name=\"min\" value=\""
     + alias3(((helper = (helper = helpers.min || (depth0 != null ? depth0.min : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"min","hash":{},"data":data}) : helper)))
-    + "\" class=\"form-control\" required data-parsley-errors-messages-disabled />\n                        </div>\n                        <div class=\"input-group col-md-3\">\n                            <select class=\"form-control\" name=\"mer\" value=\""
+    + "\" data-parsley-range=\"[0, 59]\" class=\"form-control\" required data-parsley-errors-messages-disabled />\n                        </div>\n                        <div class=\"input-group col-md-3\">\n                            <select class=\"form-control\" name=\"mer\" value=\""
     + alias3(((helper = (helper = helpers.meridien || (depth0 != null ? depth0.meridien : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"meridien","hash":{},"data":data}) : helper)))
     + "\" required data-parsley-errors-messages-disabled >\n                                <option value=\"AM\">AM</option>\n                                <option value=\"PM\">PM</option>\n                            </select>\n                        </div>\n                    </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -40,10 +40,10 @@ templates['custom-timer.hbs'] = template({"1":function(container,depth0,helpers,
     + "\" class=\"form-control\" />\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"form-group\">\n            <label class=\"times-label\">\n                Time\n            </label>\n            <div class=\"times-list\">\n"
     + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.times : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "            </div>\n        </div>\n        <div class=\"form-group\">\n            <label>Duration</label>\n            <div class=\"form-group form-inline\">\n                <div class=\"input-group col-md-3\">\n                    <div class=\"input-group-addon\">hours</div>\n                    <input type=\"number\" name=\"duration-hours\" value=\""
-    + alias3(alias4(((stack1 = (depth0 != null ? depth0.duration : depth0)) != null ? stack1.hours : stack1), depth0))
-    + "\" class=\"form-control\" required data-parsley-errors-messages-disabled />\n                </div>\n                <div class=\"input-group col-md-3\">\n                    <div class=\"input-group-addon\">minutes</div>\n                    <input type=\"number\" name=\"duration-min\" value=\""
-    + alias3(alias4(((stack1 = (depth0 != null ? depth0.duration : depth0)) != null ? stack1.minutes : stack1), depth0))
-    + "\" class=\"form-control\" required data-parsley-errors-messages-disabled  />\n                </div>\n            </div>\n        </div>\n        <div class=\"form-actions align-right\">\n            <a class=\"btn btn-primary btn-save\">Save</a>\n            <a class=\"btn btn-default btn-close\" data-dismiss=\"modal\">Cancel</a>\n        </div>\n    </form>\n</div>";
+    + alias3(alias4(((stack1 = (depth0 != null ? depth0.duration_obj : depth0)) != null ? stack1.hours : stack1), depth0))
+    + "\" data-parsley-range=\"[0, 23]\" class=\"form-control\" required data-parsley-errors-messages-disabled />\n                </div>\n                <div class=\"input-group col-md-3\">\n                    <div class=\"input-group-addon\">minutes</div>\n                    <input type=\"number\" name=\"duration-min\" value=\""
+    + alias3(alias4(((stack1 = (depth0 != null ? depth0.duration_obj : depth0)) != null ? stack1.minutes : stack1), depth0))
+    + "\" data-parsley-range=\"[0, 59]\" class=\"form-control\" required data-parsley-errors-messages-disabled  />\n                </div>\n            </div>\n        </div>\n        <div class=\"form-actions align-right\">\n            <a class=\"btn btn-primary btn-save\">Save</a>\n            <a class=\"btn btn-default btn-close\" data-dismiss=\"modal\">Cancel</a>\n        </div>\n    </form>\n</div>";
 },"useData":true});
 templates['empty.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "";
@@ -95,7 +95,7 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
     + alias3(((helper = (helper = helpers.pos || (depth0 != null ? depth0.pos : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"pos","hash":{},"data":data}) : helper)))
     + "</div>\n";
 },"11":function(container,depth0,helpers,partials,data) {
-    return "            <a class=\"btn btn-danger btn-xs btn-delete\"><i class=\"fa fa-times\"></i></a>\n";
+    return "            <a class=\"btn btn-primary btn-xs btn-edit\"><i class=\"fa fa-pencil\"></i></a>\n            <a class=\"btn btn-danger btn-xs btn-delete\"><i class=\"fa fa-times\"></i></a>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
 
@@ -122,7 +122,7 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
     + "\n    </div>\n</div>";
 },"useData":true});
 templates['custom-timer/time-slot.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"form-group form-inline form-time\">\n    <div class=\"input-group col-md-3\">\n        <div class=\"input-group-addon\">hour</div>\n        <input type=\"number\" name=\"hour\" value=\"\" class=\"form-control\" />\n    </div>\n    <div class=\"input-group col-md-3\">\n        <div class=\"input-group-addon\">minute</div>\n        <input type=\"number\" name=\"min\" value=\"\" class=\"form-control\" />\n    </div>\n    <div class=\"input-group col-md-3\">\n        <select name=\"meridien\" class=\"form-control\" value=\"\">\n            <option>AM</option>\n            <option>PM</option>\n        </select>\n    </div>\n    <a class=\"rem-time btn btn-sm btn-danger\"><i class=\"fa fa-minus\"></i></a>\n</div>";
+    return "<div class=\"form-group form-inline form-time\">\n    <div class=\"input-group col-md-3\">\n        <div class=\"input-group-addon\">hour</div>\n        <input type=\"range\" name=\"hour\" value=\"\" class=\"form-control\" data-parsley-range=\"[1, 12]\" data-parsley-errors-messages-disabled />\n    </div>\n    <div class=\"input-group col-md-3\">\n        <div class=\"input-group-addon\">minute</div>\n        <input type=\"range\" name=\"min\" value=\"\" class=\"form-control\" data-parsley-range=\"[0, 59]\" data-parsley-errors-messages-disabled />\n    </div>\n    <div class=\"input-group col-md-3\">\n        <select name=\"meridien\" class=\"form-control\" value=\"\">\n            <option>AM</option>\n            <option>PM</option>\n        </select>\n    </div>\n    <a class=\"rem-time btn btn-sm btn-danger\"><i class=\"fa fa-minus\"></i></a>\n</div>";
 },"useData":true});
 templates['home/home.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     return "active";

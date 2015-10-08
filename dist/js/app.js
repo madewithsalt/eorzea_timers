@@ -32,7 +32,8 @@ window.App = (function(Backbone, Marionette) {
         App.addRegions({
             mainRegion: '#main-region',
             navRegion: '#nav-region',
-            errorsRegion: '#error-region'
+            errorsRegion: '#error-region',
+            modalRegion: '#modal-region'
         });
 
         // page title time config
@@ -67,6 +68,29 @@ window.App = (function(Backbone, Marionette) {
             App.collections.watched.get(data.id).destroy();
         });
 
+        App.vent.on('customTimer:create', function() {
+            var modal = new App.Views.Modal({
+                    childView: App.Views.CustomTimer,
+                    title: 'New Custom Timer'
+                });
+
+            App.modalRegion.show(modal);
+            modal.$el.modal();
+            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
+        });
+
+
+        App.vent.on('customTimer:edit', function(model) {
+            var modal = new App.Views.Modal({
+                    childView: App.Views.CustomTimer,
+                    title: 'New Custom Timer',
+                    model: model
+                });
+
+            App.modalRegion.show(modal);
+            modal.$el.modal();
+            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
+        });
     });
 
     App.on('start', function(options) {
@@ -181,8 +205,6 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         },
 
         events: {
-            'click .add-time': 'triggerAddTime',
-            'click .rem-time': 'triggerRemTime',
             'click .btn-save': 'triggerSave'
         },
 
@@ -193,29 +215,24 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                         min = time.split(' ')[0].split(':')[1],
                         meridien = time.split(' ')[1];
 
+
                     return {
-                        idx: idx,
-                        hour: hour,
-                        min: min,
-                        meridien: meridien
-                    }
+                            idx: idx,
+                            hour: hour,
+                            min: min,
+                            meridien: meridien
+                        }
                 });
 
+            var duration = {
+                hours: data.duration.split(' ')[0].split(':')[0],
+                minutes: data.duration.split(' ')[0].split(':')[1]
+            };
+            
             return _.extend({}, data, {
-                times: times
+                times: times,
+                duration_obj: duration
             });
-        },
-
-        triggerAddTime: function() {
-            var slot = new TimeSlot();
-
-            slot.render();
-            this.$('.times-list').append(slot.el);
-        },
-
-        triggerRemTime: function(evt) {
-            var $el = $(evt.currentTarget);
-            $el.parents('.form-time').remove();
         },
 
         triggerSave: function(evt) {
@@ -336,7 +353,8 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         template: 'node',
 
         events: {
-            'click .btn-delete': 'deleteNode'
+            'click .btn-delete': 'deleteNode',
+            'click .btn-edit': 'editNode'
         },
 
         attributes: function() {
@@ -428,6 +446,11 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         deleteNode: function(evt) {
             evt.stopPropagation();
             this.model.destroy();
+        },
+
+        editNode: function(evt) {
+            evt.stopPropagation();
+            App.vent.trigger('customTimer:edit', this.model);
         }
     });
 
@@ -717,14 +740,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
         },
 
         triggerNewTimer: function() {
-            var modal = new App.Views.Modal({
-                    childView: App.Views.CustomTimer,
-                    title: 'New Custom Timer'
-                });
-
-            this.newTimerModal.show(modal);
-            modal.$el.modal();
-            modal.on('hidden.bs.modal', _.bind(this.newTimerModal.reset, this));
+            App.vent.trigger('customTimer:create');
         },
 
         sortCollections: function() {

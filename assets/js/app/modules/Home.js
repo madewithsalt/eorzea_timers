@@ -264,14 +264,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
         },
 
         triggerNewTimer: function() {
-            var modal = new App.Views.Modal({
-                    childView: App.Views.CustomTimer,
-                    title: 'New Custom Timer'
-                });
-
-            this.newTimerModal.show(modal);
-            modal.$el.modal();
-            modal.on('hidden.bs.modal', _.bind(this.newTimerModal.reset, this));
+            App.vent.trigger('customTimer:create');
         },
 
         sortCollections: function() {

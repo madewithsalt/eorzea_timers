@@ -5,7 +5,8 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         template: 'node',
 
         events: {
-            'click .btn-delete': 'deleteNode'
+            'click .btn-delete': 'deleteNode',
+            'click .btn-edit': 'editNode'
         },
 
         attributes: function() {
@@ -97,6 +98,11 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         deleteNode: function(evt) {
             evt.stopPropagation();
             this.model.destroy();
+        },
+
+        editNode: function(evt) {
+            evt.stopPropagation();
+            App.vent.trigger('customTimer:edit', this.model);
         }
     });
 

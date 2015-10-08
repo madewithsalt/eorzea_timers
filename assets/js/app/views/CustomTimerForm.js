@@ -13,8 +13,6 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         },
 
         events: {
-            'click .add-time': 'triggerAddTime',
-            'click .rem-time': 'triggerRemTime',
             'click .btn-save': 'triggerSave'
         },
 
@@ -25,29 +23,24 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                         min = time.split(' ')[0].split(':')[1],
                         meridien = time.split(' ')[1];
 
+
                     return {
-                        idx: idx,
-                        hour: hour,
-                        min: min,
-                        meridien: meridien
-                    }
+                            idx: idx,
+                            hour: hour,
+                            min: min,
+                            meridien: meridien
+                        }
                 });
 
+            var duration = {
+                hours: data.duration.split(' ')[0].split(':')[0],
+                minutes: data.duration.split(' ')[0].split(':')[1]
+            };
+            
             return _.extend({}, data, {
-                times: times
+                times: times,
+                duration_obj: duration
             });
-        },
-
-        triggerAddTime: function() {
-            var slot = new TimeSlot();
-
-            slot.render();
-            this.$('.times-list').append(slot.el);
-        },
-
-        triggerRemTime: function(evt) {
-            var $el = $(evt.currentTarget);
-            $el.parents('.form-time').remove();
         },
 
         triggerSave: function(evt) {
