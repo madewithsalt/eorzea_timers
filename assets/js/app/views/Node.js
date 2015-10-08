@@ -97,7 +97,7 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
         deleteNode: function(evt) {
             evt.stopPropagation();
-            this.model.destroy();
+            App.vent.trigger('node:delete', this.model);
         },
 
         editNode: function(evt) {

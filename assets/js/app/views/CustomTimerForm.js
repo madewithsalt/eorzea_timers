@@ -32,10 +32,15 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                         }
                 });
 
-            var duration = {
-                hours: data.duration.split(' ')[0].split(':')[0],
-                minutes: data.duration.split(' ')[0].split(':')[1]
-            };
+
+            var duration = {};
+
+            if(data.duration) {
+                duration = {
+                    hours: data.duration.split(' ')[0].split(':')[0],
+                    minutes: data.duration.split(' ')[0].split(':')[1]
+                };
+            }
             
             return _.extend({}, data, {
                 times: times,

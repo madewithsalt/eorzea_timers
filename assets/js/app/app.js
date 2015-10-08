@@ -68,6 +68,18 @@ window.App = (function(Backbone, Marionette) {
             App.collections.watched.get(data.id).destroy();
         });
 
+        App.vent.on('node:delete', function(model) {
+            var data = model.toJSON(),
+                type = data.type,
+                watched = App.collections.watched.get(data.id);
+
+            if(watched) {
+                watched.destroy();
+            }
+
+            App.collections.custom.get(data.id).destroy();
+        });
+
         App.vent.on('customTimer:create', function() {
             var modal = new App.Views.Modal({
                     childView: App.Views.CustomTimer,
@@ -89,7 +101,7 @@ window.App = (function(Backbone, Marionette) {
 
             App.modalRegion.show(modal);
             modal.$el.modal();
-            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
+            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, App));
         });
     });
 
