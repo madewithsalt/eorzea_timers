@@ -698,7 +698,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     } else {
                         $el = self.$(target).filter(filter)
                     }
-                } else {
+                } else if(!$el || $el.length) {
                     $el = self.$(target);
                 }
 
