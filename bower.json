@@ -28,6 +28,8 @@
     "jPlayer": "jplayer#~2.9.2",
     "moment": "momentjs#~2.10.6",
     "parsleyjs": "2.2.0-rc2",
-    "swag": "~0.7.0"
+    "swag": "~0.7.0",
+    "SoundManager2": "soundmanager2#*",
+    "modernizr": "~3.1.0"
   }
 }

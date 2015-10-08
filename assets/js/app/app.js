@@ -55,9 +55,10 @@ window.App = (function(Backbone, Marionette) {
         });
 
         App.vent.on('node:selected', function(model) {
-            var data = model.toJSON();
-            App.collections.watched.add(data);
-            App.collections.watched.get(data.id).save();
+            var data = model.toJSON(),
+                watchedModel = App.collections.watched.add(data);
+
+            watchedModel.save();
         });
 
         App.vent.on('node:deselected', function(model) {
@@ -68,7 +69,7 @@ window.App = (function(Backbone, Marionette) {
             App.collections.watched.get(data.id).destroy();
         });
 
-        App.vent.on('node:delete', function(model) {
+        App.vent.on('node:custom:delete', function(model) {
             var data = model.toJSON(),
                 type = data.type,
                 watched = App.collections.watched.get(data.id);
@@ -78,6 +79,26 @@ window.App = (function(Backbone, Marionette) {
             }
 
             App.collections.custom.get(data.id).destroy();
+        });
+
+        App.vent.on('node:custom:save', function(model) {
+            var data = model.toJSON(),
+                type = data.type,
+                watched = App.collections.watched.get(data.id),
+                custom = App.collections.custom.get(data.id);
+
+            if(watched) {
+                watched.save(data);
+            }
+
+            if(custom) {
+                custom.save(data);
+            } else {
+                var customModel = App.collections.custom.add(model);
+                customModel.save();
+            }
+
+            App.vent.trigger('node:custom:update');
         });
 
         App.vent.on('customTimer:create', function() {

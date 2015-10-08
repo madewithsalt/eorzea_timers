@@ -55,9 +55,10 @@ window.App = (function(Backbone, Marionette) {
         });
 
         App.vent.on('node:selected', function(model) {
-            var data = model.toJSON();
-            App.collections.watched.add(data);
-            App.collections.watched.get(data.id).save();
+            var data = model.toJSON(),
+                watchedModel = App.collections.watched.add(data);
+
+            watchedModel.save();
         });
 
         App.vent.on('node:deselected', function(model) {
@@ -68,7 +69,7 @@ window.App = (function(Backbone, Marionette) {
             App.collections.watched.get(data.id).destroy();
         });
 
-        App.vent.on('node:delete', function(model) {
+        App.vent.on('node:custom:delete', function(model) {
             var data = model.toJSON(),
                 type = data.type,
                 watched = App.collections.watched.get(data.id);
@@ -78,6 +79,26 @@ window.App = (function(Backbone, Marionette) {
             }
 
             App.collections.custom.get(data.id).destroy();
+        });
+
+        App.vent.on('node:custom:save', function(model) {
+            var data = model.toJSON(),
+                type = data.type,
+                watched = App.collections.watched.get(data.id),
+                custom = App.collections.custom.get(data.id);
+
+            if(watched) {
+                watched.save(data);
+            }
+
+            if(custom) {
+                custom.save(data);
+            } else {
+                var customModel = App.collections.custom.add(model);
+                customModel.save();
+            }
+
+            App.vent.trigger('node:custom:update');
         });
 
         App.vent.on('customTimer:create', function() {
@@ -309,11 +330,8 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             var data = this.processFormData(),
                 model = this.model ? this.model : new App.Entities.Node(data);
 
-            // possibly allow multiple times in one node, but it will be annoying to add/edit
-            // as the collections parse each time as a diff model/node.
-
-            App.collections.custom.add(model);
-            model.save();
+            model.set(data);
+            App.vent.trigger('node:custom:save', model);            
             this.trigger('modal:close');
         }
     });
@@ -464,7 +482,7 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
         deleteNode: function(evt) {
             evt.stopPropagation();
-            App.vent.trigger('node:delete', this.model);
+            App.vent.trigger('node:custom:delete', this.model);
         },
 
         editNode: function(evt) {
@@ -604,6 +622,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             this.sortCollections();
 
             this.listenTo(App.collections.custom, 'add remove', function() {
+                self.configureSearchList();
+                self.sortAndShowLists();
+            });
+
+            this.listenTo(App.vent, 'node:custom:update', function() {
                 self.configureSearchList();
                 self.sortAndShowLists();
             });
@@ -1165,11 +1188,19 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             setupData: function() {
                 this.getTimeDiff();
 
-                var id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
-                    return item.split(' ').join('-').toLowerCase();
-                }).join('-');
+                var id;
+                if(this.get('type') !== 'custom') {
+                    id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
+                        return item.split(' ').join('-').toLowerCase();
+                    }).join('-');
+                } else if(!this.get('id')) {
+                    id = _.uniqueId('custom-');
+                }
 
-                this.set('id', id);
+                if(id) {
+                    this.set('id', id);
+                }
+
                 this.set('time_obj', TIME_HELPERS.getTimeObjFromString(this.get('time')));
 
                 this.listenTo(App.masterClock, 'change', _.bind(this.getTimeDiff, this));
@@ -1256,6 +1287,21 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             }
         });
 
+    Entities.NodeList = Backbone.Collection.extend({
+        comparator: function(model) {
+            var time = model.get('time_until'),
+                active = model.get('active'),
+                timeRemaining = model.get('time_remaining');
+
+            if(active) {
+                return (timeRemaining.hours * 60) + timeRemaining.minutes;
+            } else {
+                return (time.hours * 60) + time.minutes;
+            }
+
+        }
+    });
+
     Entities.Node = Node;
 
     Entities.BotanyNodes = NodeColl.extend({
@@ -1274,7 +1320,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         localStorage: new Backbone.LocalStorage('CustomNodes')
     });
 
-    Entities.WatchedNodes = Backbone.Collection.extend({
+    Entities.WatchedNodes = Entities.NodeList.extend({
         model: Node,
         type: 'watched',
         localStorage: new Backbone.LocalStorage('WatchedNodes'),
@@ -1292,22 +1338,6 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             }
 
             return weight;
-        }
-    });
-
-
-    Entities.NodeList = Backbone.Collection.extend({
-        comparator: function(model) {
-            var time = model.get('time_until'),
-                active = model.get('active'),
-                timeRemaining = model.get('time_remaining');
-
-            if(active) {
-                return (timeRemaining.hours * 60) + timeRemaining.minutes;
-            } else {
-                return (time.hours * 60) + time.minutes;
-            }
-
         }
     });
 

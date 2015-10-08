@@ -12,11 +12,19 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             setupData: function() {
                 this.getTimeDiff();
 
-                var id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
-                    return item.split(' ').join('-').toLowerCase();
-                }).join('-');
+                var id;
+                if(this.get('type') !== 'custom') {
+                    id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
+                        return item.split(' ').join('-').toLowerCase();
+                    }).join('-');
+                } else if(!this.get('id')) {
+                    id = _.uniqueId('custom-');
+                }
 
-                this.set('id', id);
+                if(id) {
+                    this.set('id', id);
+                }
+
                 this.set('time_obj', TIME_HELPERS.getTimeObjFromString(this.get('time')));
 
                 this.listenTo(App.masterClock, 'change', _.bind(this.getTimeDiff, this));
@@ -103,6 +111,21 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             }
         });
 
+    Entities.NodeList = Backbone.Collection.extend({
+        comparator: function(model) {
+            var time = model.get('time_until'),
+                active = model.get('active'),
+                timeRemaining = model.get('time_remaining');
+
+            if(active) {
+                return (timeRemaining.hours * 60) + timeRemaining.minutes;
+            } else {
+                return (time.hours * 60) + time.minutes;
+            }
+
+        }
+    });
+
     Entities.Node = Node;
 
     Entities.BotanyNodes = NodeColl.extend({
@@ -121,7 +144,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         localStorage: new Backbone.LocalStorage('CustomNodes')
     });
 
-    Entities.WatchedNodes = Backbone.Collection.extend({
+    Entities.WatchedNodes = Entities.NodeList.extend({
         model: Node,
         type: 'watched',
         localStorage: new Backbone.LocalStorage('WatchedNodes'),
@@ -139,22 +162,6 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             }
 
             return weight;
-        }
-    });
-
-
-    Entities.NodeList = Backbone.Collection.extend({
-        comparator: function(model) {
-            var time = model.get('time_until'),
-                active = model.get('active'),
-                timeRemaining = model.get('time_remaining');
-
-            if(active) {
-                return (timeRemaining.hours * 60) + timeRemaining.minutes;
-            } else {
-                return (time.hours * 60) + time.minutes;
-            }
-
         }
     });
 
