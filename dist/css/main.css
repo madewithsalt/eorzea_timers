@@ -7877,23 +7877,6 @@ button.close {
   display: inline-block;
   margin-left: 20px;
   margin-top: -4px; }
-.watch-list .preferences-form {
-  font-size: 14px;
-  line-height: 20px; }
-  .watch-list .preferences-form .radio-inline {
-    margin-right: 10px;
-    margin-bottom: 8px; }
-  .watch-list .preferences-form .sound-preview {
-    margin-top: 30px;
-    font-size: 25px; }
-    .watch-list .preferences-form .sound-preview .play {
-      display: block; }
-    .watch-list .preferences-form .sound-preview .stop {
-      display: none; }
-    .watch-list .preferences-form .sound-preview.playing .play {
-      display: none; }
-    .watch-list .preferences-form .sound-preview.playing .stop {
-      display: block; }
 
 .custom-timer .times-list {
   margin-bottom: 8px; }
@@ -8043,6 +8026,24 @@ body {
   background-color: #f2dede;
   border-color: #ebccd1;
   color: #a94442; }
+
+.preferences-form {
+  font-size: 14px;
+  line-height: 20px; }
+  .preferences-form .radio-inline {
+    margin-right: 10px;
+    margin-bottom: 8px; }
+  .preferences-form .sound-preview {
+    margin-top: 30px;
+    font-size: 25px; }
+    .preferences-form .sound-preview .play {
+      display: block; }
+    .preferences-form .sound-preview .stop {
+      display: none; }
+    .preferences-form .sound-preview.playing .play {
+      display: none; }
+    .preferences-form .sound-preview.playing .stop {
+      display: block; }
 
 @media (max-width: 768px) {
   .primary-nav .menu-toggle {
