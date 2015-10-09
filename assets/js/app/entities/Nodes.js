@@ -160,7 +160,20 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             if(alarm.type === 'desktop') {
                 App.vent.trigger('alarm:desktop', model);
             } else if(alarm.type === 'popup') {
-                App.vent.trigger('alarm:popup', model);
+                var multiple = App.collections.watched.where({ 'time': model.get('time') });
+
+                if(multiple.length) {
+                    // roll up the notification of same times in one popup to prevent it from spazzing out.
+                    App.vent.trigger('alarm:popup', multiple);
+                    
+                    // make sure the other models don't fire.
+                    _.each(multiple, function(model) {
+                        model.set({ 'triggeredAlarm': true });
+                    });
+                } else {
+                    App.vent.trigger('alarm:popup', model);
+                }
+
             } else if(alarm.type === 'alert') {
                 App.vent.trigger('alarm:alert', model);
             }

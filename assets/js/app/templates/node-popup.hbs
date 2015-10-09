@@ -1,25 +1,44 @@
 <div class="node-content {{ classes }}">
     <div class="node-heading">
+        {{#unless nodeList}}
         <span class="icon {{type}}"></span>
-        <span class="time">{{ time }}</span>
+        {{/unless}}
+        <h3><span class="time">{{ time }}</span></h3>
 
-        <div class="node-info"> 
-            <h2>{{name}}</h2>
-            <span class="title">
-                {{#if slot}} [slot {{ slot }}]{{/if}}
-                {{#if is_collectable}}<i class="fa fa-cube"></i>{{/if}}
-                {{#if is_ephemeral}}<i class="fa fa-star"></i>{{/if}}
-            </span>
-            {{#if isActive}}
-                <span class="time-remaining">[
-                    {{ earth_time_remaining.minutes }}m {{ earth_time_remaining.seconds }}s
-                ]</span>
-            {{/if}}
-        </div>
-    </div>
-    <div class="node-body">
-        {{#if location }}
-            <div class="location">{{ location }}, {{ pos }}</div>
+        {{#if nodeList }}
+            {{#each nodeList}}
+                <div class="node-info">
+                    <h2>
+                        {{name}} 
+                        {{#if is_collectable}}<i class="fa fa-cube"></i>{{/if}}
+                        {{#if is_ephemeral}}<i class="fa fa-star"></i>{{/if}}
+                    </h2>
+                    <h4 class="title">
+                        {{#if slot}} [slot {{ slot }}]{{/if}}
+                    </h4>
+                </div>
+                <div class="node-footer">
+                    {{#if location }}
+                        <div class="location">{{ location }}, {{ pos }}</div>
+                    {{/if}}
+                </div>
+            {{/each}}
+        {{ else }}
+            <div class="node-info">
+                <h2>
+                    {{node.name}}
+                    {{#if node.is_collectable}}<i class="fa fa-cube"></i>{{/if}}
+                    {{#if node.is_ephemeral}}<i class="fa fa-star"></i>{{/if}}
+                </h2>
+                <h4 class="title">
+                    {{#if node.slot}} [slot {{ node.slot }}]{{/if}}
+                </h4>
+            </div>
+            <div class="node-footer">
+                {{#if node.location }}
+                    <div class="location">{{ node.location }}, {{ node.pos }}</div>
+                {{/if}}
+            </div>
         {{/if}}
     </div>
     <div class="form-actions align-right">

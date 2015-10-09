@@ -43,19 +43,19 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         showSettings: function() {
-            var modal = new App.Views.Modal({
+            App.vent.trigger('modal:open', {
                     childView: App.Views.Preferences,
                     title: 'Watch List Preferences',
                     model: App.userSettings
-                });
-
-            this.modal.show(modal);
-            modal.$el.modal();
-            modal.on('hidden.bs.modal', _.bind(this.modal.reset, this));            
+                });      
         },
 
         clearList: function() {
             App.vent.trigger('node:deselect:all');
+        },
+
+        onBeforeDestroy: function() {
+            App.vent.trigger('modal:close');
         }
     });
 

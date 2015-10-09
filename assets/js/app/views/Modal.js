@@ -19,7 +19,8 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
             if(this.options.childView) {
                 var child = new this.options.childView({
-                    model: this.model
+                    model: this.model,
+                    collection: this.collection
                 });
 
                 this.body.show(child);

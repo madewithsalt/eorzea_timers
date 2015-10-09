@@ -127,46 +127,51 @@ window.App = (function(Backbone, Marionette) {
             App.vent.trigger('node:custom:update');
         });
 
-        App.vent.on('customTimer:create', function() {
-            var modal = new App.Views.Modal({
-                    childView: App.Views.CustomTimer,
-                    title: 'New Custom Timer'
-                });
+        // MODALS
+        App.vent.on('modal:open', function(options) {
+            var modal = new App.Views.Modal(options);
 
+            App.vent.trigger('modal:close');
             App.modalRegion.show(modal);
             modal.$el.modal();
             modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
         });
 
+        App.vent.on('modal:close', function() {
+            if(App.modalRegion.hasView()) {
+                App.modalRegion.currentView.$el.modal('hide');
+            }
+        });
+
+        App.vent.on('customTimer:create', function() {
+            App.vent.trigger('modal:open', {
+                childView: App.Views.CustomTimer,
+                title: 'New Custom Timer'
+            });
+        });
 
         App.vent.on('customTimer:edit', function(model) {
-            var modal = new App.Views.Modal({
-                    childView: App.Views.CustomTimer,
-                    title: 'New Custom Timer',
-                    model: model
-                });
-
-            App.modalRegion.show(modal);
-            modal.$el.modal();
-            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, App));
+            App.vent.trigger('modal:open', {
+                childView: App.Views.CustomTimer,
+                title: 'New Custom Timer',
+                model: model
+            });
         });
 
+        App.vent.on('alarm:popup', function(entities) {
+            var collection, model;
 
-        App.vent.on('alarm:popup', function(model) {
-            var modal = new App.Views.Modal({
-                    childView: App.Views.Popup,
-                    model: model
-                });
-
-            // if another popup is in the way, close the other one.
-            // TODO: In future, roll them up into one popup.
-            if(App.modalRegion.hasView()) {
-                App.modalRegion.reset();
+            if(_.isArray(entities)) {
+                collection = new Backbone.Collection(entities);
+            } else {
+                model = entities;
             }
 
-            App.modalRegion.show(modal);
-            modal.$el.modal();
-            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
+            App.vent.trigger('modal:open', {
+                childView: App.Views.Popup,
+                model: model,
+                collection: collection
+            });
         });
 
         App.vent.on('alarm:desktop', function(model) {

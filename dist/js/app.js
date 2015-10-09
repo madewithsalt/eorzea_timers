@@ -127,46 +127,51 @@ window.App = (function(Backbone, Marionette) {
             App.vent.trigger('node:custom:update');
         });
 
-        App.vent.on('customTimer:create', function() {
-            var modal = new App.Views.Modal({
-                    childView: App.Views.CustomTimer,
-                    title: 'New Custom Timer'
-                });
+        // MODALS
+        App.vent.on('modal:open', function(options) {
+            var modal = new App.Views.Modal(options);
 
+            App.vent.trigger('modal:close');
             App.modalRegion.show(modal);
             modal.$el.modal();
             modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
         });
 
+        App.vent.on('modal:close', function() {
+            if(App.modalRegion.hasView()) {
+                App.modalRegion.currentView.$el.modal('hide');
+            }
+        });
+
+        App.vent.on('customTimer:create', function() {
+            App.vent.trigger('modal:open', {
+                childView: App.Views.CustomTimer,
+                title: 'New Custom Timer'
+            });
+        });
 
         App.vent.on('customTimer:edit', function(model) {
-            var modal = new App.Views.Modal({
-                    childView: App.Views.CustomTimer,
-                    title: 'New Custom Timer',
-                    model: model
-                });
-
-            App.modalRegion.show(modal);
-            modal.$el.modal();
-            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, App));
+            App.vent.trigger('modal:open', {
+                childView: App.Views.CustomTimer,
+                title: 'New Custom Timer',
+                model: model
+            });
         });
 
+        App.vent.on('alarm:popup', function(entities) {
+            var collection, model;
 
-        App.vent.on('alarm:popup', function(model) {
-            var modal = new App.Views.Modal({
-                    childView: App.Views.Popup,
-                    model: model
-                });
-
-            // if another popup is in the way, close the other one.
-            // TODO: In future, roll them up into one popup.
-            if(App.modalRegion.hasView()) {
-                App.modalRegion.reset();
+            if(_.isArray(entities)) {
+                collection = new Backbone.Collection(entities);
+            } else {
+                model = entities;
             }
 
-            App.modalRegion.show(modal);
-            modal.$el.modal();
-            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
+            App.vent.trigger('modal:open', {
+                childView: App.Views.Popup,
+                model: model,
+                collection: collection
+            });
         });
 
         App.vent.on('alarm:desktop', function(model) {
@@ -441,7 +446,8 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
             if(this.options.childView) {
                 var child = new this.options.childView({
-                    model: this.model
+                    model: this.model,
+                    collection: this.collection
                 });
 
                 this.body.show(child);
@@ -569,14 +575,22 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 });
 App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
-    Views.Popup = App.Views.NodeView.extend({
+    Views.Popup = Marionette.ItemView.extend({
         template: 'node-popup',
         className: function() {
-            return 'node-block node-popup' + App.Views.NodeView.prototype.className.apply(this, arguments);
+            return 'node-block node-popup';
         },
         
         initialize: function() {
             this.timeout = window.setTimeout(_.bind(this.closePopup, this), 5000);
+        },
+
+        serializeData: function() {
+            return {
+                time: this.collection ? this.collection.first().get('time') : this.model.get('time'),
+                nodeList: this.collection ? this.collection.toJSON() : null,
+                node: this.model ? this.model.toJSON() : null
+            }
         },
 
         onBeforeDestroy: function() {
@@ -1257,19 +1271,19 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         showSettings: function() {
-            var modal = new App.Views.Modal({
+            App.vent.trigger('modal:open', {
                     childView: App.Views.Preferences,
                     title: 'Watch List Preferences',
                     model: App.userSettings
-                });
-
-            this.modal.show(modal);
-            modal.$el.modal();
-            modal.on('hidden.bs.modal', _.bind(this.modal.reset, this));            
+                });      
         },
 
         clearList: function() {
             App.vent.trigger('node:deselect:all');
+        },
+
+        onBeforeDestroy: function() {
+            App.vent.trigger('modal:close');
         }
     });
 
@@ -1539,7 +1553,20 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             if(alarm.type === 'desktop') {
                 App.vent.trigger('alarm:desktop', model);
             } else if(alarm.type === 'popup') {
-                App.vent.trigger('alarm:popup', model);
+                var multiple = App.collections.watched.where({ 'time': model.get('time') });
+
+                if(multiple.length) {
+                    // roll up the notification of same times in one popup to prevent it from spazzing out.
+                    App.vent.trigger('alarm:popup', multiple);
+                    
+                    // make sure the other models don't fire.
+                    _.each(multiple, function(model) {
+                        model.set({ 'triggeredAlarm': true });
+                    });
+                } else {
+                    App.vent.trigger('alarm:popup', model);
+                }
+
             } else if(alarm.type === 'alert') {
                 App.vent.trigger('alarm:alert', model);
             }
