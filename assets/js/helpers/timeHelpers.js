@@ -102,6 +102,8 @@ window.TIME_HELPERS = (function() {
             if (hour > 12) {
                 meridien = 'PM';
                 hour = hour - 12;
+            } else if(hour === 12) {
+                meridien = 'PM';
             }
 
             minute = minute < 10 ? '0' + minute : minute;

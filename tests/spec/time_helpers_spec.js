@@ -139,7 +139,7 @@ describe('Time Helpers Spec', function() {
         });
 
         it('12:10 AM > 12:00 PM: should return false', function() {
-            var result = helper.isActive('1:34 PM', '9:00 AM', '0:55');
+            var result = helper.isActive('12:10 AM', '12:00 PM', '0:55');
 
             expect(result).toBe(false);
         });
