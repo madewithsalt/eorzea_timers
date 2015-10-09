@@ -3,6 +3,7 @@ window.App = (function(Backbone, Marionette) {
     moment().utc();
     Swag.registerHelpers(window.Handlebars);
 
+
     var Router,
         App = new Marionette.Application();
 
@@ -48,6 +49,13 @@ window.App = (function(Backbone, Marionette) {
             watched: new App.Entities.WatchedNodes()
         };
 
+        soundManager.setup({
+            url: '/swf/',
+            onready: function() {
+                App.sounds = new App.Entities.Sounds();
+            }
+        });
+
         App.userSettings = new App.Entities.Settings({ id: 'appUserSettings' });
 
         App.masterClock.on('change', function() {
@@ -55,9 +63,10 @@ window.App = (function(Backbone, Marionette) {
         });
 
         App.vent.on('node:selected', function(model) {
-            var data = model.toJSON();
-            App.collections.watched.add(data);
-            App.collections.watched.get(data.id).save();
+            var data = model.toJSON(),
+                watchedModel = App.collections.watched.add(data);
+
+            watchedModel.save();
         });
 
         App.vent.on('node:deselected', function(model) {
@@ -68,7 +77,7 @@ window.App = (function(Backbone, Marionette) {
             App.collections.watched.get(data.id).destroy();
         });
 
-        App.vent.on('node:delete', function(model) {
+        App.vent.on('node:custom:delete', function(model) {
             var data = model.toJSON(),
                 type = data.type,
                 watched = App.collections.watched.get(data.id);
@@ -78,6 +87,26 @@ window.App = (function(Backbone, Marionette) {
             }
 
             App.collections.custom.get(data.id).destroy();
+        });
+
+        App.vent.on('node:custom:save', function(model) {
+            var data = model.toJSON(),
+                type = data.type,
+                watched = App.collections.watched.get(data.id),
+                custom = App.collections.custom.get(data.id);
+
+            if(watched) {
+                watched.save(data);
+            }
+
+            if(custom) {
+                custom.save(data);
+            } else {
+                var customModel = App.collections.custom.add(model);
+                customModel.save();
+            }
+
+            App.vent.trigger('node:custom:update');
         });
 
         App.vent.on('customTimer:create', function() {
@@ -103,6 +132,44 @@ window.App = (function(Backbone, Marionette) {
             modal.$el.modal();
             modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, App));
         });
+
+
+        App.vent.on('alarm:popup', function(model) {
+            var modal = new App.Views.Modal({
+                    childView: App.Views.Popup,
+                    model: model
+                });
+
+            App.modalRegion.show(modal);
+            modal.$el.modal();
+            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
+        });
+
+        App.vent.on('alarm:desktop', function(model) {
+            var notifier = new Notification(model.get('name'), {
+                    renotify: true,
+                    vibrate: 200,
+                    icon: model.get('type') === 'botany' ? '/img/btn_icon_lg.png' : '/img/min_icon_lg.png',
+                    body: model.get('time')
+                }),
+                timeout = window.setTimeout(function() {
+                    notifier.close();
+                }, 5000);
+
+                notifier.onclose = function() {
+                    window.clearTimeout(timeout);
+                    timeout = null;
+                };
+
+        });
+
+        App.vent.on('alarm:alert', function(model) {
+            var name = model.get('name'),
+                time = model.get('time');
+
+            window.alert(name + ' at ' + time);
+        });
+
     });
 
     App.on('start', function(options) {

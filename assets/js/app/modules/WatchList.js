@@ -10,11 +10,26 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         events: {
-            'click .watch-settings-link': 'showSettings'
+            'click .watch-settings-link': 'showSettings',
+            'click .clear-list': 'clearList'
         },
 
         initialize: function() {
+            var self = this;
+
             this.collection = App.collections.watched;
+
+            this._currentHour = App.masterClock.get('hour');
+
+            // only update lists every hour for performance
+            // let individual views (when active) handle countdowns.
+            this.listenTo(App.masterClock, 'change', function() {
+                // be sure to check for race-conditioned nodes that missed the last hour rollover
+                if (self._currentHour !== App.masterClock.get('hour')) {
+                    self._currentHour = App.masterClock.get('hour');
+                    self.collection.sort();
+                }
+            });
         },
 
         onBeforeShow: function() {
@@ -29,7 +44,7 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
 
         showSettings: function() {
             var modal = new App.Views.Modal({
-                    childView: WatchList.Preferences,
+                    childView: App.Views.Preferences,
                     title: 'Watch List Preferences',
                     model: App.userSettings
                 });
@@ -37,6 +52,10 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
             this.modal.show(modal);
             modal.$el.modal();
             modal.on('hidden.bs.modal', _.bind(this.modal.reset, this));            
+        },
+
+        clearList: function() {
+            this.collection.reset();
         }
     });
 
@@ -72,28 +91,6 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
             this.listenTo(App.masterClock, 'change', function() {
                 self.collection.sort();
             });
-        }
-    });
-
-    WatchList.Preferences = Marionette.LayoutView.extend({
-        template: 'watch-list/preferences',
-        className: 'preferences-form',
-        
-        serializeData: function() {
-            var data = this.model.toJSON();
-
-
-            return _.extend({
-                soundList: [
-                    {
-                        name: 'none',
-                        value: 'none'
-                    },
-                    {
-                        
-                    }
-                ]
-            }, data);
         }
     });
 

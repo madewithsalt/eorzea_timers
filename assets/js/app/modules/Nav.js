@@ -42,8 +42,10 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
 
             if(target === 'dark') {
                 $('head').append('<link id="dark" rel="stylesheet" type="text/css" href="css/dark.css" >');
+                $('head').find('#light').remove();
                 $('.css-toggle.light').addClass('active');
             } else {
+                $('head').append('<link id="light" rel="stylesheet" type="text/css" href="css/main.css" >');
                 $('head').find('#dark').remove();
                 $('.css-toggle.dark').addClass('active');
             }

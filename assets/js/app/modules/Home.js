@@ -113,6 +113,11 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 self.sortAndShowLists();
             });
 
+            this.listenTo(App.vent, 'node:custom:update', function() {
+                self.configureSearchList();
+                self.sortAndShowLists();
+            });
+
             // only update lists every hour for performance
             // let individual views (when active) handle countdowns.
             this.listenTo(App.masterClock, 'change', function() {

@@ -105,11 +105,8 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             var data = this.processFormData(),
                 model = this.model ? this.model : new App.Entities.Node(data);
 
-            // possibly allow multiple times in one node, but it will be annoying to add/edit
-            // as the collections parse each time as a diff model/node.
-
-            App.collections.custom.add(model);
-            model.save();
+            model.set(data);
+            App.vent.trigger('node:custom:save', model);            
             this.trigger('modal:close');
         }
     });

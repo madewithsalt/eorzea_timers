@@ -68,6 +68,55 @@ templates['modal.hbs'] = template({"1":function(container,depth0,helpers,partial
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.title : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "        </div>\n        <div class=\"modal-body\"></div>\n    </div>\n</div>";
 },"useData":true});
+templates['node-popup.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return " [slot "
+    + container.escapeExpression(((helper = (helper = helpers.slot || (depth0 != null ? depth0.slot : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"slot","hash":{},"data":data}) : helper)))
+    + "]";
+},"3":function(container,depth0,helpers,partials,data) {
+    return "<i class=\"fa fa-cube\"></i>";
+},"5":function(container,depth0,helpers,partials,data) {
+    return "<i class=\"fa fa-star\"></i>";
+},"7":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+
+  return "                <span class=\"time-remaining\">[\n                    "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.minutes : stack1), depth0))
+    + "m "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.seconds : stack1), depth0))
+    + "s\n                ]</span>\n";
+},"9":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
+
+  return "            <div class=\"location\">"
+    + alias3(((helper = (helper = helpers.location || (depth0 != null ? depth0.location : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"location","hash":{},"data":data}) : helper)))
+    + ", "
+    + alias3(((helper = (helper = helpers.pos || (depth0 != null ? depth0.pos : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"pos","hash":{},"data":data}) : helper)))
+    + "</div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
+
+  return "<div class=\"node-content "
+    + alias3(((helper = (helper = helpers.classes || (depth0 != null ? depth0.classes : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"classes","hash":{},"data":data}) : helper)))
+    + "\">\n    <div class=\"node-heading\">\n        <span class=\"icon "
+    + alias3(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"type","hash":{},"data":data}) : helper)))
+    + "\"></span>\n        <span class=\"time\">"
+    + alias3(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
+    + "</span>\n\n        <div class=\"node-info\"> \n            <h2>"
+    + alias3(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"name","hash":{},"data":data}) : helper)))
+    + "</h2>\n            <span class=\"title\">\n                "
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.slot : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n                "
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.is_collectable : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n                "
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.is_ephemeral : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n            </span>\n"
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isActive : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "        </div>\n    </div>\n    <div class=\"node-body\">\n"
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.location : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </div>\n    <div class=\"form-actions align-right\">\n        <a class=\"btn btn-default btn-close\" data-dismiss=\"modal\">Close</a>\n    </div>\n</div>";
+},"useData":true});
 templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var helper;
 
@@ -188,7 +237,7 @@ templates['main-nav/menu.hbs'] = template({"1":function(container,depth0,helpers
     + "    </ul>\n";
 },"useData":true});
 templates['watch-list/base.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"container\">\n    <div class=\"col-md-12\">\n        <h3>Watch List \n        </h3>\n    </div>\n    <div class=\"watched-nodes-region\"></div>    \n</div>\n<div class=\"modal-region\" id=\"watch-list-modal\"></div>\n";
+    return "<div class=\"container\">\n    <div class=\"col-md-12\">\n        <h3>\n            Watch List \n            <a class=\"watch-settings-link btn btn-default btn-sm\"><i class=\"fa fa-cog\"></i> preferences</a>\n            <a class=\"btn btn-sm btn-default pull-right clear-list\"><i class=\"fa fa-times\"></i> clear all</a>\n        </h3>\n    </div>\n    <div class=\"watched-nodes-region\"></div>    \n</div>\n<div class=\"modal-region\" id=\"watch-list-modal\"></div>\n";
 },"useData":true});
 templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     return "        <a class=\"btn btn-danger btn-xs btn-delete\"><i class=\"fa fa-times\"></i></a>\n";
@@ -263,7 +312,45 @@ templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpe
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.pos : depth0),{"name":"if","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </div>\n\n</div>";
 },"useData":true});
-templates['watch-list/preferences.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "\n<form>\n    <div class=\"form-group\">\n        <label>Notification Time</label>\n        <div class=\"form-inline\">\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-time\" id=\"alarm-time1\" value=\"0\" />\n                    0 hours (at time)\n                </label>\n            </div>\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-time\" id=\"alarm-time2\" value=\"1\" />\n                    1 Hour\n                </label>\n            </div>\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-time\" id=\"alarm-time3\" value=\"2\" />\n                    2 Hours\n                </label>\n            </div>\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-time\" id=\"alarm-time2\" value=\"3\" />\n                    3 Hours\n                </label>\n            </div>\n        </div>\n    </div>\n    <div class=\"form-group\">\n        <label>Notice Style</label>\n        <div class=\"form-inline\">\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-style\" id=\"alarm-style1\" value=\"alert\" />\n                    Browser alert\n                </label>\n            </div>\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-style\" id=\"alarm-style2\" value=\"popup\" />\n                    In-window pop-up (nicer)\n                </label>\n            </div>\n        </div>\n    </div>\n    <div class=\"form-group\">\n        <label>Alert Sound</label>\n        <select class=\"form-control sound-option-list\" name=\"alarm-sound\"></select>\n    </div>\n    <div class=\"form-actions align-right\">\n        <a class=\"btn btn-primary btn-save\">Save</a>\n        <a class=\"btn btn-default btn-close\" data-dismiss=\"modal\">Cancel</a>\n    </div>\n</form>\n\n\n\n";
-},"useData":true});
+templates['watch-list/preferences.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    return "checked ";
+},"3":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "                <div class=\"radio\">\n                    <label class=\"radio-inline\">\n                        <input type=\"radio\" name=\"alarm-style\" id=\"alarm-style2\" value=\"desktop\" "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || helpers.helperMissing).call(depth0,"desktop",((stack1 = (depth0 != null ? depth0.alarm : depth0)) != null ? stack1.type : stack1),{"name":"is","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " />\n                        Desktop Notification (needs permission)\n                    </label>\n                </div>\n";
+},"5":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
+
+  return "                <option value=\""
+    + alias3(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,(depth0 != null ? depth0.id : depth0),((stack1 = (depths[1] != null ? depths[1].alarm : depths[1])) != null ? stack1.sound : stack1),{"name":"is","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ">"
+    + alias3(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"name","hash":{},"data":data}) : helper)))
+    + "</option>\n";
+},"6":function(container,depth0,helpers,partials,data) {
+    return "selected ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, alias1=helpers.helperMissing;
+
+  return "\n<form>\n    <div class=\"form-group\">\n        <label>Notification Time</label>\n        <div class=\"form-inline\">\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-time\" id=\"alarm-time1\" value=\"0\" "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,((stack1 = (depth0 != null ? depth0.alarm : depth0)) != null ? stack1.time : stack1),"0",{"name":"is","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " />\n                    0 hours (at time)\n                </label>\n            </div>\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-time\" id=\"alarm-time2\" value=\"1\" "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,((stack1 = (depth0 != null ? depth0.alarm : depth0)) != null ? stack1.time : stack1),"1",{"name":"is","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " />\n                    1 Hour\n                </label>\n            </div>\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-time\" id=\"alarm-time3\" value=\"2\" "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,((stack1 = (depth0 != null ? depth0.alarm : depth0)) != null ? stack1.time : stack1),"2",{"name":"is","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " />\n                    2 Hours\n                </label>\n            </div>\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-time\" id=\"alarm-time2\" value=\"3\" "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,((stack1 = (depth0 != null ? depth0.alarm : depth0)) != null ? stack1.time : stack1),"3",{"name":"is","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " />\n                    3 Hours\n                </label>\n            </div>\n        </div>\n    </div>\n    <div class=\"form-group\">\n        <label>Notice Style</label>\n        <div class=\"form-inline\">\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-style\" id=\"alarm-style1\" value=\"alert\" "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,"alert",((stack1 = (depth0 != null ? depth0.alarm : depth0)) != null ? stack1.type : stack1),{"name":"is","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " />\n                    Browser alert\n                </label>\n            </div>\n            <div class=\"radio\">\n                <label class=\"radio-inline\">\n                    <input type=\"radio\" name=\"alarm-style\" id=\"alarm-style2\" value=\"popup\" "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,"popup",((stack1 = (depth0 != null ? depth0.alarm : depth0)) != null ? stack1.type : stack1),{"name":"is","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " />\n                    In-window pop-up\n                </label>\n            </div>\n"
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.desktop : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "        </div>\n    </div>\n    <div class=\"form-group row\">\n        <div class=\"col-md-8\">\n        <label>Alert Sound</label>\n        <select class=\"form-control sound-option-list\" name=\"alarm-sound\">\n            <option value=\"none\">No Sound</option>\n"
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.soundList : depth0),{"name":"each","hash":{},"fn":container.program(5, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "        </select>\n        </div>\n        <div class=\"sound-preview pull-left hidden\">\n            <i class=\"fa fa-play play\"></i>\n            <i class=\"fa fa-stop stop\"></i>\n        </div>\n    </div>\n    <div class=\"form-actions align-right\">\n        <a class=\"btn btn-primary btn-save\">Save</a>\n        <a class=\"btn btn-default btn-close\" data-dismiss=\"modal\">Cancel</a>\n    </div>\n</form>\n\n\n\n";
+},"useData":true,"useDepths":true});
 })();

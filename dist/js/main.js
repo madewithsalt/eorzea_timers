@@ -142,21 +142,63 @@ window.TIME_HELPERS = (function() {
             return end.hour + ':' + end.minute + ' ' + end.meridien;
         },
 
-        getDurationObjectFromString: function(duration) {
+        getDurationObjFromString: function(duration) {
+            var hours = parseFloat(duration.split(':')[0]),
+                mins = parseFloat(duration.split(':')[1]);
+
             return {
-                hours: parseFloat(duration.split(':')[0]),
-                minutes: parseFloat(duration.split(':')[1])
-            }
+                hours: hours,
+                minutes: mins
+            };
         },
 
         getDurationStringFromObject: function(durationObj) {
-            var mins = durationObj.minutes;
+            var hours = durationObj.hours,
+                mins = durationObj.minutes;
 
             if(mins < 10) {
-                mins = '0' + mins;
+                mins = '0' + mins.toString()
             }
 
-            return durationObj.hours + ':' + mins;
+            return hours + ':' + mins;
+        },
+
+        getEndTimeFromDuration: function(startTime, duration) {
+            var startObj = this.getTimeObjFromString(startTime),
+                durationObj = this.getDurationObjFromString(duration),
+                endObj = {
+                    hour: startObj.hour + durationObj.hours,
+                    minute: startObj.minute + durationObj.minutes
+                };
+
+            if(endObj.minute >= 60) {
+                endObj.hour += 1;
+                endObj.minute -= 60;
+            }
+
+            if(endObj.hour >= 24) {
+                endObj.hour -= 24;
+            }
+
+            return this.getTimeStringFromObject(endObj);
+        },
+
+        isActive: function(currentTime, startTime, duration) {
+            var endTime = this.getEndTimeFromDuration(startTime, duration),
+                startTimeDiff = this.getTimeDifference(currentTime, startTime),
+                endTimeDiff = this.getTimeDifference(currentTime, endTime),
+                durationObj = this.getDurationObjFromString(duration),
+                result = false;
+
+            var startTimeDiffMins = (startTimeDiff.hours * 60) + startTimeDiff.minutes,
+                endTimeDiffMins = (endTimeDiff.hours * 60) + endTimeDiff.minutes,
+                durationMins = (durationObj.hours * 60) + durationObj.minutes;
+
+            if(endTimeDiffMins < durationMins) {
+                result = true;
+            }
+
+            return result;
         }
     };
 

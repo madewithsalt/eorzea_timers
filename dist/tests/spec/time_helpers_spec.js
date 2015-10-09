@@ -112,4 +112,39 @@ describe('Time Helpers Spec', function() {
         });
     });
 
+    describe('isActive', function () {
+        it('1:00 AM > 2:00 AM: should return false', function() {
+            var result = helper.isActive('1:00 AM', '2:00 AM', '0:55');
+
+            expect(result).toBe(false);
+        });
+
+        it('1:10 AM > 1:00 AM: should return true', function() {
+            var result = helper.isActive('1:10 AM', '1:00 AM', '0:55');
+
+            expect(result).toBe(true);
+        });
+
+
+        it('1:10 AM > 11:00 PM: should return true', function() {
+            var result = helper.isActive('1:10 AM', '11:00 PM', '3:00');
+
+            expect(result).toBe(true);
+        });
+
+        it('1:34 PM > 9:00 AM: should return false', function() {
+            var result = helper.isActive('1:34 PM', '9:00 AM', '0:55');
+
+            expect(result).toBe(false);
+        });
+
+        it('12:10 AM > 12:00 PM: should return false', function() {
+            var result = helper.isActive('1:34 PM', '9:00 AM', '0:55');
+
+            expect(result).toBe(false);
+        });
+
+    });
+
+
 });

@@ -49,6 +49,10 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                 classes.push('selected');
             }
 
+            if(this.model.get('triggeredAlarm')) {
+                classes.push('alerted');
+            }
+
             return classes.join(' ');
         },
 
@@ -97,7 +101,7 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
         deleteNode: function(evt) {
             evt.stopPropagation();
-            App.vent.trigger('node:delete', this.model);
+            App.vent.trigger('node:custom:delete', this.model);
         },
 
         editNode: function(evt) {

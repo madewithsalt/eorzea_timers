@@ -48,7 +48,9 @@ module.exports = function(grunt) {
                     '<%= config.lib %>/moment/moment.js',
                     '<%= config.lib %>/isotope/dist/isotope.pkgd.js',
                     '<%= config.lib %>/fuse.js/src/fuse.js',
-                    '<%= config.lib %>/parsleyjs/dist/parsley.js'
+                    '<%= config.lib %>/parsleyjs/dist/parsley.js',
+                    '<%= config.lib %>/SoundManager2/script/soundmanager2.js',
+                    './assets/js/lib/**/*.js',
                 ],
                 dest: '<%= config.dist %>/js/lib.js'
             },
@@ -138,7 +140,13 @@ module.exports = function(grunt) {
                     flatten: true,
                     src: ['<%= config.src %>/data/**/*'],
                     dest: '<%= config.dist %>/data'
-                }]
+                },{
+                    expand: true,
+                    flatten: true,
+                    src: ['<%= config.lib %>/SoundManager2/swf/*.swf'],
+                    dest: '<%= config.dist %>/swf'
+                }
+                ]
             },
             fonts: {
                 files: [{
@@ -170,6 +178,7 @@ module.exports = function(grunt) {
         }
 
     });
+
 
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-concat');
