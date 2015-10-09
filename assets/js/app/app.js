@@ -147,11 +147,20 @@ window.App = (function(Backbone, Marionette) {
 
         App.vent.on('alarm:desktop', function(model) {
             var notifier = new Notification(model.get('name'), {
-                renotify: true,
-                vibrate: 200,
-                icon: model.get('type') === 'botany' ? '/img/btn_icon_lg.png' : '/img/min_icon_lg.png',
-                body: model.get('time')
-            });
+                    renotify: true,
+                    vibrate: 200,
+                    icon: model.get('type') === 'botany' ? '/img/btn_icon_lg.png' : '/img/min_icon_lg.png',
+                    body: model.get('time')
+                }),
+                timeout = window.setTimeout(function() {
+                    notifier.close();
+                }, 5000);
+
+                notifier.onclose = function() {
+                    window.clearTimeout(timeout);
+                    timeout = null;
+                };
+
         });
 
         App.vent.on('alarm:alert', function(model) {

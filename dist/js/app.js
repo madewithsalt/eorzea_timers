@@ -147,11 +147,20 @@ window.App = (function(Backbone, Marionette) {
 
         App.vent.on('alarm:desktop', function(model) {
             var notifier = new Notification(model.get('name'), {
-                renotify: true,
-                vibrate: 200,
-                icon: model.get('type') === 'botany' ? '/img/btn_icon_lg.png' : '/img/min_icon_lg.png',
-                body: model.get('time')
-            });
+                    renotify: true,
+                    vibrate: 200,
+                    icon: model.get('type') === 'botany' ? '/img/btn_icon_lg.png' : '/img/min_icon_lg.png',
+                    body: model.get('time')
+                }),
+                timeout = window.setTimeout(function() {
+                    notifier.close();
+                }, 5000);
+
+                notifier.onclose = function() {
+                    window.clearTimeout(timeout);
+                    timeout = null;
+                };
+
         });
 
         App.vent.on('alarm:alert', function(model) {
@@ -1177,7 +1186,8 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         events: {
-            'click .watch-settings-link': 'showSettings'
+            'click .watch-settings-link': 'showSettings',
+            'click .clear-list': 'clearList'
         },
 
         initialize: function() {
@@ -1218,6 +1228,10 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
             this.modal.show(modal);
             modal.$el.modal();
             modal.on('hidden.bs.modal', _.bind(this.modal.reset, this));            
+        },
+
+        clearList: function() {
+            this.collection.reset();
         }
     });
 
@@ -1382,7 +1396,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     earthTimeUntil = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeStartUntil)),
                     timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time),
                     earthTimeRemaining = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeRemaining)),
-                    isActive = TIME_HELPERS.isActive(currentTime, activeTime, durationInfo.end_time);
+                    isActive = TIME_HELPERS.isActive(currentTime, activeTime, this.get('duration'));
 
                 if (isActive) {
                     this.set({ 'triggeredAlarm': false }, { silent: true });

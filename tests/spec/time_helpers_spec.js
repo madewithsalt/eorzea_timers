@@ -131,6 +131,13 @@ describe('Time Helpers Spec', function() {
 
             expect(result).toBe(true);
         });
+
+        it('should return false', function() {
+            var result = helper.isActive('1:54 PM', '12:00 PM', '12:55 PM');
+
+            expect(result).toBe(false);
+        });
+
     });
 
 

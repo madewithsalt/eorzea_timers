@@ -10,7 +10,8 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         events: {
-            'click .watch-settings-link': 'showSettings'
+            'click .watch-settings-link': 'showSettings',
+            'click .clear-list': 'clearList'
         },
 
         initialize: function() {
@@ -51,6 +52,10 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
             this.modal.show(modal);
             modal.$el.modal();
             modal.on('hidden.bs.modal', _.bind(this.modal.reset, this));            
+        },
+
+        clearList: function() {
+            this.collection.reset();
         }
     });
 

@@ -55,7 +55,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     earthTimeUntil = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeStartUntil)),
                     timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time),
                     earthTimeRemaining = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeRemaining)),
-                    isActive = TIME_HELPERS.isActive(currentTime, activeTime, durationInfo.end_time);
+                    isActive = TIME_HELPERS.isActive(currentTime, activeTime, this.get('duration'));
 
                 if (isActive) {
                     this.set({ 'triggeredAlarm': false }, { silent: true });

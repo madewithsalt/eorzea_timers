@@ -237,7 +237,7 @@ templates['main-nav/menu.hbs'] = template({"1":function(container,depth0,helpers
     + "    </ul>\n";
 },"useData":true});
 templates['watch-list/base.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"container\">\n    <div class=\"col-md-12\">\n        <h3>Watch List \n        <a class=\"watch-settings-link btn btn-default btn-sm\"><i class=\"fa fa-cog\"></i> preferences</a>\n        </h3>\n    </div>\n    <div class=\"watched-nodes-region\"></div>    \n</div>\n<div class=\"modal-region\" id=\"watch-list-modal\"></div>\n";
+    return "<div class=\"container\">\n    <div class=\"col-md-12\">\n        <h3>\n            Watch List \n            <a class=\"watch-settings-link btn btn-default btn-sm\"><i class=\"fa fa-cog\"></i> preferences</a>\n            <a class=\"btn btn-sm pull-right clear-list\"><i class=\"fa fa-times\"></i> clear all</a>\n        </h3>\n    </div>\n    <div class=\"watched-nodes-region\"></div>    \n</div>\n<div class=\"modal-region\" id=\"watch-list-modal\"></div>\n";
 },"useData":true});
 templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     return "        <a class=\"btn btn-danger btn-xs btn-delete\"><i class=\"fa fa-times\"></i></a>\n";
