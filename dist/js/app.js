@@ -1497,12 +1497,15 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         checkAlarm: function(model) {
             var alarm = App.userSettings.get('alarm');
 
-            if(!alarm || !model.get('selected')) { return; }
+            if(!alarm || !model.get('selected') || model.get('active')) { return; }
 
-            var time = parseFloat(alarm.time || 0);
+            var time = parseFloat(alarm.time || 0),
+                timeUntil = model.get('time_until');
             
             if(!model.get('triggeredAlarm')) {
-                if(time === 0 && model.get('active') || model.get('time_until').hours < time) {
+                // its a bit too messy to try and set 0 time alerts to when it actually goes active, so instead
+                // we trigger in under 2 eorzean minutes, which is really, really close (and in the 3m window of "error")
+                if((timeUntil.hours < time && time !== 0) || (time === 0 && timeUntil.hours === 0 && timeUntil.minutes <= 2)) {
                     return this.triggerAlarm(model);
                 }
             }
