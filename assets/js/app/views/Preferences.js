@@ -43,11 +43,11 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
             if(!this.playing) {
                 sound.play(_.bind(this.toggleSound, this));
-                this.playing = true;
+                this.playing = sound;
                 this.ui.soundPreview.addClass('playing');
             } else {
                 sound.stop();
-                this.playing = false;
+                this.playing = null;
                 this.ui.soundPreview.removeClass('playing');
             }
         },
@@ -85,6 +85,12 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             return {
                 alarm: output
             };
+        },
+
+        onBeforeDestroy: function() {
+            if(this.playing) {
+                this.playing.stop();
+            }
         }
 
     });
