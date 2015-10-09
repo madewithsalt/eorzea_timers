@@ -1385,7 +1385,6 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     isActive = TIME_HELPERS.isActive(currentTime, activeTime, duration);
 
                 if (isActive) {
-                    debugger;
                     this.set({ 'triggeredAlarm': false }, { silent: true });
                 }
 
