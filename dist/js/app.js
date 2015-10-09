@@ -1371,34 +1371,21 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                 this.listenTo(App.masterClock, 'change', _.bind(this.getTimeDiff, this));
             },
 
-            getDurationInfo: function() {
-                if (!this.get('duration')) {
-                    return;
-                }
-                var duration = this.get('duration'),
-                    dur = TIME_HELPERS.getDurationObjectFromString(duration),
-                    str = TIME_HELPERS.getTimeStringFromDuration(this.get('time'), this.get('duration'));
-
-                return {
-                    duration: dur,
-                    end_time: str,
-                    end_time_obj: TIME_HELPERS.getTimeObjFromString(str)
-                }
-            },
-
             getTimeDiff: function() {
                 var currentTime = App.masterClock.get('time'),
                     activeTime = this.get('time'),
-                    durationInfo = this.getDurationInfo(),
+                    duration = this.get('duration'),
+                    endTime = TIME_HELPERS.getEndTimeFromDuration(activeTime, duration),
                     currentTimeObj = TIME_HELPERS.getTimeObjFromString(currentTime),
                     activeTimeObj = TIME_HELPERS.getTimeObjFromString(activeTime),
                     timeStartUntil = TIME_HELPERS.getTimeDifference(currentTime, activeTime),
                     earthTimeUntil = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeStartUntil)),
-                    timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time),
+                    timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, endTime),
                     earthTimeRemaining = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeRemaining)),
-                    isActive = TIME_HELPERS.isActive(currentTime, activeTime, this.get('duration'));
+                    isActive = TIME_HELPERS.isActive(currentTime, activeTime, duration);
 
                 if (isActive) {
+                    debugger;
                     this.set({ 'triggeredAlarm': false }, { silent: true });
                 }
 

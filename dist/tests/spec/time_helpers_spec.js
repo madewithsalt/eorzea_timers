@@ -113,27 +113,27 @@ describe('Time Helpers Spec', function() {
     });
 
     describe('isActive', function () {
-        it('should return false', function() {
-            var result = helper.isActive('1:00 AM', '2:00 AM', '2:55 AM');
+        it('1:00 AM > 2:00 AM: should return false', function() {
+            var result = helper.isActive('1:00 AM', '2:00 AM', '0:55');
 
             expect(result).toBe(false);
         });
 
-        it('should return true', function() {
-            var result = helper.isActive('1:10 AM', '1:00 AM', '1:55 AM');
+        it('1:10 AM > 1:00 AM: should return true', function() {
+            var result = helper.isActive('1:10 AM', '1:00 AM', '0:55');
 
             expect(result).toBe(true);
         });
 
 
-        it('should return true', function() {
-            var result = helper.isActive('11:10 PM', '11:00 AM', '2:00 AM');
+        it('1:10 AM > 11:00 PM: should return true', function() {
+            var result = helper.isActive('1:10 AM', '11:00 PM', '3:00');
 
             expect(result).toBe(true);
         });
 
-        it('should return false', function() {
-            var result = helper.isActive('1:54 PM', '12:00 PM', '12:55 PM');
+        it('1:34 PM > 9:00 AM: should return false', function() {
+            var result = helper.isActive('1:34 PM', '9:00 AM', '0:55');
 
             expect(result).toBe(false);
         });
