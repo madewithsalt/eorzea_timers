@@ -35,7 +35,7 @@ templates['custom-timer.hbs'] = template({"1":function(container,depth0,helpers,
 
   return "<div class=\"clearfix\">\n    <form class=\"col-md-12\">\n        <div class=\"form-group\">\n            <label>Name</label>\n            <input type=\"text\" name=\"name\" value=\""
     + alias3(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"name","hash":{},"data":data}) : helper)))
-    + "\" class=\"form-control\" required data-parsley-errors-messages-disabled />\n        </div>\n        <div class=\"form-group\">\n            <label>Location</label>\n            <input type=\"text\" name=\"location\" value=\""
+    + "\" class=\"form-control\" required data-parsley-errors-messages-disabled data-parsley-maxlength=\"100\" />\n        </div>\n        <div class=\"form-group\">\n            <label>Location</label>\n            <input type=\"text\" name=\"location\" value=\""
     + alias3(((helper = (helper = helpers.location || (depth0 != null ? depth0.location : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"location","hash":{},"data":data}) : helper)))
     + "\" class=\"form-control\" />\n        </div>\n        <div class=\"row\">\n            <div class=\"form-group col-md-4\">\n                <label>Slot</label>\n                <input type=\"text\" name=\"slot\" value=\""
     + alias3(((helper = (helper = helpers.slot || (depth0 != null ? depth0.slot : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"slot","hash":{},"data":data}) : helper)))
