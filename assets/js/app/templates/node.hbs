@@ -5,17 +5,22 @@
 
         <div class="node-info"> 
             <span class="title">
-                {{ name }}
-                {{#if slot}} [slot {{ slot }}]{{/if}}
-                {{#if is_collectable}}<i class="fa fa-cube"></i>{{/if}}
-                {{#if is_ephemeral}}<i class="fa fa-star"></i>{{/if}}
-                {{#if is_legendary}}<i class="fa fa-book"></i>{{/if}}
+                {{ name }}{{#if slot}} [slot {{ slot }}]{{/if}}
             </span>
             {{#if isActive}}
                 <span class="time-remaining">[
                     {{ earth_time_remaining.minutes }}m {{ earth_time_remaining.seconds }}s
                 ]</span>
             {{/if}}
+            <div class="inline-block">
+                {{#if is_ephemeral}}<i class="fa fa-star"></i>{{/if}}
+                {{#if is_legendary}}<i class="fa fa-book"></i>{{/if}}
+                {{#if is_collectable}}{{#if scrip}}
+                        <span class="scrip-rating label"><i class="icon {{ scrip.icon }}"></i> {{ scrip.rating }}</span>
+                    {{else}}
+                        <i class="fa fa-cube"></i>
+                {{/if}}{{/if}}
+            </div>
         </div>
     </div>
     <div class="node-body">

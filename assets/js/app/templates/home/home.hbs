@@ -6,19 +6,21 @@
                 <div class="nodes-filter">
                     <div class="filter-label">Filter by:</div>
                     <div class="btn-group filter-menu">
-                        <div class="btn btn-primary {{#is filteringBy 'all' }}active{{/is}} all" data-target="all">All</div>
-                        <div class="btn btn-primary {{#is filteringBy 'botany' }}active{{/is}} botany" data-target="botany"><span class="icon botany"></span> Botany</div>
-                        <div class="btn btn-primary {{#is filteringBy 'mining' }}active{{/is}} mining" data-target="mining"><span class="icon mining"></span>  Mining</div>
+                        <div class="btn btn-primary btn-sm {{#is filteringBy 'all' }}active{{/is}} all" data-target="all">All</div>
+                        <div class="btn btn-primary btn-sm {{#is filteringBy 'botany' }}active{{/is}} botany" data-target="botany"><span class="icon botany"></span> Botany</div>
+                        <div class="btn btn-primary btn-sm {{#is filteringBy 'mining' }}active{{/is}} mining" data-target="mining"><span class="icon mining"></span>  Mining</div>
                         {{!-- <div class="btn btn-primary fishing"><span class="icon fishing"></span> Fishing</div>--}}
-                        <div class="btn btn-primary {{#is filteringBy 'custom' }}active{{/is}} custom" data-target="custom"><span class="icon custom"></span> Custom</div>
+                        <div class="btn btn-primary btn-sm {{#is filteringBy 'custom' }}active{{/is}} custom" data-target="custom"><span class="icon custom"></span> Custom</div>
                     </div>                        
                 </div>
                 <div class="nodes-filter">
                     <div class="filter-label">Special attributes:</div>                        
                     <div class="btn-group attr-menu">
-                        <div class="btn btn-default {{#inArray attrFilters 'is_collectable'}}active{{/inArray}} is_collectable" data-target="is_collectable"><span class="fa fa-cube"></span> Collectable</div>
-                        <div class="btn btn-default {{#inArray attrFilters 'is_ephemeral'}}active{{/inArray}} is_ephemeral" data-target="is_ephemeral"><span class="fa fa-star"></span> Ephemeral</div>
-                        <div class="btn btn-default {{#inArray attrFilters 'is_legendary'}}active{{/inArray}} is_legendary" data-target="is_legendary"><span class="fa fa-book"></span> Legendary</div>
+                        <div class="btn btn-default btn-sm {{#inArray attrFilters 'is_collectable'}}active{{/inArray}} is_collectable" data-target="is_collectable"><span class="fa fa-cube"></span> Collectable</div>
+                        <div class="btn btn-default btn-sm {{#inArray attrFilters 'is_ephemeral'}}active{{/inArray}} is_ephemeral" data-target="is_ephemeral"><span class="fa fa-star"></span> Ephemeral</div>
+                        <div class="btn btn-default btn-sm {{#inArray attrFilters 'is_legendary'}}active{{/inArray}} is_legendary" data-target="is_legendary"><span class="fa fa-book"></span> Legendary</div>
+                        <div class="btn btn-default btn-sm {{#inArray attrFilters 'red_scrip'}}active{{/inArray}} scrip red_scrip" data-target="red_scrip"><span class="icon red_scrip"></span></div>
+                        <div class="btn btn-default btn-sm {{#inArray attrFilters 'blue_scrip'}}active{{/inArray}} scrip blue_scrip" data-target="blue_scrip"><span class="icon blue_scrip"></span></div>
                     </div>                        
                 </div>
             </div>

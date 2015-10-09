@@ -478,15 +478,32 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                 'data-type': data.type,
                 'is_collectable': data.is_collectable || null,
                 'is_ephemeral': data.is_ephemeral,
-                'is_legendary': data.is_legendary
+                'is_legendary': data.is_legendary,
+                'red_scrip': !_.isUndefined(data.red_scrip) ? true : null,
+                'blue_scrip': !_.isUndefined(data.blue_scrip) ? true : null
             }
         },
 
         serializeData: function() {
+            var scrip;
+
+            if(this.model.get('red_scrip')) {
+                scrip = {
+                    icon: 'red_scrip',
+                    rating: this.model.get('red_scrip')
+                };
+            } else if(this.model.get('blue_scrip')) {
+                scrip = {
+                    icon: 'blue_scrip',
+                    rating: this.model.get('blue_scrip')
+                };
+            }
+
             return _.extend({
                 isCustom: this.model.get('type') === 'custom',
                 isActive: this.model.get('active'),
-                classes: this.getContentClasses()
+                classes: this.getContentClasses(),
+                scrip: scrip
             }, this.model.toJSON());
         },
 
@@ -1299,11 +1316,26 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         serializeData: function() {
+            var scrip;
+
+            if(this.model.get('red_scrip')) {
+                scrip = {
+                    icon: 'red_scrip',
+                    rating: this.model.get('red_scrip')
+                };
+            } else if(this.model.get('blue_scrip')) {
+                scrip = {
+                    icon: 'blue_scrip',
+                    rating: this.model.get('blue_scrip')
+                };
+            }
+
             return _.extend({
                 isCustom: this.model.get('type') === 'custom',
                 isActive: this.model.get('active'),
                 untilHours: this.model.get('earth_time_until').hours > 0,
-                classes: this.getContentClasses()
+                classes: this.getContentClasses(),
+                scrip: scrip
             }, this.model.toJSON());
         }
     });

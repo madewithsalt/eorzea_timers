@@ -4,8 +4,12 @@
     {{/if}}
 
     <div class="node-heading">
-        <span class="icon {{type}}"></span>
+        <span class="icon type {{type}}"></span>
         <span class="time">{{ time }}</span>
+
+        {{#if scrip}}
+            <span class="scrip-rating pull-right"><i class="icon {{ scrip.icon }}"></i> {{ scrip.rating }}</span>
+        {{/if}}
     </div>
     <div class="node-body">
         <div class="title">

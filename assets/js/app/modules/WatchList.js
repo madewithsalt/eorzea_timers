@@ -71,11 +71,26 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         serializeData: function() {
+            var scrip;
+
+            if(this.model.get('red_scrip')) {
+                scrip = {
+                    icon: 'red_scrip',
+                    rating: this.model.get('red_scrip')
+                };
+            } else if(this.model.get('blue_scrip')) {
+                scrip = {
+                    icon: 'blue_scrip',
+                    rating: this.model.get('blue_scrip')
+                };
+            }
+
             return _.extend({
                 isCustom: this.model.get('type') === 'custom',
                 isActive: this.model.get('active'),
                 untilHours: this.model.get('earth_time_until').hours > 0,
-                classes: this.getContentClasses()
+                classes: this.getContentClasses(),
+                scrip: scrip
             }, this.model.toJSON());
         }
     });

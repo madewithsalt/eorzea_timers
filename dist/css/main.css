@@ -7856,6 +7856,12 @@ button.close {
     min-height: 43px;
     vertical-align: middle;
     line-height: 30px; }
+  .home .filter-menu .scrip, .home .attr-menu .scrip {
+    min-width: 30px; }
+  .home .filter-menu .icon, .home .attr-menu .icon {
+    width: 25px;
+    height: 25px;
+    display: inline-block; }
 .home .new-timer-btn {
   margin-top: 12px; }
 .home .filter-list-form {
@@ -7911,8 +7917,10 @@ button.close {
   .node.node-block .node-heading .icon {
     width: 18px;
     height: 18px;
-    margin-right: 8px;
-    margin-left: -8px; }
+    background-size: 100% auto; }
+    .node.node-block .node-heading .icon.type {
+      margin-right: 8px;
+      margin-left: -8px; }
 .node.node-block .node-footer {
   padding-top: 4px;
   margin-top: 4px;
@@ -7951,7 +7959,8 @@ button.close {
   float: left; }
   .node.node-slim .node-heading .icon {
     width: 20px;
-    height: 20px; }
+    height: 20px;
+    background-size: 100% auto; }
   .node.node-slim .node-heading .title {
     font-weight: bold; }
 .node.node-slim .node-info {
@@ -8022,6 +8031,9 @@ body {
 .align-left {
   text-align: left; }
 
+.inline-block {
+  display: inline-block; }
+
 .parsley-error {
   background-color: #f2dede;
   border-color: #ebccd1;
@@ -8044,6 +8056,16 @@ body {
       display: none; }
     .preferences-form .sound-preview.playing .stop {
       display: block; }
+
+.icon {
+  display: inline-block;
+  background-size: auto 100%; }
+  .icon.red_scrip {
+    background: url("/img/red_scrip.png") top center no-repeat; }
+  .icon.blue_scrip {
+    background: url("/img/blue_scrip.png") top center no-repeat; }
+  .icon.collectible {
+    background: url("/img/collectable_icon.png") top center no-repeat; }
 
 @media (max-width: 768px) {
   .primary-nav .menu-toggle {

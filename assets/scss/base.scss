@@ -64,6 +64,10 @@ body {
     text-align: left;
 }
 
+.inline-block {
+    display: inline-block;
+}
+
 .parsley-error {
     background-color: $state-danger-bg;
     border-color: $state-danger-border;
@@ -92,6 +96,23 @@ body {
         }
     }
 } 
+
+.icon {
+    display: inline-block;
+    background-size: auto 100%;
+
+    &.red_scrip {
+        background: url('/img/red_scrip.png') top center no-repeat;
+    }
+
+    &.blue_scrip {
+        background: url('/img/blue_scrip.png') top center no-repeat;
+    }
+
+    &.collectible {
+        background: url('/img/collectable_icon.png') top center no-repeat;
+    }
+}
 
 
 @media(max-width: 768px) {

@@ -314,7 +314,8 @@
         "duration": "0:55",
         "times": ["5:00 PM"],
         "is_collectable": true,
-        "is_legendary": true
+        "is_legendary": true,
+        "red_scrip": 530
     },{
         "name": "Honeydew Almonds",
         "icon": "",
@@ -324,7 +325,8 @@
         "duration": "0:55",
         "times": ["5:00 PM"],
         "is_collectable": true,
-        "is_legendary": true
+        "is_legendary": true,
+        "red_scrip": 530
     },{
         "name": "Vanilla Beans",
         "icon": "",
@@ -334,7 +336,8 @@
         "duration": "0:55",
         "times": ["5:00 PM"],
         "is_collectable": true,
-        "is_legendary": true
+        "is_legendary": true,
+        "red_scrip": 530
     },{
         "name": "Snurbleberry",
         "icon": "",
@@ -373,7 +376,8 @@
         "slot": "6",
         "duration": "0:55",
         "times": ["9:00 AM", "9:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "red_scrip": 470
     },{
         "name": "Chives",
         "icon": "",
@@ -409,7 +413,8 @@
         "slot": "2",
         "duration": "0:55",
         "times": ["10:00 AM", "10:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "blue_scrip": 450
     },{
         "name": "Abalathian Mistletoe",
         "icon": "",
@@ -418,7 +423,8 @@
         "slot": "3",
         "duration": "0:55",
         "times": ["10:00 AM", "10:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "blue_scrip": 450
     },{
         "name": "Dravanian Mistletoe",
         "icon": "",
@@ -445,7 +451,8 @@
         "slot": "2",
         "duration": "0:55",
         "times": ["12:00 AM", "12:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "blue_scrip": 450
     },{
         "name": "Morel",
         "icon": "",
@@ -454,7 +461,8 @@
         "slot": "7",
         "duration": "0:55",
         "times": ["12:00 AM", "12:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "blue_scrip": 450
     },{
         "name": "Granular Clay",
         "icon": "",

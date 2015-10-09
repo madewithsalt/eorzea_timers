@@ -286,7 +286,8 @@
         "pos": "x34,y30",
         "duration": "0:55",
         "times": ["2:00 AM", "2:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "blue_scrip": 450
     },{
         "name": "Light Kidney Ore",
         "icon": "",
@@ -295,7 +296,8 @@
         "pos": "x34,y30",
         "duration": "0:55",
         "times": ["2:00 AM", "2:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "blue_scrip": 450
     },{
         "name": "Astral Moraine",
         "icon": "",
@@ -305,7 +307,8 @@
         "duration": "3:00",
         "times": ["5:00 AM"],
         "is_collectable": true,
-        "is_legendary": true
+        "is_legendary": true,
+        "red_scrip": 530
     },{
         "name": "Aurum Regis Ore",
         "icon": "",
@@ -315,7 +318,8 @@
         "duration": "3:00",
         "times": ["5:00 AM"],
         "is_collectable": true,
-        "is_legendary": true
+        "is_legendary": true,
+        "red_scrip": 530
     },{
         "name": "Sun Mica",
         "icon": "",
@@ -391,7 +395,8 @@
         "pos": "x24,y6",
         "duration": "0:55",
         "times": ["11:00 AM", "11:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "red_scrip": 470
     },{
         "name": "Yellow Copper Ore",
         "icon": "",
@@ -409,7 +414,8 @@
         "pos": "x7,y7",
         "duration": "0:55",
         "times": ["12:00 AM", "12:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "blue_scrip": 450
     },{
         "name": "Red Quartz",
         "icon": "",
@@ -418,7 +424,8 @@
         "pos": "x7,y7",
         "duration": "0:55",
         "times": ["12:00 AM", "12:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "red_scrip": 450
     },{
         "name": "Fire Cluster",
         "icon": "",
