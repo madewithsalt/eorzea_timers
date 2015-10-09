@@ -447,7 +447,8 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                 'data-id': data.id,
                 'data-type': data.type,
                 'is_collectable': data.is_collectable || null,
-                'is_ephemeral': data.is_ephemeral
+                'is_ephemeral': data.is_ephemeral,
+                'is_legendary': data.is_legendary
             }
         },
 

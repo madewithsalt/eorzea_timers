@@ -128,6 +128,8 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
 },"5":function(container,depth0,helpers,partials,data) {
     return "<i class=\"fa fa-star\"></i>";
 },"7":function(container,depth0,helpers,partials,data) {
+    return "<i class=\"fa fa-book\"></i>";
+},"9":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
   return "                <span class=\"time-remaining\">[\n                    "
@@ -135,7 +137,7 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
     + "m "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.earth_time_remaining : depth0)) != null ? stack1.seconds : stack1), depth0))
     + "s\n                ]</span>\n";
-},"9":function(container,depth0,helpers,partials,data) {
+},"11":function(container,depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
 
   return "            <div class=\"location\">"
@@ -143,7 +145,7 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
     + ", "
     + alias3(((helper = (helper = helpers.pos || (depth0 != null ? depth0.pos : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"pos","hash":{},"data":data}) : helper)))
     + "</div>\n";
-},"11":function(container,depth0,helpers,partials,data) {
+},"13":function(container,depth0,helpers,partials,data) {
     return "            <a class=\"btn btn-primary btn-xs btn-edit\"><i class=\"fa fa-pencil\"></i></a>\n            <a class=\"btn btn-danger btn-xs btn-delete\"><i class=\"fa fa-times\"></i></a>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
@@ -162,12 +164,14 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.is_collectable : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n                "
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.is_ephemeral : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n                "
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.is_legendary : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n            </span>\n"
-    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isActive : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isActive : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "        </div>\n    </div>\n    <div class=\"node-body\">\n"
-    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.location : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.location : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n"
-    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isCustom : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.isCustom : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n    </div>\n</div>";
 },"useData":true});
 templates['custom-timer/time-slot.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -190,7 +194,9 @@ templates['home/home.hbs'] = template({"1":function(container,depth0,helpers,par
     + ((stack1 = (helpers.inArray || (depth0 && depth0.inArray) || alias1).call(depth0,(depth0 != null ? depth0.attrFilters : depth0),"is_collectable",{"name":"inArray","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " is_collectable\" data-target=\"is_collectable\"><span class=\"fa fa-cube\"></span> Collectable</div>\n                        <div class=\"btn btn-default "
     + ((stack1 = (helpers.inArray || (depth0 && depth0.inArray) || alias1).call(depth0,(depth0 != null ? depth0.attrFilters : depth0),"is_ephemeral",{"name":"inArray","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " is_ephemeral\" data-target=\"is_ephemeral\"><span class=\"fa fa-star\"></span> Ephemeral</div>\n                    </div>                        \n                </div>\n            </div>\n            <div class=\"col-md-3 align-right\">\n                <div class=\"btn-group\">\n                    <a class=\"btn btn-default new-timer-btn btn-lg\"><i class=\"fa fa-plus\"></i> New Timer</a>\n                </div>\n            </div>\n        </div>\n        <div class=\"row\">\n            <div class=\"search-menu col-md-6\">\n                <div class=\"filter-list-form\">\n                    <div class=\"form-group\">\n                        <label>Filter List:</label>\n                        <input type=\"text\" class=\"form-control node-search-input\" />\n                        <small>Search by: Name or Location</small>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-md-12\">\n        <h3>Active Nodes:</h3>\n        <div class=\"active-nodes-region\">\n            <div class=\"nodes-list active-nodes\"></div>\n        </div>\n    </div>\n    <div class=\"col-md-12\">\n        <h3>Up Next Hour:</h3>\n        <div class=\"next-hour-nodes-region\"></div>\n    </div>\n    <div class=\"col-md-12\">\n        <h3>In 2 Hours:</h3>\n        <div class=\"two-hour-nodes-region\"></div>\n    </div>\n    <div class=\"col-md-12\">\n        <h3>After That:</h3>\n        <div class=\"other-nodes-region\"></div>\n    </div>\n</div>\n<div class=\"new-timer-modal-region\" id=\"new-timer-modal\"></div>";
+    + " is_ephemeral\" data-target=\"is_ephemeral\"><span class=\"fa fa-star\"></span> Ephemeral</div>\n                        <div class=\"btn btn-default "
+    + ((stack1 = (helpers.inArray || (depth0 && depth0.inArray) || alias1).call(depth0,(depth0 != null ? depth0.attrFilters : depth0),"is_legendary",{"name":"inArray","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " is_legendary\" data-target=\"is_legendary\"><span class=\"fa fa-book\"></span> Legendary</div>\n                    </div>                        \n                </div>\n            </div>\n            <div class=\"col-md-3 align-right\">\n                <div class=\"btn-group\">\n                    <a class=\"btn btn-default new-timer-btn btn-lg\"><i class=\"fa fa-plus\"></i> New Timer</a>\n                </div>\n            </div>\n        </div>\n        <div class=\"row\">\n            <div class=\"search-menu col-md-6\">\n                <div class=\"filter-list-form\">\n                    <div class=\"form-group\">\n                        <label>Filter List:</label>\n                        <input type=\"text\" class=\"form-control node-search-input\" />\n                        <small>Search by: Name or Location</small>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-md-12\">\n        <h3>Active Nodes:</h3>\n        <div class=\"active-nodes-region\">\n            <div class=\"nodes-list active-nodes\"></div>\n        </div>\n    </div>\n    <div class=\"col-md-12\">\n        <h3>Up Next Hour:</h3>\n        <div class=\"next-hour-nodes-region\"></div>\n    </div>\n    <div class=\"col-md-12\">\n        <h3>In 2 Hours:</h3>\n        <div class=\"two-hour-nodes-region\"></div>\n    </div>\n    <div class=\"col-md-12\">\n        <h3>After That:</h3>\n        <div class=\"other-nodes-region\"></div>\n    </div>\n</div>\n<div class=\"new-timer-modal-region\" id=\"new-timer-modal\"></div>";
 },"useData":true});
 templates['home/jumbotron.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"collapse-toggle\">\n    <a class=\"toggle-link btn btn-default\">\n        <i class=\"fa\"></i>\n    </a>\n</div>\n<div class=\"jumbo-content\">\n    <div class=\"clock-region\"></div>\n    <p>Eorzean Time</p>    \n</div>\n";

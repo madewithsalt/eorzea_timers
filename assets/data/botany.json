@@ -313,7 +313,8 @@
         "slot": "1",
         "duration": "0:55",
         "times": ["5:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Honeydew Almonds",
         "icon": "",
@@ -322,7 +323,8 @@
         "slot": "2",
         "duration": "0:55",
         "times": ["5:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Vanilla Beans",
         "icon": "",
@@ -331,7 +333,8 @@
         "slot": "3",
         "duration": "0:55",
         "times": ["5:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Snurbleberry",
         "icon": "",
@@ -340,7 +343,8 @@
         "slot": "2",
         "duration": "0:55",
         "times": ["7:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Dravanian Paprika",
         "icon": "",
@@ -349,7 +353,8 @@
         "slot": "3",
         "duration": "0:55",
         "times": ["7:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Wattle Bark",
         "icon": "",
@@ -358,7 +363,8 @@
         "slot": "5",
         "duration": "0:55",
         "times": ["7:00 PM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Chysahl Greens",
         "icon": "",

@@ -304,7 +304,8 @@
         "pos": "x37,y16",
         "duration": "3:00",
         "times": ["5:00 AM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Aurum Regis Ore",
         "icon": "",
@@ -313,7 +314,8 @@
         "pos": "x11,y38",
         "duration": "3:00",
         "times": ["5:00 AM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Sun Mica",
         "icon": "",
@@ -322,7 +324,8 @@
         "pos": "x35,y39",
         "duration": "3:00",
         "times": ["5:00 AM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Blue Quartz",
         "icon": "",
@@ -331,7 +334,8 @@
         "pos": "x11,y16",
         "duration": "3:00",
         "times": ["7:00 AM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Red Alumen",
         "icon": "",
@@ -340,7 +344,8 @@
         "pos": "x35,y16",
         "duration": "0:55",
         "times": ["7:00 AM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Violet Quartz",
         "icon": "",
@@ -349,7 +354,8 @@
         "pos": "x11,y21",
         "duration": "3:00",
         "times": ["7:00 AM"],
-        "is_collectable": true
+        "is_collectable": true,
+        "is_legendary": true
     },{
         "name": "Chalcocite",
         "icon": "",
