@@ -157,6 +157,26 @@ window.TIME_HELPERS = (function() {
             }
 
             return durationObj.hours + ':' + mins;
+        },
+
+        isActive: function(currentTime, startTime, endTime) {
+            var currentTimeObj = this.getTimeObjFromString(currentTime),
+                startTimeObj = this.getTimeObjFromString(startTime),
+                durationObj = this.getTimeDifference(startTime, endTime),
+                result = false;
+
+            var startTimeDiff = this.getTimeDifference(currentTime, startTime),
+                endTimeDiff = this.getTimeDifference(currentTime, endTime);
+
+            var startTimeDiffMins = (startTimeDiff.hours * 60) + startTimeDiff.minutes,
+                endTimeDiffMins = (endTimeDiff.hours * 60) + endTimeDiff.minutes,
+                durationMins = (durationObj.hours * 60) + durationObj.minutes;
+
+            if(endTimeDiffMins <= durationMins) {
+                result = true;
+            }
+
+            return result;
         }
     };
 

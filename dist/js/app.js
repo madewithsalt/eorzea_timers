@@ -3,6 +3,7 @@ window.App = (function(Backbone, Marionette) {
     moment().utc();
     Swag.registerHelpers(window.Handlebars);
 
+
     var Router,
         App = new Marionette.Application();
 
@@ -47,6 +48,13 @@ window.App = (function(Backbone, Marionette) {
             custom: new App.Entities.CustomNodes(),
             watched: new App.Entities.WatchedNodes()
         };
+
+        soundManager.setup({
+            url: '/swf/',
+            onready: function() {
+                App.sounds = new App.Entities.Sounds();
+            }
+        });
 
         App.userSettings = new App.Entities.Settings({ id: 'appUserSettings' });
 
@@ -124,6 +132,35 @@ window.App = (function(Backbone, Marionette) {
             modal.$el.modal();
             modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, App));
         });
+
+
+        App.vent.on('alarm:popup', function(model) {
+            var modal = new App.Views.Modal({
+                    childView: App.Views.Popup,
+                    model: model
+                });
+
+            App.modalRegion.show(modal);
+            modal.$el.modal();
+            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
+        });
+
+        App.vent.on('alarm:desktop', function(model) {
+            var notifier = new Notification(model.get('name'), {
+                renotify: true,
+                vibrate: 200,
+                icon: model.get('type') === 'botany' ? '/img/btn_icon_lg.png' : '/img/min_icon_lg.png',
+                body: model.get('time')
+            });
+        });
+
+        App.vent.on('alarm:alert', function(model) {
+            var name = model.get('name'),
+                time = model.get('time');
+
+            window.alert(name + ' at ' + time);
+        });
+
     });
 
     App.on('start', function(options) {
@@ -434,6 +471,10 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                 classes.push('selected');
             }
 
+            if(this.model.get('triggeredAlarm')) {
+                classes.push('alerted');
+            }
+
             return classes.join(' ');
         },
 
@@ -490,6 +531,122 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             App.vent.trigger('customTimer:edit', this.model);
         }
     });
+
+});
+App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+
+    Views.Popup = App.Views.NodeView.extend({
+        template: 'node-popup',
+        className: function() {
+            return 'node-block node-popup' + App.Views.NodeView.prototype.className.apply(this, arguments);
+        },
+        
+        initialize: function() {
+            this.timeout = window.setTimeout(_.bind(this.closePopup, this), 5000);
+        },
+
+        onBeforeDestroy: function() {
+            window.clearTimeout(this.timeout);
+            this.timeout = null;
+        },
+
+        closePopup: function() {
+            this.trigger('modal:close');
+        }
+    });
+
+});
+App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
+
+    Views.Preferences = Marionette.LayoutView.extend({
+        template: 'watch-list/preferences',
+        className: 'preferences-form',
+
+        events: {
+            'change .sound-option-list': 'selectSound',
+            'click .sound-preview': 'toggleSound',
+            'click .btn-save': 'triggerSave'
+        },
+
+        ui: {
+            soundSelect: '.sound-option-list',
+            soundPreview: '.sound-preview',
+            form: 'form'
+        },
+
+        serializeData: function() {
+            var data = this.model.toJSON();
+
+            return _.extend({
+                desktop: Modernizr.notification,
+                soundList: App.sounds.toJSON()
+            }, data);
+        },
+
+        selectSound: function(evt) {
+            var val = this.ui.soundSelect.val();
+
+            if(val !== 'none') {
+                this.ui.soundPreview.show().removeClass('hidden');
+            } else {
+                this.ui.soundPreview.hide();
+            }
+        },
+
+        toggleSound: function() {
+            var val = this.ui.soundSelect.val(),
+                sound = App.sounds.get(val);
+
+            if(!sound) { return; }
+
+            if(!this.playing) {
+                sound.play(_.bind(this.toggleSound, this));
+                this.playing = true;
+                this.ui.soundPreview.addClass('playing');
+            } else {
+                sound.stop();
+                this.playing = false;
+                this.ui.soundPreview.removeClass('playing');
+            }
+        },
+
+        triggerSave: function() {
+            var isValid = this.ui.form.parsley().validate(),
+                data = this.processFormData();
+
+            if(isValid) {
+                this.model.save(data);
+                this.trigger('modal:close');
+            }
+        },
+
+        processFormData: function() {
+            var values = this.ui.form.serializeArray(),
+                data = {},
+                output = {};
+
+            _.each(values, function(item) {
+                data[item.name] = item.value;
+            });
+
+            if(!_.isEmpty(data['alarm-time'])) {
+                output.time = data['alarm-time'];
+            }
+
+            output.sound = data['alarm-sound'] !== 'none' ? data['alarm-sound'] : false;
+            output.type = data['alarm-style'];
+
+            if(output.type === 'desktop' && Modernizr.notification && Notification.permission !== 'granted') {
+                Notification.requestPermission();
+            }
+
+            return {
+                alarm: output
+            };
+        }
+
+    });
+
 
 });
 App.module("About", function(About, App, Backbone, Marionette, $, _) {
@@ -936,8 +1093,10 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
 
             if(target === 'dark') {
                 $('head').append('<link id="dark" rel="stylesheet" type="text/css" href="css/dark.css" >');
+                $('head').find('#light').remove();
                 $('.css-toggle.light').addClass('active');
             } else {
+                $('head').append('<link id="light" rel="stylesheet" type="text/css" href="css/main.css" >');
                 $('head').find('#dark').remove();
                 $('.css-toggle.dark').addClass('active');
             }
@@ -1022,7 +1181,21 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         initialize: function() {
+            var self = this;
+
             this.collection = App.collections.watched;
+
+            this._currentHour = App.masterClock.get('hour');
+
+            // only update lists every hour for performance
+            // let individual views (when active) handle countdowns.
+            this.listenTo(App.masterClock, 'change', function() {
+                // be sure to check for race-conditioned nodes that missed the last hour rollover
+                if (self._currentHour !== App.masterClock.get('hour')) {
+                    self._currentHour = App.masterClock.get('hour');
+                    self.collection.sort();
+                }
+            });
         },
 
         onBeforeShow: function() {
@@ -1037,7 +1210,7 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
 
         showSettings: function() {
             var modal = new App.Views.Modal({
-                    childView: WatchList.Preferences,
+                    childView: App.Views.Preferences,
                     title: 'Watch List Preferences',
                     model: App.userSettings
                 });
@@ -1080,28 +1253,6 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
             this.listenTo(App.masterClock, 'change', function() {
                 self.collection.sort();
             });
-        }
-    });
-
-    WatchList.Preferences = Marionette.LayoutView.extend({
-        template: 'watch-list/preferences',
-        className: 'preferences-form',
-        
-        serializeData: function() {
-            var data = this.model.toJSON();
-
-
-            return _.extend({
-                soundList: [
-                    {
-                        name: 'none',
-                        value: 'none'
-                    },
-                    {
-                        
-                    }
-                ]
-            }, data);
         }
     });
 
@@ -1231,17 +1382,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     earthTimeUntil = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeStartUntil)),
                     timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time),
                     earthTimeRemaining = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeRemaining)),
-                    isActive = false;
+                    isActive = TIME_HELPERS.isActive(currentTime, activeTime, durationInfo.end_time);
 
-                // crazy booleans!
-                //current hour is greater than the active hour and less than or equal to end time hour
-                var withinStartTime = currentTimeObj.hour > activeTimeObj.hour ||
-                    currentTimeObj.hour === activeTimeObj.hour && currentTimeObj.minute >= activeTimeObj.minute,
-                    withinEndTime = currentTimeObj.hour < durationInfo.end_time_obj.hour ||
-                    currentTimeObj.hour === durationInfo.end_time_obj.hour && currentTimeObj.minute <= durationInfo.end_time_obj.minute;
-
-                if (withinStartTime && withinEndTime) {
-                    isActive = true;
+                if (isActive) {
+                    this.set({ 'triggeredAlarm': false }, { silent: true });
                 }
 
                 this.set({
@@ -1289,14 +1433,14 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
     Entities.NodeList = Backbone.Collection.extend({
         comparator: function(model) {
-            var time = model.get('time_until'),
-                active = model.get('active'),
-                timeRemaining = model.get('time_remaining');
+            var active = model.get('active'),
+                timeUntil = model.get('earth_time_until'),
+                timeRemaining = model.get('earth_time_remaining');
 
             if(active) {
                 return (timeRemaining.hours * 60) + timeRemaining.minutes;
             } else {
-                return (time.hours * 60) + time.minutes;
+                return (timeUntil.hours * 60) + timeUntil.minutes;
             }
 
         }
@@ -1324,21 +1468,42 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         model: Node,
         type: 'watched',
         localStorage: new Backbone.LocalStorage('WatchedNodes'),
-        comparator: function(model) {
-            var weight = 100;
 
-            if(model.get('active')) {
-                weight -= 30;
+        initialize: function() {
+            this.on('change', this.checkAlarm);
+        },
+
+        checkAlarm: function(model) {
+            var alarm = App.userSettings.get('alarm');
+
+            if(!alarm || model.get('active') || !model.get('selected')) { return; }
+
+            var time = parseFloat(alarm.time || 0);
+
+            if(model.get('time_until').hours < time && !model.get('triggeredAlarm')) {
+                this.triggerAlarm(model);
+            }
+        },
+
+        triggerAlarm: function(model) {
+            var alarm = App.userSettings.get('alarm');
+
+            if(alarm.sound) {
+                var sound = App.sounds.get(alarm.sound);
+                sound.play();
             }
 
-            if(model.get('earth_time_until').minutes < 5 && model.get('earth_time_until').hours === 0) {
-                weight -= 20
-            } else if (model.get('earth_time_until').minutes < 10 && model.get('earth_time_until').hours === 0) {
-                weight -= 10;
+            if(alarm.type === 'desktop') {
+                App.vent.trigger('alarm:desktop', model);
+            } else if(alarm.type === 'popup') {
+                App.vent.trigger('alarm:popup', model);
+            } else if(alarm.type === 'alert') {
+                App.vent.trigger('alarm:alert', model);
             }
 
-            return weight;
+            model.set({ 'triggeredAlarm': true });
         }
+
     });
 
 });
@@ -1349,6 +1514,84 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
         
         defaults: {
             homeClockCollapsed: false
+        }
+    });
+
+});
+App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+    var sounds = [
+            {
+                name: 'Chime',
+                id: 'chime'
+            },{
+                name: 'Big Ben',
+                id: 'chime_big_ben',
+                nTo: 400
+            },{
+                name: 'Chime Up',
+                id: 'chime_up'
+            },{
+                name: 'Cuckoo Clock',
+                id: 'cuckoo'
+            },{
+                name: 'Doorbell',
+                id: 'doorbell'
+            },{
+                name: 'Floop',
+                id: 'floop'
+            },{
+                name: 'Gong',
+                id: 'gong'
+            }
+        ];
+
+
+    Entities.Sound = Backbone.Model.extend({
+        initialize: function() { 
+            this.createSound();      
+        },
+
+        createSound: function(callback) {
+            var id = this.get('id'),
+                url = this.url();
+
+            if(!id && !url) { return; }
+
+            soundManager.createSound({
+                id: id,
+                url: url + '.wav',
+                autoLoad: true,
+                nTo: this.get('nTo') || null,
+                autoPlay: false,
+                onload: function(success) {
+                    if(_.isFunction(callback)) {
+                        callback(success);
+                    }
+                },
+                volume: 50
+            });
+        },
+
+        play: function(callback) {
+            soundManager.play(this.get('id'), {
+                onfinish: function() {
+                    if(_.isFunction(callback)) {
+                        callback();
+                    }
+                }
+            });
+        },
+
+        stop: function() {
+            soundManager.stop(this.get('id'));
+        }
+    });
+
+    Entities.Sounds = Backbone.Collection.extend({
+        url: '/sound/',
+        model: Entities.Sound,
+        initialize: function() {
+            this.add(sounds);
         }
     });
 

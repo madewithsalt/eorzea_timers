@@ -55,17 +55,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                     earthTimeUntil = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeStartUntil)),
                     timeRemaining = TIME_HELPERS.getTimeDifference(currentTime, durationInfo.end_time),
                     earthTimeRemaining = TIME_HELPERS.getEarthDurationfromEorzean(TIME_HELPERS.getDurationStringFromObject(timeRemaining)),
-                    isActive = false;
+                    isActive = TIME_HELPERS.isActive(currentTime, activeTime, durationInfo.end_time);
 
-                // crazy booleans!
-                //current hour is greater than the active hour and less than or equal to end time hour
-                var withinStartTime = currentTimeObj.hour > activeTimeObj.hour ||
-                    currentTimeObj.hour === activeTimeObj.hour && currentTimeObj.minute >= activeTimeObj.minute,
-                    withinEndTime = currentTimeObj.hour < durationInfo.end_time_obj.hour ||
-                    currentTimeObj.hour === durationInfo.end_time_obj.hour && currentTimeObj.minute <= durationInfo.end_time_obj.minute;
-
-                if (withinStartTime && withinEndTime) {
-                    isActive = true;
+                if (isActive) {
+                    this.set({ 'triggeredAlarm': false }, { silent: true });
                 }
 
                 this.set({
@@ -113,14 +106,14 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
     Entities.NodeList = Backbone.Collection.extend({
         comparator: function(model) {
-            var time = model.get('time_until'),
-                active = model.get('active'),
-                timeRemaining = model.get('time_remaining');
+            var active = model.get('active'),
+                timeUntil = model.get('earth_time_until'),
+                timeRemaining = model.get('earth_time_remaining');
 
             if(active) {
                 return (timeRemaining.hours * 60) + timeRemaining.minutes;
             } else {
-                return (time.hours * 60) + time.minutes;
+                return (timeUntil.hours * 60) + timeUntil.minutes;
             }
 
         }
@@ -148,21 +141,42 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         model: Node,
         type: 'watched',
         localStorage: new Backbone.LocalStorage('WatchedNodes'),
-        comparator: function(model) {
-            var weight = 100;
 
-            if(model.get('active')) {
-                weight -= 30;
+        initialize: function() {
+            this.on('change', this.checkAlarm);
+        },
+
+        checkAlarm: function(model) {
+            var alarm = App.userSettings.get('alarm');
+
+            if(!alarm || model.get('active') || !model.get('selected')) { return; }
+
+            var time = parseFloat(alarm.time || 0);
+
+            if(model.get('time_until').hours < time && !model.get('triggeredAlarm')) {
+                this.triggerAlarm(model);
+            }
+        },
+
+        triggerAlarm: function(model) {
+            var alarm = App.userSettings.get('alarm');
+
+            if(alarm.sound) {
+                var sound = App.sounds.get(alarm.sound);
+                sound.play();
             }
 
-            if(model.get('earth_time_until').minutes < 5 && model.get('earth_time_until').hours === 0) {
-                weight -= 20
-            } else if (model.get('earth_time_until').minutes < 10 && model.get('earth_time_until').hours === 0) {
-                weight -= 10;
+            if(alarm.type === 'desktop') {
+                App.vent.trigger('alarm:desktop', model);
+            } else if(alarm.type === 'popup') {
+                App.vent.trigger('alarm:popup', model);
+            } else if(alarm.type === 'alert') {
+                App.vent.trigger('alarm:alert', model);
             }
 
-            return weight;
+            model.set({ 'triggeredAlarm': true });
         }
+
     });
 
 });

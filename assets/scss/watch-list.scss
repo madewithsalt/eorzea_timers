@@ -7,8 +7,25 @@
     }   
 
     .preferences-form {
+        font-size: 14px;
+        line-height: 20px;
+
         .radio-inline {
-            margin-right: 6px;
+            margin-right: 10px;
+            margin-bottom: 8px;
+        }
+    
+        .sound-preview {
+            margin-top: 30px;
+            font-size: 25px;
+            
+            .play { display: block; }
+            .stop { display: none; }
+
+            &.playing {            
+                .play { display: none; }
+                .stop { display: block; }
+            }
         }
     }    
 }

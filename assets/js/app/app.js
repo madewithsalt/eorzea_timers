@@ -3,6 +3,7 @@ window.App = (function(Backbone, Marionette) {
     moment().utc();
     Swag.registerHelpers(window.Handlebars);
 
+
     var Router,
         App = new Marionette.Application();
 
@@ -47,6 +48,13 @@ window.App = (function(Backbone, Marionette) {
             custom: new App.Entities.CustomNodes(),
             watched: new App.Entities.WatchedNodes()
         };
+
+        soundManager.setup({
+            url: '/swf/',
+            onready: function() {
+                App.sounds = new App.Entities.Sounds();
+            }
+        });
 
         App.userSettings = new App.Entities.Settings({ id: 'appUserSettings' });
 
@@ -124,6 +132,35 @@ window.App = (function(Backbone, Marionette) {
             modal.$el.modal();
             modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, App));
         });
+
+
+        App.vent.on('alarm:popup', function(model) {
+            var modal = new App.Views.Modal({
+                    childView: App.Views.Popup,
+                    model: model
+                });
+
+            App.modalRegion.show(modal);
+            modal.$el.modal();
+            modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
+        });
+
+        App.vent.on('alarm:desktop', function(model) {
+            var notifier = new Notification(model.get('name'), {
+                renotify: true,
+                vibrate: 200,
+                icon: model.get('type') === 'botany' ? '/img/btn_icon_lg.png' : '/img/min_icon_lg.png',
+                body: model.get('time')
+            });
+        });
+
+        App.vent.on('alarm:alert', function(model) {
+            var name = model.get('name'),
+                time = model.get('time');
+
+            window.alert(name + ' at ' + time);
+        });
+
     });
 
     App.on('start', function(options) {

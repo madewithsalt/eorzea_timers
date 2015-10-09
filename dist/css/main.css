@@ -1293,20 +1293,18 @@ a.text-info:hover,
 a.text-info:focus {
   color: #245269; }
 
-.text-warning, .node.node-block .node-content.warning .earth-time {
+.text-warning {
   color: #8a6d3b; }
 
-a.text-warning:hover, .node.node-block .node-content.warning a.earth-time:hover,
-a.text-warning:focus,
-.node.node-block .node-content.warning a.earth-time:focus {
+a.text-warning:hover,
+a.text-warning:focus {
   color: #66512c; }
 
-.text-danger, .node.node-block .node-content.urgent .earth-time {
+.text-danger {
   color: #a94442; }
 
-a.text-danger:hover, .node.node-block .node-content.urgent a.earth-time:hover,
-a.text-danger:focus,
-.node.node-block .node-content.urgent a.earth-time:focus {
+a.text-danger:hover,
+a.text-danger:focus {
   color: #843534; }
 
 .bg-primary {
@@ -4372,13 +4370,13 @@ a.thumbnail.active {
     right: -21px;
     color: inherit; }
 
-.alert-success {
+.alert-success, .node.node-block .node-content.active {
   background-color: #dff0d8;
   border-color: #d6e9c6;
   color: #3c763d; }
-  .alert-success hr {
+  .alert-success hr, .node.node-block .node-content.active hr {
     border-top-color: #c9e2b3; }
-  .alert-success .alert-link {
+  .alert-success .alert-link, .node.node-block .node-content.active .alert-link {
     color: #2b542c; }
 
 .alert-info {
@@ -4390,22 +4388,22 @@ a.thumbnail.active {
   .alert-info .alert-link {
     color: #245269; }
 
-.alert-warning, .node.node-slim .node-content.warning {
+.alert-warning, .node.node-block .node-content.warning, .node.node-slim .node-content.warning {
   background-color: #fcf8e3;
   border-color: #faebcc;
   color: #8a6d3b; }
-  .alert-warning hr, .node.node-slim .node-content.warning hr {
+  .alert-warning hr, .node.node-block .node-content.warning hr, .node.node-slim .node-content.warning hr {
     border-top-color: #f7e1b5; }
-  .alert-warning .alert-link, .node.node-slim .node-content.warning .alert-link {
+  .alert-warning .alert-link, .node.node-block .node-content.warning .alert-link, .node.node-slim .node-content.warning .alert-link {
     color: #66512c; }
 
-.alert-danger, .node.node-slim .node-content.urgent {
+.alert-danger, .node.node-block .node-content.urgent, .node.node-slim .node-content.urgent {
   background-color: #f2dede;
   border-color: #ebccd1;
   color: #a94442; }
-  .alert-danger hr, .node.node-slim .node-content.urgent hr {
+  .alert-danger hr, .node.node-block .node-content.urgent hr, .node.node-slim .node-content.urgent hr {
     border-top-color: #e4b9c0; }
-  .alert-danger .alert-link, .node.node-slim .node-content.urgent .alert-link {
+  .alert-danger .alert-link, .node.node-block .node-content.urgent .alert-link, .node.node-slim .node-content.urgent .alert-link {
     color: #843534; }
 
 @-webkit-keyframes progress-bar-stripes {
@@ -7879,8 +7877,23 @@ button.close {
   display: inline-block;
   margin-left: 20px;
   margin-top: -4px; }
-.watch-list .preferences-form .radio-inline {
-  margin-right: 6px; }
+.watch-list .preferences-form {
+  font-size: 14px;
+  line-height: 20px; }
+  .watch-list .preferences-form .radio-inline {
+    margin-right: 10px;
+    margin-bottom: 8px; }
+  .watch-list .preferences-form .sound-preview {
+    margin-top: 30px;
+    font-size: 25px; }
+    .watch-list .preferences-form .sound-preview .play {
+      display: block; }
+    .watch-list .preferences-form .sound-preview .stop {
+      display: none; }
+    .watch-list .preferences-form .sound-preview.playing .play {
+      display: none; }
+    .watch-list .preferences-form .sound-preview.playing .stop {
+      display: block; }
 
 .custom-timer .times-list {
   margin-bottom: 8px; }
@@ -7902,18 +7915,11 @@ button.close {
     -webkit-transition: all 200ms ease-in;
     -o-transition: all 200ms ease-in;
     transition: all 200ms ease-in; }
-  .node.node-block .node-content.active.botany {
-    border-color: #32710D;
-    color: #32710D;
-    background-color: #E6F2DE; }
-  .node.node-block .node-content.active.mining {
-    border-color: #B2774A;
-    color: #B2774A;
-    background-color: #FFF6F0; }
-  .node.node-block .node-content.active.custom {
-    color: #D36CD1;
-    border-color: #D36CD1;
-    background-color: #FFEDFF; }
+  .node.node-block .node-content.alerted {
+    border-color: #5bc0de;
+    color: #5bc0de; }
+    .node.node-block .node-content.alerted .node-heading, .node.node-block .node-content.alerted .node-footer {
+      border-color: #5bc0de; }
 .node.node-block .node-heading {
   padding: 4px 15px;
   border-bottom: 1px solid #ccc;

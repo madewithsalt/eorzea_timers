@@ -112,4 +112,26 @@ describe('Time Helpers Spec', function() {
         });
     });
 
+    describe('isActive', function () {
+        it('should return false', function() {
+            var result = helper.isActive('1:00 AM', '2:00 AM', '2:55 AM');
+
+            expect(result).toBe(false);
+        });
+
+        it('should return true', function() {
+            var result = helper.isActive('1:10 AM', '1:00 AM', '1:55 AM');
+
+            expect(result).toBe(true);
+        });
+
+
+        it('should return true', function() {
+            var result = helper.isActive('11:10 PM', '11:00 AM', '2:00 AM');
+
+            expect(result).toBe(true);
+        });
+    });
+
+
 });

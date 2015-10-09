@@ -25,38 +25,49 @@
             }
 
             &.active {
-                &.botany {
-                    border-color: $botany;
-                    color: $botany;
-                    background-color: #E6F2DE; 
-                }
+                @extend .alert-success;
 
-                &.mining {
-                    border-color: $mining;
-                    color: $mining;
-                    background-color: #FFF6F0; 
-                }
+                // &.botany {
+                //     border-color: $botany;
+                //     color: $botany;
+                //     background-color: #E6F2DE; 
+                // }
 
-                &.custom {
-                    color: $custom;
-                    border-color: $custom;
-                    background-color: #FFEDFF;
-                }
+                // &.mining {
+                //     border-color: $mining;
+                //     color: $mining;
+                //     background-color: #FFF6F0; 
+                // }
+
+                // &.custom {
+                //     color: $custom;
+                //     border-color: $custom;
+                //     background-color: #FFEDFF;
+                // }
             }
 
             &.warning {
-                .earth-time {
-                    @extend .text-warning;
-                }
+                @extend .alert-warning;
+                // .earth-time {
+                //     @extend .text-warning;
+                // }
             }
 
             &.urgent {
-                .earth-time {
-                    @extend .text-danger;
-                }
+                @extend .alert-danger;
+                // .earth-time {
+                //     @extend .text-danger;
+                // }
             }
 
-
+            &.alerted {
+                border-color: $brand-info;
+                color: $brand-info;
+            
+                .node-heading, .node-footer {
+                    border-color: $brand-info;
+                }
+            }
         }
 
         .node-heading {

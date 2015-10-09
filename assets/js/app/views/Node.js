@@ -49,6 +49,10 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
                 classes.push('selected');
             }
 
+            if(this.model.get('triggeredAlarm')) {
+                classes.push('alerted');
+            }
+
             return classes.join(' ');
         },
 
