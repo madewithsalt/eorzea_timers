@@ -5,6 +5,12 @@
         <div class="form-inline">
             <div class="radio">
                 <label class="radio-inline">
+                    <input type="radio" name="alarm-time" id="alarm-time0" value="none" {{#unless alarm.time }}checked {{/unless}} />
+                    None (disable)
+                </label>
+            </div>
+            <div class="radio">
+                <label class="radio-inline">
                     <input type="radio" name="alarm-time" id="alarm-time1" value="0" {{#is alarm.time '0' }}checked {{/is}} />
                     0 hours (at time)
                 </label>

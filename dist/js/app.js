@@ -158,6 +158,12 @@ window.App = (function(Backbone, Marionette) {
                     model: model
                 });
 
+            // if another popup is in the way, close the other one.
+            // TODO: In future, roll them up into one popup.
+            if(App.modalRegion.hasView()) {
+                App.modalRegion.reset();
+            }
+
             App.modalRegion.show(modal);
             modal.$el.modal();
             modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
@@ -658,6 +664,11 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             });
 
             if(!_.isEmpty(data['alarm-time'])) {
+                // essentially clears out alarm settings.
+                if(data['alarm-time'] === 'none') {
+                    return { alarm: null };
+                }
+
                 output.time = data['alarm-time'];
             }
 

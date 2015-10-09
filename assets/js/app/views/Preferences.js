@@ -72,6 +72,11 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             });
 
             if(!_.isEmpty(data['alarm-time'])) {
+                // essentially clears out alarm settings.
+                if(data['alarm-time'] === 'none') {
+                    return { alarm: null };
+                }
+
                 output.time = data['alarm-time'];
             }
 

@@ -158,6 +158,12 @@ window.App = (function(Backbone, Marionette) {
                     model: model
                 });
 
+            // if another popup is in the way, close the other one.
+            // TODO: In future, roll them up into one popup.
+            if(App.modalRegion.hasView()) {
+                App.modalRegion.reset();
+            }
+
             App.modalRegion.show(modal);
             modal.$el.modal();
             modal.on('hidden.bs.modal', _.bind(App.modalRegion.reset, this));
