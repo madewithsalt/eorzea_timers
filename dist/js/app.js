@@ -77,6 +77,24 @@ window.App = (function(Backbone, Marionette) {
             App.collections.watched.get(data.id).destroy();
         });
 
+        App.vent.on('node:deselect:all', function() {
+            var watchedColl = App.collections.watched.toJSON();
+
+            // cannot search and destroy in same loop.
+            _.each(_.clone(App.collections.watched.models), function(model) {
+                model.destroy();
+            });
+            
+            _.each(watchedColl, function(data) {
+                var type = data.type,
+                    listModel = App.collections[type].get(data.id);
+
+                if(listModel) {
+                    listModel.set({ selected: false });
+                }
+            });
+        });
+
         App.vent.on('node:custom:delete', function(model) {
             var data = model.toJSON(),
                 type = data.type,
@@ -1137,11 +1155,13 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
             var self = this;
 
             this.listenTo(App.collections.watched, 'add remove', this.render);
+            this.listenTo(App.vent, 'node:deselect:all', this.render);
 
             this.listenTo(App.vent, 'nav:update', function(activeItem) {
                 self.active = activeItem;
                 self.render();
             });
+
         },
 
         serializeData: function() {
@@ -1232,7 +1252,7 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         clearList: function() {
-            this.collection.reset();
+            App.vent.trigger('node:deselect:all');
         }
     });
 
@@ -1477,12 +1497,14 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         checkAlarm: function(model) {
             var alarm = App.userSettings.get('alarm');
 
-            if(!alarm || model.get('active') || !model.get('selected')) { return; }
+            if(!alarm || !model.get('selected')) { return; }
 
             var time = parseFloat(alarm.time || 0);
-
-            if(model.get('time_until').hours < time && !model.get('triggeredAlarm')) {
-                this.triggerAlarm(model);
+            
+            if(!model.get('triggeredAlarm')) {
+                if(time === 0 && model.get('active') || model.get('time_until').hours < time) {
+                    return this.triggerAlarm(model);
+                }
             }
         },
 

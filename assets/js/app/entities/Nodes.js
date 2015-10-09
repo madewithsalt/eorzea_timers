@@ -135,12 +135,14 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         checkAlarm: function(model) {
             var alarm = App.userSettings.get('alarm');
 
-            if(!alarm || model.get('active') || !model.get('selected')) { return; }
+            if(!alarm || !model.get('selected')) { return; }
 
             var time = parseFloat(alarm.time || 0);
-
-            if(model.get('time_until').hours < time && !model.get('triggeredAlarm')) {
-                this.triggerAlarm(model);
+            
+            if(!model.get('triggeredAlarm')) {
+                if(time === 0 && model.get('active') || model.get('time_until').hours < time) {
+                    return this.triggerAlarm(model);
+                }
             }
         },
 

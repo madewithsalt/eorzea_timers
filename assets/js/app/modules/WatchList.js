@@ -55,7 +55,7 @@ App.module("WatchList", function(WatchList, App, Backbone, Marionette, $, _){
         },
 
         clearList: function() {
-            this.collection.reset();
+            App.vent.trigger('node:deselect:all');
         }
     });
 

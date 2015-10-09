@@ -76,11 +76,13 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
             var self = this;
 
             this.listenTo(App.collections.watched, 'add remove', this.render);
+            this.listenTo(App.vent, 'node:deselect:all', this.render);
 
             this.listenTo(App.vent, 'nav:update', function(activeItem) {
                 self.active = activeItem;
                 self.render();
             });
+
         },
 
         serializeData: function() {

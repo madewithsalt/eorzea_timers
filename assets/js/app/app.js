@@ -77,6 +77,24 @@ window.App = (function(Backbone, Marionette) {
             App.collections.watched.get(data.id).destroy();
         });
 
+        App.vent.on('node:deselect:all', function() {
+            var watchedColl = App.collections.watched.toJSON();
+
+            // cannot search and destroy in same loop.
+            _.each(_.clone(App.collections.watched.models), function(model) {
+                model.destroy();
+            });
+            
+            _.each(watchedColl, function(data) {
+                var type = data.type,
+                    listModel = App.collections[type].get(data.id);
+
+                if(listModel) {
+                    listModel.set({ selected: false });
+                }
+            });
+        });
+
         App.vent.on('node:custom:delete', function(model) {
             var data = model.toJSON(),
                 type = data.type,
