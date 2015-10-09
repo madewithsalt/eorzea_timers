@@ -48,8 +48,8 @@
                         </div>
                         <div class="input-group col-md-3">
                             <select class="form-control" name="mer" value="{{ meridien }}" required data-parsley-errors-messages-disabled >
-                                <option value="AM">AM</option>
-                                <option value="PM">PM</option>
+                                <option value="AM" {{#is meridien 'AM'}} selected{{/is}} >AM</option>
+                                <option value="PM" {{#is meridien 'PM'}} selected{{/is}} >PM</option>
                             </select>
                         </div>
                         {{!-- <a class="rem-time btn btn-xs btn-danger"><i class="fa fa-times"></i></a> --}}

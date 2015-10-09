@@ -13,7 +13,7 @@ templates['clock.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(con
   return container.escapeExpression(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)));
 },"useData":true});
 templates['custom-timer.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
 
   return "                    <div class=\"form-group form-inline form-time\" data-index=\""
     + alias3(((helper = (helper = helpers.idx || (depth0 != null ? depth0.idx : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"idx","hash":{},"data":data}) : helper)))
@@ -23,7 +23,13 @@ templates['custom-timer.hbs'] = template({"1":function(container,depth0,helpers,
     + alias3(((helper = (helper = helpers.min || (depth0 != null ? depth0.min : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"min","hash":{},"data":data}) : helper)))
     + "\" data-parsley-range=\"[0, 59]\" class=\"form-control\" required data-parsley-errors-messages-disabled />\n                        </div>\n                        <div class=\"input-group col-md-3\">\n                            <select class=\"form-control\" name=\"mer\" value=\""
     + alias3(((helper = (helper = helpers.meridien || (depth0 != null ? depth0.meridien : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"meridien","hash":{},"data":data}) : helper)))
-    + "\" required data-parsley-errors-messages-disabled >\n                                <option value=\"AM\">AM</option>\n                                <option value=\"PM\">PM</option>\n                            </select>\n                        </div>\n                    </div>\n";
+    + "\" required data-parsley-errors-messages-disabled >\n                                <option value=\"AM\" "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,(depth0 != null ? depth0.meridien : depth0),"AM",{"name":"is","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " >AM</option>\n                                <option value=\"PM\" "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,(depth0 != null ? depth0.meridien : depth0),"PM",{"name":"is","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " >PM</option>\n                            </select>\n                        </div>\n                    </div>\n";
+},"2":function(container,depth0,helpers,partials,data) {
+    return " selected";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression, alias4=container.lambda;
 
