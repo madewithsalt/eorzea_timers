@@ -180,13 +180,11 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
 
   return ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.scrip : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.program(12, data, 0),"data":data})) != null ? stack1 : "");
 },"10":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+    var stack1;
 
-  return "\n                        <span class=\"scrip-rating label\"><i class=\"icon "
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.scrip : depth0)) != null ? stack1.icon : stack1), depth0))
-    + "\"></i> "
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.scrip : depth0)) != null ? stack1.rating : stack1), depth0))
-    + "</span>\n";
+  return "\n                        <span class=\"scrip-rating\"><i class=\"icon "
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.scrip : depth0)) != null ? stack1.icon : stack1), depth0))
+    + "\"></i></span>\n";
 },"12":function(container,depth0,helpers,partials,data) {
     return "                        <i class=\"fa fa-cube\"></i>\n                ";
 },"14":function(container,depth0,helpers,partials,data) {
