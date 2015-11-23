@@ -6,7 +6,7 @@
     "pos": "x29,y15",
     "slot": "?",
     "weather": ["Fog", "Clouds", "Dust Storms"],
-    "bait": ["Goblin Jig", "Blueclaw Shrimp (M)"]
+    "bait": ["Goblin Jig", "Blueclaw Shrimp (M)"],
     "duration": "6:00",
     "times": ["12:00 AM"],
     "is_collectable": true,
@@ -19,7 +19,7 @@
     "pos": "x29,y15",
     "slot": null,
     "weather": ["Fair Skies", "Clear Skies"],
-    "bait": ["Red Balloon", "Sky Faerie (M)", "Rudderfish (M)"]
+    "bait": ["Red Balloon", "Sky Faerie (M)", "Rudderfish (M)"],
     "duration": "16:00",
     "times": ["10:00 AM"],
     "is_collectable": true,
