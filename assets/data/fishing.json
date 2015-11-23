@@ -1,0 +1,106 @@
+[
+  {
+    "name": "Dravanian Bass",
+    "icon": "",
+    "location": "Dravanian Forelands, Whilom River",
+    "pos": "x29,y15",
+    "slot": "?",
+    "weather": ["Fog", "Clouds", "Dust Storms"],
+    "bait": ["Goblin Jig", "Blueclaw Shrimp (M)"]
+    "duration": "6:00",
+    "times": ["12:00 AM"],
+    "is_collectable": true,
+    "is_ephemeral": true
+  },
+  {
+    "name": "Manasail",
+    "icon": "",
+    "location": "Churning Mists, Tharl Oom Khash",
+    "pos": "x29,y15",
+    "slot": null,
+    "weather": ["Fair Skies", "Clear Skies"],
+    "bait": ["Red Balloon", "Sky Faerie (M)", "Rudderfish (M)"]
+    "duration": "16:00",
+    "times": ["10:00 AM"],
+    "is_collectable": true,
+    "is_ephemeral": true
+  },
+{
+    "name": "Manasail",
+    "icon": "",
+    "location": "Churning Mists, Tharl Oom Khash",
+    "pos": "",
+    "slot": null,
+    "weather": ["Fair Skies", "Clear Skies"],
+    "bait": ["Red Balloon", "Sky Faerie (M)", "Rudderfish (M)"],
+    "duration": "16:00",
+    "times": ["10:00 AM"],
+    "is_collectable": true,
+    "is_ephemeral": true
+  },
+  {
+    "name": "Caiman",
+    "icon": "",
+    "location": "Sea of Clouds, Voor Siran Siran",
+    "pos": "x27,y34",
+    "slot": "?",
+    "weather": ["Fair Skies", "Clear Skies"],
+    "bait": ["Blueclaw Shrimp (M)", "Bullfrog (M)"],
+    "duration": "2:00",
+    "times": ["6:00 PM"],
+    "is_collectable": true,
+    "is_ephemeral": true
+  },
+  {
+    "name": "Pteranodon",
+    "icon": "",
+    "location": "Churning Mists, Sohm Al Summit",
+    "pos": "x20,y40",
+    "slot": "?",
+    "weather": ["Fair Skies", "Clear Skies", "Umbral Static"],
+    "bait": ["Giant Crane Fly", "Sky Faerie (M)", "Rudderfish (M)"],
+    "duration": "8:00",
+    "times": ["9:00 AM"],
+    "is_collectable": true,
+    "is_ephemeral": true
+  },
+  {
+    "name": "Caiman",
+    "icon": "",
+    "location": "Dravanian Forelands, The Iron Feast",
+    "pos": "x30,y5",
+    "slot": "?",
+    "weather": ["Fair Skies", "Clear Skies"],
+    "bait": ["Blueclaw Shrimp (M)", "Bullfrog (M)"],
+    "duration": "2:00",
+    "times": ["6:00 PM"],
+    "is_collectable": true,
+    "is_ephemeral": true
+  },
+  {
+    "name": "Thaliak Caiman",
+    "icon": "",
+    "location": "Dravanian Hinterlands, Middle Thaliak River",
+    "pos": "x21,y22",
+    "slot": "?",
+    "weather": ["Fair Skies", "Clear Skies"],
+    "bait": ["Sweetfish (M)", "Bullfrog (M)"],
+    "duration": "3:00",
+    "times": ["3:00 PM"],
+    "is_collectable": true,
+    "is_ephemeral": true
+  },
+  {
+    "name": "Tupuxuara",
+    "icon": "",
+    "location": "Azys Lla, The Habisphere",
+    "pos": "x40,y18",
+    "slot": "?",
+    "weather": ["Fair Skies", "Clouds", "Thunder"],
+    "bait": ["Red Balloon", "Sky Faerie (M)", "Rudderfish (M)"],
+    "duration": "2:00",
+    "times": ["6:00 PM"],
+    "is_collectable": true,
+    "is_ephemeral": true
+  }
+  ]
