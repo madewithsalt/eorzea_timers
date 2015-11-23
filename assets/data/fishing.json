@@ -25,19 +25,6 @@
     "is_collectable": true,
     "is_ephemeral": true
   },
-{
-    "name": "Manasail",
-    "icon": "",
-    "location": "Churning Mists, Tharl Oom Khash",
-    "pos": "",
-    "slot": null,
-    "weather": ["Fair Skies", "Clear Skies"],
-    "bait": ["Red Balloon", "Sky Faerie (M)", "Rudderfish (M)"],
-    "duration": "16:00",
-    "times": ["10:00 AM"],
-    "is_collectable": true,
-    "is_ephemeral": true
-  },
   {
     "name": "Caiman",
     "icon": "",
