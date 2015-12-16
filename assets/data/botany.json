@@ -267,7 +267,7 @@
         "pos": "x8,y13",
         "slot": "2",
         "duration": "3:00",
-        "times": ["5:00 AM"],
+        "times": ["5:00 PM"],
         "is_collectable": false
     },{
         "name": "Rosemary",
