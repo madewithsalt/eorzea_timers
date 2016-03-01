@@ -3,7 +3,6 @@ window.App = (function(Backbone, Marionette) {
     moment().utc();
     Swag.registerHelpers(window.Handlebars);
 
-
     var Router,
         App = new Marionette.Application();
 
@@ -37,6 +36,21 @@ window.App = (function(Backbone, Marionette) {
             modalRegion: '#modal-region'
         });
 
+        App.helpers = {
+            getIconByType: function(type) {
+                switch(type) {
+                    case 'botany':
+                        return '/img/btn_icon_lg.png';
+                    case 'mining':
+                        return '/img/min_icon_lg.png';
+                    case 'fishing':
+                        return ''; //'/img/fish_icon_lg.png'
+                    default:
+                        return '';
+                }
+            }
+        }
+
         // page title time config
         var $title = $('#page-title'),
             titleContent = 'Eorzea Timers';
@@ -45,6 +59,7 @@ window.App = (function(Backbone, Marionette) {
         App.collections = {
             botany: new App.Entities.BotanyNodes(),
             mining: new App.Entities.MiningNodes(),
+            fishing: new App.Entities.FishingNodes(),
             custom: new App.Entities.CustomNodes(),
             watched: new App.Entities.WatchedNodes()
         };
@@ -178,7 +193,7 @@ window.App = (function(Backbone, Marionette) {
             var notifier = new Notification(model.get('name'), {
                     renotify: true,
                     vibrate: 200,
-                    icon: model.get('type') === 'botany' ? '/img/btn_icon_lg.png' : '/img/min_icon_lg.png',
+                    icon: App.helpers.getIconByType(model.get('type')),
                     body: model.get('time')
                 }),
                 timeout = window.setTimeout(function() {
@@ -275,6 +290,29 @@ window.App = (function(Backbone, Marionette) {
 
 
 })(App, Marionette, Backbone);
+App.module("Views", function(Views, App, Backbone, Marionette, $, _){
+
+    Views.Clock = Marionette.ItemView.extend({
+        template: 'clock',
+        className: function() {
+            var classes = [
+                'clock'
+            ];
+
+            if(this.model.get('meridiem')) {
+                classes.push(this.model.get('meridiem').toLowerCase());
+            }
+
+            return classes.join(' ');
+        },
+
+        modelEvents: {
+            'change': 'render'
+        }
+    });
+
+
+});
 App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     var TimeSlot = Marionette.ItemView.extend({
@@ -702,29 +740,6 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
 
 });
-App.module("Views", function(Views, App, Backbone, Marionette, $, _){
-
-    Views.Clock = Marionette.ItemView.extend({
-        template: 'clock',
-        className: function() {
-            var classes = [
-                'clock'
-            ];
-
-            if(this.model.get('meridiem')) {
-                classes.push(this.model.get('meridiem').toLowerCase());
-            }
-
-            return classes.join(' ');
-        },
-
-        modelEvents: {
-            'change': 'render'
-        }
-    });
-
-
-});
 App.module("About", function(About, App, Backbone, Marionette, $, _) {
 
 
@@ -899,6 +914,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             var collections = [
                     App.collections.botany,
                     App.collections.mining,
+                    App.collections.fishing,
                     App.collections.custom
                 ],
                 // create a flattened json list of all nodes for search purposes.
@@ -954,7 +970,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     if($el) {
                         $el = $el.filter(filter);
                     } else {
-                        $el = self.$(target).filter(filter)
+                        $el = self.$(target).filter(filter);
                     }
                 } else if(!$el || $el.length) {
                     $el = self.$(target);
@@ -1031,6 +1047,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 collections = [
                     App.collections.botany,
                     App.collections.mining,
+                    App.collections.fishing,
                     App.collections.custom
                 ];
 
@@ -1440,7 +1457,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                 var id;
                 if(this.get('type') !== 'custom') {
                     id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
-                        return item.split(' ').join('-').toLowerCase();
+                        return item.replace(/\,/g, '').split(' ').join('-').toLowerCase();
                     }).join('-');
                 } else if(!this.get('id')) {
                     id = _.uniqueId('custom-');
@@ -1540,6 +1557,11 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
     Entities.MiningNodes = NodeColl.extend({
         type: 'mining',
         url: '/data/mining.json'
+    });
+
+    Entities.FishingNodes = NodeColl.extend({
+        type: 'fishing',
+        url: '/data/fishing.json'
     });
 
     Entities.CustomNodes = Backbone.Collection.extend({

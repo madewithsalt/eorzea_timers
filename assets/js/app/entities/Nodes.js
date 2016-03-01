@@ -15,7 +15,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
                 var id;
                 if(this.get('type') !== 'custom') {
                     id = _.map([this.get('name'), this.get('time'), this.get('location')], function(item) {
-                        return item.split(' ').join('-').toLowerCase();
+                        return item.replace(/\,/g, '').split(' ').join('-').toLowerCase();
                     }).join('-');
                 } else if(!this.get('id')) {
                     id = _.uniqueId('custom-');
@@ -115,6 +115,11 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
     Entities.MiningNodes = NodeColl.extend({
         type: 'mining',
         url: '/data/mining.json'
+    });
+
+    Entities.FishingNodes = NodeColl.extend({
+        type: 'fishing',
+        url: '/data/fishing.json'
     });
 
     Entities.CustomNodes = Backbone.Collection.extend({

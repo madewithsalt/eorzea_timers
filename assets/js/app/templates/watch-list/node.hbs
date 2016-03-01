@@ -8,7 +8,7 @@
         <span class="time">{{ time }}</span>
 
         {{#if scrip}}
-            <span class="scrip-rating pull-right"><i class="icon {{ scrip.icon }}"></i> {{ scrip.rating }}</span>
+            <span class="scrip-rating pull-right"><i class="icon {{ scrip.icon }}"></i> {{!-- {{ scrip.rating }} --}}</span>
         {{/if}}
     </div>
     <div class="node-body">
@@ -38,10 +38,26 @@
     </div>
     <div class="node-footer">
         {{#if location }}
-            <div class="location">{{ location }}</div>
+            <div class="location footer-section">{{ location }}</div>
         {{/if}}
         {{#if pos }}
             <div class="pos">{{ pos }}</div>
+        {{/if}}
+        {{#if weather}}
+            <div class="weather footer-section">
+                <b>Weather:</b>
+                {{#each weather }}
+                    <span class="section-item">{{ . }}{{#unless @last}},{{/unless}} </span>
+                {{/each}}
+            </div>
+        {{/if}}
+        {{#if bait}}
+        <div class="bait footer-section">
+            <b>Bait: </b>
+            {{#each bait }}
+                <span class="section-item">{{ . }}{{#unless @last}},{{/unless}} </span>
+            {{/each}}
+        </div>
         {{/if}}
     </div>
 

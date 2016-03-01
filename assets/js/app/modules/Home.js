@@ -153,6 +153,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
             var collections = [
                     App.collections.botany,
                     App.collections.mining,
+                    App.collections.fishing,
                     App.collections.custom
                 ],
                 // create a flattened json list of all nodes for search purposes.
@@ -208,7 +209,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                     if($el) {
                         $el = $el.filter(filter);
                     } else {
-                        $el = self.$(target).filter(filter)
+                        $el = self.$(target).filter(filter);
                     }
                 } else if(!$el || $el.length) {
                     $el = self.$(target);
@@ -285,6 +286,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
                 collections = [
                     App.collections.botany,
                     App.collections.mining,
+                    App.collections.fishing,
                     App.collections.custom
                 ];
 

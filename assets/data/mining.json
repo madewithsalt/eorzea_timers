@@ -313,7 +313,7 @@
         "location": "Coerthas Western Highlands",
         "slot": "4",
         "pos": "x37,y16",
-        "duration": "3:00",
+        "duration": "0:55",
         "times": ["5:00 AM"],
         "is_collectable": true,
         "is_legendary": true,
@@ -324,7 +324,7 @@
         "location": "The Churning Mists",
         "slot": "6",
         "pos": "x11,y38",
-        "duration": "3:00",
+        "duration": "0:55",
         "times": ["5:00 AM"],
         "is_collectable": true,
         "is_legendary": true,
@@ -335,7 +335,7 @@
         "location": "The Sea of Clouds",
         "slot": "2",
         "pos": "x35,y39",
-        "duration": "3:00",
+        "duration": "0:55",
         "times": ["5:00 AM"],
         "is_collectable": true,
         "is_legendary": true
@@ -345,7 +345,7 @@
         "location": "Dravanian Hinterlands",
         "slot": "7",
         "pos": "x11,y16",
-        "duration": "3:00",
+        "duration": "0:55",
         "times": ["7:00 AM"],
         "is_collectable": true,
         "is_legendary": true
@@ -365,7 +365,7 @@
         "location": "Coerthas Western Highlands",
         "slot": "6",
         "pos": "x11,y21",
-        "duration": "3:00",
+        "duration": "0:55",
         "times": ["7:00 AM"],
         "is_collectable": true,
         "is_legendary": true
@@ -645,5 +645,29 @@
         "times": ["8:00 PM"],
         "is_collectable": true,
         "is_ephemeral": true
+    },{
+        "name": "Smithsonite Ore",
+        "icon": "",
+        "location": "Sea Of Clouds",
+        "pos": "x37,y13",
+        "slot": "2",
+        "duration": "0:55",
+        "times": ["1:00 AM"],
+        "stars": 2,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Lumythrite Ore",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x6,y20",
+        "slot": "2",
+        "duration": "0:55",
+        "times": ["3:00 AM"],
+        "stars": 2,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
     }
-    ]
+]

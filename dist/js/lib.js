@@ -10433,7 +10433,7 @@ return jQuery;
 }());
 
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Bootstrap v3.3.5 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under the MIT license
  */
@@ -10445,13 +10445,13 @@ if (typeof jQuery === 'undefined') {
 +function ($) {
   'use strict';
   var version = $.fn.jquery.split(' ')[0].split('.')
-  if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1) || (version[0] > 2)) {
-    throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 3')
+  if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1)) {
+    throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher')
   }
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: transition.js v3.3.6
+ * Bootstrap: transition.js v3.3.5
  * http://getbootstrap.com/javascript/#transitions
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -10511,7 +10511,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: alert.js v3.3.6
+ * Bootstrap: alert.js v3.3.5
  * http://getbootstrap.com/javascript/#alerts
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -10530,7 +10530,7 @@ if (typeof jQuery === 'undefined') {
     $(el).on('click', dismiss, this.close)
   }
 
-  Alert.VERSION = '3.3.6'
+  Alert.VERSION = '3.3.5'
 
   Alert.TRANSITION_DURATION = 150
 
@@ -10606,7 +10606,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: button.js v3.3.6
+ * Bootstrap: button.js v3.3.5
  * http://getbootstrap.com/javascript/#buttons
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -10626,7 +10626,7 @@ if (typeof jQuery === 'undefined') {
     this.isLoading = false
   }
 
-  Button.VERSION  = '3.3.6'
+  Button.VERSION  = '3.3.5'
 
   Button.DEFAULTS = {
     loadingText: 'loading...'
@@ -10727,7 +10727,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: carousel.js v3.3.6
+ * Bootstrap: carousel.js v3.3.5
  * http://getbootstrap.com/javascript/#carousel
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -10758,7 +10758,7 @@ if (typeof jQuery === 'undefined') {
       .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
   }
 
-  Carousel.VERSION  = '3.3.6'
+  Carousel.VERSION  = '3.3.5'
 
   Carousel.TRANSITION_DURATION = 600
 
@@ -10965,7 +10965,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: collapse.js v3.3.6
+ * Bootstrap: collapse.js v3.3.5
  * http://getbootstrap.com/javascript/#collapse
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -10995,7 +10995,7 @@ if (typeof jQuery === 'undefined') {
     if (this.options.toggle) this.toggle()
   }
 
-  Collapse.VERSION  = '3.3.6'
+  Collapse.VERSION  = '3.3.5'
 
   Collapse.TRANSITION_DURATION = 350
 
@@ -11177,7 +11177,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: dropdown.js v3.3.6
+ * Bootstrap: dropdown.js v3.3.5
  * http://getbootstrap.com/javascript/#dropdowns
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -11197,7 +11197,7 @@ if (typeof jQuery === 'undefined') {
     $(element).on('click.bs.dropdown', this.toggle)
   }
 
-  Dropdown.VERSION = '3.3.6'
+  Dropdown.VERSION = '3.3.5'
 
   function getParent($this) {
     var selector = $this.attr('data-target')
@@ -11229,7 +11229,7 @@ if (typeof jQuery === 'undefined') {
       if (e.isDefaultPrevented()) return
 
       $this.attr('aria-expanded', 'false')
-      $parent.removeClass('open').trigger($.Event('hidden.bs.dropdown', relatedTarget))
+      $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
     })
   }
 
@@ -11263,7 +11263,7 @@ if (typeof jQuery === 'undefined') {
 
       $parent
         .toggleClass('open')
-        .trigger($.Event('shown.bs.dropdown', relatedTarget))
+        .trigger('shown.bs.dropdown', relatedTarget)
     }
 
     return false
@@ -11343,7 +11343,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: modal.js v3.3.6
+ * Bootstrap: modal.js v3.3.5
  * http://getbootstrap.com/javascript/#modals
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -11377,7 +11377,7 @@ if (typeof jQuery === 'undefined') {
     }
   }
 
-  Modal.VERSION  = '3.3.6'
+  Modal.VERSION  = '3.3.5'
 
   Modal.TRANSITION_DURATION = 300
   Modal.BACKDROP_TRANSITION_DURATION = 150
@@ -11681,7 +11681,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: tooltip.js v3.3.6
+ * Bootstrap: tooltip.js v3.3.5
  * http://getbootstrap.com/javascript/#tooltip
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ========================================================================
@@ -11708,7 +11708,7 @@ if (typeof jQuery === 'undefined') {
     this.init('tooltip', element, options)
   }
 
-  Tooltip.VERSION  = '3.3.6'
+  Tooltip.VERSION  = '3.3.5'
 
   Tooltip.TRANSITION_DURATION = 150
 
@@ -12196,7 +12196,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: popover.js v3.3.6
+ * Bootstrap: popover.js v3.3.5
  * http://getbootstrap.com/javascript/#popovers
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -12216,7 +12216,7 @@ if (typeof jQuery === 'undefined') {
 
   if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
 
-  Popover.VERSION  = '3.3.6'
+  Popover.VERSION  = '3.3.5'
 
   Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
     placement: 'right',
@@ -12305,7 +12305,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: scrollspy.js v3.3.6
+ * Bootstrap: scrollspy.js v3.3.5
  * http://getbootstrap.com/javascript/#scrollspy
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -12334,7 +12334,7 @@ if (typeof jQuery === 'undefined') {
     this.process()
   }
 
-  ScrollSpy.VERSION  = '3.3.6'
+  ScrollSpy.VERSION  = '3.3.5'
 
   ScrollSpy.DEFAULTS = {
     offset: 10
@@ -12478,7 +12478,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: tab.js v3.3.6
+ * Bootstrap: tab.js v3.3.5
  * http://getbootstrap.com/javascript/#tabs
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -12498,7 +12498,7 @@ if (typeof jQuery === 'undefined') {
     // jscs:enable requireDollarBeforejQueryAssignment
   }
 
-  Tab.VERSION = '3.3.6'
+  Tab.VERSION = '3.3.5'
 
   Tab.TRANSITION_DURATION = 150
 
@@ -12634,7 +12634,7 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: affix.js v3.3.6
+ * Bootstrap: affix.js v3.3.5
  * http://getbootstrap.com/javascript/#affix
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -12663,7 +12663,7 @@ if (typeof jQuery === 'undefined') {
     this.checkPosition()
   }
 
-  Affix.VERSION  = '3.3.6'
+  Affix.VERSION  = '3.3.5'
 
   Affix.RESET    = 'affix affix-top affix-bottom'
 
@@ -19056,7 +19056,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 // MarionetteJS (Backbone.Marionette)
 // ----------------------------------
-// v2.4.4
+// v2.4.3
 //
 // Copyright (c)2015 Derick Bailey, Muted Solutions, LLC.
 // Distributed under MIT license
@@ -19545,7 +19545,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
   var Marionette = Backbone.Marionette = {};
 
-  Marionette.VERSION = '2.4.4';
+  Marionette.VERSION = '2.4.3';
 
   Marionette.noConflict = function() {
     root.Marionette = previousMarionette;
@@ -20075,11 +20075,9 @@ return /******/ (function(modules) { // webpackBootstrap
     //this is a noop method intended to be overridden by classes that extend from this base
     initialize: function() {},
   
-    destroy: function(options) {
-      options = options || {};
-  
-      this.triggerMethod('before:destroy', options);
-      this.triggerMethod('destroy', options);
+    destroy: function() {
+      this.triggerMethod('before:destroy');
+      this.triggerMethod('destroy');
       this.stopListening();
   
       return this;
@@ -20193,12 +20191,9 @@ return /******/ (function(modules) { // webpackBootstrap
         // we can not reuse it.
         view.once('destroy', this.empty, this);
   
-        // make this region the view's parent,
-        // It's important that this parent binding happens before rendering
-        // so that any events the child may trigger during render can also be
-        // triggered on the child's ancestor views
-        view._parent = this;
         this._renderView(view);
+  
+        view._parent = this;
   
         if (isChangingView) {
           this.triggerMethod('before:swap', view, this, options);
@@ -20330,7 +20325,7 @@ return /******/ (function(modules) { // webpackBootstrap
       var preventDestroy  = !!emptyOptions.preventDestroy;
       // If there is no view in the region
       // we should not remove anything
-      if (!view) { return this; }
+      if (!view) { return; }
   
       view.off('destroy', this.empty, this);
       this.triggerMethod('before:empty', view);
@@ -21024,10 +21019,6 @@ return /******/ (function(modules) { // webpackBootstrap
   
       // call the parent view's childEvents handler
       var childEvents = Marionette.getOption(layoutView, 'childEvents');
-  
-      // since childEvents can be an object or a function use Marionette._getValue
-      // to handle the abstaction for us.
-      childEvents = Marionette._getValue(childEvents, layoutView);
       var normalizedChildEvents = layoutView.normalizeMethods(childEvents);
   
       if (normalizedChildEvents && _.isFunction(normalizedChildEvents[eventName])) {
@@ -21053,17 +21044,26 @@ return /******/ (function(modules) { // webpackBootstrap
       }, children);
     },
   
-    // Walk the _parent tree until we find a layout view (if one exists).
-    // Returns the parent layout view hierarchically closest to this view.
-    _parentLayoutView: function() {
+    // Internal utility for building an ancestor
+    // view tree list.
+    _getAncestors: function() {
+      var ancestors = [];
       var parent  = this._parent;
   
       while (parent) {
-        if (parent instanceof Marionette.LayoutView) {
-          return parent;
-        }
+        ancestors.push(parent);
         parent = parent._parent;
       }
+  
+      return ancestors;
+    },
+  
+    // Returns the containing parent view.
+    _parentLayoutView: function() {
+      var ancestors = this._getAncestors();
+      return _.find(ancestors, function(parent) {
+        return parent instanceof Marionette.LayoutView;
+      });
     },
   
     // Imports the "normalizeMethods" to transform hashes of
@@ -21362,38 +21362,27 @@ return /******/ (function(modules) { // webpackBootstrap
     reorder: function() {
       var children = this.children;
       var models = this._filteredSortedModels();
-      var anyModelsAdded = _.some(models, function(model) {
+      var modelsChanged = _.find(models, function(model) {
         return !children.findByModel(model);
       });
   
-      // If there are any new models added due to filtering
-      // We need to add child views
+      // If the models we're displaying have changed due to filtering
+      // We need to add and/or remove child views
       // So render as normal
-      if (anyModelsAdded) {
+      if (modelsChanged) {
         this.render();
       } else {
         // get the DOM nodes in the same order as the models
-        var elsToReorder = _.map(models, function(model, index) {
+        var els = _.map(models, function(model, index) {
           var view = children.findByModel(model);
           view._index = index;
           return view.el;
         });
   
-        // find the views that were children before but arent in this new ordering
-        var filteredOutViews = children.filter(function(view) {
-          return !_.contains(elsToReorder, view.el);
-        });
-  
-        this.triggerMethod('before:reorder');
-  
         // since append moves elements that are already in the DOM,
         // appending the elements will effectively reorder them
-        this._appendReorderedChildren(elsToReorder);
-  
-        // remove any views that have been filtered out
-        _.each(filteredOutViews, this.removeChildView, this);
-        this.checkEmpty();
-  
+        this.triggerMethod('before:reorder');
+        this._appendReorderedChildren(els);
         this.triggerMethod('reorder');
       }
     },
@@ -22160,9 +22149,8 @@ return /******/ (function(modules) { // webpackBootstrap
       return Marionette.ItemView.prototype.destroy.apply(this, arguments);
     },
   
-    showChildView: function(regionName, view, options) {
-      var region = this.getRegion(regionName);
-      return region.show.apply(region, _.rest(arguments));
+    showChildView: function(regionName, view) {
+      return this.getRegion(regionName).show(view);
     },
   
     getChildView: function(regionName) {

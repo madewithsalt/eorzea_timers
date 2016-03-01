@@ -663,6 +663,30 @@
         "times": ["8:00 PM"],
         "is_collectable": true,
         "is_ephemeral": true
+    },{
+        "name": "Frost Cotton Boll",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x35,y15",
+        "slot": "4",
+        "duration": "0:55",
+        "times": ["1:00 PM"],
+        "stars": 2,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Old-growth Camphorwood Log",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x11,y10",
+        "slot": "6",
+        "duration": "0:55",
+        "times": ["3:00 PM"],
+        "stars": 2,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
     }
 
 ]

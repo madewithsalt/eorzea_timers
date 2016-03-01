@@ -18,7 +18,7 @@
             border: 3px solid #ccc;
             position: relative;
             padding: 0;
-            height: 220px;
+            height: 250px;
 
             .earth-time {
                 @include transition(all 200ms ease-in);
@@ -93,6 +93,20 @@
             margin-top: 4px;
             border-top: 1px solid #ccc;
             text-align: center;
+
+            .footer-section {
+                border-bottom: 1px solid $text-color;
+                padding-bottom: 2px;
+                margin-bottom: 2px;
+
+                &.weather, &.bait {
+                    font-size: 11px;
+                }
+
+                &:last-child, &:only-child {
+                    border-bottom: none;
+                } 
+            }
         }
 
         .title {

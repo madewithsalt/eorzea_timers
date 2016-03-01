@@ -3,7 +3,6 @@ window.App = (function(Backbone, Marionette) {
     moment().utc();
     Swag.registerHelpers(window.Handlebars);
 
-
     var Router,
         App = new Marionette.Application();
 
@@ -37,6 +36,21 @@ window.App = (function(Backbone, Marionette) {
             modalRegion: '#modal-region'
         });
 
+        App.helpers = {
+            getIconByType: function(type) {
+                switch(type) {
+                    case 'botany':
+                        return '/img/btn_icon_lg.png';
+                    case 'mining':
+                        return '/img/min_icon_lg.png';
+                    case 'fishing':
+                        return ''; //'/img/fish_icon_lg.png'
+                    default:
+                        return '';
+                }
+            }
+        }
+
         // page title time config
         var $title = $('#page-title'),
             titleContent = 'Eorzea Timers';
@@ -45,6 +59,7 @@ window.App = (function(Backbone, Marionette) {
         App.collections = {
             botany: new App.Entities.BotanyNodes(),
             mining: new App.Entities.MiningNodes(),
+            fishing: new App.Entities.FishingNodes(),
             custom: new App.Entities.CustomNodes(),
             watched: new App.Entities.WatchedNodes()
         };
@@ -178,7 +193,7 @@ window.App = (function(Backbone, Marionette) {
             var notifier = new Notification(model.get('name'), {
                     renotify: true,
                     vibrate: 200,
-                    icon: model.get('type') === 'botany' ? '/img/btn_icon_lg.png' : '/img/min_icon_lg.png',
+                    icon: App.helpers.getIconByType(model.get('type')),
                     body: model.get('time')
                 }),
                 timeout = window.setTimeout(function() {

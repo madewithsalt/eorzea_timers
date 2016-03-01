@@ -238,6 +238,8 @@ templates['home/home.hbs'] = template({"1":function(container,depth0,helpers,par
     + " botany\" data-target=\"botany\"><span class=\"icon botany\"></span> Botany</div>\n                        <div class=\"btn btn-primary btn-sm "
     + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,(depth0 != null ? depth0.filteringBy : depth0),"mining",{"name":"is","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " mining\" data-target=\"mining\"><span class=\"icon mining\"></span>  Mining</div>\n                        <div class=\"btn btn-primary btn-sm "
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,(depth0 != null ? depth0.filteringBy : depth0),"fishing",{"name":"is","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " fishing\" data-target=\"fishing\"><span class=\"icon fishing\"></span>  Fishing</div>\n                        <div class=\"btn btn-primary btn-sm "
     + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias1).call(depth0,(depth0 != null ? depth0.filteringBy : depth0),"custom",{"name":"is","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " custom\" data-target=\"custom\"><span class=\"icon custom\"></span> Custom</div>\n                    </div>                        \n                </div>\n                <div class=\"nodes-filter\">\n                    <div class=\"filter-label\">Special attributes:</div>                        \n                    <div class=\"btn-group attr-menu\">\n                        <div class=\"btn btn-default btn-sm "
     + ((stack1 = (helpers.inArray || (depth0 && depth0.inArray) || alias1).call(depth0,(depth0 != null ? depth0.attrFilters : depth0),"is_collectable",{"name":"inArray","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -301,13 +303,11 @@ templates['watch-list/base.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":fu
 templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     return "        <a class=\"btn btn-danger btn-xs btn-delete\"><i class=\"fa fa-times\"></i></a>\n";
 },"3":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+    var stack1;
 
   return "            <span class=\"scrip-rating pull-right\"><i class=\"icon "
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.scrip : depth0)) != null ? stack1.icon : stack1), depth0))
-    + "\"></i> "
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.scrip : depth0)) != null ? stack1.rating : stack1), depth0))
-    + "</span>\n";
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.scrip : depth0)) != null ? stack1.icon : stack1), depth0))
+    + "\"></i> </span>\n";
 },"5":function(container,depth0,helpers,partials,data) {
     return "<i class=\"fa fa-cube\"></i>";
 },"7":function(container,depth0,helpers,partials,data) {
@@ -347,7 +347,7 @@ templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpe
 },"18":function(container,depth0,helpers,partials,data) {
     var helper;
 
-  return "            <div class=\"location\">"
+  return "            <div class=\"location footer-section\">"
     + container.escapeExpression(((helper = (helper = helpers.location || (depth0 != null ? depth0.location : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"location","hash":{},"data":data}) : helper)))
     + "</div>\n";
 },"20":function(container,depth0,helpers,partials,data) {
@@ -356,6 +356,34 @@ templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpe
   return "            <div class=\"pos\">"
     + container.escapeExpression(((helper = (helper = helpers.pos || (depth0 != null ? depth0.pos : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"pos","hash":{},"data":data}) : helper)))
     + "</div>\n";
+},"22":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "            <div class=\"weather footer-section\">\n                <b>Weather:</b>\n"
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.weather : depth0),{"name":"each","hash":{},"fn":container.program(23, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "            </div>\n";
+},"23":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "                    <span class=\"section-item\">"
+    + container.escapeExpression(container.lambda(depth0, depth0))
+    + ((stack1 = helpers.unless.call(depth0,(data && data.last),{"name":"unless","hash":{},"fn":container.program(24, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " </span>\n";
+},"24":function(container,depth0,helpers,partials,data) {
+    return ",";
+},"26":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "        <div class=\"bait footer-section\">\n            <b>Bait: </b>\n"
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.bait : depth0),{"name":"each","hash":{},"fn":container.program(27, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "        </div>\n";
+},"27":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "                <span class=\"section-item\">"
+    + container.escapeExpression(container.lambda(depth0, depth0))
+    + ((stack1 = helpers.unless.call(depth0,(data && data.last),{"name":"unless","hash":{},"fn":container.program(24, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " </span>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=container.escapeExpression;
 
@@ -383,6 +411,8 @@ templates['watch-list/node.hbs'] = template({"1":function(container,depth0,helpe
     + "    </div>\n    <div class=\"node-footer\">\n"
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.location : depth0),{"name":"if","hash":{},"fn":container.program(18, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.pos : depth0),{"name":"if","hash":{},"fn":container.program(20, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.weather : depth0),{"name":"if","hash":{},"fn":container.program(22, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.bait : depth0),{"name":"if","hash":{},"fn":container.program(26, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </div>\n\n</div>";
 },"useData":true});
 templates['watch-list/preferences.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
