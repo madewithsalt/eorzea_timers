@@ -434,7 +434,7 @@
         "duration": "0:55",
         "times": ["12:00 AM", "12:00 PM"],
         "is_collectable": true,
-        "red_scrip": 450
+        "blue_scrip": 450
     },{
         "name": "Fire Cluster",
         "icon": "",
