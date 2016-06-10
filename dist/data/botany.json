@@ -326,7 +326,7 @@
         "times": ["5:00 PM"],
         "is_collectable": true,
         "is_legendary": true,
-        "red_scrip": 530
+        "red_scrip": 470
     },{
         "name": "Vanilla Beans",
         "icon": "",
@@ -687,6 +687,27 @@
         "is_collectable": false,
         "is_ephemeral": false,
         "is_legendary": true
+    },
+    {
+        "name": "Lover's Laurel",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x26,y35 x23,y12",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },
+    {
+        "name": "Lover's Laurel",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y14",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
     }
-
 ]

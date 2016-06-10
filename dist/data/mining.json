@@ -328,7 +328,7 @@
         "times": ["5:00 AM"],
         "is_collectable": true,
         "is_legendary": true,
-        "red_scrip": 530
+        "red_scrip": 470
     },{
         "name": "Sun Mica",
         "icon": "",
@@ -338,7 +338,8 @@
         "duration": "0:55",
         "times": ["5:00 AM"],
         "is_collectable": true,
-        "is_legendary": true
+        "is_legendary": true,
+        "red_scrip": 470
     },{
         "name": "Blue Quartz",
         "icon": "",
