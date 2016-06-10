@@ -209,7 +209,7 @@ window.TIME_HELPERS = (function() {
 $(function() {
 
     if(typeof App !== 'undefined') {
-        App.start({ version: '1.8' });
+        App.start({ version: '1.9' });
     }
 
 });
