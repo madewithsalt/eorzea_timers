@@ -17,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
+    "jquery": "^2.0.0",
     "async": "~1.4.2",
     "backbone.localStorage": "~1.1.16",
     "backbone.marionette": "~2.4.3",
