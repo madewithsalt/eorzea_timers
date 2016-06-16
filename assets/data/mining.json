@@ -327,7 +327,7 @@
         "duration": "0:55",
         "times": ["5:00 AM"],
         "is_collectable": true,
-        "is_ephemeral": true,
+        "is_ephemeral": true
     },{
         "name": "Aurum Regis Ore",
         "icon": "",
