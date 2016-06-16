@@ -319,6 +319,16 @@
         "is_legendary": true,
         "red_scrip": 530
     },{
+        "name": "Radiant Astral Moraine",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "slot": "4",
+        "pos": "x37,y16",
+        "duration": "0:55",
+        "times": ["5:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true,
+    },{
         "name": "Aurum Regis Ore",
         "icon": "",
         "location": "The Churning Mists",
@@ -417,7 +427,7 @@
         "times": ["12:00 AM", "12:00 PM"],
         "is_collectable": true
     },{
-        "name": "Alabathian Rock Salt",
+        "name": "Abalathian Rock Salt",
         "icon": "",
         "location": "The Sea of Clouds",
         "slot": "1",
@@ -467,7 +477,7 @@
         "is_collectable": true,
         "is_ephemeral": true
     },{
-        "name": "Bright Fire Rock",
+        "name": "Radiant Astral Moraine",
         "icon": "",
         "location": "The Dravanian Forelands",
         "pos": "x17,y27",
@@ -517,6 +527,16 @@
         "is_collectable": true,
         "is_ephemeral": true
     },{
+        "name": "Radiant Astral Moraine",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x26,y24",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
         "name": "Radiant Fire Moraine",
         "icon": "",
         "location": "The Dravanian Hinterlands",
@@ -558,6 +578,16 @@
         "is_ephemeral": true
     },{
         "name": "Radiant Fire Moraine",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x29,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Astral Moraine",
         "icon": "",
         "location": "The Churning Mists",
         "pos": "x29,y19",
@@ -578,6 +608,16 @@
         "is_ephemeral": true
     },{
         "name": "Lightning Moraine",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x34,y30",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Astral Moraine",
         "icon": "",
         "location": "The Sea of Clouds",
         "pos": "x34,y30",
@@ -638,6 +678,16 @@
         "is_ephemeral": true
     },{
         "name": "Radiant Lightning Moraine",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x21,y28",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Astral Moraine",
         "icon": "",
         "location": "Coerthas Western Highlands",
         "pos": "x21,y28",
