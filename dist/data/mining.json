@@ -720,5 +720,18 @@
         "is_collectable": false,
         "is_ephemeral": false,
         "is_legendary": true
+    },{
+        "name": "Meteorite",
+        "icon": "",
+        "location": "Sea of Clouds",
+        "pos": "x37,y13",
+        "slot": "3",
+        "duration": "0:55",
+        "times": ["1:00 AM"],
+        "stars": 2,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
     }
+
 ]
