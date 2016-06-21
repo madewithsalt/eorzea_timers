@@ -709,5 +709,16 @@
         "times": ["12:00 AM"],
         "is_collectable": true,
         "is_ephemeral": true
+    },{
+        "name": "Crystallized Sap",
+        "icon": "",
+        "location": "Churning Mists",
+        "pos": "x7,y9",
+        "slot": "4",
+        "duration": "0:55",
+        "times": ["3:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
     }
 ]
