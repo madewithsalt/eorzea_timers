@@ -74,6 +74,10 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
             }
         ],
 
+        events: {
+            'click .embed-link': 'showEmbedModal'
+        },
+
         initialize: function() {
             var self = this;
 
@@ -106,6 +110,13 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
             return {
                 menuItems: menu
             }
+        },
+
+        showEmbedModal: function() {
+            App.vent.trigger('modal:open', {
+                childView: App.Views.EmbedCode,
+                title: 'Embed Widget!'
+            });
         }
     })
 

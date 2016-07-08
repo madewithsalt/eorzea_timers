@@ -432,6 +432,16 @@ App.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 });
 App.module("Views", function(Views, App, Backbone, Marionette, $, _){
 
+    Views.EmbedCode = Marionette.ItemView.extend({
+        template: 'embedcode',
+
+        serializeData: function() {
+        }
+    });
+
+});
+App.module("Views", function(Views, App, Backbone, Marionette, $, _){
+
     Views.Error = Marionette.ItemView.extend({
         template: 'error',
         className: 'alert alert-danger',
@@ -1244,6 +1254,10 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
             }
         ],
 
+        events: {
+            'click .embed-link': 'showEmbedModal'
+        },
+
         initialize: function() {
             var self = this;
 
@@ -1276,6 +1290,13 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
             return {
                 menuItems: menu
             }
+        },
+
+        showEmbedModal: function() {
+            App.vent.trigger('modal:open', {
+                childView: App.Views.EmbedCode,
+                title: 'Embed Widget!'
+            });
         }
     })
 

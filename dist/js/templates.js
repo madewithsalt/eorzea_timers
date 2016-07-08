@@ -51,6 +51,9 @@ templates['custom-timer.hbs'] = template({"1":function(container,depth0,helpers,
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.duration_obj : depth0)) != null ? stack1.minutes : stack1), depth0))
     + "\" data-parsley-range=\"[0, 59]\" class=\"form-control\" required data-parsley-errors-messages-disabled  />\n                </div>\n            </div>\n        </div>\n        <div class=\"form-actions align-right\">\n            <a class=\"btn btn-primary btn-save\">Save</a>\n            <a class=\"btn btn-default btn-close\" data-dismiss=\"modal\">Cancel</a>\n        </div>\n    </form>\n</div>";
 },"useData":true});
+templates['embedcode.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<iframe src=\"http://eorzea-timers.com/widget.html\" width=\"100%\" height=\"130px\" style=\"border:0;\"></iframe>\n<hr />\n<h4>Copy + paste this wherever you want to display your timer:</h4>\n<pre>\n    &lt;iframe src=\"http://eorzea-timers.com/widget.html\" width=\"100%\" height=\"130px\" style=\"border:0;\"&gt;&lt;/iframe&gt;\n</pre>\n";
+},"useData":true});
 templates['empty.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "";
 },"useData":true});
@@ -312,7 +315,7 @@ templates['main-nav/menu.hbs'] = template({"1":function(container,depth0,helpers
 
   return "    <ul class=\"nav navbar-nav\" id=\"menu\">\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.menuItems : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </ul>\n";
+    + "        <li class=\"embed\"><a class=\"embed-link\">Embed</a></li>\n    </ul>\n";
 },"useData":true});
 templates['watch-list/base.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"container\">\n    <div class=\"col-md-12\">\n        <h3>\n            Watch List \n            <a class=\"watch-settings-link btn btn-default btn-sm\"><i class=\"fa fa-cog\"></i> preferences</a>\n            <a class=\"btn btn-sm btn-default pull-right clear-list\"><i class=\"fa fa-times\"></i> clear all</a>\n        </h3>\n    </div>\n    <div class=\"watched-nodes-region\"></div>    \n</div>\n<div class=\"modal-region\" id=\"watch-list-modal\"></div>\n";
