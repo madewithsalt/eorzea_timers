@@ -8026,10 +8026,10 @@ button.close {
     margin-top: -12px; }
 
 #light-widget iframe {
-  background-color: #000; }
-
-#light-widget iframe {
   background-color: #fff; }
+
+#dark-widget iframe {
+  background-color: #000; }
 
 body {
   padding: 60px 0; }
