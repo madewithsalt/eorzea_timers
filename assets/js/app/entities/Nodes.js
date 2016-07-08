@@ -138,7 +138,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         },
 
         checkAlarm: function(model) {
-            var alarm = App.userSettings.get('alarm');
+            var alarm = App.userSettings ? App.userSettings.get('alarm') : null;
 
             if(!alarm || !model.get('selected') || model.get('active')) { return; }
 
