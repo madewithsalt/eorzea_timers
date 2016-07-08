@@ -223,6 +223,23 @@ templates['node.hbs'] = template({"1":function(container,depth0,helpers,partials
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isCustom : depth0),{"name":"if","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n    </div>\n</div>";
 },"useData":true});
+templates['widget-nodelist.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=container.escapeExpression;
+
+  return "    <span class=\"icon "
+    + alias1(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"key","hash":{},"data":data}) : helper)))
+    + "\"></span><span class=\"badge\">"
+    + alias1(container.lambda(depth0, depth0))
+    + "</span> \n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<p class=\"small\">nodes active now:</p>\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.active : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"useData":true});
+templates['widget.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"clock-region\"></div>\n<div class=\"nodes-region\"></div>\n<a href=\"http://eorzea-timers.com\" target=\"_blank\">eorzea-timers.com</a>";
+},"useData":true});
 templates['custom-timer/time-slot.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"form-group form-inline form-time\">\n    <div class=\"input-group col-md-3\">\n        <div class=\"input-group-addon\">hour</div>\n        <input type=\"range\" name=\"hour\" value=\"\" class=\"form-control\" data-parsley-range=\"[1, 12]\" data-parsley-errors-messages-disabled />\n    </div>\n    <div class=\"input-group col-md-3\">\n        <div class=\"input-group-addon\">minute</div>\n        <input type=\"range\" name=\"min\" value=\"\" class=\"form-control\" data-parsley-range=\"[0, 59]\" data-parsley-errors-messages-disabled />\n    </div>\n    <div class=\"input-group col-md-3\">\n        <select name=\"meridien\" class=\"form-control\" value=\"\">\n            <option>AM</option>\n            <option>PM</option>\n        </select>\n    </div>\n    <a class=\"rem-time btn btn-sm btn-danger\"><i class=\"fa fa-minus\"></i></a>\n</div>";
 },"useData":true});

@@ -111,9 +111,11 @@ App.module("MainNav", function(Nav, App, Backbone, Marionette, $, _){
 
 
     App.on('start', function() {
-        App.navRegion.show(new Nav.BaseView({
-        	model: new App.Entities.Clock()
-        }));
+        if(App.navRegion) {
+            App.navRegion.show(new Nav.BaseView({
+                model: new App.Entities.Clock()
+            }));
+        }
     });
 
 
