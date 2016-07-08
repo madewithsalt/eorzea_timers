@@ -1,6 +1,7 @@
 #widget {
     margin: 0;
     padding: 0;
+    background-color: transparent;
 }
 
 #widget-region {
@@ -26,4 +27,16 @@
         }
     }
 
+}
+
+#light-widget {
+    iframe {
+        background-color: #fff;
+    }
+}
+
+#light-widget {
+    iframe {
+        background-color: #000;
+    }
 }

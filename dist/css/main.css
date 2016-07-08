@@ -8008,7 +8008,8 @@ button.close {
     text-align: left; } }
 #widget {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  background-color: transparent; }
 
 #widget-region {
   text-align: center; }
@@ -8023,6 +8024,12 @@ button.close {
   #widget-region .nodes-region .badge {
     margin-left: -6px;
     margin-top: -12px; }
+
+#light-widget iframe {
+  background-color: #fff; }
+
+#light-widget iframe {
+  background-color: #000; }
 
 body {
   padding: 60px 0; }

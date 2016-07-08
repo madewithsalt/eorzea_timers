@@ -15220,6 +15220,31 @@ a.list-group-item-danger.active:focus {
   .node.node-slim .location {
     display: block;
     text-align: left; } }
+#widget {
+  margin: 0;
+  padding: 0;
+  background-color: transparent; }
+
+#widget-region {
+  text-align: center; }
+  #widget-region .clock-region {
+    font-size: 40px;
+    font-weight: bold; }
+  #widget-region .small {
+    margin: 0; }
+  #widget-region .nodes-region .icon {
+    width: 35px;
+    height: 35px; }
+  #widget-region .nodes-region .badge {
+    margin-left: -6px;
+    margin-top: -12px; }
+
+#light-widget iframe {
+  background-color: #fff; }
+
+#light-widget iframe {
+  background-color: #000; }
+
 body {
   padding: 60px 0; }
 
