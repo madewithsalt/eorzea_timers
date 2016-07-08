@@ -8006,6 +8006,10 @@ button.close {
   .node.node-slim .location {
     display: block;
     text-align: left; } }
+#widget {
+  margin: 0;
+  padding: 0; }
+
 #widget-region {
   text-align: center; }
   #widget-region .clock-region {
