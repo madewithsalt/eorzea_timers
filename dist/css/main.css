@@ -8011,6 +8011,10 @@ button.close {
   padding: 0;
   background-color: transparent; }
 
+.dark #widget-region {
+  color: #fff;
+  text-shadow: 0 0 2px #000; }
+
 #widget-region {
   text-align: center; }
   #widget-region .clock-region {
