@@ -208,8 +208,8 @@ window.TIME_HELPERS = (function() {
 })();
 $(function() {
 
-    if(typeof App !== 'undefined') {
-        App.start({ version: '1.10.2' });
+    if (typeof App !== 'undefined') {
+        App.start({ version: '1.11.0' });
     }
 
 });

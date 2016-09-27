@@ -704,7 +704,7 @@
         "slot": "2",
         "duration": "0:55",
         "times": ["1:00 AM"],
-        "stars": 2,
+        "stars": 1,
         "is_collectable": false,
         "is_ephemeral": false,
         "is_legendary": true
@@ -716,7 +716,7 @@
         "slot": "2",
         "duration": "0:55",
         "times": ["3:00 AM"],
-        "stars": 2,
+        "stars": 1,
         "is_collectable": false,
         "is_ephemeral": false,
         "is_legendary": true
@@ -728,7 +728,43 @@
         "slot": "3",
         "duration": "0:55",
         "times": ["1:00 AM"],
+        "stars": 1,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Luminium Ore",
+        "icon": "",
         "stars": 2,
+        "location": "Azys Lla",
+        "pos": "x5,y17",
+        "slot": "6",
+        "duration": "0:55",
+        "times": ["4:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Zeolite Ore",
+        "icon": "",
+        "stars": 2,
+        "location": "Dravanian Hinterlands",
+        "pos": "x16,y28",
+        "slot": "4",
+        "duration": "0:55",
+        "times": ["6:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Tungstite",
+        "icon": "",
+        "stars": 2,
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y10",
+        "slot": "4",
+        "duration": "0:55",
+        "times": ["8:00 AM"],
         "is_collectable": false,
         "is_ephemeral": false,
         "is_legendary": true
