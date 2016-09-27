@@ -671,7 +671,7 @@
         "slot": "4",
         "duration": "0:55",
         "times": ["1:00 PM"],
-        "stars": 2,
+        "stars": 1,
         "is_collectable": false,
         "is_ephemeral": false,
         "is_legendary": true
@@ -683,7 +683,7 @@
         "slot": "6",
         "duration": "0:55",
         "times": ["3:00 PM"],
-        "stars": 2,
+        "stars": 1,
         "is_collectable": false,
         "is_ephemeral": false,
         "is_legendary": true
@@ -720,5 +720,54 @@
         "is_collectable": false,
         "is_ephemeral": false,
         "is_legendary": true
+    },{
+        "name": "Star Cotton Boll",
+        "icon": "",
+        "stars": 2,
+        "location": "Azys Lla",
+        "pos": "x8,y31",
+        "slot": "4",
+        "duration": "0:55",
+        "times": ["12:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Brown Mushroom",
+        "icon": "",
+        "stars": 2,
+        "location": "Churning Mists",
+        "pos": "x12,y37",
+        "slot": "7",
+        "duration": "0:55",
+        "times": ["4:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },
+    {
+        "name": "Teak Log",
+        "icon": "",
+        "stars": 2,
+        "location": "Dravanian Hinterlands",
+        "pos": "x8,y29",
+        "slot": "6",
+        "duration": "0:55",
+        "times": ["6:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Noble Sage",
+        "icon": "",
+        "stars": 2,
+        "location": "Dravanian Forelands",
+        "pos": "x33,y30",
+        "slot": "1",
+        "duration": "0:55",
+        "times": ["8:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
     }
-]
+  ]
