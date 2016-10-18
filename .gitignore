@@ -3,7 +3,7 @@ logs
 *.log
 .DS_Store
 .sass-cache/*
-
+.vscode
 
 # Runtime data
 pids

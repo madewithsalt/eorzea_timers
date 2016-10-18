@@ -1,0 +1,78 @@
+<div class="clearfix">
+    <form class="col-md-12">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" value="{{ name }}" class="form-control" required data-parsley-errors-messages-disabled data-parsley-maxlength="100" />
+        </div>
+        <div class="form-group">
+            <label>Location</label>
+            <input type="text" name="location" value="{{ location }}" class="form-control" />
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Slot</label>
+                <input type="text" name="slot" value="{{ slot }}" class="form-control" />
+            </div>
+
+            <div class="form-group col-md-8">
+                <div class="row">
+                    <label>Position</label>
+                    <div class="form-group form-inline">
+                        <div class="input-group col-md-4">
+                            <div class="input-group-addon">x</div>
+                            <input type="number" name="xpos" value="{{ xPos }}" class="form-control" />
+                        </div>
+                        <div class="input-group col-md-4">
+                            <div class="input-group-addon">y</div>
+                            <input type="number" name="ypos" value="{{ yPos }}" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="times-label">
+                Time
+                {{!-- <a class="add-time btn btn-xs btn-default"><i class="fa fa-plus"></i></a> --}}
+            </label>
+            <div class="times-list">
+                {{#each times }}
+                    <div class="form-group form-inline form-time" data-index="{{ idx }}">
+                        <div class="input-group col-md-3">
+                            <div class="input-group-addon">hour</div>
+                            <input type="number" name="hour" data-parsley-range="[1, 12]" value="{{ hour }}" class="form-control" required data-parsley-errors-messages-disabled />
+                        </div>
+                        <div class="input-group col-md-3">
+                            <div class="input-group-addon">minute</div>
+                            <input type="number" name="min" value="{{ min }}" data-parsley-range="[0, 59]" class="form-control" required data-parsley-errors-messages-disabled />
+                        </div>
+                        <div class="input-group col-md-3">
+                            <select class="form-control" name="mer" value="{{ meridien }}" required data-parsley-errors-messages-disabled >
+                                <option value="AM" {{#is meridien 'AM'}} selected{{/is}} >AM</option>
+                                <option value="PM" {{#is meridien 'PM'}} selected{{/is}} >PM</option>
+                            </select>
+                        </div>
+                        {{!-- <a class="rem-time btn btn-xs btn-danger"><i class="fa fa-times"></i></a> --}}
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Duration</label>
+            <div class="form-group form-inline">
+                <div class="input-group col-md-3">
+                    <div class="input-group-addon">hours</div>
+                    <input type="number" name="duration-hours" value="{{ duration_obj.hours }}" data-parsley-range="[0, 23]" class="form-control" required data-parsley-errors-messages-disabled />
+                </div>
+                <div class="input-group col-md-3">
+                    <div class="input-group-addon">minutes</div>
+                    <input type="number" name="duration-min" value="{{ duration_obj.minutes }}" data-parsley-range="[0, 59]" class="form-control" required data-parsley-errors-messages-disabled  />
+                </div>
+            </div>
+        </div>
+        <div class="form-actions align-right">
+            <a class="btn btn-primary btn-save">Save</a>
+            <a class="btn btn-default btn-close" data-dismiss="modal">Cancel</a>
+        </div>
+    </form>
+</div>

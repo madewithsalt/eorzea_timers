@@ -1,0 +1,37 @@
+<div class="node-content {{ classes }}">
+    <div class="node-heading">
+        <span class="icon {{type}}"></span>
+        <span class="time">{{ time }}</span>
+
+        <div class="node-info"> 
+            <span class="title">
+                {{ name }}{{#if slot}} [slot {{ slot }}]{{/if}}
+            </span>
+            {{#if isActive}}
+                <span class="time-remaining">[
+                    {{ earth_time_remaining.minutes }}m {{ earth_time_remaining.seconds }}s
+                ]</span>
+            {{/if}}
+            <div class="inline-block">
+                {{#if is_ephemeral}}<i class="fa fa-star"></i>{{/if}}
+                {{#if is_legendary}}<i class="fa fa-book"></i>{{/if}}
+                {{#if is_collectable}}{{#if scrip}}
+                        <span class="scrip-rating"><i class="icon {{ scrip.icon }}"></i></span>
+                    {{else}}
+                        <i class="fa fa-cube"></i>
+                {{/if}}{{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="node-body">
+        {{#if location }}
+            <div class="location">{{ location }}, {{ pos }}</div>
+        {{/if}}
+
+        {{#if isCustom }}
+            <a class="btn btn-primary btn-xs btn-edit"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-danger btn-xs btn-delete"><i class="fa fa-times"></i></a>
+        {{/if}}
+
+    </div>
+</div>

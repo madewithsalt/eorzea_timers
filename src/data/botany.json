@@ -1,0 +1,773 @@
+[
+    {
+        "name": "Silkworm Cocoon",
+        "icon": "",
+        "location": "East Shroud",
+        "pos": "x22,y26",
+        "slot": "4",
+        "duration": "3:00",
+        "times": ["1:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Grade 4 Carbonized Matter",
+        "icon": "",
+        "location": "Mor Dhona",
+        "pos": "x32,y11",
+        "slot": "2",
+        "duration": "3:00",
+        "times": ["1:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Lightning Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "pos": "x32,y11",
+        "slot": "2",
+        "duration": "3:00",
+        "times": ["1:00 AM", "5:00 AM", "9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Fire Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "pos": "x32,y11",
+        "slot": "3",
+        "duration": "3:00",
+        "times": ["1:00 AM", "5:00 AM", "9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Wind Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "pos": "x32,y11",
+        "slot": "4",
+        "duration": "3:00",
+        "times": ["1:00 AM", "5:00 AM", "9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Water Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "pos": "x32,y11",
+        "slot": "5",
+        "duration": "3:00",
+        "times": ["1:00 AM", "5:00 AM", "9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Ice Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "pos": "x32,y11",
+        "slot": "6",
+        "duration": "3:00",
+        "times": ["1:00 AM", "5:00 AM", "9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Earth Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "pos": "x32,y11",
+        "slot": "7",
+        "duration": "3:00",
+        "times": ["1:00 AM", "5:00 AM", "9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Fragrant Log",
+        "icon": "",
+        "location": "South Shroud",
+        "pos": "x18,y23",
+        "slot": "6",
+        "duration": "3:00",
+        "times": ["2:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Shroud Tea Leaves",
+        "icon": "",
+        "location": "South Shroud",
+        "pos": "x18,y23",
+        "slot": "6",
+        "duration": "3:00",
+        "times": ["2:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Scarlet Sap",
+        "icon": "",
+        "location": "North Shroud",
+        "pos": "x18,y26",
+        "slot": "4",
+        "duration": "3:00",
+        "times": ["3:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Ebony Log",
+        "icon": "",
+        "location": "Middle La Noscea",
+        "pos": "x19,y21",
+        "slot": "6",
+        "duration": "3:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Trillium",
+        "icon": "",
+        "location": "East Shroud",
+        "pos": "x17,y19",
+        "slot": "1",
+        "duration": "3:00",
+        "times": ["5:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Honey Lemon",
+        "icon": "",
+        "location": "Eastern La Noscea",
+        "pos": "x26,y32",
+        "slot": "2",
+        "duration": "3:00",
+        "times": ["5:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Grade 4 Carbonized Matter",
+        "icon": "",
+        "location": "Mor Dhona",
+        "pos": "x32,y21",
+        "slot": "1",
+        "duration": "3:00",
+        "times": ["1:00 AM", "5:00 AM", "9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Young Ciedalaes Spinach",
+        "icon": "",
+        "location": "Lower La Noscea",
+        "pos": "x32,y11",
+        "slot": "6",
+        "duration": "3:00",
+        "times": ["6:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Redolent Log",
+        "icon": "",
+        "location": "Central Shroud",
+        "pos": "x30,y19",
+        "slot": "6",
+        "duration": "3:00",
+        "times": ["6:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Blood Orange",
+        "icon": "",
+        "location": "Upper La Noscea",
+        "pos": "x28,y25",
+        "slot": "2",
+        "duration": "3:00",
+        "times": ["7:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Bamboo Stick",
+        "icon": "",
+        "location": "Upper La Noscea",
+        "pos": "x28,y25",
+        "slot": "6",
+        "duration": "3:00",
+        "times": ["7:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "La Noscean Leek",
+        "icon": "",
+        "location": "Western La Noscea",
+        "pos": "x34,y28",
+        "slot": "6",
+        "duration": "3:00",
+        "times": ["8:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Waterfowl Feather",
+        "icon": "",
+        "location": "Western La Noscea",
+        "pos": "x34,y28",
+        "slot": "2,5,6",
+        "duration": "3:00",
+        "times": ["8:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Apricot",
+        "icon": "",
+        "location": "Middle La Noscea",
+        "pos": "x19,y16",
+        "slot": "2",
+        "duration": "3:00",
+        "times": ["9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Spruce Log",
+        "icon": "",
+        "location": "Coerthas Central Highlands",
+        "pos": "x27,y12",
+        "slot": "6",
+        "duration": "3:00",
+        "times": ["9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Prickly Pineapple",
+        "icon": "",
+        "location": "Eastern La Noscea",
+        "pos": "x30,y26",
+        "slot": "4",
+        "duration": "3:00",
+        "times": ["9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Cypress Log",
+        "icon": "",
+        "location": "Central Shroud",
+        "pos": "x25,y29",
+        "slot": "6",
+        "duration": "3:00",
+        "times": ["10:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Vampire Plant",
+        "icon": "",
+        "location": "Coerthas Central Highlands",
+        "pos": "x27,y24",
+        "slot": "8",
+        "duration": "3:00",
+        "times": ["1:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Black Truffle",
+        "icon": "",
+        "location": "Eastern Thanalan",
+        "pos": "x12,y16",
+        "slot": "7",
+        "duration": "3:00",
+        "times": ["1:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Mazlaya Greens",
+        "icon": "",
+        "location": "Eastern Thanalan",
+        "pos": "x12,y16",
+        "slot": "2",
+        "duration": "3:00",
+        "times": ["1:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Dzemael Tomato",
+        "icon": "",
+        "location": "Eastern La Noscea",
+        "pos": "x18,y26",
+        "slot": "3",
+        "duration": "3:00",
+        "times": ["1:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Thavnairian Mistletoe",
+        "icon": "",
+        "location": "Coerthas Central Highlands",
+        "pos": "x8,y13",
+        "slot": "2",
+        "duration": "3:00",
+        "times": ["5:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Rosemary",
+        "icon": "",
+        "location": "East Shroud",
+        "pos": "x22,y30",
+        "slot": "1",
+        "duration": "3:00",
+        "times": ["5:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Kidragora",
+        "icon": "",
+        "location": "East Shroud",
+        "pos": "x13,y23",
+        "slot": "7",
+        "duration": "3:00",
+        "times": ["9:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Trillium Bulb",
+        "icon": "",
+        "location": "East Shroud",
+        "pos": "x13,y23",
+        "slot": "8",
+        "duration": "3:00",
+        "times": ["9:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Old World Fig",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x26,y12",
+        "slot": "2",
+        "duration": "0:55",
+        "times": ["2:00 AM", "2:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Seventh Heaven",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x17,y36",
+        "slot": "1",
+        "duration": "0:55",
+        "times": ["5:00 PM"],
+        "is_collectable": true,
+        "is_legendary": true,
+        "red_scrip": 530
+    },{
+        "name": "Honeydew Almonds",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x24,y6",
+        "slot": "2",
+        "duration": "0:55",
+        "times": ["5:00 PM"],
+        "is_collectable": true,
+        "is_legendary": true,
+        "red_scrip": 470
+    },{
+        "name": "Vanilla Beans",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x23,y21",
+        "slot": "3",
+        "duration": "0:55",
+        "times": ["5:00 PM"],
+        "is_collectable": true,
+        "is_legendary": true,
+        "red_scrip": 530
+    },{
+        "name": "Snurbleberry",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x39,y26",
+        "slot": "2",
+        "duration": "0:55",
+        "times": ["7:00 PM"],
+        "is_collectable": true,
+        "is_legendary": true
+    },{
+        "name": "Dravanian Paprika",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x25,y32",
+        "slot": "3",
+        "duration": "0:55",
+        "times": ["7:00 PM"],
+        "is_collectable": true,
+        "is_legendary": true
+    },{
+        "name": "Wattle Bark",
+        "icon": "",
+        "location": "Azys Lla",
+        "pos": "x22,y10",
+        "slot": "5",
+        "duration": "0:55",
+        "times": ["7:00 PM"],
+        "is_collectable": true,
+        "is_legendary": true
+    },{
+        "name": "Chysahl Greens",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x8,y9",
+        "slot": "6",
+        "duration": "0:55",
+        "times": ["9:00 AM", "9:00 PM"],
+        "is_collectable": true,
+        "red_scrip": 470
+    },{
+        "name": "Chives",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x31,y20",
+        "slot": "1",
+        "duration": "0:55",
+        "times": ["10:00 AM", "10:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Pearl Sprouts",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x31,y20",
+        "slot": "6",
+        "duration": "0:55",
+        "times": ["10:00 AM", "10:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Coerthan Tea Leaves",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x31,y20",
+        "slot": "7",
+        "duration": "0:55",
+        "times": ["10:00 AM", "10:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Heavens Lemon",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x35,y23",
+        "slot": "2",
+        "duration": "0:55",
+        "times": ["10:00 AM", "10:00 PM"],
+        "is_collectable": true,
+        "blue_scrip": 450
+    },{
+        "name": "Abalathian Mistletoe",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x35,y23",
+        "slot": "3",
+        "duration": "0:55",
+        "times": ["10:00 AM", "10:00 PM"],
+        "is_collectable": true,
+        "blue_scrip": 450
+    },{
+        "name": "Dravanian Mistletoe",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x24,y6",
+        "slot": "3",
+        "duration": "0:55",
+        "times": ["12:00 AM", "12:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Porcini",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x24,y6",
+        "slot": "7",
+        "duration": "0:55",
+        "times": ["12:00 AM", "12:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Cloud Banana",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x19,y36",
+        "slot": "2",
+        "duration": "0:55",
+        "times": ["12:00 AM", "12:00 PM"],
+        "is_collectable": true,
+        "blue_scrip": 450
+    },{
+        "name": "Morel",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x19,y36",
+        "slot": "7",
+        "duration": "0:55",
+        "times": ["12:00 AM", "12:00 PM"],
+        "is_collectable": true,
+        "blue_scrip": 450
+    },{
+        "name": "Granular Clay",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x13,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Peat Moss",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x13,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Black Soil",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x13,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Earth Cluster",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x13,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Wind Cluster",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y14",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Highland Oregano",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y14",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Fury Mint",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y14",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Clary Sage",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y14",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Earth Cluster",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x10,y32",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Granular Clay",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x10,y32",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Peat Moss",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x10,y32",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Black Soil",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x10,y32",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Earth Cluster",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x19,y29",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Granular Clay",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x19,y29",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Peat Moss",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x19,y29",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Black Soil",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x19,y29",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Wind Cluster",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x26,y35 x23,y12",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Highland Oregano",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x26,y35 x23,y12",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Fury Mint",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x26,y35 x23,y12",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Clary Sage",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x26,y35 x23,y12",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Frost Cotton Boll",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x35,y15",
+        "slot": "4",
+        "duration": "0:55",
+        "times": ["1:00 PM"],
+        "stars": 1,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Old-growth Camphorwood Log",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x11,y10",
+        "slot": "6",
+        "duration": "0:55",
+        "times": ["3:00 PM"],
+        "stars": 1,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },
+    {
+        "name": "Lover's Laurel",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x26,y35 x23,y12",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },
+    {
+        "name": "Lover's Laurel",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y14",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Crystallized Sap",
+        "icon": "",
+        "location": "Churning Mists",
+        "pos": "x7,y9",
+        "slot": "4",
+        "duration": "0:55",
+        "times": ["3:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Star Cotton Boll",
+        "icon": "",
+        "stars": 2,
+        "location": "Azys Lla",
+        "pos": "x8,y31",
+        "slot": "4",
+        "duration": "0:55",
+        "times": ["12:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Brown Mushroom",
+        "icon": "",
+        "stars": 2,
+        "location": "Churning Mists",
+        "pos": "x12,y37",
+        "slot": "7",
+        "duration": "0:55",
+        "times": ["4:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },
+    {
+        "name": "Teak Log",
+        "icon": "",
+        "stars": 2,
+        "location": "Dravanian Hinterlands",
+        "pos": "x8,y29",
+        "slot": "6",
+        "duration": "0:55",
+        "times": ["6:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Noble Sage",
+        "icon": "",
+        "stars": 2,
+        "location": "Dravanian Forelands",
+        "pos": "x33,y30",
+        "slot": "1",
+        "duration": "0:55",
+        "times": ["8:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    }
+  ]

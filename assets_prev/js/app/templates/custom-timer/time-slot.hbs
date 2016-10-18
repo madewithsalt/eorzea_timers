@@ -1,0 +1,17 @@
+<div class="form-group form-inline form-time">
+    <div class="input-group col-md-3">
+        <div class="input-group-addon">hour</div>
+        <input type="range" name="hour" value="" class="form-control" data-parsley-range="[1, 12]" data-parsley-errors-messages-disabled />
+    </div>
+    <div class="input-group col-md-3">
+        <div class="input-group-addon">minute</div>
+        <input type="range" name="min" value="" class="form-control" data-parsley-range="[0, 59]" data-parsley-errors-messages-disabled />
+    </div>
+    <div class="input-group col-md-3">
+        <select name="meridien" class="form-control" value="">
+            <option>AM</option>
+            <option>PM</option>
+        </select>
+    </div>
+    <a class="rem-time btn btn-sm btn-danger"><i class="fa fa-minus"></i></a>
+</div>

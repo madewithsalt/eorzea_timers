@@ -1,0 +1,39 @@
+@import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
+@import '../../bower_components/font-awesome/scss/font-awesome';
+
+@import 'dark/variables';
+@import 'dark/base';
+
+@import 'variables';
+@import 'icons';
+@import 'home';
+@import 'watch-list';
+@import 'custom-timer';
+@import 'nodes';
+@import 'widget';
+@import 'base';
+
+.node {
+
+  &.node-block {
+    .node-content {
+      &.active {
+        &.botany {
+
+        }
+      }
+    }
+  }
+
+
+  &.node-slim {
+    .node-content {
+      &.warning {
+      }
+
+      &.urgent {
+      }
+
+    }
+  }
+}

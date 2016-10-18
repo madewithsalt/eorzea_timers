@@ -1,0 +1,12 @@
+    <ul class="nav navbar-nav" id="menu">
+        {{#each menuItems}}
+            <li class="{{name}}{{#if isActive}} active{{/if}}">
+                <a href="#{{name}}">{{ title }}
+                    {{#if watchCount}}
+                        <span class="badge">{{ watchCount }}</span>
+                    {{/if}}
+                </a>
+            </li>
+        {{/each}}
+        <li class="embed"><a class="embed-link">Embed</a></li>
+    </ul>

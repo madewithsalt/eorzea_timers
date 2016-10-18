@@ -1,0 +1,47 @@
+#widget {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.dark #widget-region {
+    color: #fff;
+    text-shadow: 0 0 2px #000;
+}
+
+#widget-region {
+    text-align: center;
+
+    .clock-region {
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    .small {
+        margin: 0;
+    }
+
+    .nodes-region {
+        .icon {
+            width: 35px;
+            height: 35px;
+        }
+        .badge {
+            margin-left: -6px;
+            margin-top: -12px;
+        }
+    }
+
+}
+
+#light-widget {
+    iframe {
+        background-color: #fff;
+    }
+}
+
+#dark-widget {
+    iframe {
+        background-color: #000;
+    }
+}

@@ -1,28 +1,50 @@
 {
-    "title": "eorzea timers",
-    "engines": {
-        "node": ">= 0.10.0"
-    },
-    "scripts": {
-        "build": "grunt build",
-        "deploy": "grunt publish"
-    },
-    "devDependencies": {
-        "chai": "^3.2.0",
-        "grunt": "~0.4.5",
-        "grunt-cli": "^1.2.0",
-        "grunt-contrib-clean": "^0.6.0",
-        "grunt-contrib-concat": "~0.4.0",
-        "grunt-contrib-connect": "^0.11.2",
-        "grunt-contrib-copy": "^0.8.1",
-        "grunt-contrib-handlebars": "^0.10.2",
-        "grunt-contrib-jshint": "~0.10.0",
-        "grunt-contrib-less": "^1.0.1",
-        "grunt-contrib-qunit": "~0.5.2",
-        "grunt-contrib-uglify": "~0.5.0",
-        "grunt-contrib-watch": "~0.6.1",
-        "grunt-exec": "^0.4.6",
-        "mocha": "^2.3.2",
-        "underscore": "^1.8.3"
-    }
+  "title": "eorzea timers",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "build": "webpack --devtool source-map --optimize-minimize --optimize-dedupe --config webpack.config.babel.js",
+    "start": "webpack-dev-server --progress --colors --content-base src/"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "bootstrap": "^4.0.0-alpha.4",
+    "bootstrap-loader": "^2.0.0-beta.12",
+    "chai": "^3.2.0",
+    "css-loader": "^0.25.0",
+    "mocha": "^2.3.2",
+    "node-sass": "^3.10.1",
+    "postcss-loader": "^1.0.0",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.0.11",
+    "redux-promise": "^0.5.3",
+    "resolve-url-loader": "^1.6.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "underscore": "^1.8.3",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.4",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "jquery": "^3.1.1",
+    "lodash": "^4.16.4",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.8.1",
+    "react-templates": "^0.5.4",
+    "react-templates-loader": "^0.5.1",
+    "redux": "^3.6.0",
+    "stylus": "^0.54.5"
+  }
 }

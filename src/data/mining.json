@@ -1,0 +1,773 @@
+[
+    {
+        "name": "Volcanic Rock Salt",
+        "icon": "",
+        "location": "Eastern La Noscea",
+        "pos": "x21,y32",
+        "slot": "1",
+        "duration": "3:00",
+        "times": ["5:00 PM"],
+        "is_collectable": false
+    }, {
+        "name": "Darksteel Ore",
+        "icon": "",
+        "location": "Coerthas Central Highlands",
+        "pos": "x27,y19",
+        "slot": "3",
+        "duration": "3:00",
+        "times": ["1:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Pumice",
+        "icon": "",
+        "location": "Eastern La Noscea",
+        "pos": "x17,y26",
+        "slot": "1",
+        "duration": "3:00",
+        "times": ["1:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Ferberite",
+        "icon": "",
+        "location": "Northern Thanalan",
+        "slot": "6",
+        "pos": "x16,y19",
+        "duration": "3:00",
+        "times": ["3:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Raw Topaz",
+        "icon": "",
+        "location": "Northern Thanalan",
+        "slot": "7",
+        "pos": "x16,y19",
+        "duration": "3:00",
+        "times": ["3:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Raw Iolite",
+        "icon": "",
+        "location": "Northern Thanalan",
+        "slot": "8",
+        "pos": "x16,y19",
+        "duration": "3:00",
+        "times": ["3:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Native Gold",
+        "icon": "",
+        "location": "Central Thanalan",
+        "slot": "6",
+        "pos": "x24,y16",
+        "duration": "3:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Raw Diamond",
+        "icon": "",
+        "location": "Central Thanalan",
+        "slot": "8",
+        "pos": "x24,y16",
+        "duration": "3:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Raw Emerald",
+        "icon": "",
+        "location": "Central Thanalan",
+        "slot": "7",
+        "pos": "x24,y16",
+        "duration": "3:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Platinum Ore",
+        "icon": "",
+        "location": "Southern Thanalan",
+        "slot": "6",
+        "pos": "x19,y8",
+        "duration": "3:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Water Cluster",
+        "icon": "",
+        "location": "Western Thanalan",
+        "slot": "5",
+        "pos": "x18,y27",
+        "duration": "3:00",
+        "times": ["5:00 AM"],
+        "is_collectable": false
+    }, {
+        "name": "Grade 3 Thanalan Topsoil",
+        "icon": "",
+        "location": "Western Thanalan",
+        "slot": "8",
+        "pos": "x18,y27",
+        "duration": "3:00",
+        "times": ["5:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Gold Sand",
+        "icon": "",
+        "location": "Eastern Thanalan",
+        "slot": "2",
+        "pos": "x25,y22",
+        "duration": "3:00",
+        "times": ["5:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Umbral Rock",
+        "icon": "",
+        "location": "South Shroud",
+        "slot": "7",
+        "pos": "x16,y31",
+        "duration": "3:00",
+        "times": ["6:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Gold Ore",
+        "icon": "",
+        "location": "Eastern Thanalan",
+        "slot": "6",
+        "pos": "x28,y22",
+        "duration": "3:00",
+        "times": ["9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Coblyn Larva",
+        "icon": "",
+        "location": "Eastern Thanalan",
+        "slot": "7",
+        "pos": "x28,y22",
+        "duration": "3:00",
+        "times": ["9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Gregarious Worm",
+        "icon": "",
+        "location": "Eastern Thanalan",
+        "slot": "1",
+        "pos": "x28,y22",
+        "duration": "3:00",
+        "times": ["9:00 AM"],
+        "is_collectable": false
+    },{
+        "name": "Grade 4 Carbonized Matter",
+        "icon": "",
+        "location": "Mor Dhona",
+        "slot": "1",
+        "pos": "x28,y12",
+        "duration": "3:00",
+        "times": ["1:00 PM", "5:00 PM", "9:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Lightning Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "slot": "2",
+        "pos": "x28,y12",
+        "duration": "3:00",
+        "times": ["1:00 PM", "5:00 PM", "9:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Fire Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "slot": "3",
+        "pos": "x28,y12",
+        "duration": "3:00",
+        "times": ["1:00 PM", "5:00 PM", "9:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Wind Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "slot": "4",
+        "pos": "x28,y12",
+        "duration": "3:00",
+        "times": ["1:00 PM", "5:00 PM", "9:00 PM"],
+        "is_collectable": false
+    }, {
+        "name": "Water Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "slot": "5",
+        "pos": "x28,y12",
+        "duration": "3:00",
+        "times": ["1:00 PM", "5:00 PM", "9:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Ice Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "slot": "6",
+        "pos": "x28,y12",
+        "duration": "3:00",
+        "times": ["1:00 PM", "5:00 PM", "9:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Earth Cluster",
+        "icon": "",
+        "location": "Mor Dhona",
+        "slot": "7",
+        "pos": "x28,y12",
+        "duration": "3:00",
+        "times": ["1:00 PM", "5:00 PM", "9:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Virgin Basilisk Egg",
+        "icon": "",
+        "location": "Northern Thanalan",
+        "slot": "6",
+        "pos": "x24,y26",
+        "duration": "3:00",
+        "times": ["5:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Raw Ruby",
+        "icon": "",
+        "location": "Lower La Noscea",
+        "slot": "7",
+        "pos": "x23,y21",
+        "duration": "3:00",
+        "times": ["6:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Raw Sapphire",
+        "icon": "",
+        "location": "Lower La Noscea",
+        "slot": "8",
+        "pos": "x23,y21",
+        "duration": "3:00",
+        "times": ["6:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Fire Cluster",
+        "icon": "",
+        "location": "Middle La Noscea",
+        "slot": "3",
+        "pos": "x25,y27",
+        "duration": "3:00",
+        "times": ["6:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Grade 3 La Noscean Topsoil",
+        "icon": "",
+        "location": "Middle La Noscea",
+        "slot": "8",
+        "pos": "x25,y27",
+        "duration": "3:00",
+        "times": ["7:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Astral Rock",
+        "icon": "",
+        "location": "Coerthas Central Highlands",
+        "slot": "7",
+        "pos": "x23,y23",
+        "duration": "3:00",
+        "times": ["9:00 PM"],
+        "is_collectable": false
+    },{
+        "name": "Yellow Quartz",
+        "icon": "",
+        "location": "The Churning Mists",
+        "slot": "4",
+        "pos": "x33,y22",
+        "duration": "0:55",
+        "times": ["2:00 AM", "2:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Green Quartz",
+        "icon": "",
+        "location": "The Churning Mists",
+        "slot": "6",
+        "pos": "x33,y22",
+        "duration": "0:55",
+        "times": ["2:00 AM", "2:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Cuprite",
+        "icon": "",
+        "location": "Dravanian Hinterlands",
+        "slot": "2",
+        "pos": "x34,y30",
+        "duration": "0:55",
+        "times": ["2:00 AM", "2:00 PM"],
+        "is_collectable": true,
+        "blue_scrip": 450
+    },{
+        "name": "Light Kidney Ore",
+        "icon": "",
+        "location": "Dravanian Hinterlands",
+        "slot": "3",
+        "pos": "x34,y30",
+        "duration": "0:55",
+        "times": ["2:00 AM", "2:00 PM"],
+        "is_collectable": true,
+        "blue_scrip": 450
+    },{
+        "name": "Astral Moraine",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "slot": "4",
+        "pos": "x37,y16",
+        "duration": "0:55",
+        "times": ["5:00 AM"],
+        "is_collectable": true,
+        "is_legendary": true,
+        "red_scrip": 530
+    },{
+        "name": "Radiant Astral Moraine",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "slot": "4",
+        "pos": "x37,y16",
+        "duration": "0:55",
+        "times": ["5:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Aurum Regis Ore",
+        "icon": "",
+        "location": "The Churning Mists",
+        "slot": "6",
+        "pos": "x11,y38",
+        "duration": "0:55",
+        "times": ["5:00 AM"],
+        "is_collectable": true,
+        "is_legendary": true,
+        "red_scrip": 470
+    },{
+        "name": "Sun Mica",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "slot": "2",
+        "pos": "x35,y39",
+        "duration": "0:55",
+        "times": ["5:00 AM"],
+        "is_collectable": true,
+        "is_legendary": true,
+        "red_scrip": 470
+    },{
+        "name": "Blue Quartz",
+        "icon": "",
+        "location": "Dravanian Hinterlands",
+        "slot": "7",
+        "pos": "x11,y16",
+        "duration": "0:55",
+        "times": ["7:00 AM"],
+        "is_collectable": true,
+        "is_legendary": true
+    },{
+        "name": "Red Alumen",
+        "icon": "",
+        "location": "Azys Lla",
+        "slot": "2",
+        "pos": "x35,y16",
+        "duration": "0:55",
+        "times": ["7:00 AM"],
+        "is_collectable": true,
+        "is_legendary": true
+    },{
+        "name": "Violet Quartz",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "slot": "6",
+        "pos": "x11,y21",
+        "duration": "0:55",
+        "times": ["7:00 AM"],
+        "is_collectable": true,
+        "is_legendary": true
+    },{
+        "name": "Chalcocite",
+        "icon": "",
+        "location": "Dravanian Forelands",
+        "slot": "2",
+        "pos": "x26,y17",
+        "duration": "0:55",
+        "times": ["10:00 AM", "10:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Pyrite",
+        "icon": "",
+        "location": "Dravanian Hinterlands",
+        "slot": "3",
+        "pos": "x26,y17",
+        "duration": "0:55",
+        "times": ["10:00 AM", "10:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Limonite",
+        "icon": "",
+        "location": "Dravanian Forelands",
+        "slot": "4",
+        "pos": "x26,y17",
+        "duration": "0:55",
+        "times": ["10:00 AM", "10:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Adamantite Ore",
+        "icon": "",
+        "location": "Azys Lla",
+        "slot": "6",
+        "pos": "x24,y6",
+        "duration": "0:55",
+        "times": ["11:00 AM", "11:00 PM"],
+        "is_collectable": true,
+        "red_scrip": 470
+    },{
+        "name": "Yellow Copper Ore",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "slot": "2",
+        "pos": "x30,y23",
+        "duration": "0:55",
+        "times": ["12:00 AM", "12:00 PM"],
+        "is_collectable": true
+    },{
+        "name": "Abalathian Rock Salt",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "slot": "1",
+        "pos": "x7,y7",
+        "duration": "0:55",
+        "times": ["12:00 AM", "12:00 PM"],
+        "is_collectable": true,
+        "blue_scrip": 450
+    },{
+        "name": "Red Quartz",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "slot": "6",
+        "pos": "x7,y7",
+        "duration": "0:55",
+        "times": ["12:00 AM", "12:00 PM"],
+        "is_collectable": true,
+        "blue_scrip": 450
+    },{
+        "name": "Fire Cluster",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x17,y27",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Fire Moraine",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x17,y27",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Fire Rock",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x17,y27",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Astral Moraine",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x17,y27",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Fire Moraine",
+        "icon": "",
+        "location": "The Dravanian Forelands",
+        "pos": "x17,y27",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Fire Cluster",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x26,y24",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Fire Moraine",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x26,y24",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Fire Rock",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x26,y24",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Astral Moraine",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x26,y24",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Fire Moraine",
+        "icon": "",
+        "location": "The Dravanian Hinterlands",
+        "pos": "x26,y24",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 AM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Fire Cluster",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x29,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Fire Moraine",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x29,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Fire Rock",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x29,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Fire Moraine",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x29,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Astral Moraine",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x29,y19",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["12:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Lightning Cluster",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x34,y30",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Lightning Moraine",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x34,y30",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Astral Moraine",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x34,y30",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Lightning Rock",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x34,y30",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Lightning Moraine",
+        "icon": "",
+        "location": "The Sea of Clouds",
+        "pos": "x34,y30",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["4:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Lightning Cluster",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x21,y28",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": false,
+        "is_ephemeral": true
+    },{
+        "name": "Lightning Moraine",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x21,y28",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Bright Lightning Rock",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x21,y28",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Lightning Moraine",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x21,y28",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Radiant Astral Moraine",
+        "icon": "",
+        "location": "Coerthas Western Highlands",
+        "pos": "x21,y28",
+        "slot": "?",
+        "duration": "4:00",
+        "times": ["8:00 PM"],
+        "is_collectable": true,
+        "is_ephemeral": true
+    },{
+        "name": "Smithsonite Ore",
+        "icon": "",
+        "location": "Sea Of Clouds",
+        "pos": "x37,y13",
+        "slot": "2",
+        "duration": "0:55",
+        "times": ["1:00 AM"],
+        "stars": 1,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Lumythrite Ore",
+        "icon": "",
+        "location": "The Churning Mists",
+        "pos": "x6,y20",
+        "slot": "2",
+        "duration": "0:55",
+        "times": ["3:00 AM"],
+        "stars": 1,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Meteorite",
+        "icon": "",
+        "location": "Sea of Clouds",
+        "pos": "x37,y13",
+        "slot": "3",
+        "duration": "0:55",
+        "times": ["1:00 AM"],
+        "stars": 1,
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Luminium Ore",
+        "icon": "",
+        "stars": 2,
+        "location": "Azys Lla",
+        "pos": "x5,y17",
+        "slot": "6",
+        "duration": "0:55",
+        "times": ["4:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Zeolite Ore",
+        "icon": "",
+        "stars": 2,
+        "location": "Dravanian Hinterlands",
+        "pos": "x16,y28",
+        "slot": "4",
+        "duration": "0:55",
+        "times": ["6:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    },{
+        "name": "Tungstite",
+        "icon": "",
+        "stars": 2,
+        "location": "Coerthas Western Highlands",
+        "pos": "x10,y10",
+        "slot": "4",
+        "duration": "0:55",
+        "times": ["8:00 AM"],
+        "is_collectable": false,
+        "is_ephemeral": false,
+        "is_legendary": true
+    }
+
+]
