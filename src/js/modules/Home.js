@@ -1,7 +1,13 @@
 import React from 'react'
+import MainNav from '../components/Nav/MainNav';
 
 export default React.createClass({
   render() {
-    return <div>Home</div>
+    return (
+      <div>
+        <MainNav />
+        { this.props.children}
+      </div>
+    )
   }
 })

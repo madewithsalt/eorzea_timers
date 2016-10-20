@@ -21,6 +21,7 @@
     "mocha": "^2.3.2",
     "node-sass": "^3.10.1",
     "postcss-loader": "^1.0.0",
+    "react-router-redux": "^4.0.6",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11",
