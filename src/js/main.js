@@ -7,8 +7,12 @@ import styles from '../style/main.sass';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { createStore } from 'redux';
+import { setTime } from './utils/timeUtils';
 
-const store = createStore(reducers);
+const store = createStore(reducers, {
+  clock: setTime()
+});
+
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(

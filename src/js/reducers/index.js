@@ -1,9 +1,9 @@
 import { routerReducer as routing } from 'react-router-redux';
 import { combineReducers } from 'redux';
-import CounterReducer from './counterReducer';
+import clock from './clockReducer';
 
 const rootReducer = combineReducers({
-  counter: CounterReducer,
+  clock,
   routing
 });
 
