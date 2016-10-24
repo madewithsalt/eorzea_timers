@@ -14,9 +14,7 @@ Thanks for your kind support and appreciation for this project.
 This was developed on a Mac, I am not sure how to configure on a PC. Sorry!
 
 - Node: `brew install node`
-- SASS: `brew install sass`
-- Grunt CLI: `npm install -g grunt-cli`
-- Bower: `npm install -g bower`
+- Webpack: `npm install -g webpack webpack-dev-server`
 
 ## Installation
 
@@ -27,10 +25,7 @@ One line to awesome!:
 
 ### Development
 
-I typically keep 2 console tabs open, one for watching changes to the code, and the other to run the local server:
-
-1. Tab 1: `grunt`
-2. Tab 2: `grunt connect`
+You can start the application with `npm start`
 
 ## Testing
 
@@ -42,4 +37,3 @@ Views should always be simple enough to need minimal testing, and instead rely o
 
 1. Write any passing tests as needed!
 2. Submit a pull request, detailing at length the changes you have made. Screenshots are also very helpful when I am testing your PR code.
-
