@@ -26,7 +26,7 @@ module.exports = {
             extensions: ['', '.js', '.styl']
         },
         loaders: [
-            { test: /\.sass$/, loader: "style!css!sass" },
+            { test: /\.sass$/, loader: "style!css?importLoaders=1!sass!postcss?sourceMap=inline" },
             // { test: /\.rt$/, loader: "react-templates-loader?modules=amd" },
             {
                 test: /\.js$/,
@@ -38,7 +38,17 @@ module.exports = {
             }
         ]
     },
+    postcss: function () {
+      return [
+        require('postcss-smart-import')({ /* ...options */ }),
+        require('precss')({ /* ...options */ }),
+        require('autoprefixer')({ /* ...options */ })
+      ];
+    },
     plugins: [
+      new webpack.DefinePlugin({
+        VERSION: JSON.stringify(require("./package.json").version)
+      }),
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery",

@@ -2,10 +2,10 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 
-const Clock = ({ clock }) => (
-    <h1>
-      { clock.time }
-    </h1>
+const Clock = (props) => (
+    <span className={ props.className }>
+      { props.clock.time }
+    </span>
   );
 
 const mapStateToProps = state => {

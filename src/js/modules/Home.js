@@ -1,5 +1,5 @@
 import React from 'react'
-import MainNav from '../components/Nav/MainNav';
+import MainNav from '../components/MainNav';
 import Clock from '../components/Clock';
 import { changeTime } from '../actions/clockActions';
 import {connect} from 'react-redux';
@@ -12,7 +12,9 @@ const Home = React.createClass({
     return (
       <div>
         <MainNav />
-        <Clock />
+        <div className="jumbotron">
+          <h1><Clock /></h1>
+        </div>
       </div>
     )
   }

@@ -1,3 +1,19 @@
+@import '_variables'
+@import '_fonts'
+@import 'nav'
 
-.active
-  color: green
+.primary-font
+  font-family: 'Work Sans', sans-serif
+
+body
+  .primary-font
+  font-weight: 200
+  background-color: $bg_primary
+  color: $text_primary
+
+a
+  color: $link_primary
+
+// Simple Helpers
+.inline-block
+  display inline-block
