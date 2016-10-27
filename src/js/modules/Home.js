@@ -14,18 +14,20 @@ class Home extends Component {
     }
   }
   render() {
-    const { search } = this.props;
+    const { search, nodelist } = this.props;
 
     return (
       <div>
         <MainNav />
-        <TextField
-          id="node-list-search"
-          floatingLabelText={(
-            <span><i className="fa fa-search" aria-hidden="true"></i> Search Nodes</span>
-          )}
-          onChange={ search }/>
-        <NodeList />
+        <div className="container-fluid">
+          <TextField
+            id="node-list-search"
+            floatingLabelText={(
+              <span><i className="fa fa-search" aria-hidden="true"></i> Search Nodes</span>
+            )}
+            onChange={ search }/>
+          <NodeList />
+        </div>
       </div>
     );
   }

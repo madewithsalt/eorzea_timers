@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import 'whatwg-fetch';
 import { connect } from 'react-redux';
 import { recieveNodeList, requestNodeList } from './actions/nodeListActions';
+import { changeTime } from './actions/clockActions';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -12,7 +13,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 class App extends Component {
     componentDidMount() {
-      const { recieveNodeList, requestNodeList } = this.props;
+      const { recieveNodeList, requestNodeList, changeTime } = this.props;
 
       requestNodeList();
 
@@ -25,7 +26,14 @@ class App extends Component {
           console.log('parsing failed', ex)
         });
 
+        var interval = setInterval(() => changeTime(), 2500);
     }
+
+    componentWillUpdate(nextProps) {
+      const { clock } = nextProps || this.props;
+      document.title = clock.time + ' - Eorzea Timers';
+    }
+
     render() {
         const { store, history, version } = this.props;
         return (
@@ -44,13 +52,17 @@ App.propTypes = {
 };
 
 const mapStateToProps = state => {
-  return { nodelist: state.nodelist };
+  return {
+    clock: state.clock,
+    nodelist: state.nodelist
+  };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     recieveNodeList: (json) => dispatch(recieveNodeList(json)),
-    requestNodeList: (e) => dispatch(requestNodeList())
+    requestNodeList: (e) => dispatch(requestNodeList()),
+    changeTime: (e) => dispatch(changeTime())
   }
 }
 

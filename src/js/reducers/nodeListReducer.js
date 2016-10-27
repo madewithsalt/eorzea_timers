@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import {
   REQUEST_NODELIST,
   RECEIVE_NODELIST,
@@ -18,22 +19,31 @@ function nodes(state = {
       });
 
     case RECEIVE_NODELIST:
-      var nodes = [];
+      var nodes = [],
+          id = 0;
 
-      _.each(action.nodes, function(list, key) {
-        var id = 1;
+      // merge the lists of nodes to a single array,
+      // and create a unique entry for each time per node.
+      _.each(action.nodes, (list, key) => {
 
-        nodes.push(_.map(list, function(item) {
-          return Object.assign({}, item, {
-            type: key,
-            id: key + item.name.replace(/^\\s+$/g, '-').toLowerCase() + '-' + id++
+        _.each(list, function(node) {
+          let times = _.isArray(node.times) ? node.times : [node.times];
+
+          _.each(times, (time) => {
+            nodes.push(Object.assign({}, node, {
+                time,
+                type: key,
+                id: `${key}-${id++}`
+              }))
+
+            });
           });
-        }))
-      });
+
+        });
 
       return Object.assign({}, state, {
         isFetching: false,
-        nodes: _.flatten(nodes),
+        nodes: nodes,
         lastUpdated: action.recievedAt
       });
     default:

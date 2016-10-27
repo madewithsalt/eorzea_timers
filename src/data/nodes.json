@@ -7,7 +7,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x35:y23",
       "slot" : 3,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "10:00 AM",
         "10:00 PM"
@@ -25,7 +25,7 @@
       "location" : "Middle La Noscea",
       "pos" : "x19:y16",
       "slot" : 2,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "9:00 AM"
       ],
@@ -42,7 +42,7 @@
       "location" : "Upper La Noscea",
       "pos" : "x28:y25",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "7:00 AM"
       ],
@@ -59,7 +59,7 @@
       "location" : "The Churning Mists",
       "pos" : "x19:y29",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 PM"
       ],
@@ -76,7 +76,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x13:y19",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 AM"
       ],
@@ -93,7 +93,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x10:y32",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 AM"
       ],
@@ -110,7 +110,7 @@
       "location" : "Eastern Thanalan",
       "pos" : "x12:y16",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM"
       ],
@@ -127,7 +127,7 @@
       "location" : "Upper La Noscea",
       "pos" : "x28:y25",
       "slot" : 2,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "7:00 AM"
       ],
@@ -144,7 +144,7 @@
       "location" : "Churning Mists",
       "pos" : "x12:y37",
       "slot" : 7,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "4:00 PM"
       ],
@@ -161,7 +161,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x31:y20",
       "slot" : 1,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "10:00 AM",
         "10:00 PM"
@@ -179,7 +179,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x8:y9",
       "slot" : 6,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "9:00 AM",
         "9:00 PM"
@@ -197,7 +197,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x10:y14",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "12:00 AM"
       ],
@@ -217,7 +217,7 @@
         "x23:y12"
       ],
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 PM"
       ],
@@ -234,7 +234,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x19:y36",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "12:00 AM",
         "12:00 PM"
@@ -252,7 +252,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x31:y20",
       "slot" : 7,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "10:00 AM",
         "10:00 PM"
@@ -270,7 +270,7 @@
       "location" : "Churning Mists",
       "pos" : "x7:y9",
       "slot" : 4,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "3:00 PM"
       ],
@@ -287,7 +287,7 @@
       "location" : "Central Shroud",
       "pos" : "x25:y29",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "10:00 AM"
       ],
@@ -304,7 +304,7 @@
       "location" : "Mor Dhona",
       "pos" : "x32y11",
       "slot" : 8,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM",
         "5:00 AM",
@@ -323,7 +323,7 @@
       "location" : "The Churning Mists",
       "pos" : "x24:y6",
       "slot" : 3,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "12:00 AM",
         "12:00 PM"
@@ -341,7 +341,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x25y32",
       "slot" : 3,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "7:00 PM"
       ],
@@ -358,7 +358,7 @@
       "location" : "Eastern La Noscea",
       "pos" : "x18y26",
       "slot" : 3,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM"
       ],
@@ -375,7 +375,7 @@
       "location" : "Eastern La Noscea",
       "pos" : "x18y26",
       "slot" : 3,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM"
       ],
@@ -392,7 +392,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x13y19",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 AM"
       ],
@@ -409,7 +409,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x10y32",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 AM"
       ],
@@ -426,7 +426,7 @@
       "location" : "The Churning Mists",
       "pos" : "x19y29",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 PM"
       ],
@@ -443,7 +443,7 @@
       "location" : "Mor Dhona",
       "pos" : "x32y11",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM",
         "5:00 AM",
@@ -462,7 +462,7 @@
       "location" : "Middle La Noscea",
       "pos" : "x19y21",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "4:00 AM"
       ],
@@ -479,7 +479,7 @@
       "location" : "Mor Dhona",
       "pos" : "x32y11",
       "slot" : 3,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM",
         "5:00 AM",
@@ -498,7 +498,7 @@
       "location" : "South Shroud",
       "pos" : "x18y23",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "2:00 AM"
       ],
@@ -515,7 +515,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x35y15",
       "slot" : 4,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "1:00 PM"
       ],
@@ -532,7 +532,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x10y14",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "12:00 AM"
       ],
@@ -552,7 +552,7 @@
         "x23y12"
       ],
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 PM"
       ],
@@ -569,7 +569,7 @@
       "location" : "Mor Dhona",
       "pos" : "x32y11",
       "slot" : 2,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM"
       ],
@@ -586,7 +586,7 @@
       "location" : "Mor Dhona",
       "pos" : "x32y21",
       "slot" : 1,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM",
         "5:00 AM",
@@ -605,7 +605,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x13y19",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 AM"
       ],
@@ -622,7 +622,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x10y32",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 AM"
       ],
@@ -639,7 +639,7 @@
       "location" : "The Churning Mists",
       "pos" : "x19y29",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 PM"
       ],
@@ -656,7 +656,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x35y23",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "10:00 AM",
         "10:00 PM"
@@ -674,7 +674,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x10y14",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "12:00 AM"
       ],
@@ -694,7 +694,7 @@
         "x23y12"
       ],
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 PM"
       ],
@@ -711,7 +711,7 @@
       "location" : "Eastern La Noscea",
       "pos" : "x26:y32",
       "slot" : 2,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "5:00 AM"
       ],
@@ -728,7 +728,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x24:y6",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "5:00 PM"
       ],
@@ -745,7 +745,7 @@
       "location" : "Mor Dhona",
       "pos" : "x32:y11",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM",
         "5:00 AM",
@@ -764,7 +764,7 @@
       "location" : "East Shroud",
       "pos" : "x13:y23",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "9:00 PM"
       ],
@@ -781,7 +781,7 @@
       "location" : "Western La Noscea",
       "pos" : "x34:y28",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "8:00 AM"
       ],
@@ -798,7 +798,7 @@
       "location" : "Mor Dhona",
       "pos" : "x32:y11",
       "slot" : 2,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM",
         "5:00 AM",
@@ -820,7 +820,7 @@
         "x23:y12"
       ],
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 PM"
       ],
@@ -837,7 +837,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x10:y14",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "12:00 AM"
       ],
@@ -854,7 +854,7 @@
       "location" : "Eastern Thanalan",
       "pos" : "x12:y16",
       "slot" : 2,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM"
       ],
@@ -871,7 +871,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x19:y36",
       "slot" : 7,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "12:00 AM",
         "12:00 PM"
@@ -889,7 +889,7 @@
       "location" : "Dravanian Forelands",
       "pos" : "x33:y30",
       "slot" : 1,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "8:00 PM"
       ],
@@ -906,7 +906,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x26:y12",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "2:00 AM",
         "2:00 PM"
@@ -924,7 +924,7 @@
       "location" : "The Churning Mists",
       "pos" : "x11:y10",
       "slot" : 6,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "3:00 PM"
       ],
@@ -941,7 +941,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x31:y20",
       "slot" : 6,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "10:00 AM",
         "10:00 PM"
@@ -959,7 +959,7 @@
       "location" : "The Churning Mists",
       "pos" : "x19:y29",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 PM"
       ],
@@ -976,7 +976,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x13:y19",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 AM"
       ],
@@ -993,7 +993,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x10:y32",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 AM"
       ],
@@ -1010,7 +1010,7 @@
       "location" : "The Churning Mists",
       "pos" : "x24:y6",
       "slot" : 7,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "12:00 AM",
         "12:00 PM"
@@ -1028,7 +1028,7 @@
       "location" : "Eastern La Noscea",
       "pos" : "x30:y26",
       "slot" : 4,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "9:00 AM"
       ],
@@ -1045,7 +1045,7 @@
       "location" : "Central Shroud",
       "pos" : "x30:y19",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "6:00 AM"
       ],
@@ -1062,7 +1062,7 @@
       "location" : "East Shroud",
       "pos" : "x22:y30",
       "slot" : 1,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "5:00 PM"
       ],
@@ -1079,7 +1079,7 @@
       "location" : "North Shroud",
       "pos" : "x18:y26",
       "slot" : 4,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "3:00 AM"
       ],
@@ -1096,7 +1096,7 @@
       "location" : "The Churning Mists",
       "pos" : "x17:y36",
       "slot" : 1,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "5:00 PM"
       ],
@@ -1113,7 +1113,7 @@
       "location" : "South Shroud",
       "pos" : "x18:y23",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "2:00 AM"
       ],
@@ -1130,7 +1130,7 @@
       "location" : "East Shroud",
       "pos" : "x22:y26",
       "slot" : 4,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM"
       ],
@@ -1147,7 +1147,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x39:y26",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "7:00 PM"
       ],
@@ -1164,7 +1164,7 @@
       "location" : "Coerthas Central Highlands",
       "pos" : "x27:y12",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "9:00 AM"
       ],
@@ -1181,7 +1181,7 @@
       "location" : "Azys Lla",
       "pos" : "x8:y31",
       "slot" : 4,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "12:00 PM"
       ],
@@ -1198,7 +1198,7 @@
       "location" : "Dravanian Hinterlands",
       "pos" : "x8:y29",
       "slot" : 6,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "6:00 PM"
       ],
@@ -1215,7 +1215,7 @@
       "location" : "Coerthas Central Highlands",
       "pos" : "x8:y13",
       "slot" : 2,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "5:00 PM"
       ],
@@ -1232,7 +1232,7 @@
       "location" : "East Shroud",
       "pos" : "x17:y19",
       "slot" : 1,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "5:00 AM"
       ],
@@ -1249,7 +1249,7 @@
       "location" : "East Shroud",
       "pos" : "x13:y23",
       "slot" : 8,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "9:00 PM"
       ],
@@ -1266,7 +1266,7 @@
       "location" : "Coerthas Central Highlands",
       "pos" : "x27:y24",
       "slot" : 8,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM"
       ],
@@ -1283,7 +1283,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x23:y21",
       "slot" : 3,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "5:00 PM"
       ],
@@ -1300,7 +1300,7 @@
       "location" : "Mor Dhona",
       "pos" : "x32:y11",
       "slot" : 5,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM",
         "5:00 AM",
@@ -1323,7 +1323,7 @@
         5,
         6
       ],
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "8:00 AM"
       ],
@@ -1340,7 +1340,7 @@
       "location" : "Azys Lla",
       "pos" : "x22:y10",
       "slot" : 5,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "7:00 PM"
       ],
@@ -1357,7 +1357,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x10:y14",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "12:00 AM"
       ],
@@ -1377,7 +1377,7 @@
         "x23:y12"
       ],
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 PM"
       ],
@@ -1394,7 +1394,7 @@
       "location" : "Mor Dhona",
       "pos" : "x32:y11",
       "slot" : 4,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM",
         "5:00 AM",
@@ -1413,7 +1413,7 @@
       "location" : "Lower La Noscea",
       "pos" : "x32:y11",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "6:00 AM"
       ],
@@ -1432,7 +1432,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x7:y7",
       "slot" : 1,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "12:00 AM",
         "12:00 PM"
@@ -1450,8 +1450,8 @@
       "location" : "Eastern Thanalan",
       "pos" : "x26:y19",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
-      "times" : "1899-12-30T07:00:00.000Z",
+      "duration" : "3:00",
+      "times" : "2:00 AM",
       "is_collectable" : false,
       "is_legendary" : false,
       "is_ephemeral" : false,
@@ -1465,7 +1465,7 @@
       "location" : "Azys Lla",
       "pos" : "x24:y6",
       "slot" : 6,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "11:00 AM",
         "11:00 PM"
@@ -1483,7 +1483,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x37:y16",
       "slot" : 4,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "5:00 AM"
       ],
@@ -1500,7 +1500,7 @@
       "location" : "Coerthas Central Highlands",
       "pos" : "x23:y23",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "9:00 PM"
       ],
@@ -1517,7 +1517,7 @@
       "location" : "The Churning Mists",
       "pos" : "x11:y38",
       "slot" : 6,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "5:00 AM"
       ],
@@ -1534,7 +1534,7 @@
       "location" : "Dravanian Hinterlands",
       "pos" : "x11:y16",
       "slot" : 7,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "7:00 AM"
       ],
@@ -1551,7 +1551,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x17:y27",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 AM"
       ],
@@ -1568,7 +1568,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x26:y24",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 AM"
       ],
@@ -1585,7 +1585,7 @@
       "location" : "The Churning Mists",
       "pos" : "x29:y19",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "12:00 PM"
       ],
@@ -1602,7 +1602,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x34:y30",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 PM"
       ],
@@ -1619,7 +1619,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x21:y28",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 PM"
       ],
@@ -1636,7 +1636,7 @@
       "location" : "Dravanian Forelands",
       "pos" : "x26:y17",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "10:00 AM",
         "10:00 PM"
@@ -1654,7 +1654,7 @@
       "location" : "Eastern Thanalan",
       "pos" : "x28:y22",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "9:00 AM"
       ],
@@ -1671,7 +1671,7 @@
       "location" : "Dravanian Hinterlands",
       "pos" : "x34:y30",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "2:00 AM",
         "2:00 PM"
@@ -1689,7 +1689,7 @@
       "location" : "Mor Dhona",
       "pos" : "x28:y12",
       "slot" : 8,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM",
         "5:00 PM",
@@ -1708,7 +1708,7 @@
       "location" : "Coerthas Central Highlands",
       "pos" : "x27:y19",
       "slot" : 3,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM"
       ],
@@ -1725,7 +1725,7 @@
       "location" : "Mor Dhona",
       "pos" : "x28:y12",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM",
         "5:00 PM",
@@ -1744,7 +1744,7 @@
       "location" : "Northern Thanalan",
       "pos" : "x16:y19",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "3:00 AM"
       ],
@@ -1761,7 +1761,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x17:y27",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 AM"
       ],
@@ -1778,7 +1778,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x26:y24",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 AM"
       ],
@@ -1795,7 +1795,7 @@
       "location" : "The Churning Mists",
       "pos" : "x29:y19",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "12:00 PM"
       ],
@@ -1812,7 +1812,7 @@
       "location" : "Mor Dhona",
       "pos" : "x28:y12",
       "slot" : 3,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM",
         "5:00 PM",
@@ -1831,7 +1831,7 @@
       "location" : "Middle La Noscea",
       "pos" : "x25:y27",
       "slot" : 3,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "6:00 PM"
       ],
@@ -1848,7 +1848,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x17:y27",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 AM"
       ],
@@ -1865,7 +1865,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x26:y24",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 AM"
       ],
@@ -1882,7 +1882,7 @@
       "location" : "The Churning Mists",
       "pos" : "x29:y19",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "12:00 PM"
       ],
@@ -1899,7 +1899,7 @@
       "location" : "Eastern Thanalan",
       "pos" : "x28:y22",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "9:00 AM"
       ],
@@ -1916,7 +1916,7 @@
       "location" : "Eastern Thanalan",
       "pos" : "x25:y22",
       "slot" : 2,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "5:00 AM"
       ],
@@ -1933,7 +1933,7 @@
       "location" : "Middle La Noscea",
       "pos" : "x25:y27",
       "slot" : 8,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "7:00 PM"
       ],
@@ -1950,7 +1950,7 @@
       "location" : "Western Thanalan",
       "pos" : "x18:y27",
       "slot" : 8,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "5:00 AM"
       ],
@@ -1967,7 +1967,7 @@
       "location" : "Mor Dhona",
       "pos" : "x28:y12",
       "slot" : 1,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM",
         "5:00 PM",
@@ -1986,7 +1986,7 @@
       "location" : "The Churning Mists",
       "pos" : "x33:y22",
       "slot" : 6,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "2:00 AM",
         "2:00 PM"
@@ -2004,7 +2004,7 @@
       "location" : "Eastern Thanalan",
       "pos" : "x28:y22",
       "slot" : 1,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "9:00 AM"
       ],
@@ -2021,7 +2021,7 @@
       "location" : "Mor Dhona",
       "pos" : "x28:y12",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM",
         "5:00 PM",
@@ -2040,7 +2040,7 @@
       "location" : "Dravanian Hinterlands",
       "pos" : "x34:y30",
       "slot" : 3,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "2:00 AM",
         "2:00 PM"
@@ -2058,7 +2058,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x34:y30",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 PM"
       ],
@@ -2075,7 +2075,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x21:y28",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 PM"
       ],
@@ -2092,7 +2092,7 @@
       "location" : "Mor Dhona",
       "pos" : "x28:y12",
       "slot" : 2,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM",
         "5:00 PM",
@@ -2111,7 +2111,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x34:y30",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 PM"
       ],
@@ -2128,7 +2128,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x21:y28",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 PM"
       ],
@@ -2145,7 +2145,7 @@
       "location" : "Dravanian Forelands",
       "pos" : "x26:y17",
       "slot" : 4,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "10:00 AM",
         "10:00 PM"
@@ -2163,7 +2163,7 @@
       "location" : "Azys Lla",
       "pos" : "x5:y17",
       "slot" : 6,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "4:00 AM"
       ],
@@ -2180,7 +2180,7 @@
       "location" : "The Churning Mists",
       "pos" : "x6:y20",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "3:00 AM"
       ],
@@ -2197,7 +2197,7 @@
       "location" : "Sea of Clouds",
       "pos" : "x37:y13",
       "slot" : 3,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "1:00 AM"
       ],
@@ -2214,7 +2214,7 @@
       "location" : "Central Thanalan",
       "pos" : "x24:y16",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "4:00 AM"
       ],
@@ -2231,7 +2231,7 @@
       "location" : "Southern Thanalan",
       "pos" : "x19:y8",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "4:00 AM"
       ],
@@ -2248,7 +2248,7 @@
       "location" : "Eastern La Noscea",
       "pos" : "x17:y26",
       "slot" : 1,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 AM"
       ],
@@ -2265,7 +2265,7 @@
       "location" : "Dravanian Hinterlands",
       "pos" : "x26:y17",
       "slot" : 3,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "10:00 AM",
         "10:00 PM"
@@ -2283,7 +2283,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x37:y16",
       "slot" : 4,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "5:00 AM"
       ],
@@ -2300,7 +2300,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x17:y27",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 AM"
       ],
@@ -2317,7 +2317,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x26:y24",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 AM"
       ],
@@ -2334,7 +2334,7 @@
       "location" : "The Churning Mists",
       "pos" : "x29:y19",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "12:00 PM"
       ],
@@ -2351,7 +2351,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x34:y30",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 PM"
       ],
@@ -2368,7 +2368,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x21:y28",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 PM"
       ],
@@ -2385,7 +2385,7 @@
       "location" : "The Dravanian Forelands",
       "pos" : "x17:y27",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 AM"
       ],
@@ -2402,7 +2402,7 @@
       "location" : "The Dravanian Hinterlands",
       "pos" : "x26:y24",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 AM"
       ],
@@ -2419,7 +2419,7 @@
       "location" : "The Churning Mists",
       "pos" : "x29:y19",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "12:00 PM"
       ],
@@ -2436,7 +2436,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x34:y30",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "4:00 PM"
       ],
@@ -2453,7 +2453,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x21:y28",
       "slot" : "?",
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "times" : [
         "8:00 PM"
       ],
@@ -2470,7 +2470,7 @@
       "location" : "Central Thanalan",
       "pos" : "x24:y16",
       "slot" : 8,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "4:00 AM"
       ],
@@ -2487,7 +2487,7 @@
       "location" : "Central Thanalan",
       "pos" : "x24:y16",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "4:00 AM"
       ],
@@ -2504,7 +2504,7 @@
       "location" : "Northern Thanalan",
       "pos" : "x16:y19",
       "slot" : 8,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "3:00 AM"
       ],
@@ -2521,7 +2521,7 @@
       "location" : "Lower La Noscea",
       "pos" : "x23:y21",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "6:00 PM"
       ],
@@ -2538,7 +2538,7 @@
       "location" : "Lower La Noscea",
       "pos" : "x23:y21",
       "slot" : 8,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "6:00 PM"
       ],
@@ -2555,7 +2555,7 @@
       "location" : "Northern Thanalan",
       "pos" : "x16:y19",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "3:00 AM"
       ],
@@ -2572,7 +2572,7 @@
       "location" : "Azys Lla",
       "pos" : "x35:y16",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "7:00 AM"
       ],
@@ -2589,7 +2589,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x7:y7",
       "slot" : 6,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "12:00 AM",
         "12:00 PM"
@@ -2607,7 +2607,7 @@
       "location" : "Sea Of Clouds",
       "pos" : "x37:y13",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "1:00 AM"
       ],
@@ -2624,7 +2624,7 @@
       "location" : "The Sea of Clouds",
       "pos" : "x35:y39",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "5:00 AM"
       ],
@@ -2641,7 +2641,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x10:y10",
       "slot" : 4,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "8:00 AM"
       ],
@@ -2658,7 +2658,7 @@
       "location" : "South Shroud",
       "pos" : "x16:y31",
       "slot" : 7,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "6:00 AM"
       ],
@@ -2675,7 +2675,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x11:y21",
       "slot" : 6,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "7:00 AM"
       ],
@@ -2692,7 +2692,7 @@
       "location" : "Northern Thanalan",
       "pos" : "x24:y26",
       "slot" : 6,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "5:00 PM"
       ],
@@ -2709,7 +2709,7 @@
       "location" : "Eastern La Noscea",
       "pos" : "x21:y32",
       "slot" : 1,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "5:00 PM"
       ],
@@ -2726,7 +2726,7 @@
       "location" : "Western Thanalan",
       "pos" : "x18:y27",
       "slot" : 5,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "5:00 AM"
       ],
@@ -2743,7 +2743,7 @@
       "location" : "Mor Dhona",
       "pos" : "x28:y12",
       "slot" : 5,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM",
         "5:00 PM",
@@ -2762,7 +2762,7 @@
       "location" : "Mor Dhona",
       "pos" : "x28:y12",
       "slot" : 4,
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "times" : [
         "1:00 PM",
         "5:00 PM",
@@ -2781,7 +2781,7 @@
       "location" : "Coerthas Western Highlands",
       "pos" : "x30:y23",
       "slot" : 2,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "12:00 AM",
         "12:00 PM"
@@ -2799,7 +2799,7 @@
       "location" : "The Churning Mists",
       "pos" : "x33:y22",
       "slot" : 4,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "2:00 AM",
         "2:00 PM"
@@ -2817,7 +2817,7 @@
       "location" : "Dravanian Hinterlands",
       "pos" : "x16:y28",
       "slot" : 4,
-      "duration" : "1899-12-30T05:55:00.000Z",
+      "duration" : "0:55",
       "times" : [
         "6:00 AM"
       ],
@@ -2836,7 +2836,7 @@
         "Sea of Clouds",
         "Voor Siran Siran"
       ],
-      "times" : "1899-12-30T23:00:00.000Z",
+      "times" : "6:00 PM",
       "weather" : [
         "Fair Skies",
         "Clear Skies"
@@ -2845,7 +2845,7 @@
         "Blueclaw Shrimp (M)",
         "Bullfrog (M)"
       ],
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "is_collectable" : true,
       "is_ephemeral" : true,
       "blue_scrip" : false,
@@ -2858,7 +2858,7 @@
         "Dravanian Forelands",
         "The Iron Feast"
       ],
-      "times" : "1899-12-30T23:00:00.000Z",
+      "times" : "6:00 PM",
       "weather" : [
         "Fair Skies",
         "Clear Skies"
@@ -2867,7 +2867,7 @@
         "Blueclaw Shrimp (M)",
         "Bullfrog (M)"
       ],
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "is_collectable" : true,
       "is_ephemeral" : true,
       "blue_scrip" : false,
@@ -2880,7 +2880,7 @@
         "Coerthas Western Highlands",
         "Clearpool"
       ],
-      "times" : "1899-12-30T05:00:00.000Z",
+      "times" : "12:00 AM",
       "weather" : [
         "Snow",
         "Blizzards",
@@ -2890,7 +2890,7 @@
         "Purse Web Spider",
         "Brute Leech"
       ],
-      "duration" : "1899-12-30T10:00:00.000Z",
+      "duration" : "5:00",
       "is_collectable" : true,
       "is_ephemeral" : false,
       "blue_scrip" : false,
@@ -2903,7 +2903,7 @@
         "Dravanian Forelands",
         "Whilom River"
       ],
-      "times" : "1899-12-30T05:00:00.000Z",
+      "times" : "12:00 AM",
       "weather" : [
         "Fog",
         "Clouds",
@@ -2914,7 +2914,7 @@
         "Goblin Jig",
         "Blueclaw Shrimp (M)"
       ],
-      "duration" : "1899-12-30T11:00:00.000Z",
+      "duration" : "6:00",
       "is_collectable" : true,
       "is_ephemeral" : true,
       "blue_scrip" : false,
@@ -2927,7 +2927,7 @@
         "Churning Mists",
         "Weston Waters"
       ],
-      "times" : "1899-12-30T21:00:00.000Z",
+      "times" : "4:00 PM",
       "weather" : [
         "Fair Skies",
         "Clear Skies",
@@ -2938,7 +2938,7 @@
         "Stonefly Nymph",
         "Brute Leech"
       ],
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "is_collectable" : true,
       "is_ephemeral" : false,
       "blue_scrip" : false,
@@ -2951,7 +2951,7 @@
         "Churning Mists",
         "Tharl Oom Khash"
       ],
-      "times" : "1899-12-30T15:00:00.000Z",
+      "times" : "10:00 AM",
       "weather" : [
         "Fair Skies",
         "Clear Skies"
@@ -2961,7 +2961,7 @@
         "Sky Faerie (M)",
         "Rudderfish (M)"
       ],
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "is_collectable" : true,
       "is_ephemeral" : true,
       "blue_scrip" : false,
@@ -2974,7 +2974,7 @@
         "Churning Mists",
         "Eli Tohm"
       ],
-      "times" : "1899-12-30T11:00:00.000Z",
+      "times" : "6:00 AM",
       "weather" : [
         "Fair Skies",
         "Clear Skies",
@@ -2984,7 +2984,7 @@
         "Purse Web Spider",
         "Brute Leech"
       ],
-      "duration" : "1899-12-30T11:00:00.000Z",
+      "duration" : "6:00",
       "is_collectable" : true,
       "is_ephemeral" : false,
       "blue_scrip" : true,
@@ -2997,7 +2997,7 @@
         "Churning Mists",
         "Sohm Al Summit"
       ],
-      "times" : "1899-12-30T14:00:00.000Z",
+      "times" : "9:00 AM",
       "weather" : [
         "Fair Skies",
         "Clear Skies",
@@ -3008,7 +3008,7 @@
         "Sky Faerie (M)",
         "Rudderfish (M)"
       ],
-      "duration" : "1899-12-30T13:00:00.000Z",
+      "duration" : "8:00",
       "is_collectable" : true,
       "is_ephemeral" : true,
       "blue_scrip" : false,
@@ -3021,7 +3021,7 @@
         "Coerthas Western Highlands",
         "Unfrozen Pond"
       ],
-      "times" : "1899-12-30T13:00:00.000Z",
+      "times" : "8:00 AM",
       "weather" : [
         "Snow",
         "Clouds",
@@ -3034,7 +3034,7 @@
         "Goblin Jig",
         "Brute Leech"
       ],
-      "duration" : "1899-12-30T17:00:00.000Z",
+      "duration" : "12:00",
       "is_collectable" : true,
       "is_ephemeral" : false,
       "blue_scrip" : false,
@@ -3047,7 +3047,7 @@
         "Dravanian Hinterlands",
         "Middle Thaliak River"
       ],
-      "times" : "1899-12-30T20:00:00.000Z",
+      "times" : "3:00 PM",
       "weather" : [
         "Fair Skies",
         "Clear Skies"
@@ -3056,7 +3056,7 @@
         "Sweetfish (M)",
         "Bullfrog (M)"
       ],
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "is_collectable" : true,
       "is_ephemeral" : true,
       "blue_scrip" : false,
@@ -3069,7 +3069,7 @@
         "Dravanian Forelands",
         "The Iron Feast"
       ],
-      "times" : "1899-12-31T03:00:00.000Z",
+      "times" : "10:00 PM",
       "weather" : [
         "Clear Skies",
         "Fair Skies"
@@ -3080,7 +3080,7 @@
         "Bladed Steel Jig",
         "Brute Leech"
       ],
-      "duration" : "1899-12-30T10:15:00.000Z",
+      "duration" : "5:15",
       "is_collectable" : true,
       "is_ephemeral" : false,
       "blue_scrip" : false,
@@ -3093,7 +3093,7 @@
         "Azys Lla",
         "The Pappus Tree"
       ],
-      "times" : "1899-12-31T02:00:00.000Z",
+      "times" : "9:00 PM",
       "weather" : [
         "Fair Skies",
         "Thunder",
@@ -3105,7 +3105,7 @@
         "Bladed Steel Jig",
         "Brute Leech"
       ],
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "is_collectable" : true,
       "is_ephemeral" : false,
       "blue_scrip" : false,
@@ -3118,7 +3118,7 @@
         "Azys Lla",
         "The Habisphere"
       ],
-      "times" : "1899-12-30T20:00:00.000Z",
+      "times" : "3:00 PM",
       "weather" : [
         "Fair Skies",
         "Clouds",
@@ -3129,7 +3129,7 @@
         "Sky Faerie (M)",
         "Rudderfish (M)"
       ],
-      "duration" : "1899-12-30T08:00:00.000Z",
+      "duration" : "3:00",
       "is_collectable" : true,
       "is_ephemeral" : true,
       "blue_scrip" : false,
@@ -3142,7 +3142,7 @@
         "Churning Mists",
         "Weston Waters"
       ],
-      "times" : "1899-12-30T13:00:00.000Z",
+      "times" : "8:00 AM",
       "weather" : [
         "Fair Skies",
         "Clear Skies",
@@ -3153,7 +3153,7 @@
         "Bladed Steel Jig",
         "Brute Leech"
       ],
-      "duration" : "1899-12-30T09:00:00.000Z",
+      "duration" : "4:00",
       "is_collectable" : true,
       "is_ephemeral" : false,
       "blue_scrip" : true,
