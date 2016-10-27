@@ -37,9 +37,12 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "async": "^2.1.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "jquery": "^3.1.1",
     "lodash": "^4.16.4",
+    "material-ui": "^0.16.1",
+    "materialize-css": "^0.97.7",
     "moment": "^2.15.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
@@ -48,6 +51,7 @@
     "react-templates": "^0.5.4",
     "react-templates-loader": "^0.5.1",
     "redux": "^3.6.0",
-    "stylus": "^0.54.5"
+    "stylus": "^0.54.5",
+    "whatwg-fetch": "^1.0.0"
   }
 }

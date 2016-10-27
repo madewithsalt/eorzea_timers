@@ -63,36 +63,36 @@ styles:
   type: true
   code: true
   grid: true
-  tables: true
+  tables: false
   forms: true
-  buttons: true
+  buttons: false
 
   # Components
   component-animations: true
   dropdowns: true
-  button-groups: true
-  input-groups: true
+  button-groups: false
+  input-groups: false
   navs: true
   navbar: true
   breadcrumbs: false
   pagination: false
-  pager: true
-  labels: true
-  badges: true
+  pager: false
+  labels: false
+  badges: false
   jumbotron: true
-  thumbnails: true
+  thumbnails: false
   alerts: true
-  progress-bars: fa;se
-  media: true
-  list-group: true
-  panels: true
+  progress-bars: false
+  media: false
+  list-group: false
+  panels: false
   wells: true
   responsive-embed: true
   close: true
 
   # Components w/ JavaScript
   modals: true
-  tooltip: true
+  tooltip: false
   popovers: true
   carousel: false
 
@@ -104,13 +104,13 @@ styles:
 scripts:
   transition: true
   alert: true
-  button: true
+  button: false
   carousel: false
-  collapse: true
-  dropdown: true
+  collapse: false
+  dropdown: false
   modal: true
-  tooltip: true
-  popover: true
+  tooltip: false
+  popover: false
   scrollspy: false
-  tab: true
-  affix: true
+  tab: false
+  affix: false

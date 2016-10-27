@@ -9,7 +9,7 @@ import { setTime } from './utils/timeUtils';
 
 const store = createStore(reducers, {
   clock: setTime()
-});
+}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const history = syncHistoryWithStore(browserHistory, store);
 

@@ -3,9 +3,10 @@ import { IndexLink, Link } from 'react-router';
 import { connect } from 'react-redux';
 import Clock from './Clock';
 
+
 const MainNav = ({clock, version}) => {
   const navItems = [
-      { url: '/watch', name: 'Watch List' },
+      // { url: '/watch', name: 'Watch List' },
       { url: '/about', name: 'About' }
     ];
   return (
@@ -21,7 +22,9 @@ const MainNav = ({clock, version}) => {
             <Link to={item.url}  activeClassName="active">{item.name}</Link>
           </li>
         ))}
-        <li className={`nav-clock nav-item ${clock.meridiem.toLowerCase()}`}><Clock className="inline-block" /></li>
+        <li className={`nav-clock nav-item ${clock.meridiem.toLowerCase()}`}>
+          <Clock className="inline-block" />
+        </li>
       </ul>
     </div>
   )

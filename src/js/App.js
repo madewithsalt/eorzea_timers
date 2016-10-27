@@ -2,13 +2,37 @@ import React, { PropTypes, Component } from 'react';
 import routes from './routes';
 import { Router } from 'react-router';
 import { Provider } from 'react-redux';
+import 'whatwg-fetch';
+import { connect } from 'react-redux';
+import { recieveNodeList, requestNodeList } from './actions/nodeListActions';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-export default class App extends Component {
+
+class App extends Component {
+    componentDidMount() {
+      const { recieveNodeList, requestNodeList } = this.props;
+
+      requestNodeList();
+
+      fetch('/data/nodes.json')
+        .then(function(response) {
+          return response.json()
+        }).then(function(json) {
+          recieveNodeList(json);
+        }).catch(function(ex) {
+          console.log('parsing failed', ex)
+        });
+
+    }
     render() {
         const { store, history, version } = this.props;
         return (
             <Provider store={store}>
-              <Router history={history} routes={routes} />
+              <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                <Router history={history} routes={routes} />
+              </MuiThemeProvider>
             </Provider>
         );
     }
@@ -18,3 +42,16 @@ App.propTypes = {
     store: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired
 };
+
+const mapStateToProps = state => {
+  return { nodelist: state.nodelist };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    recieveNodeList: (json) => dispatch(recieveNodeList(json)),
+    requestNodeList: (e) => dispatch(requestNodeList())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
