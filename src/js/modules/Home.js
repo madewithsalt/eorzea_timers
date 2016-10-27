@@ -1,18 +1,31 @@
 import React, {Component} from 'react'
 import MainNav from '../components/MainNav';
-import Clock from '../components/Clock';
-import ListNode from '../components/ListNode';
-import { changeTime } from '../actions/clockActions';
+import NodeList from '../components/NodeList';
+import { search } from '../actions/searchActions';
 import { connect } from 'react-redux';
 
+import TextField from 'material-ui/TextField';
+
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchValue: ''
+    }
+  }
   render() {
-    const { nodelist } = this.props;
+    const { search } = this.props;
 
     return (
       <div>
         <MainNav />
-        { nodelist.isFetching ? 'Loading ...' : ''}
+        <TextField
+          id="node-list-search"
+          floatingLabelText={(
+            <span><i className="fa fa-search" aria-hidden="true"></i> Search Nodes</span>
+          )}
+          onChange={ search }/>
+        <NodeList />
       </div>
     );
   }
@@ -20,14 +33,14 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    clock: state.clock,
-    nodelist: state.nodelist
+    nodelist: state.nodelist,
+    search: state.search
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeTime: (e) => dispatch(changeTime())
+    search: (e, value) => dispatch(search(value))
   }
 }
 

@@ -1,11 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './App';
-import reducers from './reducers';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { createStore } from 'redux';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+import App from './App';
+import reducers from './reducers';
 import { setTime } from './utils/timeUtils';
+
+require('font-awesome/css/font-awesome.css');
+
+injectTapEventPlugin();
 
 const store = createStore(reducers, {
   clock: setTime()
