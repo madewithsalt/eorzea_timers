@@ -2,7 +2,12 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import NodeListItem from './NodeListItem';
-import { isActive, getTimeDifference } from '../utils/timeUtils';
+import {
+  isActive,
+  getTimeDifference,
+  getEarthDurationfromEorzean,
+  getDurationStringFromObject
+} from '../utils/timeUtils';
 import searchUtil from '../utils/searchUtils';
 
 
@@ -14,6 +19,14 @@ class NodeList extends Component {
       list: [],
       sortedGroups: {}
     }
+  }
+
+  getNodeEarthTimeRemaining(node) {
+    var time = this.props.clock.time,
+        diff = getTimeDifference(time, node.time),
+        durStr = getDurationStringFromObject(diff);
+
+    return getEarthDurationfromEorzean(durStr);
   }
 
   groupListByTime(list = []) {
@@ -45,7 +58,24 @@ class NodeList extends Component {
     });
 
     return {
-      active,
+      active: active.sort((a, b) => {
+        let aDur = this.getNodeEarthTimeRemaining(a),
+            bDur = this.getNodeEarthTimeRemaining(b);
+
+        var aTime = (aDur.hours * 60) + (aDur.minutes * 60) + aDur.seconds,
+            bTime = (bDur.hours * 60) + (bDur.minutes * 60) + bDur.seconds;
+
+        if (aTime < bTime) {
+          return -1;
+        }
+
+        if (aTime > bTime) {
+          return 1;
+        }
+
+        // a must be equal to b
+        return 0;
+      }),
       one_hour,
       two_hour,
       the_rest
@@ -82,38 +112,56 @@ class NodeList extends Component {
 
     return(
       <div className="node-list">
-          <div className="col-md-8">
+          <div className="col-md-6">
               <h2>Active Nodes</h2>
-              { sortedGroups['active'] ? sortedGroups['active'].map((node) => {
-                return (
-                  <NodeListItem node={node} key={node.id} />
-                )
-              }) : '' }
+              <div className="row">
+                <div className="node-list-group active">
+                  { sortedGroups['active'] ? sortedGroups['active'].map((node) => {
+                    return (
+                      <NodeListItem node={node} key={node.id} />
+                    )
+                  }) : '' }
+                </div>
+              </div>
           </div>
-          <div className="col-md-4">
-              <h3>Next Up</h3>
-              <div className="node-list-group">
+          <div className="col-md-6">
+            <h3>Next Up</h3>
+            <div className="row">
+              <div className="node-list-group one_hour">
                   { sortedGroups['one_hour'] ? sortedGroups['one_hour'].map((node) => {
                     return (
                       <NodeListItem node={node} key={node.id} />
                     )
                   }) : '' }
               </div>
-              <h3>In Two Hours</h3>
-              <div className="node-list-group">
-                  { sortedGroups['two_hour'] ? sortedGroups['two_hour'].map((node) => {
-                    return (
-                      <NodeListItem node={node} key={node.id} />
-                    )
-                  }) : '' }
-              </div>
-              <h3>After That</h3>
-              <div className="node-list-group">
-                  { sortedGroups['the_rest'] ? sortedGroups['the_rest'].map((node) => {
-                    return (
-                      <NodeListItem node={node} key={node.id} />
-                    )
-                  }) : '' }
+            </div>
+          </div>
+          <div className="col-md-12">
+              <div className="row">
+                  <div className="col-md-6">
+                    <h3>In Two Hours</h3>
+                    <div className="row">
+                      <div className="node-list-group two_hour">
+                          { sortedGroups['two_hour'] ? sortedGroups['two_hour'].map((node) => {
+                            return (
+                              <NodeListItem node={node} key={node.id} />
+                            )
+                          }) : '' }
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <h3>After That</h3>
+                    <div className="row">
+                      <div className="node-list-group the_rest">
+                          { sortedGroups['the_rest'] ? sortedGroups['the_rest'].map((node) => {
+                            return (
+                              <NodeListItem node={node} key={node.id} />
+                            )
+                          }) : '' }
+                      </div>
+                    </div>
+                  </div>
               </div>
           </div>
       </div>
@@ -121,6 +169,7 @@ class NodeList extends Component {
     );
   }
 };
+
 const mapStateToProps = state => {
   return {
     nodelist: state.nodelist,

@@ -1,0 +1,25 @@
+.node-list-item
+  padding: 4px
+  border: 1px solid $border
+  border-radius: 3px
+  margin-bottom: 4px
+  cursor: pointer
+  transition: background-color 300ms ease-in
+
+  &:hover, &.selected
+    background-color: $selected
+
+  .node-list-title, .node-list-details
+    line-height: 25px
+    span
+      vertical-align: middle
+      display: inline-block
+      margin-right: 8px
+
+  .location
+    opacity: 0.7
+
+.node-list-group
+  height: 200px
+  overflow-y: auto
+  border-bottom: 2px solid $border

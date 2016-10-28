@@ -20,12 +20,14 @@ class Home extends Component {
       <div>
         <MainNav />
         <div className="container-fluid">
-          <TextField
-            id="node-list-search"
-            floatingLabelText={(
-              <span><i className="fa fa-search" aria-hidden="true"></i> Search Nodes</span>
-            )}
-            onChange={ search }/>
+          <div className="col-md-12">
+            <TextField
+              id="node-list-search"
+              floatingLabelText={(
+                <span><i className="fa fa-search" aria-hidden="true"></i> Search Nodes</span>
+              )}
+              onChange={ search }/>            
+          </div>
           <NodeList />
         </div>
       </div>
