@@ -5,6 +5,8 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
+    "clean": "rm -fr ./public && mkdir -p ./public/data",
+    "prebuild": "npm run clean && cp ./src/*.html ./public && cp ./src/data/nodes.json ./public/data/",
     "build": "webpack --devtool source-map --optimize-minimize --optimize-dedupe --config webpack.config.babel.js",
     "start": "webpack-dev-server --progress --colors --content-base src/",
     "test": "mocha --compilers js:babel-core/register ./tests/unit/**/*"
