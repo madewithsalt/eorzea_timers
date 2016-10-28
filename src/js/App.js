@@ -26,7 +26,7 @@ class App extends Component {
           console.log('parsing failed', ex)
         });
 
-        var interval = setInterval(() => changeTime(), 2500);
+        var interval = setInterval(() => changeTime(), 900);
     }
 
     componentWillUpdate(nextProps) {
