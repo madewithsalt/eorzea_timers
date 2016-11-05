@@ -6,7 +6,8 @@ import {
   isActive,
   getTimeDifference,
   getEarthDurationfromEorzean,
-  getDurationStringFromObject
+  getDurationStringFromObject,
+  getEarthTimeRemaining
 } from '../utils/timeUtils';
 import searchUtil from '../utils/searchUtils';
 
@@ -19,14 +20,6 @@ class NodeList extends Component {
       list: [],
       sortedGroups: {}
     }
-  }
-
-  getNodeEarthTimeRemaining(node) {
-    var time = this.props.clock.time,
-        diff = getTimeDifference(time, node.time),
-        durStr = getDurationStringFromObject(diff);
-
-    return getEarthDurationfromEorzean(durStr);
   }
 
   groupListByTime(list = []) {
@@ -59,8 +52,8 @@ class NodeList extends Component {
 
     return {
       active: active.sort((a, b) => {
-        let aDur = this.getNodeEarthTimeRemaining(a),
-            bDur = this.getNodeEarthTimeRemaining(b);
+        let aDur = getEarthTimeRemaining(a.time, a.duration, this.props.clock.time),
+            bDur = getEarthTimeRemaining(b.time, b.duration, this.props.clock.time);
 
         var aTime = (aDur.hours * 60) + (aDur.minutes * 60) + aDur.seconds,
             bTime = (bDur.hours * 60) + (bDur.minutes * 60) + bDur.seconds;

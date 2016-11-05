@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import MainNav from '../components/MainNav';
-import NodeList from '../components/NodeList';
+import NodeList from './NodeList';
 import { search } from '../actions/searchActions';
 import { connect } from 'react-redux';
 
@@ -26,7 +26,7 @@ class Home extends Component {
               floatingLabelText={(
                 <span><i className="fa fa-search" aria-hidden="true"></i> Search Nodes</span>
               )}
-              onChange={ search }/>            
+              onChange={ search }/>
           </div>
           <NodeList />
         </div>
@@ -37,8 +37,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    nodelist: state.nodelist,
-    search: state.search
+    nodelist: state.nodelist
   };
 }
 

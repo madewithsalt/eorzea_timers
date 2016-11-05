@@ -5,27 +5,23 @@ import {
   isActive,
   getTimeDifference ,
   getEarthDurationfromEorzean,
-  getDurationStringFromObject
+  getDurationStringFromObject,
+  getEarthTimeRemaining
 } from '../utils/timeUtils';
-
+import {
+  toggleSelect
+} from '../actions/watchListActions';
 
 class NodeListItem extends Component {
-  getNodeEarthTimeRemaining(node) {
-    var time = this.props.clock.time,
-        diff = getTimeDifference(time, node.time),
-        durStr = getDurationStringFromObject(diff);
-
-    return getEarthDurationfromEorzean(durStr);
-  }
-
   render() {
-    const { node, clock } = this.props;
+    const { node, clock, watchlist, toggleSelect } = this.props;
     const active = isActive(clock.time, node.time, node.duration);
 
     var position = '',
         slot = node.slot || '?',
         timeRemaining,
-        earthTimeRemaining;
+        earthTimeRemaining,
+        selected = _.indexOf(watchlist, node.id) !== -1;
 
     if(_.isArray(node.pos)) {
       position = node.pos.join(', ').replace(/\:/g, ' ');
@@ -34,12 +30,12 @@ class NodeListItem extends Component {
     }
 
     if(active) {
-      earthTimeRemaining = this.getNodeEarthTimeRemaining(node);
+      earthTimeRemaining = getEarthTimeRemaining(node.time, node.duration, this.props.clock.time);
     }
 
     return (
       <div className="col-xs-12">
-        <div className="node-list-item clearfix">
+        <div className={`node-list-item clearfix ${selected ? 'selected' : ''}`} onClick={toggleSelect.bind(this, node.id)}>
           <div className="pull-left node-list-title">
             <span className={`icon icon-${node.type} icon-sm`}></span>
             <span>
@@ -61,14 +57,18 @@ class NodeListItem extends Component {
 
 const mapStateToProps = state => {
   return {
-    clock: state.clock
+    clock: state.clock,
+    watchlist: state.watchlist
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    // toggleSelect: (id) => dispatch(toggleSelect(id))
+    toggleSelect: (id) => {
+      dispatch(toggleSelect(id));
+      //dispatch(updateStorage({watchlist: this.props.watchlist}));
+    }
   }
 };
 
-export default connect(mapStateToProps)(NodeListItem);
+export default connect(mapStateToProps, mapDispatchToProps)(NodeListItem);

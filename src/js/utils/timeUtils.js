@@ -57,7 +57,7 @@ export const getEarthDurationfromEorzean = (stringDuration) => {
  *   ex2: A: 11:00 PM B: 12:00 AM = 1 hour difference.
  */
 export const getTimeDifference = (a, b) => {
-    var hours = 0,
+    let hours = 0,
         minutes = 0,
         times = {};
 
@@ -65,7 +65,7 @@ export const getTimeDifference = (a, b) => {
         times[idx] = getTimeObjFromString(time);
     });
 
-    var timeA, timeB, diff;
+    let timeA, timeB, diff;
 
     timeA = (times[0].hour * 60) + times[0].minute;
     timeB = (times[1].hour * 60) + times[1].minute;
@@ -85,9 +85,39 @@ export const getTimeDifference = (a, b) => {
     };
 };
 
+// Expects a string format: 12:00 AM
+export const getTimeRemaining = (nodeTime, duration, currTime) => {
+    let endTime = getEndTimeFromDuration(nodeTime, duration);
+
+    return getTimeDifference(currTime, endTime);
+}
+
+// Expects a string format: 12:00 AM
+// Best used for active nodes.
+export const getEarthTimeRemaining = (nodeTime, duration, currTime) => {
+    let endTime = getEndTimeFromDuration(nodeTime, duration),
+        diff = getTimeDifference(currTime, endTime),
+        durStr = getDurationStringFromObject(diff);
+
+    return getEarthDurationfromEorzean(durStr);
+}
+
+export const getTimeUntil = (nodeTime, currTime) => {
+  return getTimeDifference(currTime, nodeTime)
+}
+
+// Expects string formats: 12:00 AM
+// Best used for inactive (upcoming) nodes
+export const getEarthTimeUntil = (nodeTime, currTime) => {
+  let startUntil = getTimeDifference(currTime, nodeTime)
+      durStr = getDurationStringFromObject(startUntil);
+
+  return getEarthDurationfromEorzean(durStr)
+}
+
 // Expects format: 12:00 AM
 export const getTimeObjFromString = (stringTime) => {
-    var time = stringTime,
+    let time = stringTime,
         isAM = time.indexOf('AM') > -1,
         hour = parseFloat(time.split(' ')[0].split(':')[0]);
 
@@ -105,7 +135,7 @@ export const getTimeObjFromString = (stringTime) => {
 
 // Expect object formatted from getTimeObjFromString
 export const getTimeStringFromObject = (timeObj) => {
-    var hour = timeObj.hour,
+    let hour = timeObj.hour,
         minute = timeObj.minute,
         meridien = 'AM';
 
@@ -122,14 +152,14 @@ export const getTimeStringFromObject = (timeObj) => {
 };
 
 export const getTimeStringFromDuration = (stringStartTime, stringDuration) => {
-    var startTime = getTimeObjFromString(stringStartTime),
+    let startTime = getTimeObjFromString(stringStartTime),
         duration = {
             hour: parseFloat(stringDuration.split(':')[0]),
             minute: parseFloat(stringDuration.split(':')[1])
         },
         end = {};
 
-    var hour = startTime.hour + duration.hour,
+    let hour = startTime.hour + duration.hour,
         minute = startTime.minute + duration.minute;
 
     if (minute > 60) {
@@ -155,7 +185,7 @@ export const getTimeStringFromDuration = (stringStartTime, stringDuration) => {
 };
 
 export const getDurationObjFromString = (duration) => {
-    var hours = parseFloat(duration.split(':')[0]),
+    let hours = parseFloat(duration.split(':')[0]),
         mins = parseFloat(duration.split(':')[1]);
 
     return {
@@ -165,7 +195,7 @@ export const getDurationObjFromString = (duration) => {
 };
 
 export const getDurationStringFromObject = (durationObj) => {
-    var hours = durationObj.hours,
+    let hours = durationObj.hours,
         mins = durationObj.minutes;
 
     if(mins < 10) {
@@ -176,7 +206,7 @@ export const getDurationStringFromObject = (durationObj) => {
 };
 
 export const getEndTimeFromDuration = (startTime, duration) => {
-    var startObj = getTimeObjFromString(startTime),
+    let startObj = getTimeObjFromString(startTime),
         durationObj = getDurationObjFromString(duration),
         endObj = {
             hour: startObj.hour + durationObj.hours,
@@ -196,13 +226,13 @@ export const getEndTimeFromDuration = (startTime, duration) => {
 };
 
 export const isActive = (currentTime, startTime, duration) => {
-    var endTime = getEndTimeFromDuration(startTime, duration),
+    let endTime = getEndTimeFromDuration(startTime, duration),
         startTimeDiff = getTimeDifference(currentTime, startTime),
         endTimeDiff = getTimeDifference(currentTime, endTime),
         durationObj = getDurationObjFromString(duration),
         result = false;
 
-    var startTimeDiffMins = (startTimeDiff.hours * 60) + startTimeDiff.minutes,
+    let startTimeDiffMins = (startTimeDiff.hours * 60) + startTimeDiff.minutes,
         endTimeDiffMins = (endTimeDiff.hours * 60) + endTimeDiff.minutes,
         durationMins = (durationObj.hours * 60) + durationObj.minutes;
 

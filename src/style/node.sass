@@ -6,8 +6,10 @@
   cursor: pointer
   transition: background-color 300ms ease-in
 
-  &:hover, &.selected
-    background-color: $selected
+  &:hover
+    background-color: $hover_bg
+  &.selected
+    background-color: $selected_bg
 
   .node-list-title, .node-list-details
     line-height: 25px
