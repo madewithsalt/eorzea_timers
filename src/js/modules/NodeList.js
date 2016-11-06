@@ -85,8 +85,42 @@ class NodeList extends Component {
       list = nodelist.nodes || [];
     }
 
-    if(!_.isEmpty(nodelist.filterBy) && nodelist.filterBy !== 'all') {
-      list = _.filter(list, { type: nodelist.filterBy });
+    if(!_.isEmpty(nodelist.filterByType) && nodelist.filterByType !== 'all') {
+      list = _.filter(list, { type: nodelist.filterByType });
+    }
+
+    if(!_.isEmpty(nodelist.featureFilters)) {
+      list = _.filter(list, function(item) {
+        let keep = false;
+
+        _.each(nodelist.featureFilters, function(filter) {
+          let value = item[filter];
+
+          // there are a number of values that can be
+          // stored in filterFeature keys.
+          // we want to show the node if the filter key
+          // is non-empty or an explicit boolean of true.
+          if(!_.isUndefined(value)) {
+
+            // scrip keys can be an empty string or a min value
+            if(_.isString(value) && !_.isEmpty(value) || _.isNumber(value)) {
+              keep = true;
+            }
+            // only explicitly pass true if the filter is true.
+            // this way if another filter is true we don't accidently
+            // set it to false incorrectly.
+            if(_.isBoolean(value) && value === true) {
+              keep = true;
+            // or fall back to a nonempty value as true
+            } else if(!_.isEmpty(value)) {
+              keep = true;
+            }
+          }
+        });
+
+        // if the key is undefined, we will default to false (don't show)
+        return keep;
+      });
     }
 
     const sortedGroups = this.groupListByTime(list);

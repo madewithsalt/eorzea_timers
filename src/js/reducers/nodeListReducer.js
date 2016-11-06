@@ -3,13 +3,15 @@ import _ from 'lodash';
 import {
   REQUEST_NODELIST,
   RECEIVE_NODELIST,
-  FILTER_NODELIST
+  FILTER_TYPE_NODELIST,
+  FILTER_FEATURE_TOGGLE_NODELIST
 } from '../actions/nodeListActions';
 
 function nodes(state = {
   isFetching: false,
   nodes: [],
-  filterBy: 'all'
+  filterByType: 'all',
+  featureFilters: []
 }, action) {
   switch(action.type) {
     case REQUEST_NODELIST:
@@ -46,9 +48,23 @@ function nodes(state = {
         lastUpdated: action.recievedAt
       });
 
-    case FILTER_NODELIST:
+    case FILTER_TYPE_NODELIST:
       return Object.assign({}, state, {
-        filterBy: action.filterBy
+        filterByType: action.filterByType
+      });
+
+    case FILTER_FEATURE_TOGGLE_NODELIST:
+      let featureFilters = state.featureFilters,
+          existsAt = _.indexOf(featureFilters, action.feature);
+
+      if(existsAt !== -1) {
+          featureFilters.splice(existsAt, 1);
+      } else {
+        featureFilters.push(action.feature);
+      }
+
+      return Object.assign({}, state, {
+        featureFilters: featureFilters
       });
 
     default:

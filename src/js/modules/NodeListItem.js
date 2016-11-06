@@ -11,10 +11,13 @@ import {
 import {
   toggleSelect
 } from '../actions/watchListActions';
+import Stars from '../components/NodeStars';
 
 class NodeListItem extends Component {
+
   render() {
     const { node, clock, watchlist, toggleSelect } = this.props;
+    const { stars } = this;
     const active = isActive(clock.time, node.time, node.duration);
 
     var position = '',
@@ -35,11 +38,13 @@ class NodeListItem extends Component {
 
     return (
       <div className="col-xs-12">
-        <div className={`node-list-item clearfix ${selected ? 'selected' : ''}`} onClick={toggleSelect.bind(this, node.id)}>
+        <div className={`node node-list-item clearfix ${selected ? 'selected' : ''}`} onClick={toggleSelect.bind(this, node.id)}>
           <div className="pull-left node-list-title">
             <span className={`icon icon-${node.type} icon-sm`}></span>
             <span>
-              { `${node.time} ${node.name} [ slot ${slot} ]` }
+              { `${node.time} ${node.name}` }
+              <Stars stars={node.stars} />
+              { `[ slot ${slot} ]` }
             </span>
             <span className="diff">
               { active ? `${earthTimeRemaining.minutes}m ${earthTimeRemaining.seconds}s` : '' }

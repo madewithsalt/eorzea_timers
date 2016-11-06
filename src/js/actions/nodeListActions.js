@@ -1,7 +1,8 @@
 
 export const REQUEST_NODELIST = 'REQUEST_NODELIST';
 export const RECEIVE_NODELIST = 'RECEIVE_NODELIST';
-export const FILTER_NODELIST = 'FILTER_NODELIST';
+export const FILTER_TYPE_NODELIST = 'FILTER_TYPE_NODELIST';
+export const FILTER_FEATURE_TOGGLE_NODELIST = 'FILTER_FEATURE_TOGGLE_NODELIST';
 
 export function requestNodeList(nodes) {
   return {
@@ -18,9 +19,16 @@ export function recieveNodeList(nodes) {
   }
 }
 
-export function filterNodeList(filterBy) {
+export function filterTypeNodeList(filterByType) {
   return {
-    type: FILTER_NODELIST,
-    filterBy
+    type: FILTER_TYPE_NODELIST,
+    filterByType
+  }
+}
+
+export function toggleFeatureFilter(feature) {
+  return {
+    type: FILTER_FEATURE_TOGGLE_NODELIST,
+    feature
   }
 }
