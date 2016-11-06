@@ -65,12 +65,12 @@ styles:
   grid: true
   tables: false
   forms: true
-  buttons: false
+  buttons: true
 
   # Components
   component-animations: true
   dropdowns: true
-  button-groups: false
+  button-groups: true
   input-groups: false
   navs: true
   navbar: true

@@ -85,6 +85,10 @@ class NodeList extends Component {
       list = nodelist.nodes || [];
     }
 
+    if(!_.isEmpty(nodelist.filterBy) && nodelist.filterBy !== 'all') {
+      list = _.filter(list, { type: nodelist.filterBy });
+    }
+
     const sortedGroups = this.groupListByTime(list);
 
     this.setState({
@@ -105,7 +109,7 @@ class NodeList extends Component {
 
     return(
       <div className="node-list">
-          <div className="col-md-6">
+          <div className="col-md-12">
               <h2>Active Nodes</h2>
               <div className="row">
                 <div className="node-list-group active">
@@ -117,7 +121,7 @@ class NodeList extends Component {
                 </div>
               </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-12">
             <h3>Next Up</h3>
             <div className="row">
               <div className="node-list-group one_hour">
@@ -130,31 +134,25 @@ class NodeList extends Component {
             </div>
           </div>
           <div className="col-md-12">
+              <h3>In Two Hours</h3>
               <div className="row">
-                  <div className="col-md-6">
-                    <h3>In Two Hours</h3>
-                    <div className="row">
-                      <div className="node-list-group two_hour">
-                          { sortedGroups['two_hour'] ? sortedGroups['two_hour'].map((node) => {
-                            return (
-                              <NodeListItem node={node} key={node.id} />
-                            )
-                          }) : '' }
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <h3>After That</h3>
-                    <div className="row">
-                      <div className="node-list-group the_rest">
-                          { sortedGroups['the_rest'] ? sortedGroups['the_rest'].map((node) => {
-                            return (
-                              <NodeListItem node={node} key={node.id} />
-                            )
-                          }) : '' }
-                      </div>
-                    </div>
-                  </div>
+                <div className="node-list-group two_hour">
+                    { sortedGroups['two_hour'] ? sortedGroups['two_hour'].map((node) => {
+                      return (
+                        <NodeListItem node={node} key={node.id} />
+                      )
+                    }) : '' }
+                </div>
+              </div>
+              <h3>After That</h3>
+              <div className="row">
+                <div className="node-list-group the_rest">
+                    { sortedGroups['the_rest'] ? sortedGroups['the_rest'].map((node) => {
+                      return (
+                        <NodeListItem node={node} key={node.id} />
+                      )
+                    }) : '' }
+                </div>
               </div>
           </div>
       </div>
@@ -169,12 +167,6 @@ const mapStateToProps = state => {
     search: state.search,
     clock: state.clock
   };
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    // search: (e, value) => dispatch(search(value))
-  }
 }
 
 export default connect(mapStateToProps)(NodeList);

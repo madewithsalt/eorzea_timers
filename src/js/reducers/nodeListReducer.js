@@ -3,14 +3,13 @@ import _ from 'lodash';
 import {
   REQUEST_NODELIST,
   RECEIVE_NODELIST,
-  FILTER_NODELIST,
-  SEARCH_NODELIST
+  FILTER_NODELIST
 } from '../actions/nodeListActions';
 
 function nodes(state = {
   isFetching: false,
   nodes: [],
-  searchQuery: ''
+  filterBy: 'all'
 }, action) {
   switch(action.type) {
     case REQUEST_NODELIST:
@@ -46,6 +45,12 @@ function nodes(state = {
         nodes: nodes,
         lastUpdated: action.recievedAt
       });
+
+    case FILTER_NODELIST:
+      return Object.assign({}, state, {
+        filterBy: action.filterBy
+      });
+
     default:
       return state;
   }
