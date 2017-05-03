@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
+class SearchBar extends Component {
+  propTypes: {
+    onChange: PropTypes.func.isRequired
+  }
 
-// id="node-list-search"
-// floatingLabelText={(
-//   <span><i className="fa fa-search" aria-hidden="true"></i> Search Nodes</span>
-// )}
-// onChange={ search }
+  onChangeEvent(onChange, evt) {
+    onChange(evt, evt.target.value);
+  }
 
-export default () => (
-  <div>
-    Hi Im a search bar!
-  </div>
-)
+  render() {
+    const {
+      onChange,
+      helpText
+    } = this.props;
+
+    return (
+      <div className="search-bar">
+        <div className="input-field">
+          <input type="text" id="search" onChange={this.onChangeEvent.bind(this, onChange)}/>
+          <label htmlFor="search">
+            <i className="material-icons">search</i>
+            Search
+          </label>
+        </div>
+        { helpText ? (
+          <p className="help-text">{ helpText }</p>
+        ) : null }
+      </div>
+    );
+  }
+}
+
+export default SearchBar;

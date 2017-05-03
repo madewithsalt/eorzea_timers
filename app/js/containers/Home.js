@@ -15,7 +15,6 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      searchValue: '',
       filters: {
         type: [
             'all',
@@ -68,7 +67,7 @@ class Home extends Component {
   render() {
     const { search, nodelist, filter, filterFeature } = this.props;
     const { filters } = this.state;
-    const { itemIcon, featureIcon  } = this;
+    const { itemIcon, featureIcon, onSearchChange  } = this;
 
     const filterByType = nodelist.filterByType;
     const featureFilters = nodelist.featureFilters;
@@ -77,7 +76,7 @@ class Home extends Component {
       <div className="">
           <div className="row">
             <div className="col m12">
-              <SearchBar />
+              <SearchBar onChange={ search } helpText={"Search by Name or Location"}/>
             </div>
             <div className="row">
               <div className="col m6">
@@ -86,7 +85,7 @@ class Home extends Component {
                       <div className="" ref={(filters) => { this.filterMenuType = filters; }}>
                           { filters.type.map(function(item) {
                             return (
-                              <a key={ item } className={`chip ${item === filterByType ? 'active' : ''}`}
+                              <a key={ item } className={`chip menu-item ${item === filterByType ? 'active' : ''}`}
                                   onClick={ _.bind(filter, this, item ) }>
                                 { item !== 'all' ? itemIcon(item) : '' }
                                 { _.capitalize(item) }
@@ -102,7 +101,7 @@ class Home extends Component {
                       <div className="" ref={(filters) => { this.filterMenuFeature = filters; }}>
                         { filters.feature.map(function(item) {
                           return (
-                            <a key={ item } className={`chip ${_.indexOf(featureFilters, item) >= 0 ? 'active' : ''}`}
+                            <a key={ item } className={`chip menu-item ${_.indexOf(featureFilters, item) >= 0 ? 'active' : ''}`}
                                 onClick={ _.bind(filterFeature, this, item) }>
                               { featureIcon(item) }
                             </a>

@@ -21,9 +21,11 @@ const Menu = (props) => {
           <NavLink to={item.url} activeClassName="active">{item.name}</NavLink>
         </li>
       ))}
-      <li className={`nav-clock nav-item ${props.clock.meridiem.toLowerCase()}`}>
-        <Clock className="inline-block"/>
-      </li>
+      { props.clock ? (
+        <li className={`nav-clock nav-item ${props.clock.meridiem.toLowerCase()}`}>
+          <Clock className="inline-block"/>
+        </li>
+      ) : null }
     </ul>
   )
 }
@@ -50,12 +52,15 @@ class MainNav extends Component {
             <span>Eorzea Timers</span>&nbsp;
             <span className="version">{VERSION}</span>
           </div>
+          <div className={`right nav-clock ${clock.meridiem.toLowerCase()}`}>
+            <Clock className="inline-block"/>
+          </div>
           <a href="#" ref={(button) => { this.menuToggle = button; }}
             data-activates="sidebar"
             className="button-collapse right">
               <i className="material-icons">menu</i>
           </a>
-          <Menu className="nav navbar-nav right hide-on-med-and-down" clock={clock} />
+          <Menu className="nav navbar-nav right hide-on-med-and-down" />
           <Menu ref={(sidebar) => { this.sidebarNav = sidebar; }}
             id="sidebar" className="side-nav" clock={clock} />
         </div>

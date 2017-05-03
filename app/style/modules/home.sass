@@ -3,3 +3,13 @@
   .menu-label
     display: block
     margin-bottom: 4px
+  .menu-item
+    cursor: pointer
+    transition: background-color 300ms ease-in
+    &:hover
+      background-color: $hover_bg
+    &.active
+      background-color: $selected_bg
+
+.search-bar
+  margin-top: 24px

@@ -37,9 +37,9 @@ class NodeListItem extends Component {
     }
 
     return (
-      <div className="col-xs-12">
+      <div className="col s12">
         <div className={`node node-list-item clearfix ${selected ? 'selected' : ''}`} onClick={toggleSelect.bind(this, node.id)}>
-          <div className="pull-left node-list-title">
+          <div className="left node-list-title">
             <span className={`icon icon-${node.type} icon-sm`}></span>
             <span>
               { `${node.time} ${node.name}` }
@@ -50,7 +50,7 @@ class NodeListItem extends Component {
               { active ? `${earthTimeRemaining.minutes}m ${earthTimeRemaining.seconds}s` : '' }
             </span>
           </div>
-          <div className="pull-right text-right node-list-details">
+          <div className="right right-align node-list-details">
             <span className="small location">{ node.location }</span>
             <span className="small coords">{ position }</span>
           </div>
