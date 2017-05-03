@@ -13,12 +13,15 @@
   border-radius: 3px
   margin-bottom: 4px
   cursor: pointer
-  transition: background-color 300ms ease-in
+  transition: background-color 300ms ease-in, border 100ms ease-in-out
 
   &:hover
     background-color: $hover_bg
   &.selected
     background-color: $selected_bg
+    border-width: 2px
+    border-color: darken($selected_bg, 20)
+    color: $selected_text
 
   .node-list-title, .node-list-details
     line-height: 25px

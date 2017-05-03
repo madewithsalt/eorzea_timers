@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import NodeList from '../modules/NodeList';
 import { search } from '../actions/searchActions';
 import SearchBar from '../components/SearchBar';

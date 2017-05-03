@@ -5,7 +5,8 @@ import Clock from './Clock';
 import {omit} from 'lodash';
 
 const Menu = (props) => {
-  const navItems = [// { url: '/watch', name: 'Watch List' },
+  const navItems = [
+    { url: '/watch', name: 'Watch List' },
     {
       url: '/about',
       name: 'About'

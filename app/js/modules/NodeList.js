@@ -26,6 +26,15 @@ class NodeList extends Component {
 
   componentDidMount() {
     this.sortAndFilterNodes();
+    $(this.collapseList).collapsible();
+  }
+
+  componentDidUpdate() {
+    if(!this.state.collapsed) {
+      $(this.collapseList).collapsible('open', 0);
+
+      this.setState({ collapsed: true });
+    }
   }
 
   groupListByTime(list = []) {
@@ -146,7 +155,7 @@ class NodeList extends Component {
     const { sortedGroups, groups, activePanels } = this.state;
     return (
       <li className={`${groupName}-list`} key={groupName}>
-        <div id={groupName} className={`collapsible-header ${ this.shouldExpand(activePanels, groupName) }`}>
+        <div id={groupName} className={`collapsible-header`}>
           { groups[groupName] }
           <span className="badge">
             { sortedGroups[groupName].length }
