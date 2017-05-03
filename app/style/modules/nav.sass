@@ -1,0 +1,37 @@
+nav.primary-nav
+  background-color: $navbar_bg
+  color: white
+
+  .nav > li
+    > a
+      color: white
+      font-weight: 200
+      transition: background-color 300ms ease-in
+
+      &:hover, &:focus
+        background-color: lighten($navbar_bg, 10)
+
+  .brand-logo
+    text-shadow: $text_shadow_default
+    padding-left: 6px
+    .version
+      font-size: 12px
+      opacity: 0.6
+
+.nav li.nav-clock
+  color: white
+  padding: 15px
+  line-height: 20px
+  font-size: 16px
+  text-shadow: $text_shadow_default
+  transition: background-color 300ms ease-in
+
+  span
+    display: block
+    line-height: 34px
+    font-size: 20px
+
+  &.am
+    background-color: $am_bg
+  &.pm
+    background-color: $pm_bg

@@ -1,87 +1,78 @@
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const resolve = fp => path.resolve(__dirname, fp);
+const IS_DEV = require('isdev');
 
 module.exports = {
-    context: resolve('./src'),
-    entry: {
-        index: ['babel-polyfill', 'bootstrap-loader', './js/main.js']
-    },
-    output: {
-        path: resolve('./public'),
-        publicPath: '/',
-        filename: 'index.js'
-    },
-    devServer: {
-        inline: true,
-        port: 8080,
-        historyApiFallback: {
-            index: '/'
-        }
-    },
-    module: {
-        resolve: {
-            extensions: ['', '.js', '.styl']
-        },
-        loaders: [
-            {
-              test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
-              loader: "file"
-            },
-            {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style', 'css')
-            }, {
-                test: /\.sass$|\.scss$/,
-                loader: "style!css?importLoaders=1!sass!postcss?sourceMap=inline"
-            }, {
-                test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
-                loader: 'url'
-            }, {
-                test: /\.js$/,
-                exclude: /(node_modules|bower_components|assets_prev)/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015', 'react']
-                }
-            }
-        ]
-    },
-    postcss: function() {
-        return [
-            require('postcss-smart-import')({/* ...options */
-            }),
-            require('precss')({/* ...options */
-            }),
-            require('autoprefixer')({/* ...options */
-            })
-        ];
-    },
-    plugins: [
-        new ExtractTextPlugin('bundle.css'),
-        new webpack.DefinePlugin({
-            VERSION: JSON.stringify(require("./package.json").version)
-        }),
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-            "window.jQuery": "jquery",
-            Tether: "tether",
-            "window.Tether": "tether",
-            Tooltip: "exports?Tooltip!bootstrap/js/dist/tooltip",
-            Alert: "exports?Alert!bootstrap/js/dist/alert",
-            Button: "exports?Button!bootstrap/js/dist/button",
-            Carousel: "exports?Carousel!bootstrap/js/dist/carousel",
-            Collapse: "exports?Collapse!bootstrap/js/dist/collapse",
-            Dropdown: "exports?Dropdown!bootstrap/js/dist/dropdown",
-            Modal: "exports?Modal!bootstrap/js/dist/modal",
-            Popover: "exports?Popover!bootstrap/js/dist/popover",
-            Scrollspy: "exports?Scrollspy!bootstrap/js/dist/scrollspy",
-            Tab: "exports?Tab!bootstrap/js/dist/tab",
-            Tooltip: "exports?Tooltip!bootstrap/js/dist/tooltip",
-            Util: "exports?Util!bootstrap/js/dist/util"
-        })
+  entry: {
+    app: [
+      'babel-polyfill',
+      './app/js/index.js'
     ]
+  },
+  output: {
+    path: resolve('./priv'),
+    publicPath: '/',
+    filename: "js/[name].js"
+  },
+  devServer: {
+      port: 8080,
+      inline: true,
+      contentBase: resolve("./priv"),
+      historyApiFallback: {
+          index: '/'
+      }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.s[ac]ss$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader!sass-loader!postcss-loader?sourceMap=inline'
+        })
+      }, {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components|vendor)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015', 'react']
+        }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader?name=assets/fonts/[name].[ext]'
+      }
+    ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      VERSION: JSON.stringify(require("./package.json").version)
+    }),
+    new ExtractTextPlugin('css/app.css'),
+    new CopyWebpackPlugin([
+      {
+        context: 'app/assets',
+        from: '**/*',
+        to: 'assets'
+      },
+      {
+        from: './app/data/nodes.json',
+        to: './data'
+      },
+      {
+        context: 'app/',
+        from: '*.html',
+        to: './'
+      }
+    ]),
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery"
+    })
+  ]
 };
