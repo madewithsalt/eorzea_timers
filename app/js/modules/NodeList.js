@@ -14,6 +14,7 @@ class NodeList extends Component {
       list: [],
       sortedGroups: {},
       groups: {
+        'search': 'Search Results',
         'active': 'Active Nodes',
         'one_hour': 'In One Hour',
         'two_hour': 'In Two Hours',
@@ -30,6 +31,10 @@ class NodeList extends Component {
   }
 
   componentDidUpdate() {
+    this.collapseReset();
+  }
+
+  collapseReset() {
     if(!this.state.collapsed) {
       $(this.collapseList).collapsible('open', 0);
 
@@ -92,6 +97,13 @@ class NodeList extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.sortAndFilterNodes(nextProps);
+
+    const currSearch = _.isEmpty(this.props.search);
+    const nextSearch = _.isEmpty(nextProps.search);
+
+    if(currSearch !== nextSearch) {
+      this.setState({ collapsed: false }, this.collapseReset)
+    }
   }
 
   sortAndFilterNodes(props) {
@@ -150,7 +162,14 @@ class NodeList extends Component {
       });
     }
 
-    const sortedGroups = this.groupListByTime(list);
+    let sortedGroups;
+    if(_.isEmpty(search)) {
+      sortedGroups = this.groupListByTime(list);
+    } else {
+      sortedGroups = {
+        'search': list
+      }
+    }
 
     this.setState({'list': list, sortedGroups});
   }
@@ -159,13 +178,17 @@ class NodeList extends Component {
     return activePanels.indexOf(groupName) >= 0 ? 'active' : '';
   }
 
-  renderListGroup(groupName) {
+  renderListGroup(groupName, index) {
     const { sortedGroups, groups, activePanels } = this.state;
+    const count = sortedGroups[groupName].length;
+
+    const isOpen = groupName === 'search';
+
     return (
       <li className={`${groupName}-list`} key={groupName}>
         <div id={groupName} className={`collapsible-header`}>
           { groups[groupName] }
-          <span className="badge">
+          <span className={`badge list-item-count ${ count > 0 ? 'active' : ''}`}>
             { sortedGroups[groupName].length }
           </span>
         </div>
@@ -191,8 +214,8 @@ class NodeList extends Component {
         <ul className="collapsible popout" ref={(list) => {
           this.collapseList = list;
         }}>
-            { Object.keys(sortedGroups).map((group) => {
-                return renderListGroup(group, 'Active')
+            { Object.keys(sortedGroups).map((group, i) => {
+                return renderListGroup(group, i)
             })}
         </ul>
       </div>

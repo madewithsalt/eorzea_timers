@@ -416,6 +416,215 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(Clock);
 
 });
 
+require.register("js/components/FilterMenu.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _lodash = require('lodash');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FilterMenu = function (_Component) {
+  _inherits(FilterMenu, _Component);
+
+  function FilterMenu(props) {
+    _classCallCheck(this, FilterMenu);
+
+    var _this = _possibleConstructorReturn(this, (FilterMenu.__proto__ || Object.getPrototypeOf(FilterMenu)).call(this, props));
+
+    _this.renderMenuItem = _this.renderMenuItem.bind(_this);
+    return _this;
+  }
+
+  _createClass(FilterMenu, [{
+    key: 'renderMenuItem',
+    value: function renderMenuItem(name, value) {
+      var isActive = false;
+      var values = this.props.values;
+
+
+      if (values[name]) {
+        if ((0, _lodash.isArray)(values[name])) {
+          isActive = values[name].indexOf(value) >= 0;
+        } else {
+          isActive = values[name] && values[name] === value;
+        }
+      }
+
+      return _react2.default.createElement(
+        'li',
+        { className: 'filter-menu-item', key: 'filter-' + name + '-' + value },
+        _react2.default.createElement(
+          'a',
+          { onClick: this.handleFilterChange.bind(this, name, value),
+            className: 'menu-item ' + (isActive ? 'active' : '') },
+          _react2.default.createElement('span', { className: 'icon icon-' + value + ' material-icons' }),
+          _react2.default.createElement(
+            'span',
+            { className: 'name' },
+            value
+          )
+        )
+      );
+    }
+  }, {
+    key: 'handleFilterChange',
+    value: function handleFilterChange(name, value) {
+      this.props.onChange(name, value);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          filters = _props.filters,
+          className = _props.className;
+      var renderMenuItem = this.renderMenuItem;
+
+      var keys = Object.keys(filters);
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'filter-menu ' + className },
+        keys.map(function (key) {
+          return _react2.default.createElement(
+            'div',
+            { className: 'filter-menu-group group-' + key, key: key },
+            _react2.default.createElement(
+              'span',
+              { className: 'menu-label' },
+              filters[key].name,
+              ':'
+            ),
+            _react2.default.createElement(
+              'ul',
+              { className: 'filter-menu-list' },
+              filters[key].values.map(function (item) {
+                return renderMenuItem(key, item);
+              })
+            )
+          );
+        })
+      );
+    }
+  }, {
+    key: 'moo',
+    value: function moo() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'row' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col m5' },
+          _react2.default.createElement(
+            'div',
+            { className: 'filter-menu' },
+            _react2.default.createElement(
+              'span',
+              { className: 'menu-label small' },
+              'Filter by:'
+            ),
+            _react2.default.createElement(
+              'ul',
+              { className: 'menu-list', ref: function ref(filters) {
+                  _this2.filterMenuType = filters;
+                } },
+              filters.type.map(function (item) {
+                return _react2.default.createElement(
+                  'a',
+                  { key: item, className: 'chip menu-item ' + (item === filterByType ? 'active' : ''),
+                    onClick: _.bind(filter, _this2, item) },
+                  item !== 'all' ? itemIcon(item) : '',
+                  _.capitalize(item)
+                );
+              })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col m3' },
+          _react2.default.createElement(
+            'div',
+            { className: 'filter-menu' },
+            _react2.default.createElement(
+              'span',
+              { className: 'menu-label small' },
+              'Level Range:'
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              filters.level.map(function (level) {
+                var isActive = filterByLevel && level === filterByLevel;
+                return _react2.default.createElement(
+                  'a',
+                  { key: level, className: 'chip menu-item ' + (isActive ? 'active' : ''),
+                    onClick: _.bind(levelFilter, _this2, level) },
+                  level
+                );
+              })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col m4' },
+          _react2.default.createElement(
+            'div',
+            { className: 'filter-menu right-align' },
+            _react2.default.createElement(
+              'span',
+              { className: 'menu-label small' },
+              'Node Types:'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: '', ref: function ref(filters) {
+                  _this2.filterMenuFeature = filters;
+                } },
+              filters.feature.map(function (item) {
+                return _react2.default.createElement(
+                  'a',
+                  { key: item, className: 'chip menu-item ' + (_.indexOf(featureFilters, item) >= 0 ? 'active' : ''),
+                    onClick: _.bind(filterFeature, this, item) },
+                  featureIcon(item)
+                );
+              })
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return FilterMenu;
+}(_react.Component);
+
+FilterMenu.defaultProps = {
+  onChange: function onChange() {}
+};
+
+exports.default = FilterMenu;
+
+});
+
 require.register("js/components/MainNav.js", function(exports, require, module) {
 'use strict';
 
@@ -598,7 +807,11 @@ var Stars = function Stars(props) {
   }
 
   var starNodes = _lodash2.default.times(stars, function (i) {
-    return _react2.default.createElement('i', { className: 'fa fa-star', key: i });
+    return _react2.default.createElement(
+      'i',
+      { className: 'material-icons', key: i },
+      'star'
+    );
   });
 
   return _react2.default.createElement(
@@ -1009,6 +1222,10 @@ var _SearchBar = require('../components/SearchBar');
 
 var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
+var _FilterMenu = require('../components/FilterMenu');
+
+var _FilterMenu2 = _interopRequireDefault(_FilterMenu);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -1028,19 +1245,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Home = function (_Component) {
   _inherits(Home, _Component);
 
-  function Home(props) {
+  function Home() {
     _classCallCheck(this, Home);
 
-    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
-
-    _this.state = {
-      filters: {
-        type: ['all', 'botany', 'mining', 'fishing'],
-        level: [50, 60, 70],
-        feature: ['is_collectable', 'is_ephemeral', 'red_scrip', 'blue_scrip']
-      }
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
   }
 
   _createClass(Home, [{
@@ -1083,22 +1291,48 @@ var Home = function (_Component) {
       );
     }
   }, {
+    key: 'handleFilterChange',
+    value: function handleFilterChange(name, value) {
+      var _props = this.props,
+          typeFilter = _props.typeFilter,
+          levelFilter = _props.levelFilter,
+          featureFilter = _props.featureFilter;
+
+
+      switch (name) {
+        case 'type':
+          typeFilter(value);
+          break;
+
+        case 'level':
+          levelFilter(value);
+          break;
+        case 'feature':
+          featureFilter(value);
+          break;
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _props2 = this.props,
+          search = _props2.search,
+          availableFilters = _props2.availableFilters,
+          filterByType = _props2.filterByType,
+          filterByLevel = _props2.filterByLevel,
+          featureFilters = _props2.featureFilters;
 
-      var _props = this.props,
-          search = _props.search,
-          filterByType = _props.filterByType,
-          filterByLevel = _props.filterByLevel,
-          featureFilters = _props.featureFilters,
-          filter = _props.filter,
-          levelFilter = _props.levelFilter,
-          filterFeature = _props.filterFeature;
-      var filters = this.state.filters;
+
+      var filterValues = {
+        type: filterByType,
+        level: filterByLevel,
+        feature: featureFilters
+      };
+
       var itemIcon = this.itemIcon,
           featureIcon = this.featureIcon,
-          onSearchChange = this.onSearchChange;
+          onSearchChange = this.onSearchChange,
+          handleFilterChange = this.handleFilterChange;
 
 
       return _react2.default.createElement(
@@ -1112,91 +1346,8 @@ var Home = function (_Component) {
             { className: 'col m12' },
             _react2.default.createElement(_SearchBar2.default, { onChange: search, helpText: "Search by Name or Location" })
           ),
-          _react2.default.createElement(
-            'div',
-            { className: 'row' },
-            _react2.default.createElement(
-              'div',
-              { className: 'col m5' },
-              _react2.default.createElement(
-                'div',
-                { className: 'filter-menu' },
-                _react2.default.createElement(
-                  'span',
-                  { className: 'menu-label small' },
-                  'Filter by:'
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: '', ref: function ref(filters) {
-                      _this2.filterMenuType = filters;
-                    } },
-                  filters.type.map(function (item) {
-                    return _react2.default.createElement(
-                      'a',
-                      { key: item, className: 'chip menu-item ' + (item === filterByType ? 'active' : ''),
-                        onClick: _lodash2.default.bind(filter, _this2, item) },
-                      item !== 'all' ? itemIcon(item) : '',
-                      _lodash2.default.capitalize(item)
-                    );
-                  })
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'col m3' },
-              _react2.default.createElement(
-                'div',
-                { className: 'filter-menu' },
-                _react2.default.createElement(
-                  'span',
-                  { className: 'menu-label small' },
-                  'Level Range:'
-                ),
-                _react2.default.createElement(
-                  'div',
-                  null,
-                  filters.level.map(function (level) {
-                    var isActive = filterByLevel && level === filterByLevel;
-                    return _react2.default.createElement(
-                      'a',
-                      { key: level, className: 'chip menu-item ' + (isActive ? 'active' : ''),
-                        onClick: _lodash2.default.bind(levelFilter, _this2, level) },
-                      level
-                    );
-                  })
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'col m4' },
-              _react2.default.createElement(
-                'div',
-                { className: 'filter-menu right-align' },
-                _react2.default.createElement(
-                  'span',
-                  { className: 'menu-label small' },
-                  'Node Types:'
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: '', ref: function ref(filters) {
-                      _this2.filterMenuFeature = filters;
-                    } },
-                  filters.feature.map(function (item) {
-                    return _react2.default.createElement(
-                      'a',
-                      { key: item, className: 'chip menu-item ' + (_lodash2.default.indexOf(featureFilters, item) >= 0 ? 'active' : ''),
-                        onClick: _lodash2.default.bind(filterFeature, this, item) },
-                      featureIcon(item)
-                    );
-                  })
-                )
-              )
-            )
-          )
+          _react2.default.createElement(_FilterMenu2.default, { className: 'node-list-filters', values: filterValues,
+            onChange: handleFilterChange.bind(this), filters: availableFilters })
         ),
         _react2.default.createElement(_NodeList2.default, null)
       );
@@ -1212,7 +1363,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     filterByType: state.nodelist.filterByType,
     filterByLevel: state.nodelist.filterByLevel,
-    featureFilters: state.nodelist.featureFilters
+    featureFilters: state.nodelist.featureFilters,
+    availableFilters: state.nodelist.filters
   };
 };
 
@@ -1221,13 +1373,13 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     search: function search(e, value) {
       return dispatch((0, _searchActions.search)(value));
     },
-    filter: function filter(value) {
+    typeFilter: function typeFilter(value) {
       return dispatch((0, _nodeListActions.filterTypeNodeList)(value));
     },
     levelFilter: function levelFilter(value) {
       return dispatch((0, _nodeListActions.filterLevelNodeList)(value));
     },
-    filterFeature: function filterFeature(value) {
+    featureFilter: function featureFilter(value) {
       return dispatch((0, _nodeListActions.toggleFeatureFilter)(value));
     }
   };
@@ -1413,6 +1565,7 @@ var NodeList = function (_Component) {
       list: [],
       sortedGroups: {},
       groups: {
+        'search': 'Search Results',
         'active': 'Active Nodes',
         'one_hour': 'In One Hour',
         'two_hour': 'In Two Hours',
@@ -1433,6 +1586,11 @@ var NodeList = function (_Component) {
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
+      this.collapseReset();
+    }
+  }, {
+    key: 'collapseReset',
+    value: function collapseReset() {
       if (!this.state.collapsed) {
         $(this.collapseList).collapsible('open', 0);
 
@@ -1500,6 +1658,13 @@ var NodeList = function (_Component) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       this.sortAndFilterNodes(nextProps);
+
+      var currSearch = _lodash2.default.isEmpty(this.props.search);
+      var nextSearch = _lodash2.default.isEmpty(nextProps.search);
+
+      if (currSearch !== nextSearch) {
+        this.setState({ collapsed: false }, this.collapseReset);
+      }
     }
   }, {
     key: 'sortAndFilterNodes',
@@ -1558,7 +1723,14 @@ var NodeList = function (_Component) {
         });
       }
 
-      var sortedGroups = this.groupListByTime(list);
+      var sortedGroups = void 0;
+      if (_lodash2.default.isEmpty(search)) {
+        sortedGroups = this.groupListByTime(list);
+      } else {
+        sortedGroups = {
+          'search': list
+        };
+      }
 
       this.setState({ 'list': list, sortedGroups: sortedGroups });
     }
@@ -1569,11 +1741,15 @@ var NodeList = function (_Component) {
     }
   }, {
     key: 'renderListGroup',
-    value: function renderListGroup(groupName) {
+    value: function renderListGroup(groupName, index) {
       var _state = this.state,
           sortedGroups = _state.sortedGroups,
           groups = _state.groups,
           activePanels = _state.activePanels;
+
+      var count = sortedGroups[groupName].length;
+
+      var isOpen = groupName === 'search';
 
       return _react2.default.createElement(
         'li',
@@ -1584,7 +1760,7 @@ var NodeList = function (_Component) {
           groups[groupName],
           _react2.default.createElement(
             'span',
-            { className: 'badge' },
+            { className: 'badge list-item-count ' + (count > 0 ? 'active' : '') },
             sortedGroups[groupName].length
           )
         ),
@@ -1632,8 +1808,8 @@ var NodeList = function (_Component) {
           { className: 'collapsible popout', ref: function ref(list) {
               _this3.collapseList = list;
             } },
-          Object.keys(sortedGroups).map(function (group) {
-            return renderListGroup(group, 'Active');
+          Object.keys(sortedGroups).map(function (group, i) {
+            return renderListGroup(group, i);
           })
         )
       );
@@ -1898,6 +2074,7 @@ require.register("js/reducers/nodeListReducer.js", function(exports, require, mo
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.defaultState = undefined;
 
 var _lodash = require('lodash');
 
@@ -1905,16 +2082,23 @@ var _lodash2 = _interopRequireDefault(_lodash);
 
 var _nodeListActions = require('../actions/nodeListActions');
 
+var _filters = require('../static/filters');
+
+var _filters2 = _interopRequireDefault(_filters);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var defaultState = exports.defaultState = {
+  isFetching: false,
+  nodes: [],
+  filterByType: 'all',
+  filterByLevel: null,
+  featureFilters: [],
+  filters: _filters2.default
+};
+
 function nodes() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    isFetching: false,
-    nodes: [],
-    filterByType: 'all',
-    filterByLevel: null,
-    featureFilters: []
-  };
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
   var action = arguments[1];
 
   switch (action.type) {
@@ -2167,6 +2351,29 @@ exports.default = function () {
       )
     )
   );
+};
+
+});
+
+require.register("js/static/filters.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  type: {
+    name: 'By Class',
+    values: ['all', 'botany', 'mining', 'fishing']
+  },
+  level: {
+    name: 'By Level',
+    values: [50, 60, 70]
+  },
+  feature: {
+    name: 'By Type',
+    values: ['is_collectable', 'is_ephemeral', 'red_scrip', 'blue_scrip']
+  }
 };
 
 });

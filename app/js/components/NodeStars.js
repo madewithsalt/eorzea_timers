@@ -9,7 +9,7 @@ const Stars = (props) => {
     }
 
     let starNodes = _.times(stars, function(i) {
-      return (<i className="fa fa-star" key={i}></i>);
+      return (<i className="material-icons" key={i}>star</i>);
     });
 
     return (

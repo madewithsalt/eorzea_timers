@@ -1,15 +1,35 @@
-.filter-menu
+.filter-menu.node-list-filters
   margin-top: 10px
   .menu-label
     display: block
     margin-bottom: 4px
-  .menu-item
-    cursor: pointer
-    transition: background-color 300ms ease-in
-    &:hover
-      background-color: $hover_bg
-    &.active
-      background-color: $selected_bg
+
+  .filter-menu-group
+    @extend .col
+    @extend .s3
+
+    .icon
+      width: 22px
+      height: 22px
+      line-height: 30px
+
+
+    &.group-feature
+      @extend .s4
+
+      .name
+        display: none
+
+    &.group-type
+      @extend .s5
+
+      .icon-all
+        display: none
+
+    &.group-level
+      .icon
+        display: none
+
 
 .search-bar
   margin-top: 24px

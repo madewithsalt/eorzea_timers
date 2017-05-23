@@ -20,14 +20,18 @@ $img_url: '/img/'
   &.icon-fishing
     background-image: url($img_url + 'fishermenu.png')
 
-  &.icon-collectable
+  &.icon-is_collectable
     background-image: url($img_url + 'collectable_icon.png')
 
-  &.icon-red-scrip
+  &.icon-red_scrip
     background-image: url($img_url + 'red_scrip.png')
 
-  &.icon-blue-scrip
+  &.icon-blue_scrip
     background-image: url($img_url + 'blue_scrip.png')
+
+  &.icon-is_ephemeral
+    &:after
+      content: "book"
 
   &.icon-sm
     width: 25px

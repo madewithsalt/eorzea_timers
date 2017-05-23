@@ -1,0 +1,16 @@
+.filter-menu
+  .filter-menu-item
+    display: inline-block
+    margin-right: 4px
+
+    a
+      @extend .chip
+      display: block
+      cursor: pointer
+      transition: background-color 300ms ease-in
+      color: $text_dark
+
+      &:hover
+        background-color: $hover_bg
+      &.active
+        background-color: $selected_bg

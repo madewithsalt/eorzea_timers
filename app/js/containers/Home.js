@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import NodeList from '../modules/NodeList';
 import { search } from '../actions/searchActions';
 import SearchBar from '../components/SearchBar';
+import FilterMenu from '../components/FilterMenu';
+
 import _ from 'lodash';
 
 import {
@@ -13,32 +15,6 @@ import { connect } from 'react-redux';
 
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      filters: {
-        type: [
-            'all',
-            'botany',
-            'mining',
-            'fishing'
-        ],
-        level: [
-          50,
-          60,
-          70
-        ],
-        feature: [
-          'is_collectable',
-          'is_ephemeral',
-          'red_scrip',
-          'blue_scrip'
-        ]
-      }
-    }
-  }
-
   componentDidMount() {
     $(this.tabMenu).tabs();
   }
@@ -73,19 +49,44 @@ class Home extends Component {
     )
   }
 
+  handleFilterChange(name, value) {
+    const {
+      typeFilter,
+      levelFilter,
+      featureFilter
+    } = this.props;
+
+    switch (name) {
+      case 'type':
+        typeFilter(value);
+        break;
+
+      case 'level':
+        levelFilter(value);
+        break;
+      case 'feature':
+        featureFilter(value)
+        break;
+    }
+
+  }
+
   render() {
     const {
       search,
+      availableFilters,
       filterByType,
       filterByLevel,
-      featureFilters,
-      filter,
-      levelFilter,
-      filterFeature
+      featureFilters
     } = this.props;
 
-    const { filters } = this.state;
-    const { itemIcon, featureIcon, onSearchChange  } = this;
+    const filterValues = {
+      type: filterByType,
+      level: filterByLevel,
+      feature: featureFilters
+    }
+
+    const { itemIcon, featureIcon, onSearchChange, handleFilterChange } = this;
 
 
     return (
@@ -94,55 +95,8 @@ class Home extends Component {
             <div className="col m12">
               <SearchBar onChange={ search } helpText={"Search by Name or Location"}/>
             </div>
-            <div className="row">
-              <div className="col m5">
-                <div className="filter-menu">
-                      <span className="menu-label small">Filter by:</span>
-                      <div className="" ref={(filters) => { this.filterMenuType = filters; }}>
-                          { filters.type.map((item) => {
-                            return (
-                              <a key={ item } className={`chip menu-item ${item === filterByType ? 'active' : ''}`}
-                                  onClick={ _.bind(filter, this, item ) }>
-                                { item !== 'all' ? itemIcon(item) : '' }
-                                { _.capitalize(item) }
-                              </a>
-                            )
-                          })}
-                      </div>
-                  </div>
-              </div>
-              <div className="col m3">
-                <div className="filter-menu">
-                    <span className="menu-label small">Level Range:</span>
-                    <div>
-                      { filters.level.map((level) => {
-                        const isActive = filterByLevel &&  level === filterByLevel;
-                        return (
-                          <a key={ level } className={`chip menu-item ${isActive ? 'active' : ''}`}
-                              onClick={ _.bind(levelFilter, this, level ) }>
-                            { level }
-                          </a>
-                        )
-                      })}
-                    </div>
-                  </div>
-              </div>
-              <div className="col m4">
-                <div className="filter-menu right-align">
-                      <span className="menu-label small">Node Types:</span>
-                      <div className="" ref={(filters) => { this.filterMenuFeature = filters; }}>
-                        { filters.feature.map(function(item) {
-                          return (
-                            <a key={ item } className={`chip menu-item ${_.indexOf(featureFilters, item) >= 0 ? 'active' : ''}`}
-                                onClick={ _.bind(filterFeature, this, item) }>
-                              { featureIcon(item) }
-                            </a>
-                          )
-                        })}
-                      </div>
-                  </div>
-              </div>
-            </div>
+            <FilterMenu className="node-list-filters" values={filterValues}
+              onChange={handleFilterChange.bind(this)} filters={availableFilters} />
           </div>
           <NodeList />
       </div>
@@ -154,16 +108,17 @@ const mapStateToProps = state => {
   return {
     filterByType: state.nodelist.filterByType,
     filterByLevel: state.nodelist.filterByLevel,
-    featureFilters: state.nodelist.featureFilters
+    featureFilters: state.nodelist.featureFilters,
+    availableFilters: state.nodelist.filters
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     search: (e, value) => dispatch(search(value)),
-    filter: (value) => dispatch(filterTypeNodeList(value)),
+    typeFilter: (value) => dispatch(filterTypeNodeList(value)),
     levelFilter: (value) => dispatch(filterLevelNodeList(value)),
-    filterFeature: (value) => dispatch(toggleFeatureFilter(value))
+    featureFilter: (value) => dispatch(toggleFeatureFilter(value))
   }
 }
 

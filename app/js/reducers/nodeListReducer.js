@@ -8,13 +8,18 @@ import {
   FILTER_FEATURE_TOGGLE_NODELIST
 } from '../actions/nodeListActions';
 
-function nodes(state = {
+import filters from '../static/filters';
+
+export const defaultState = {
   isFetching: false,
   nodes: [],
   filterByType: 'all',
   filterByLevel: null,
-  featureFilters: []
-}, action) {
+  featureFilters: [],
+  filters
+}
+
+function nodes(state = defaultState, action) {
   switch(action.type) {
     case REQUEST_NODELIST:
       return Object.assign({}, state, {
