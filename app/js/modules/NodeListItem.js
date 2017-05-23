@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import {
   isActive,
-  getTimeDifference ,
+  getTimeDifference,
   getEarthDurationfromEorzean,
   getDurationStringFromObject,
   getEarthTimeRemaining
@@ -12,32 +12,27 @@ import {
   toggleSelect
 } from '../actions/watchListActions';
 import Stars from '../components/NodeStars';
+import { parsePosition } from '../utils/parseUtils';
 
 class NodeListItem extends Component {
 
   render() {
-    const { node, clock, watchlist, toggleSelect } = this.props;
+    const { node, clock, watchlist, toggleSelect, className } = this.props;
     const { stars } = this;
     const active = isActive(clock.time, node.time, node.duration);
 
-    var position = '',
+    var position = parsePosition(node.pos),
         slot = node.slot || '?',
         timeRemaining,
         earthTimeRemaining,
         selected = _.indexOf(watchlist, node.id) !== -1;
-
-    if(_.isArray(node.pos)) {
-      position = node.pos.join(', ').replace(/\:/g, ' ');
-    } else if(node.pos) {
-      position = node.pos.replace(/\:/g, ' ');
-    }
 
     if(active) {
       earthTimeRemaining = getEarthTimeRemaining(node.time, node.duration, this.props.clock.time);
     }
 
     return (
-      <div className="col s12">
+      <div className={className}>
         <div className={`node node-list-item clearfix ${selected ? 'selected' : ''}`} onClick={toggleSelect.bind(this, node.id)}>
           <div className="left node-list-title">
             <span className={`icon icon-${node.type} icon-sm`}></span>
@@ -69,10 +64,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleSelect: (id) => {
-      dispatch(toggleSelect(id));
-      //dispatch(updateStorage({watchlist: this.props.watchlist}));
-    }
+    toggleSelect: (id) => dispatch(toggleSelect(id))
   }
 };
 

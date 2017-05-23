@@ -659,13 +659,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var version = '2.0.0';
 
 var Menu = function Menu(props) {
-  var navItems = [{ url: '/watch', name: 'Watch List' }, {
+  var navItems = [{ url: '/watch', name: 'Watch List', count: props.watchCount }, {
     url: '/about',
     name: 'About'
   }];
   return _react2.default.createElement(
     'ul',
-    (0, _lodash.omit)(props, 'clock'),
+    (0, _lodash.omit)(props, ['clock', 'watchCount']),
     _react2.default.createElement(
       'li',
       { className: 'nav-item' },
@@ -682,7 +682,16 @@ var Menu = function Menu(props) {
         _react2.default.createElement(
           _reactRouterDom.NavLink,
           { to: item.url, activeClassName: 'active' },
-          item.name
+          _react2.default.createElement(
+            'span',
+            null,
+            item.name
+          ),
+          item.count ? _react2.default.createElement(
+            'span',
+            { className: 'label' },
+            item.count
+          ) : null
         )
       );
     }),
@@ -716,7 +725,9 @@ var MainNav = function (_Component) {
       var _this2 = this;
 
       var toggleSidebar = this.toggleSidebar,
-          clock = this.props.clock;
+          _props = this.props,
+          clock = _props.clock,
+          watchListCount = _props.watchListCount;
 
 
       return _react2.default.createElement(
@@ -758,10 +769,10 @@ var MainNav = function (_Component) {
               'menu'
             )
           ),
-          _react2.default.createElement(Menu, { className: 'nav navbar-nav right hide-on-med-and-down' }),
+          _react2.default.createElement(Menu, { className: 'nav navbar-nav right hide-on-med-and-down', watchCount: watchListCount }),
           _react2.default.createElement(Menu, { ref: function ref(sidebar) {
               _this2.sidebarNav = sidebar;
-            },
+            }, watchCount: watchListCount,
             id: 'sidebar', className: 'side-nav', clock: clock })
         )
       );
@@ -774,7 +785,10 @@ var MainNav = function (_Component) {
 ;
 
 var mapStateToProps = function mapStateToProps(state) {
-  return { clock: state.clock };
+  return {
+    clock: state.clock,
+    watchListCount: state.watchlist.length
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(MainNav);
@@ -1404,6 +1418,12 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
+var _lodash = require('lodash');
+
+var _WatchListItem = require('../modules/WatchListItem');
+
+var _WatchListItem2 = _interopRequireDefault(_WatchListItem);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1424,10 +1444,25 @@ var WatchList = function (_Component) {
   _createClass(WatchList, [{
     key: 'render',
     value: function render() {
+      var _props = this.props,
+          watchlist = _props.watchlist,
+          nodelist = _props.nodelist;
+
+
       return _react2.default.createElement(
         'div',
-        null,
-        'Hey Im a Watch List!'
+        { className: 'watchlist-container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          watchlist.map(function (id) {
+            var node = (0, _lodash.find)(nodelist.nodes, { id: id });
+            if (!node) {
+              return;
+            }
+            return _react2.default.createElement(_WatchListItem2.default, { key: id, className: 'col s3', node: node });
+          })
+        )
       );
     }
   }]);
@@ -1771,7 +1806,7 @@ var NodeList = function (_Component) {
             'div',
             { className: 'node-list-group row' },
             sortedGroups[groupName].map(function (node) {
-              return _react2.default.createElement(_NodeListItem2.default, { node: node, key: node.id });
+              return _react2.default.createElement(_NodeListItem2.default, { node: node, key: node.id, className: 'col s12' });
             })
           )
         )
@@ -1794,21 +1829,39 @@ var NodeList = function (_Component) {
           renderListGroup = this.renderListGroup;
 
 
+      var groupKeys = Object.keys(sortedGroups);
+
       return _react2.default.createElement(
         'div',
         { className: 'node-list' },
         _react2.default.createElement(
           'h4',
           { className: 'list-header' },
-          list.length,
-          ' results'
+          _react2.default.createElement(
+            'span',
+            { className: 'total' },
+            list.length,
+            ' items'
+          )
+        ),
+        _react2.default.createElement(
+          'h6',
+          { className: 'list-subheader' },
+          groupKeys.length > 1 ? groupKeys.map(function (group) {
+            return _react2.default.createElement(
+              'span',
+              { className: 'group-total', key: group },
+              groups[group] + ': ',
+              '' + sortedGroups[group].length
+            );
+          }) : null
         ),
         _react2.default.createElement(
           'ul',
           { className: 'collapsible popout', ref: function ref(list) {
               _this3.collapseList = list;
             } },
-          Object.keys(sortedGroups).map(function (group, i) {
+          groupKeys.map(function (group, i) {
             return renderListGroup(group, i);
           })
         )
@@ -1860,6 +1913,8 @@ var _NodeStars = require('../components/NodeStars');
 
 var _NodeStars2 = _interopRequireDefault(_NodeStars);
 
+var _parseUtils = require('../utils/parseUtils');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1884,22 +1939,17 @@ var NodeListItem = function (_Component) {
           node = _props.node,
           clock = _props.clock,
           watchlist = _props.watchlist,
-          toggleSelect = _props.toggleSelect;
+          toggleSelect = _props.toggleSelect,
+          className = _props.className;
       var stars = this.stars;
 
       var active = (0, _timeUtils.isActive)(clock.time, node.time, node.duration);
 
-      var position = '',
+      var position = (0, _parseUtils.parsePosition)(node.pos),
           slot = node.slot || '?',
           timeRemaining,
           earthTimeRemaining,
           selected = _lodash2.default.indexOf(watchlist, node.id) !== -1;
-
-      if (_lodash2.default.isArray(node.pos)) {
-        position = node.pos.join(', ').replace(/\:/g, ' ');
-      } else if (node.pos) {
-        position = node.pos.replace(/\:/g, ' ');
-      }
 
       if (active) {
         earthTimeRemaining = (0, _timeUtils.getEarthTimeRemaining)(node.time, node.duration, this.props.clock.time);
@@ -1907,7 +1957,7 @@ var NodeListItem = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'col s12' },
+        { className: className },
         _react2.default.createElement(
           'div',
           { className: 'node node-list-item clearfix ' + (selected ? 'selected' : ''), onClick: toggleSelect.bind(this, node.id) },
@@ -1960,13 +2010,157 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     toggleSelect: function toggleSelect(id) {
-      dispatch((0, _watchListActions.toggleSelect)(id));
-      //dispatch(updateStorage({watchlist: this.props.watchlist}));
+      return dispatch((0, _watchListActions.toggleSelect)(id));
     }
   };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NodeListItem);
+
+});
+
+require.register("js/modules/WatchListItem.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _lodash = require('lodash');
+
+var _timeUtils = require('../utils/timeUtils');
+
+var _watchListActions = require('../actions/watchListActions');
+
+var _NodeStars = require('../components/NodeStars');
+
+var _NodeStars2 = _interopRequireDefault(_NodeStars);
+
+var _parseUtils = require('../utils/parseUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WatchListItem = function (_Component) {
+  _inherits(WatchListItem, _Component);
+
+  function WatchListItem() {
+    _classCallCheck(this, WatchListItem);
+
+    return _possibleConstructorReturn(this, (WatchListItem.__proto__ || Object.getPrototypeOf(WatchListItem)).apply(this, arguments));
+  }
+
+  _createClass(WatchListItem, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          node = _props.node,
+          clock = _props.clock,
+          watchlist = _props.watchlist,
+          toggleSelect = _props.toggleSelect,
+          className = _props.className;
+      var stars = this.stars;
+
+      var active = (0, _timeUtils.isActive)(clock.time, node.time, node.duration);
+
+      var position = (0, _parseUtils.parsePosition)(node.pos),
+          slot = node.slot || '?',
+          timeRemaining,
+          time,
+          selected = (0, _lodash.indexOf)(watchlist, node.id) !== -1;
+
+      if (active) {
+        time = (0, _timeUtils.getEarthTimeRemaining)(node.time, node.duration, clock.time);
+      } else {
+        time = (0, _timeUtils.getEarthTimeUntil)(node.time, clock.time);
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { className: className },
+        _react2.default.createElement(
+          'div',
+          { className: 'node watch-list-item clearfix ' + (active ? 'active' : ''), onClick: toggleSelect.bind(this, node.id) },
+          _react2.default.createElement(
+            'div',
+            { className: 'node-content' },
+            _react2.default.createElement(
+              'div',
+              { className: 'node-list-title' },
+              _react2.default.createElement('span', { className: 'icon icon-' + node.type + ' icon-sm' }),
+              _react2.default.createElement(
+                'span',
+                null,
+                node.time
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              '[' + node.level + '] ' + node.name,
+              _react2.default.createElement(_NodeStars2.default, { stars: node.stars }),
+              '[ slot ' + slot + ' ]'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'time-remaining' },
+              _react2.default.createElement(
+                'span',
+                { className: 'diff' },
+                time.minutes + 'm ' + time.seconds + 's'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'node-list-details' },
+              _react2.default.createElement(
+                'span',
+                { className: 'small location' },
+                node.location
+              ),
+              _react2.default.createElement(
+                'span',
+                { className: 'small coords' },
+                position
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return WatchListItem;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    clock: state.clock
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    toggleSelect: function toggleSelect(id) {
+      return dispatch((0, _watchListActions.toggleSelect)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WatchListItem);
 
 });
 
@@ -2378,7 +2572,27 @@ exports.default = {
 
 });
 
-require.register("js/utils/searchUtils.js", function(exports, require, module) {
+require.register("js/utils/parseUtils.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parsePosition = parsePosition;
+
+var _lodash = require('lodash');
+
+function parsePosition(pos) {
+  if ((0, _lodash.isArray)(pos)) {
+    return pos.join(', ').replace(/\:/g, ' ');
+  } else if (pos) {
+    return pos.replace(/\:/g, ' ');
+  }
+}
+
+});
+
+;require.register("js/utils/searchUtils.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2447,9 +2661,9 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _underscore = require('underscore');
+var _lodash = require('lodash');
 
-var _underscore2 = _interopRequireDefault(_underscore);
+var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2513,7 +2727,7 @@ var getTimeDifference = exports.getTimeDifference = function getTimeDifference(a
         minutes = 0,
         times = {};
 
-    _underscore2.default.each([a, b], function (time, idx) {
+    _lodash2.default.each([a, b], function (time, idx) {
         times[idx] = getTimeObjFromString(time);
     });
 
@@ -2563,14 +2777,22 @@ var getTimeUntil = exports.getTimeUntil = function getTimeUntil(nodeTime, currTi
 // Expects string formats: 12:00 AM
 // Best used for inactive (upcoming) nodes
 var getEarthTimeUntil = exports.getEarthTimeUntil = function getEarthTimeUntil(nodeTime, currTime) {
+    if (!nodeTime || !currTime || !_lodash2.default.isString(nodeTime) || !_lodash2.default.isString(currTime)) {
+        return console.error('getEarthTimeUntil expects 2 arguments <string:time>; ie "12:00 AM", "2:00 PM"');
+    }
+
     var startUntil = getTimeDifference(currTime, nodeTime);
-    durStr = getDurationStringFromObject(startUntil);
+    var durStr = getDurationStringFromObject(startUntil);
 
     return getEarthDurationfromEorzean(durStr);
 };
 
 // Expects format: 12:00 AM
 var getTimeObjFromString = exports.getTimeObjFromString = function getTimeObjFromString(stringTime) {
+    if (!stringTime || !_lodash2.default.isString(stringTime)) {
+        return console.error('getTimeObjFromString expects 1 arguments <string:time>; ie "12:00 AM"');
+    }
+
     var time = stringTime,
         isAM = time.indexOf('AM') > -1,
         hour = parseFloat(time.split(' ')[0].split(':')[0]);
@@ -2606,6 +2828,10 @@ var getTimeStringFromObject = exports.getTimeStringFromObject = function getTime
 };
 
 var getTimeStringFromDuration = exports.getTimeStringFromDuration = function getTimeStringFromDuration(stringStartTime, stringDuration) {
+    if (!stringStartTime || stringDuration || !_lodash2.default.isString(stringDuration) || !_lodash2.default.isString(stringStartTime)) {
+        return console.error('getTimeStringFromDuration expects 2 arguments <string:time>; ie "12:00 AM"');
+    }
+
     var startTime = getTimeObjFromString(stringStartTime),
         duration = {
         hour: parseFloat(stringDuration.split(':')[0]),

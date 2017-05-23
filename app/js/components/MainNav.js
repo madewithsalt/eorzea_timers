@@ -8,22 +8,29 @@ const version = '2.0.0';
 
 const Menu = (props) => {
   const navItems = [
-    { url: '/watch', name: 'Watch List' },
+    { url: '/watch', name: 'Watch List', count: props.watchCount },
     {
       url: '/about',
       name: 'About'
     }
   ];
   return (
-    <ul { ...omit(props, 'clock') }>
+    <ul { ...omit(props, ['clock', 'watchCount']) }>
       <li className='nav-item'>
         <NavLink exact to="/" activeClassName="active">Home</NavLink>
       </li>
-      {navItems.map(item => (
-        <li key={item.name.toLowerCase()} className="nav-item">
-          <NavLink to={item.url} activeClassName="active">{item.name}</NavLink>
-        </li>
-      ))}
+      { navItems.map(item => {
+        return (
+          <li key={item.name.toLowerCase()} className="nav-item">
+            <NavLink to={item.url} activeClassName="active">
+              <span>{ item.name }</span>
+              { item.count ? (
+                <span className="label">{item.count}</span>
+              ): null }
+            </NavLink>
+          </li>
+        )
+      })}
       { props.clock ? (
         <li className={`nav-clock nav-item ${props.clock.meridiem.toLowerCase()}`}>
           <Clock className="inline-block"/>
@@ -45,7 +52,8 @@ class MainNav extends Component {
             toggleSidebar
           } = this,
           {
-            clock
+            clock,
+            watchListCount
           } = this.props;
 
     return (
@@ -63,8 +71,8 @@ class MainNav extends Component {
             className="button-collapse right">
               <i className="material-icons">menu</i>
           </a>
-          <Menu className="nav navbar-nav right hide-on-med-and-down" />
-          <Menu ref={(sidebar) => { this.sidebarNav = sidebar; }}
+          <Menu className="nav navbar-nav right hide-on-med-and-down" watchCount={watchListCount} />
+          <Menu ref={(sidebar) => { this.sidebarNav = sidebar; }} watchCount={watchListCount}
             id="sidebar" className="side-nav" clock={clock} />
         </div>
       </nav>
@@ -73,7 +81,10 @@ class MainNav extends Component {
 };
 
 const mapStateToProps = state => {
-  return {clock: state.clock};
+  return {
+    clock: state.clock,
+    watchListCount: state.watchlist.length
+  };
 }
 
 export default connect(mapStateToProps)(MainNav);

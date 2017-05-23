@@ -1,5 +1,5 @@
 import moment from 'moment';
-import _ from 'underscore';
+import _ from 'lodash';
 
 export const getEorzeaTime = () => {
   const eorzeaMultipler = (3600 / 175) * 1000;
@@ -109,14 +109,22 @@ export const getTimeUntil = (nodeTime, currTime) => {
 // Expects string formats: 12:00 AM
 // Best used for inactive (upcoming) nodes
 export const getEarthTimeUntil = (nodeTime, currTime) => {
-  let startUntil = getTimeDifference(currTime, nodeTime)
-      durStr = getDurationStringFromObject(startUntil);
+  if(!nodeTime || !currTime || !_.isString(nodeTime) || !_.isString(currTime)) {
+    return console.error('getEarthTimeUntil expects 2 arguments <string:time>; ie "12:00 AM", "2:00 PM"');
+  }
+
+  const startUntil = getTimeDifference(currTime, nodeTime);
+  const durStr = getDurationStringFromObject(startUntil);
 
   return getEarthDurationfromEorzean(durStr)
 }
 
 // Expects format: 12:00 AM
 export const getTimeObjFromString = (stringTime) => {
+    if(!stringTime || !_.isString(stringTime) ) {
+      return console.error('getTimeObjFromString expects 1 arguments <string:time>; ie "12:00 AM"');
+    }
+
     let time = stringTime,
         isAM = time.indexOf('AM') > -1,
         hour = parseFloat(time.split(' ')[0].split(':')[0]);
@@ -152,6 +160,10 @@ export const getTimeStringFromObject = (timeObj) => {
 };
 
 export const getTimeStringFromDuration = (stringStartTime, stringDuration) => {
+    if(!stringStartTime || stringDuration || !_.isString(stringDuration) || !_.isString(stringStartTime) ) {
+      return console.error('getTimeStringFromDuration expects 2 arguments <string:time>; ie "12:00 AM"');
+    }
+
     let startTime = getTimeObjFromString(stringStartTime),
         duration = {
             hour: parseFloat(stringDuration.split(':')[0]),

@@ -195,7 +195,7 @@ class NodeList extends Component {
         <div className="collapsible-body">
           <div className={`node-list-group row`}>
             { sortedGroups[groupName].map((node) => {
-                return (<NodeListItem node={node} key={node.id}/>)
+                return (<NodeListItem node={node} key={node.id} className="col s12" />)
               }) }
           </div>
         </div>
@@ -208,13 +208,27 @@ class NodeList extends Component {
     const { sortedGroups, groups, activePanels, list } = this.state;
     const { shouldExpand, renderListGroup } = this;
 
+    const groupKeys = Object.keys(sortedGroups);
+
     return (
       <div className="node-list">
-        <h4 className="list-header">{list.length} results</h4>
+        <h4 className="list-header">
+          <span className="total">{list.length} items</span>
+        </h4>
+        <h6 className="list-subheader">
+          { groupKeys.length > 1 ? groupKeys.map((group) => {
+            return (
+              <span className="group-total" key={group}>
+                {`${groups[group]}: `}
+                {`${sortedGroups[group].length}`}
+              </span>
+            )
+          }) : null }
+        </h6>
         <ul className="collapsible popout" ref={(list) => {
           this.collapseList = list;
         }}>
-            { Object.keys(sortedGroups).map((group, i) => {
+            { groupKeys.map((group, i) => {
                 return renderListGroup(group, i)
             })}
         </ul>
