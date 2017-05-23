@@ -95,7 +95,11 @@ class NodeList extends Component {
   }
 
   sortAndFilterNodes(props) {
-    const {nodelist, search} = props || this.props;
+    const {
+      nodelist,
+      search
+    } = props || this.props;
+
     let list = nodelist.nodes || [];
 
     if (nodelist.nodes && nodelist.nodes.length && !_.isEmpty(search)) {
@@ -105,7 +109,11 @@ class NodeList extends Component {
     }
 
     if (!_.isEmpty(nodelist.filterByType) && nodelist.filterByType !== 'all') {
-      list = _.filter(list, {type: nodelist.filterByType});
+      list = _.filter(list, { type: nodelist.filterByType });
+    }
+
+    if(nodelist.filterByLevel) {
+      list = _.filter(list, { level: nodelist.filterByLevel })
     }
 
     if (!_.isEmpty(nodelist.featureFilters)) {
@@ -174,11 +182,12 @@ class NodeList extends Component {
 
   render() {
     const { nodelist, search } = this.props;
-    const { sortedGroups, groups, activePanels } = this.state;
+    const { sortedGroups, groups, activePanels, list } = this.state;
     const { shouldExpand, renderListGroup } = this;
 
     return (
       <div className="node-list">
+        <h4 className="list-header">{list.length} results</h4>
         <ul className="collapsible popout" ref={(list) => {
           this.collapseList = list;
         }}>
@@ -193,7 +202,11 @@ class NodeList extends Component {
 };
 
 const mapStateToProps = state => {
-  return {nodelist: state.nodelist, search: state.search, clock: state.clock};
+  return {
+    nodelist: state.nodelist,
+    search: state.search,
+    clock: state.clock
+  };
 }
 
 export default connect(mapStateToProps)(NodeList);

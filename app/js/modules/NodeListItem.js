@@ -42,7 +42,7 @@ class NodeListItem extends Component {
           <div className="left node-list-title">
             <span className={`icon icon-${node.type} icon-sm`}></span>
             <span>
-              { `${node.time} ${node.name}` }
+              { `${node.time} [${node.level}] ${node.name}` }
               <Stars stars={node.stars} />
               { `[ slot ${slot} ]` }
             </span>

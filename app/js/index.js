@@ -11,9 +11,6 @@ import reducers from './reducers';
 import { loadState, saveState } from './utils/storageUtils';
 import { setTime } from './utils/timeUtils';
 
-require('./vendor/materialize.js');
-require('../style/main.sass')
-
 const persistedState = loadState() || {};
 
 const store = createStore(
@@ -32,7 +29,6 @@ store.subscribe(throttle(() => {
   });
 }, 1000));
 
-render(
-    <App store={store} />,
-    document.getElementById('app')
-);
+const Root = (props) => (<App store={store} />);
+
+export default Root;

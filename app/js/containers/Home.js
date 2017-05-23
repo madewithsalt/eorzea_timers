@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import NodeList from '../modules/NodeList';
 import { search } from '../actions/searchActions';
 import SearchBar from '../components/SearchBar';
+import _ from 'lodash';
 
 import {
   filterTypeNodeList,
+  filterLevelNodeList,
   toggleFeatureFilter
 } from '../actions/nodeListActions';
 import { connect } from 'react-redux';
@@ -21,6 +23,11 @@ class Home extends Component {
             'botany',
             'mining',
             'fishing'
+        ],
+        level: [
+          50,
+          60,
+          70
         ],
         feature: [
           'is_collectable',
@@ -42,12 +49,14 @@ class Home extends Component {
 
   featureIcon(item) {
     let icon;
+    let content;
     switch(item) {
         case 'is_collectable':
           icon = 'icon-collectable';
           break;
         case 'is_ephemeral':
-          icon = 'fa fa-book';
+          icon = 'material-icons';
+          content = 'book';
           break;
         case 'red_scrip':
           icon = 'icon-red-scrip';
@@ -60,17 +69,24 @@ class Home extends Component {
     }
 
     return (
-        <i className={`icon ${icon} icon-sm`}></i>
+        <i className={`icon ${icon} icon-sm`}>{content}</i>
     )
   }
 
   render() {
-    const { search, nodelist, filter, filterFeature } = this.props;
+    const {
+      search,
+      filterByType,
+      filterByLevel,
+      featureFilters,
+      filter,
+      levelFilter,
+      filterFeature
+    } = this.props;
+
     const { filters } = this.state;
     const { itemIcon, featureIcon, onSearchChange  } = this;
 
-    const filterByType = nodelist.filterByType;
-    const featureFilters = nodelist.featureFilters;
 
     return (
       <div className="">
@@ -79,11 +95,11 @@ class Home extends Component {
               <SearchBar onChange={ search } helpText={"Search by Name or Location"}/>
             </div>
             <div className="row">
-              <div className="col m6">
-                  <div className="filter-menu">
+              <div className="col m5">
+                <div className="filter-menu">
                       <span className="menu-label small">Filter by:</span>
                       <div className="" ref={(filters) => { this.filterMenuType = filters; }}>
-                          { filters.type.map(function(item) {
+                          { filters.type.map((item) => {
                             return (
                               <a key={ item } className={`chip menu-item ${item === filterByType ? 'active' : ''}`}
                                   onClick={ _.bind(filter, this, item ) }>
@@ -95,8 +111,24 @@ class Home extends Component {
                       </div>
                   </div>
               </div>
-              <div className="col m6">
-                  <div className="filter-menu right-align">
+              <div className="col m3">
+                <div className="filter-menu">
+                    <span className="menu-label small">Level Range:</span>
+                    <div>
+                      { filters.level.map((level) => {
+                        const isActive = filterByLevel &&  level === filterByLevel;
+                        return (
+                          <a key={ level } className={`chip menu-item ${isActive ? 'active' : ''}`}
+                              onClick={ _.bind(levelFilter, this, level ) }>
+                            { level }
+                          </a>
+                        )
+                      })}
+                    </div>
+                  </div>
+              </div>
+              <div className="col m4">
+                <div className="filter-menu right-align">
                       <span className="menu-label small">Node Types:</span>
                       <div className="" ref={(filters) => { this.filterMenuFeature = filters; }}>
                         { filters.feature.map(function(item) {
@@ -120,7 +152,9 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    nodelist: state.nodelist
+    filterByType: state.nodelist.filterByType,
+    filterByLevel: state.nodelist.filterByLevel,
+    featureFilters: state.nodelist.featureFilters
   };
 }
 
@@ -128,6 +162,7 @@ const mapDispatchToProps = dispatch => {
   return {
     search: (e, value) => dispatch(search(value)),
     filter: (value) => dispatch(filterTypeNodeList(value)),
+    levelFilter: (value) => dispatch(filterLevelNodeList(value)),
     filterFeature: (value) => dispatch(toggleFeatureFilter(value))
   }
 }

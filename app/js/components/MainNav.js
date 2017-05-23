@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import Clock from './Clock';
 import {omit} from 'lodash';
 
+const version = '2.0.0';
+
 const Menu = (props) => {
   const navItems = [
     { url: '/watch', name: 'Watch List' },
@@ -51,7 +53,7 @@ class MainNav extends Component {
         <div className="nav-wrapper">
           <div className="brand-logo website-title">
             <span>Eorzea Timers</span>&nbsp;
-            <span className="version">{VERSION}</span>
+            <span className="version">{version}</span>
           </div>
           <div className={`right nav-clock ${clock.meridiem.toLowerCase()}`}>
             <Clock className="inline-block"/>

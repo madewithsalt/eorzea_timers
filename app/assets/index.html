@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="FFXIV Eorzean Time and Timer Alarms for Unspoiled Nodes of Mining and Botany, or create your own! An Open Source Project.">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/app.css"/>
+    <link rel="stylesheet" href="/css/app.css">
+
 </head>
 
 <body>
     <div id="error-region"></div>
     <div id="nav-region" class="primary-nav"></div>
-    <div id="app"></div>
+    <div id="root"></div>
     <div class="container" id="sponsor-region">
         <!--<div class="col-md-12">
             <p class="promo">
@@ -22,7 +23,9 @@
         </div>-->
     </div>
     <div id="modal-region"></div>
-    <script type="text/javascript" src="/js/app.js" charset="utf-8"></script>
+    <script src="/vendor.js"></script>
+    <script src="/app.js"></script>
+    <script>require('initialize');</script>
     <script>
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;

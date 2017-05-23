@@ -4,6 +4,7 @@ import {
   REQUEST_NODELIST,
   RECEIVE_NODELIST,
   FILTER_TYPE_NODELIST,
+  FILTER_LEVEL_NODELIST,
   FILTER_FEATURE_TOGGLE_NODELIST
 } from '../actions/nodeListActions';
 
@@ -11,6 +12,7 @@ function nodes(state = {
   isFetching: false,
   nodes: [],
   filterByType: 'all',
+  filterByLevel: null,
   featureFilters: []
 }, action) {
   switch(action.type) {
@@ -51,6 +53,18 @@ function nodes(state = {
     case FILTER_TYPE_NODELIST:
       return Object.assign({}, state, {
         filterByType: action.filterByType
+      });
+
+    case FILTER_LEVEL_NODELIST:
+      const filter = action.filterByLevel;
+      let newFilter = filter;
+
+      if(newFilter === state.filterByLevel) {
+        newFilter = null;
+      }
+
+      return Object.assign({}, state, {
+        filterByLevel: parseFloat(newFilter)
       });
 
     case FILTER_FEATURE_TOGGLE_NODELIST:
