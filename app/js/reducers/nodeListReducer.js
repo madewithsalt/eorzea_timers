@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import * as utils from '../utils/parseUtils';
 
 import {
   REQUEST_NODELIST,
@@ -20,6 +21,15 @@ export const defaultState = {
 }
 
 function nodes(state = defaultState, action) {
+  var booleanValues = [
+    'is_collectable',
+    'is_legendary',
+    'is_ephemeral',
+    'red_scrip',
+    'blue_scrip',
+    'yellow_scrip'
+  ];
+
   switch(action.type) {
     case REQUEST_NODELIST:
       return Object.assign({}, state, {
@@ -35,14 +45,23 @@ function nodes(state = defaultState, action) {
       _.each(action.nodes, (list, key) => {
 
         _.each(list, function(node) {
-          let times = _.isArray(node.times) ? node.times : [node.times];
+          let result = {},
+              times = utils.parseTimes(node.times),
+              pos = utils.parsePosition(node.pos),
+              level = utils.parseLevel(node.level || 50);
+
+          _.each(booleanValues, (key) => {
+            result[key] = utils.parseBooleans(node[key]);
+          });
 
           _.each(times, (time) => {
             nodes.push(Object.assign({}, node, {
                 time,
                 type: key,
-                id: `${key}-${id++}`
-              }))
+                id: `${key}-${id++}`,
+                level,
+                pos
+              }, result))
 
             });
           });

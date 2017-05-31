@@ -18,6 +18,10 @@ exports.config = {
     }
   },
 
+  conventions: {
+    assets: [/^(app\/assets)/]
+  },
+
   // Configure your plugins
   plugins: {
     babel: {

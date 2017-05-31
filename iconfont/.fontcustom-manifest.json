@@ -1,0 +1,56 @@
+{
+  "checksum": {
+    "previous": "1583565ca7631b4836c37ff18c8a3a2bea7174c8f94d3c42f6078f083a1fddec",
+    "current": "1583565ca7631b4836c37ff18c8a3a2bea7174c8f94d3c42f6078f083a1fddec"
+  },
+  "fonts": [
+    "../app/assets/fonts/icons_1583565ca7631b4836c37ff18c8a3a2b.ttf",
+    "../app/assets/fonts/icons_1583565ca7631b4836c37ff18c8a3a2b.svg",
+    "../app/assets/fonts/icons_1583565ca7631b4836c37ff18c8a3a2b.woff",
+    "../app/assets/fonts/icons_1583565ca7631b4836c37ff18c8a3a2b.eot"
+  ],
+  "glyphs": {
+    "collectible": {
+      "codepoint": 61696,
+      "source": "icons/collectible.svg"
+    },
+    "scrip": {
+      "codepoint": 61697,
+      "source": "icons/scrip.svg"
+    }
+  },
+  "options": {
+    "autowidth": false,
+    "base64": true,
+    "config": "fontcustom.yml",
+    "css_selector": ".i-{{glyph}}",
+    "debug": false,
+    "font_ascent": 448,
+    "font_descent": 64,
+    "font_design_size": 16,
+    "font_em": 512,
+    "font_name": "icons",
+    "force": false,
+    "input": {
+      "templates": "templates",
+      "vectors": "icons"
+    },
+    "no_hash": false,
+    "output": {
+      "_fonticons.scss": "../app/style/config",
+      "css": "../app/assets/fonts",
+      "fonts": "../app/assets/fonts",
+      "preview": "styleguide"
+    },
+    "preprocessor_path": "/fonts/",
+    "quiet": false,
+    "templates": [
+      "preview",
+      "_fonticons.scss"
+    ]
+  },
+  "templates": [
+    "styleguide/icons-preview.html",
+    "../app/style/config/_fonticons.scss"
+  ]
+}

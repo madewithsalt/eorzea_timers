@@ -26,7 +26,7 @@ class FilterMenu extends Component {
       <li className="filter-menu-item" key={`filter-${name}-${value}`}>
         <a onClick={this.handleFilterChange.bind(this, name, value)}
             className={`menu-item ${isActive ? 'active' : ''}`}>
-          <span className={`icon icon-${value} material-icons`}></span>
+          <span className={`icon icon-${value}`}></span>
           <span className="name">{ value }</span>
         </a>
       </li>

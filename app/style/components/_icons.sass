@@ -1,6 +1,15 @@
 $img_url: '/img/'
 
+.material-icons
+  font-family: 'Material Icons'
+
 .icon
+  font-weight: normal
+  font-style: normal
+  font-size: 24px
+  line-height: 1
+  letter-spacing: normal
+  text-transform: none
   display: inline-block
   vertical-align: middle
   background-size: 90%
@@ -21,15 +30,32 @@ $img_url: '/img/'
     background-image: url($img_url + 'fishermenu.png')
 
   &.icon-is_collectable
-    background-image: url($img_url + 'collectable_icon.png')
+    @extend .i
+    @extend .i-collectible
+    font-size: 20px
+    margin-top: 5px
+
+  &.icon-red_scrip, &.icon-blue_scrip, &.icon-yellow_scrip
+    @extend .i
+    @extend .i-scrip
+    font-size: 20px
+    margin-top: 5px
+
+    &:before
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3)
 
   &.icon-red_scrip
-    background-image: url($img_url + 'red_scrip.png')
+    color: #921c33
 
   &.icon-blue_scrip
-    background-image: url($img_url + 'blue_scrip.png')
+    color: #296ede
+
+  &.icon-yellow_scrip
+    color: #e8ad1e
 
   &.icon-is_ephemeral
+    @extend .material-icons
+    padding-top: 2px
     &:after
       content: "book"
 

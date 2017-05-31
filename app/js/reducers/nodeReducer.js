@@ -10,6 +10,7 @@ function node(state = {}, action) {
       return Object.assign({}, state, {
         selected: !action.selected,
       });
+
     default:
       return state
   }

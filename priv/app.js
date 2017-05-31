@@ -271,7 +271,9 @@ exports.changeTime = changeTime;
 var INCREMENT_CLOCK = exports.INCREMENT_CLOCK = 'INCREMENT_CLOCK';
 
 function changeTime() {
-  return { type: INCREMENT_CLOCK };
+  return {
+    type: INCREMENT_CLOCK
+  };
 }
 
 });
@@ -473,7 +475,7 @@ var FilterMenu = function (_Component) {
           'a',
           { onClick: this.handleFilterChange.bind(this, name, value),
             className: 'menu-item ' + (isActive ? 'active' : '') },
-          _react2.default.createElement('span', { className: 'icon icon-' + value + ' material-icons' }),
+          _react2.default.createElement('span', { className: 'icon icon-' + value }),
           _react2.default.createElement(
             'span',
             { className: 'name' },
@@ -1550,6 +1552,49 @@ exports.default = Root;
 
 });
 
+require.register("js/modules/Node.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _timeUtils = require('../utils/timeUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NodeListItem = function (_Node) {
+  _inherits(NodeListItem, _Node);
+
+  function NodeListItem(props) {
+    _classCallCheck(this, NodeListItem);
+
+    return _possibleConstructorReturn(this, (NodeListItem.__proto__ || Object.getPrototypeOf(NodeListItem)).call(this, props));
+  }
+
+  return NodeListItem;
+}(Node);
+
+exports.default = Node;
+
+});
+
 require.register("js/modules/NodeList.js", function(exports, require, module) {
 'use strict';
 
@@ -1905,6 +1950,10 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _Node = require('./Node');
+
+var _Node2 = _interopRequireDefault(_Node);
+
 var _timeUtils = require('../utils/timeUtils');
 
 var _watchListActions = require('../actions/watchListActions');
@@ -1941,13 +1990,11 @@ var NodeListItem = function (_Component) {
           watchlist = _props.watchlist,
           toggleSelect = _props.toggleSelect,
           className = _props.className;
-      var stars = this.stars;
 
       var active = (0, _timeUtils.isActive)(clock.time, node.time, node.duration);
 
       var position = (0, _parseUtils.parsePosition)(node.pos),
           slot = node.slot || '?',
-          timeRemaining,
           earthTimeRemaining,
           selected = _lodash2.default.indexOf(watchlist, node.id) !== -1;
 
@@ -2274,11 +2321,17 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _parseUtils = require('../utils/parseUtils');
+
+var utils = _interopRequireWildcard(_parseUtils);
+
 var _nodeListActions = require('../actions/nodeListActions');
 
 var _filters = require('../static/filters');
 
 var _filters2 = _interopRequireDefault(_filters);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2295,6 +2348,8 @@ function nodes() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
   var action = arguments[1];
 
+  var booleanValues = ['is_collectable', 'is_legendary', 'is_ephemeral', 'red_scrip', 'blue_scrip', 'yellow_scrip'];
+
   switch (action.type) {
     case _nodeListActions.REQUEST_NODELIST:
       return Object.assign({}, state, {
@@ -2310,14 +2365,23 @@ function nodes() {
       _lodash2.default.each(action.nodes, function (list, key) {
 
         _lodash2.default.each(list, function (node) {
-          var times = _lodash2.default.isArray(node.times) ? node.times : [node.times];
+          var result = {},
+              times = utils.parseTimes(node.times),
+              pos = utils.parsePosition(node.pos),
+              level = utils.parseLevel(node.level || 50);
+
+          _lodash2.default.each(booleanValues, function (key) {
+            result[key] = utils.parseBooleans(node[key]);
+          });
 
           _lodash2.default.each(times, function (time) {
             nodes.push(Object.assign({}, node, {
               time: time,
               type: key,
-              id: key + '-' + id++
-            }));
+              id: key + '-' + id++,
+              level: level,
+              pos: pos
+            }, result));
           });
         });
       });
@@ -2392,6 +2456,7 @@ function node() {
       return Object.assign({}, state, {
         selected: !action.selected
       });
+
     default:
       return state;
   }
@@ -2579,6 +2644,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.parsePosition = parsePosition;
+exports.parseTimes = parseTimes;
+exports.parseLevel = parseLevel;
+exports.parseBooleans = parseBooleans;
 
 var _lodash = require('lodash');
 
@@ -2587,6 +2655,32 @@ function parsePosition(pos) {
     return pos.join(', ').replace(/\:/g, ' ');
   } else if (pos) {
     return pos.replace(/\:/g, ' ');
+  }
+}
+
+function parseTimes(times) {
+  if ((0, _lodash.isArray)(times)) {
+    return times;
+  } else {
+    var list = times.split(',');
+
+    return (0, _lodash.filter)(list, function (time) {
+      return time.length > 0;
+    });
+  }
+}
+
+function parseLevel(value) {
+  return parseFloat(value);
+}
+
+function parseBooleans(value) {
+  if (!value || value.length === 0 || value.toLowerCase() === 'false') {
+    return false;
+  } else if (value.toLowerCase() === 'true') {
+    return true;
+  } else {
+    return value;
   }
 }
 

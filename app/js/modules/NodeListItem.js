@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import Node from './Node';
+
 import {
   isActive,
   getTimeDifference,
@@ -18,12 +20,10 @@ class NodeListItem extends Component {
 
   render() {
     const { node, clock, watchlist, toggleSelect, className } = this.props;
-    const { stars } = this;
     const active = isActive(clock.time, node.time, node.duration);
 
     var position = parsePosition(node.pos),
         slot = node.slot || '?',
-        timeRemaining,
         earthTimeRemaining,
         selected = _.indexOf(watchlist, node.id) !== -1;
 
