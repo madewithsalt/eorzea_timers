@@ -1,27 +1,87 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { find } from 'lodash';
+import { find, sortBy, filter, indexOf } from 'lodash';
+import {NavLink} from 'react-router-dom';
+import SettingsModal from '../components/SettingsModal';
+
+import {
+  clearAll
+} from '../actions/watchListActions';
+
+import {
+  isActive,
+  getEarthTimeUntil,
+  getEarthTimeRemaining
+} from '../utils/timeUtils';
 
 import WatchListItem from '../modules/WatchListItem';
 
 class WatchList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.sortNodes = this.sortNodes.bind(this);
+  }
+
+  sortNodes() {
+    const {
+      watchlist,
+      nodelist,
+      clock
+    } = this.props;
+
+    if(!nodelist.nodes.length) { return []; }
+
+    const list = filter(nodelist.nodes, (node) => {
+      return indexOf(watchlist, node.id) >= 0 ? true : false;
+    })
+
+    return sortBy(list, (node) => {
+        const active = isActive(clock.time, node.time, node.duration),
+              timeUntil = getEarthTimeUntil(node.time, clock.time),
+              timeRemaining = getEarthTimeRemaining(node.time, node.duration, clock.time);
+
+        if(active) {
+            return ((timeRemaining.hours * 60) + timeRemaining.minutes) - 1000;
+        } else {
+            return (timeUntil.hours * 60) + timeUntil.minutes;
+        }
+    });
+  }
+
   render() {
     const {
       watchlist,
-      nodelist
+      nodelist,
+      modal
     } = this.props;
 
     return (
       <div className="watchlist-container">
         <div className="row">
-          { watchlist.map((id) => {
-            const node = find(nodelist.nodes, { id });
-            if(!node) { return; }
-            return (
-              <WatchListItem key={id} className="col s3" node={node} />
-            )
-          }) }
+          <div className="col s8">
+            <SettingsModal />
+          </div>
+          <div className="col s4 right-align">
+            <a onClick={this.props.clearAll} className="btn btn-small btn-default">clear all</a>
+          </div>
         </div>
+        { watchlist.length ? (
+          <div className="row">
+            { this.sortNodes().map((node, i) => {
+              return (
+                <WatchListItem key={node.id} className="col s3" node={node} />
+              )
+            }) }
+          </div>
+        ) : (
+          <div className="row">
+            <div className="col s12">
+              <h3>Your watch list is empty!</h3>
+              <p>Add items from a saved group, or a search on the <NavLink to="/">homepage</NavLink>.</p>
+            </div>
+          </div>
+        )}
       </div>
     )
   }
@@ -30,12 +90,15 @@ class WatchList extends Component {
 const mapStateToProps = state => {
   return {
     nodelist: state.nodelist,
-    watchlist: state.watchlist
+    watchlist: state.watchlist,
+    clock: state.clock
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    clearAll: () => dispatch(clearAll()),
+    toggleModal: () => dispatch(toggleModal())
   }
 }
 

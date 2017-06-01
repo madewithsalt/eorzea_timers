@@ -10,10 +10,18 @@ import {
   getEarthTimeRemaining
 } from '../utils/timeUtils';
 
-class NodeListItem extends Node {
+class Node extends Component {
 
   constructor(props) {
     super(props);
+  }
+
+  render() {
+    return (
+      <div className={`${this.props.className}`}>
+        {this.props.children}
+      </div>
+    )
   }
 }
 

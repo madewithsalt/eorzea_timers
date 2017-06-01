@@ -23,7 +23,7 @@ const store = createStore(
 
 store.subscribe(throttle(() => {
   saveState({
-    lists: store.getState().lists,
+    watchgroups: store.getState().watchgroups,
     settings: store.getState().settings,
     watchlist: store.getState().watchlist
   });

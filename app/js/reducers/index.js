@@ -5,7 +5,8 @@ import nodelist from './nodeListReducer';
 import search from './searchReducer';
 import watchlist from './watchListReducer';
 import settings from './settingsReducer';
-import lists from './listReducer';
+import page from './pageReducer';
+import watchgroups from './watchGroupsReducer';
 
 const rootReducer = combineReducers({
   clock,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   search,
   watchlist,
   settings,
-  lists
+  page,
+  watchgroups
 });
 
 export default rootReducer;

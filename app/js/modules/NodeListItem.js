@@ -22,8 +22,7 @@ class NodeListItem extends Component {
     const { node, clock, watchlist, toggleSelect, className } = this.props;
     const active = isActive(clock.time, node.time, node.duration);
 
-    var position = parsePosition(node.pos),
-        slot = node.slot || '?',
+    var slot = node.slot || '?',
         earthTimeRemaining,
         selected = _.indexOf(watchlist, node.id) !== -1;
 
@@ -32,7 +31,7 @@ class NodeListItem extends Component {
     }
 
     return (
-      <div className={className}>
+      <Node className={className}>
         <div className={`node node-list-item clearfix ${selected ? 'selected' : ''}`} onClick={toggleSelect.bind(this, node.id)}>
           <div className="left node-list-title">
             <span className={`icon icon-${node.type} icon-sm`}></span>
@@ -47,10 +46,10 @@ class NodeListItem extends Component {
           </div>
           <div className="right right-align node-list-details">
             <span className="small location">{ node.location }</span>
-            <span className="small coords">{ position }</span>
+            <span className="small coords">{ node.pos }</span>
           </div>
         </div>
-      </div>
+      </Node>
     );
   }
 }

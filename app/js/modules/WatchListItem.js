@@ -23,42 +23,63 @@ class WatchListItem extends Component {
     const { stars } = this;
     const active = isActive(clock.time, node.time, node.duration);
 
-    var position = parsePosition(node.pos),
-        slot = node.slot || '?',
+    var slot = node.slot || '?',
         timeRemaining,
         time,
+        status = '',
         selected = indexOf(watchlist, node.id) !== -1;
 
     if(active) {
       time = getEarthTimeRemaining(node.time, node.duration, clock.time);
+
+      let mins = time.minutes;
+
+      switch (true) {
+        case mins <= 2 && mins > 1:
+          status = 'warning';
+          break;
+        case mins <= 1:
+          status = 'danger';
+          break;
+        default:
+          status = 'active';
+      }
+
     } else {
       time = getEarthTimeUntil(node.time, clock.time);
     }
 
     return (
       <div className={className}>
-        <div className={`node watch-list-item clearfix ${active ? 'active' : ''}`} onClick={toggleSelect.bind(this, node.id)}>
+        <div className={`node watch-list-item clearfix ${active ? 'active' : ''} ${status}`} >
           <div className="node-content">
-
             <div className="node-list-title">
               <span className={`icon icon-${node.type} icon-sm`}></span>
               <span>
                 { node.time }
               </span>
+              <div className="close" onClick={toggleSelect.bind(this, node.id)}><i className="material-icons">close</i></div>
             </div>
-            <div>
-              {`[${node.level}] ${node.name}`}
+            <div className="node-list-name">
+              <div className="name">
+                {`${node.name} [${node.level}]`}
+              </div>
+              <div className="meta">
                 <Stars stars={node.stars} />
-                { `[ slot ${slot} ]` }
+              </div>
             </div>
             <div className="time-remaining">
-              <span className="diff">
+              <div className="small">{active ? 'time remaining' : 'time until'}:</div>
+              <div className="diff">
                 { `${time.minutes}m ${time.seconds}s` }
-              </span>
+              </div>
+            </div>
+            <div className="slot">
+              { `[ slot ${slot} ]` }
             </div>
             <div className="node-list-details">
-              <span className="small location">{ node.location }</span>
-              <span className="small coords">{ position }</span>
+              <div className="small location">{ node.location }</div>
+              <div className="small coords">{ node.pos }</div>
             </div>
           </div>
         </div>

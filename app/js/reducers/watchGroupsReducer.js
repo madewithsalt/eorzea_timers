@@ -1,5 +1,5 @@
 
-const list = (state = {}, action) => {
+const watchgroups = (state = {}, action) => {
 
     switch (action.type) {
       default:
@@ -8,4 +8,4 @@ const list = (state = {}, action) => {
 
 }
 
-export default list;
+export default watchgroups;

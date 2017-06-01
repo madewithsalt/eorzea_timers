@@ -1,11 +1,59 @@
+.watchlist-container
+  margin-top: 30px
+
 .watch-list-item
   @extend .card
   padding: 4px
   border-radius: 4px
   border: 1px solid $border
   margin: 6px
-  min-height: 125px
+  min-height: 240px
   background-color: $bg_primary
+  text-align: center
+
+  .close
+    position: absolute
+    top: 0
+    right: 0
+    border-radius: 25px
+    cursor: pointer
+
+    i
+      font-size: 20px
+
+    &:hover
+      color: $link_primary
+
+  &.active
+    border-color: $active_color
+    color: $active_color
+
+    .node-list-details
+      border-top: 1px solid $active_color
+
+
+  &.warning
+    border-color: $warning_color
+    color: $warning_color
+    background-color: $warning_color_bg
+
+    .node-list-details
+      border-top: 1px solid $warning_color
+
+  &.danger
+    border-color: $danger_color
+    color: $danger_color
+    background-color: $danger_color_bg
+
+    .node-list-details
+      border-top: 1px solid $danger_color
+
+  .node-list-name
+    .name
+      font-size: 18px
+    .meta
+      display: inline-block
+      margin-left: 4px
 
   .node-list-title
     @extend .card-title
@@ -16,3 +64,23 @@
       position: absolute
       top: 6px
       left: 6px
+
+  .slot
+    margin: 12px auto
+
+  .node-list-details
+    border-top: 1px solid $border
+    padding-top: 4px
+    margin-top: 4px
+
+  .time-remaining
+    margin: 6px auto
+
+    .small
+      font-size: 11px
+      font-style: italic
+
+    .diff
+      font-size: 36px
+      font-weight: 500
+      line-height: 34px

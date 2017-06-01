@@ -1,7 +1,8 @@
 import _ from 'lodash';
 
 import {
-  TOGGLE_SELECT
+  TOGGLE_SELECT,
+  CLEAR_ALL
 } from '../actions/watchListActions';
 
 export default function watchlist(state = [], action) {
@@ -21,6 +22,10 @@ export default function watchlist(state = [], action) {
       }
 
       return list;
+
+    case CLEAR_ALL:
+      return [];
+
     default:
       return state;
   }

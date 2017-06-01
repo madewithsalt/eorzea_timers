@@ -1,8 +1,20 @@
 .btn
   font-weight: 100
 
+  i
+    vertical-align: middle
+    display: inline-block
+    margin-right: 4px
+    margin-top: -4px
+
   &.btn-default
     &.active
       background-color: #6a6a7b
       text-shadow: 1px 1px 1px rgba(0,0,0,0.8)
       color: #dedede
+
+  &.btn-secondary
+    background-color: #827e7e
+
+    &:hover
+      background-color: lighten(#827e7e, 20)

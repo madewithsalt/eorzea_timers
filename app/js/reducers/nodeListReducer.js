@@ -37,8 +37,7 @@ function nodes(state = defaultState, action) {
       });
 
     case RECEIVE_NODELIST:
-      var nodes = [],
-          id = 0;
+      var nodes = [];
 
       // merge the lists of nodes to a single array,
       // and create a unique entry for each time per node.
@@ -54,11 +53,11 @@ function nodes(state = defaultState, action) {
             result[key] = utils.parseBooleans(node[key]);
           });
 
-          _.each(times, (time) => {
+          _.each(times, (time, i) => {
             nodes.push(Object.assign({}, node, {
                 time,
                 type: key,
-                id: `${key}-${id++}`,
+                id: `${node.id}-${i}`,
                 level,
                 pos
               }, result))

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { isArray } from 'lodash';
+import { isArray, isObject } from 'lodash';
 
 
 class FilterMenu extends Component {
@@ -12,22 +12,27 @@ class FilterMenu extends Component {
 
   renderMenuItem(name, value) {
     let isActive = false;
+    const object = isObject(value);
     const { values } = this.props;
 
     if(values[name]) {
       if(isArray(values[name])) {
-        isActive = values[name].indexOf(value) >= 0;
+        if(object) {
+          isActive = values[name].indexOf(value.value) >= 0;
+        } else {
+          isActive = values[name].indexOf(value) >= 0;
+        }
       } else {
         isActive = values[name] && values[name] === value;
       }
     }
 
     return (
-      <li className="filter-menu-item" key={`filter-${name}-${value}`}>
-        <a onClick={this.handleFilterChange.bind(this, name, value)}
+      <li className="filter-menu-item" key={`filter-${name}-${object ? value.value : value}`}>
+        <a onClick={this.handleFilterChange.bind(this, name, object ? value.value : value)}
             className={`menu-item ${isActive ? 'active' : ''}`}>
-          <span className={`icon icon-${value}`}></span>
-          <span className="name">{ value }</span>
+          <span className={`icon icon-${object ? value.value : value}`}></span>
+          <span className="name">{ object ? value.name : value }</span>
         </a>
       </li>
     );

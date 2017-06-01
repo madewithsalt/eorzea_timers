@@ -351,6 +351,23 @@ function toggleFeatureFilter(feature) {
 
 });
 
+;require.register("js/actions/pageActions.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.toggleModal = toggleModal;
+var TOGGLE_MODAL = exports.TOGGLE_MODAL = 'TOGGLE_MODAL';
+
+function toggleModal() {
+  return {
+    type: TOGGLE_MODAL
+  };
+}
+
+});
+
 ;require.register("js/actions/searchActions.js", function(exports, require, module) {
 'use strict';
 
@@ -369,19 +386,32 @@ function search(query) {
 
 });
 
-;require.register("js/actions/watchListActions.js", function(exports, require, module) {
+;require.register("js/actions/watchGroupsActions.js", function(exports, require, module) {
+"use strict";
+
+});
+
+require.register("js/actions/watchListActions.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.toggleSelect = toggleSelect;
+exports.clearAll = clearAll;
 var TOGGLE_SELECT = exports.TOGGLE_SELECT = 'TOGGLE_SELECT';
+var CLEAR_ALL = exports.CLEAR_ALL = 'CLEAR_ALL';
 
 function toggleSelect(id) {
   return {
     type: TOGGLE_SELECT,
     id: id
+  };
+}
+
+function clearAll() {
+  return {
+    type: CLEAR_ALL
   };
 }
 
@@ -457,12 +487,17 @@ var FilterMenu = function (_Component) {
     key: 'renderMenuItem',
     value: function renderMenuItem(name, value) {
       var isActive = false;
+      var object = (0, _lodash.isObject)(value);
       var values = this.props.values;
 
 
       if (values[name]) {
         if ((0, _lodash.isArray)(values[name])) {
-          isActive = values[name].indexOf(value) >= 0;
+          if (object) {
+            isActive = values[name].indexOf(value.value) >= 0;
+          } else {
+            isActive = values[name].indexOf(value) >= 0;
+          }
         } else {
           isActive = values[name] && values[name] === value;
         }
@@ -470,16 +505,16 @@ var FilterMenu = function (_Component) {
 
       return _react2.default.createElement(
         'li',
-        { className: 'filter-menu-item', key: 'filter-' + name + '-' + value },
+        { className: 'filter-menu-item', key: 'filter-' + name + '-' + (object ? value.value : value) },
         _react2.default.createElement(
           'a',
-          { onClick: this.handleFilterChange.bind(this, name, value),
+          { onClick: this.handleFilterChange.bind(this, name, object ? value.value : value),
             className: 'menu-item ' + (isActive ? 'active' : '') },
-          _react2.default.createElement('span', { className: 'icon icon-' + value }),
+          _react2.default.createElement('span', { className: 'icon icon-' + (object ? value.value : value) }),
           _react2.default.createElement(
             'span',
             { className: 'name' },
-            value
+            object ? value.name : value
           )
         )
       );
@@ -919,6 +954,151 @@ var SearchBar = function (_Component) {
 }(_react.Component);
 
 exports.default = SearchBar;
+
+});
+
+require.register("js/components/SettingsModal.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _pageActions = require('../actions/pageActions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SettingsModal = function (_Component) {
+  _inherits(SettingsModal, _Component);
+
+  function SettingsModal() {
+    _classCallCheck(this, SettingsModal);
+
+    return _possibleConstructorReturn(this, (SettingsModal.__proto__ || Object.getPrototypeOf(SettingsModal)).apply(this, arguments));
+  }
+
+  _createClass(SettingsModal, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      $(this.modal).modal({
+        dismissable: true,
+        complete: this.onModalClose.bind(this)
+      });
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.modal === true) {
+        $(this.modal).modal('open');
+      }
+    }
+  }, {
+    key: 'onModalClose',
+    value: function onModalClose() {
+      this.props.toggleModal();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          modal = _props.modal,
+          toggleModal = _props.toggleModal;
+
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'a',
+          { onClick: toggleModal, className: 'btn btn-small btn-secondary' },
+          _react2.default.createElement(
+            'i',
+            { className: 'material-icons' },
+            'settings'
+          ),
+          'settings'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'modal', ref: function ref(modal) {
+              _this2.modal = modal;
+            } },
+          _react2.default.createElement(
+            'div',
+            { className: 'modal-content' },
+            'Settings Modal'
+          )
+        )
+      );
+    }
+  }]);
+
+  return SettingsModal;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    modal: state.page.modal
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    toggleModal: function toggleModal() {
+      return dispatch((0, _pageActions.toggleModal)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SettingsModal);
+
+});
+
+require.register("js/components/WatchGroupSelect.js", function(exports, require, module) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = require("lodash");
+
+var WatchGroupSelect = function WatchGroupSelect(props) {
+  return React.createElement(
+    "div",
+    { className: "input-field" },
+    React.createElement(
+      "select",
+      { name: "", id: "" },
+      props.options.map(function (item) {
+        var obj = (0, _lodash.isObject)(item);
+        return React.createElement(
+          "option",
+          { value: obj ? item.value : item },
+          obj ? item.name : item
+        );
+      })
+    )
+  );
+};
+
+exports.default = WatchGroupSelect;
 
 });
 
@@ -1422,6 +1602,16 @@ var _reactRedux = require('react-redux');
 
 var _lodash = require('lodash');
 
+var _reactRouterDom = require('react-router-dom');
+
+var _SettingsModal = require('../components/SettingsModal');
+
+var _SettingsModal2 = _interopRequireDefault(_SettingsModal);
+
+var _watchListActions = require('../actions/watchListActions');
+
+var _timeUtils = require('../utils/timeUtils');
+
 var _WatchListItem = require('../modules/WatchListItem');
 
 var _WatchListItem2 = _interopRequireDefault(_WatchListItem);
@@ -1437,18 +1627,51 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var WatchList = function (_Component) {
   _inherits(WatchList, _Component);
 
-  function WatchList() {
+  function WatchList(props) {
     _classCallCheck(this, WatchList);
 
-    return _possibleConstructorReturn(this, (WatchList.__proto__ || Object.getPrototypeOf(WatchList)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (WatchList.__proto__ || Object.getPrototypeOf(WatchList)).call(this, props));
+
+    _this.sortNodes = _this.sortNodes.bind(_this);
+    return _this;
   }
 
   _createClass(WatchList, [{
-    key: 'render',
-    value: function render() {
+    key: 'sortNodes',
+    value: function sortNodes() {
       var _props = this.props,
           watchlist = _props.watchlist,
-          nodelist = _props.nodelist;
+          nodelist = _props.nodelist,
+          clock = _props.clock;
+
+
+      if (!nodelist.nodes.length) {
+        return [];
+      }
+
+      var list = (0, _lodash.filter)(nodelist.nodes, function (node) {
+        return (0, _lodash.indexOf)(watchlist, node.id) >= 0 ? true : false;
+      });
+
+      return (0, _lodash.sortBy)(list, function (node) {
+        var active = (0, _timeUtils.isActive)(clock.time, node.time, node.duration),
+            timeUntil = (0, _timeUtils.getEarthTimeUntil)(node.time, clock.time),
+            timeRemaining = (0, _timeUtils.getEarthTimeRemaining)(node.time, node.duration, clock.time);
+
+        if (active) {
+          return timeRemaining.hours * 60 + timeRemaining.minutes - 1000;
+        } else {
+          return timeUntil.hours * 60 + timeUntil.minutes;
+        }
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          watchlist = _props2.watchlist,
+          nodelist = _props2.nodelist,
+          modal = _props2.modal;
 
 
       return _react2.default.createElement(
@@ -1457,13 +1680,50 @@ var WatchList = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'row' },
-          watchlist.map(function (id) {
-            var node = (0, _lodash.find)(nodelist.nodes, { id: id });
-            if (!node) {
-              return;
-            }
-            return _react2.default.createElement(_WatchListItem2.default, { key: id, className: 'col s3', node: node });
+          _react2.default.createElement(
+            'div',
+            { className: 'col s8' },
+            _react2.default.createElement(_SettingsModal2.default, null)
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col s4 right-align' },
+            _react2.default.createElement(
+              'a',
+              { onClick: this.props.clearAll, className: 'btn btn-small btn-default' },
+              'clear all'
+            )
+          )
+        ),
+        watchlist.length ? _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          this.sortNodes().map(function (node, i) {
+            return _react2.default.createElement(_WatchListItem2.default, { key: node.id, className: 'col s3', node: node });
           })
+        ) : _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col s12' },
+            _react2.default.createElement(
+              'h3',
+              null,
+              'Your watch list is empty!'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'Add items from a saved group, or a search on the ',
+              _react2.default.createElement(
+                _reactRouterDom.NavLink,
+                { to: '/' },
+                'homepage'
+              ),
+              '.'
+            )
+          )
         )
       );
     }
@@ -1475,12 +1735,30 @@ var WatchList = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     nodelist: state.nodelist,
-    watchlist: state.watchlist
+    watchlist: state.watchlist,
+    clock: state.clock
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    clearAll: function clearAll() {
+      return dispatch((0, _watchListActions.clearAll)());
+    },
+    toggleModal: function (_toggleModal) {
+      function toggleModal() {
+        return _toggleModal.apply(this, arguments);
+      }
+
+      toggleModal.toString = function () {
+        return _toggleModal.toString();
+      };
+
+      return toggleModal;
+    }(function () {
+      return dispatch(toggleModal());
+    })
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WatchList);
@@ -1538,7 +1816,7 @@ var store = (0, _redux.createStore)(_reducers2.default, (0, _assign2.default)({}
 
 store.subscribe((0, _throttle2.default)(function () {
   (0, _storageUtils.saveState)({
-    lists: store.getState().lists,
+    watchgroups: store.getState().watchgroups,
     settings: store.getState().settings,
     watchlist: store.getState().watchlist
   });
@@ -1558,6 +1836,8 @@ require.register("js/modules/Node.js", function(exports, require, module) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -1579,17 +1859,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var NodeListItem = function (_Node) {
-  _inherits(NodeListItem, _Node);
+var Node = function (_Component) {
+  _inherits(Node, _Component);
 
-  function NodeListItem(props) {
-    _classCallCheck(this, NodeListItem);
+  function Node(props) {
+    _classCallCheck(this, Node);
 
-    return _possibleConstructorReturn(this, (NodeListItem.__proto__ || Object.getPrototypeOf(NodeListItem)).call(this, props));
+    return _possibleConstructorReturn(this, (Node.__proto__ || Object.getPrototypeOf(Node)).call(this, props));
   }
 
-  return NodeListItem;
-}(Node);
+  _createClass(Node, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: '' + this.props.className },
+        this.props.children
+      );
+    }
+  }]);
+
+  return Node;
+}(_react.Component);
 
 exports.default = Node;
 
@@ -1993,8 +2284,7 @@ var NodeListItem = function (_Component) {
 
       var active = (0, _timeUtils.isActive)(clock.time, node.time, node.duration);
 
-      var position = (0, _parseUtils.parsePosition)(node.pos),
-          slot = node.slot || '?',
+      var slot = node.slot || '?',
           earthTimeRemaining,
           selected = _lodash2.default.indexOf(watchlist, node.id) !== -1;
 
@@ -2003,7 +2293,7 @@ var NodeListItem = function (_Component) {
       }
 
       return _react2.default.createElement(
-        'div',
+        _Node2.default,
         { className: className },
         _react2.default.createElement(
           'div',
@@ -2036,7 +2326,7 @@ var NodeListItem = function (_Component) {
             _react2.default.createElement(
               'span',
               { className: 'small coords' },
-              position
+              node.pos
             )
           )
         )
@@ -2123,14 +2413,27 @@ var WatchListItem = function (_Component) {
 
       var active = (0, _timeUtils.isActive)(clock.time, node.time, node.duration);
 
-      var position = (0, _parseUtils.parsePosition)(node.pos),
-          slot = node.slot || '?',
+      var slot = node.slot || '?',
           timeRemaining,
           time,
+          status = '',
           selected = (0, _lodash.indexOf)(watchlist, node.id) !== -1;
 
       if (active) {
         time = (0, _timeUtils.getEarthTimeRemaining)(node.time, node.duration, clock.time);
+
+        var mins = time.minutes;
+
+        switch (true) {
+          case mins <= 2 && mins > 1:
+            status = 'warning';
+            break;
+          case mins <= 1:
+            status = 'danger';
+            break;
+          default:
+            status = 'active';
+        }
       } else {
         time = (0, _timeUtils.getEarthTimeUntil)(node.time, clock.time);
       }
@@ -2140,7 +2443,7 @@ var WatchListItem = function (_Component) {
         { className: className },
         _react2.default.createElement(
           'div',
-          { className: 'node watch-list-item clearfix ' + (active ? 'active' : ''), onClick: toggleSelect.bind(this, node.id) },
+          { className: 'node watch-list-item clearfix ' + (active ? 'active' : '') + ' ' + status },
           _react2.default.createElement(
             'div',
             { className: 'node-content' },
@@ -2152,36 +2455,63 @@ var WatchListItem = function (_Component) {
                 'span',
                 null,
                 node.time
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'close', onClick: toggleSelect.bind(this, node.id) },
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons' },
+                  'close'
+                )
               )
             ),
             _react2.default.createElement(
               'div',
-              null,
-              '[' + node.level + '] ' + node.name,
-              _react2.default.createElement(_NodeStars2.default, { stars: node.stars }),
-              '[ slot ' + slot + ' ]'
+              { className: 'node-list-name' },
+              _react2.default.createElement(
+                'div',
+                { className: 'name' },
+                node.name + ' [' + node.level + ']'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'meta' },
+                _react2.default.createElement(_NodeStars2.default, { stars: node.stars })
+              )
             ),
             _react2.default.createElement(
               'div',
               { className: 'time-remaining' },
               _react2.default.createElement(
-                'span',
+                'div',
+                { className: 'small' },
+                active ? 'time remaining' : 'time until',
+                ':'
+              ),
+              _react2.default.createElement(
+                'div',
                 { className: 'diff' },
                 time.minutes + 'm ' + time.seconds + 's'
               )
             ),
             _react2.default.createElement(
               'div',
+              { className: 'slot' },
+              '[ slot ' + slot + ' ]'
+            ),
+            _react2.default.createElement(
+              'div',
               { className: 'node-list-details' },
               _react2.default.createElement(
-                'span',
+                'div',
                 { className: 'small location' },
                 node.location
               ),
               _react2.default.createElement(
-                'span',
+                'div',
                 { className: 'small coords' },
-                position
+                node.pos
               )
             )
           )
@@ -2267,9 +2597,13 @@ var _settingsReducer = require('./settingsReducer');
 
 var _settingsReducer2 = _interopRequireDefault(_settingsReducer);
 
-var _listReducer = require('./listReducer');
+var _pageReducer = require('./pageReducer');
 
-var _listReducer2 = _interopRequireDefault(_listReducer);
+var _pageReducer2 = _interopRequireDefault(_pageReducer);
+
+var _watchGroupsReducer = require('./watchGroupsReducer');
+
+var _watchGroupsReducer2 = _interopRequireDefault(_watchGroupsReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2280,32 +2614,11 @@ var rootReducer = (0, _redux.combineReducers)({
   search: _searchReducer2.default,
   watchlist: _watchListReducer2.default,
   settings: _settingsReducer2.default,
-  lists: _listReducer2.default
+  page: _pageReducer2.default,
+  watchgroups: _watchGroupsReducer2.default
 });
 
 exports.default = rootReducer;
-
-});
-
-require.register("js/reducers/listReducer.js", function(exports, require, module) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var list = function list() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var action = arguments[1];
-
-
-    switch (action.type) {
-        default:
-            return state;
-    }
-};
-
-exports.default = list;
 
 });
 
@@ -2357,8 +2670,7 @@ function nodes() {
       });
 
     case _nodeListActions.RECEIVE_NODELIST:
-      var nodes = [],
-          id = 0;
+      var nodes = [];
 
       // merge the lists of nodes to a single array,
       // and create a unique entry for each time per node.
@@ -2374,11 +2686,11 @@ function nodes() {
             result[key] = utils.parseBooleans(node[key]);
           });
 
-          _lodash2.default.each(times, function (time) {
+          _lodash2.default.each(times, function (time, i) {
             nodes.push(Object.assign({}, node, {
               time: time,
               type: key,
-              id: key + '-' + id++,
+              id: node.id + '-' + i,
               level: level,
               pos: pos
             }, result));
@@ -2466,6 +2778,37 @@ exports.default = node;
 
 });
 
+require.register("js/reducers/pageReducer.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _pageActions = require('../actions/pageActions');
+
+var page = function page() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    modal: false
+  };
+  var action = arguments[1];
+
+
+  switch (action.type) {
+    case _pageActions.TOGGLE_MODAL:
+      return Object.assign({}, state, {
+        modal: !state.modal
+      });
+
+    default:
+      return state;
+  }
+};
+
+exports.default = page;
+
+});
+
 require.register("js/reducers/searchReducer.js", function(exports, require, module) {
 'use strict';
 
@@ -2496,15 +2839,36 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 });
 
 ;require.register("js/reducers/settingsReducer.js", function(exports, require, module) {
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _watchListActions = require('../actions/watchListActions');
-
 var settings = function settings() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var action = arguments[1];
+
+
+    switch (action.type) {
+
+        default:
+            return state;
+    }
+};
+
+exports.default = settings;
+
+});
+
+require.register("js/reducers/watchGroupsReducer.js", function(exports, require, module) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var watchgroups = function watchgroups() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var action = arguments[1];
 
@@ -2515,7 +2879,7 @@ var settings = function settings() {
     }
 };
 
-exports.default = settings;
+exports.default = watchgroups;
 
 });
 
@@ -2555,6 +2919,10 @@ function watchlist() {
       }
 
       return list;
+
+    case _watchListActions.CLEAR_ALL:
+      return [];
+
     default:
       return state;
   }
@@ -2631,7 +2999,7 @@ exports.default = {
   },
   feature: {
     name: 'By Type',
-    values: ['is_collectable', 'is_ephemeral', 'red_scrip', 'blue_scrip']
+    values: [{ value: 'is_collectable', name: 'Collectable' }, { value: 'is_ephemeral', name: 'Ephemeral' }, { value: 'red_scrip', name: 'Red Scrip' }, { value: 'blue_scrip', name: 'Blue Scrip' }, { value: 'yellow_scrip', name: 'Yellow Scrip' }]
   }
 };
 
