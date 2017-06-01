@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { find, sortBy, filter, indexOf } from 'lodash';
 import {NavLink} from 'react-router-dom';
 import SettingsModal from '../components/SettingsModal';
+import WatchGroupSelect from '../components/WatchGroupSelect';
 
 import {
   clearAll
@@ -59,10 +60,12 @@ class WatchList extends Component {
     return (
       <div className="watchlist-container">
         <div className="row">
-          <div className="col s8">
-            <SettingsModal />
+          <div className="col s9">
+            <SettingsModal className="left" />
+            <a href="" className="btn btn-flat left">Save List As ...</a>
+            <WatchGroupSelect className="left" />
           </div>
-          <div className="col s4 right-align">
+          <div className="col s3 right-align">
             <a onClick={this.props.clearAll} className="btn btn-small btn-default">clear all</a>
           </div>
         </div>

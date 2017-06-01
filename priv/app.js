@@ -998,6 +998,8 @@ var SettingsModal = function (_Component) {
         dismissable: true,
         complete: this.onModalClose.bind(this)
       });
+
+      $(this.select).material_select();
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -1005,6 +1007,11 @@ var SettingsModal = function (_Component) {
       if (nextProps.modal === true) {
         $(this.modal).modal('open');
       }
+    }
+  }, {
+    key: 'handleToggleModal',
+    value: function handleToggleModal() {
+      $(this.modal).modal('close');
     }
   }, {
     key: 'onModalClose',
@@ -1018,15 +1025,16 @@ var SettingsModal = function (_Component) {
 
       var _props = this.props,
           modal = _props.modal,
-          toggleModal = _props.toggleModal;
+          toggleModal = _props.toggleModal,
+          className = _props.className;
 
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'settings-modal-container ' + className },
         _react2.default.createElement(
           'a',
-          { onClick: toggleModal, className: 'btn btn-small btn-secondary' },
+          { onClick: toggleModal, className: 'toggle-btn btn btn-small btn-secondary' },
           _react2.default.createElement(
             'i',
             { className: 'material-icons' },
@@ -1036,13 +1044,167 @@ var SettingsModal = function (_Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'modal', ref: function ref(modal) {
+          { className: 'modal modal-fixed-footer settings-modal', ref: function ref(modal) {
               _this2.modal = modal;
             } },
           _react2.default.createElement(
             'div',
             { className: 'modal-content' },
-            'Settings Modal'
+            _react2.default.createElement(
+              'h3',
+              null,
+              'Watch Settings'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'row settings-group' },
+              _react2.default.createElement(
+                'div',
+                { className: 'col s12' },
+                _react2.default.createElement(
+                  'h4',
+                  null,
+                  'Notification Time'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'input-field col s3' },
+                _react2.default.createElement('input', { id: 'no_alarm', type: 'checkbox', value: 'no_alarm' }),
+                _react2.default.createElement(
+                  'label',
+                  { htmlFor: 'no_alarm' },
+                  'None (disable)'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'col s8' },
+                _react2.default.createElement(
+                  'span',
+                  null,
+                  'Eorzean Hours Notice: '
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field inline' },
+                  _react2.default.createElement('input', { type: 'number', id: 'alarm_hour' }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'alarm_hour' },
+                    'Hours Notice'
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'row settings-group' },
+              _react2.default.createElement(
+                'div',
+                { className: 'col s12' },
+                _react2.default.createElement(
+                  'h4',
+                  null,
+                  'Notice Style'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'input-radio-group clearfix' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s4' },
+                  _react2.default.createElement('input', { type: 'radio', name: 'alarm_style', id: 'alarm_style_1', value: 'none' }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'alarm_style_1' },
+                    'None'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s4' },
+                  _react2.default.createElement('input', { type: 'radio', name: 'alarm_style', id: 'alarm_style_2', value: 'popup' }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'alarm_style_2' },
+                    'In-Window Pop Up'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s4' },
+                  _react2.default.createElement('input', { type: 'radio', name: 'alarm_style', id: 'alarm_style_3', value: 'desktop' }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'alarm_style_3' },
+                    'Desktop Notification ',
+                    _react2.default.createElement('br', null),
+                    '(needs permission)'
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'row settings-group' },
+              _react2.default.createElement(
+                'div',
+                { className: 'col s12' },
+                _react2.default.createElement(
+                  'h4',
+                  null,
+                  'Alert Sound'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'input-field col s4' },
+                _react2.default.createElement(
+                  'select',
+                  { name: 'alarm-sound', id: 'alarm-sound', ref: function ref(sel) {
+                      _this2.select = sel;
+                    }, defaultValue: 'none' },
+                  _react2.default.createElement(
+                    'option',
+                    { value: 'none', disabled: true },
+                    'No Sound'
+                  )
+                ),
+                _react2.default.createElement(
+                  'label',
+                  { htmlFor: 'alarm-sound' },
+                  'Sound Effect'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'col s4' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'sound-preview' },
+                  _react2.default.createElement(
+                    'i',
+                    { className: 'material-icons play' },
+                    'play_arrow'
+                  )
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'modal-footer' },
+            _react2.default.createElement(
+              'div',
+              { className: 'right-align' },
+              _react2.default.createElement(
+                'a',
+                { onClick: this.handleToggleModal.bind(this), className: 'btn btn-default' },
+                'Done'
+              )
+            )
           )
         )
       );
@@ -1071,34 +1233,121 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 });
 
 require.register("js/components/WatchGroupSelect.js", function(exports, require, module) {
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _lodash = require("lodash");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var WatchGroupSelect = function WatchGroupSelect(props) {
-  return React.createElement(
-    "div",
-    { className: "input-field" },
-    React.createElement(
-      "select",
-      { name: "", id: "" },
-      props.options.map(function (item) {
-        var obj = (0, _lodash.isObject)(item);
-        return React.createElement(
-          "option",
-          { value: obj ? item.value : item },
-          obj ? item.name : item
-        );
-      })
-    )
-  );
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _lodash = require('lodash');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WatchGroupSelect = function (_Component) {
+  _inherits(WatchGroupSelect, _Component);
+
+  function WatchGroupSelect() {
+    _classCallCheck(this, WatchGroupSelect);
+
+    return _possibleConstructorReturn(this, (WatchGroupSelect.__proto__ || Object.getPrototypeOf(WatchGroupSelect)).apply(this, arguments));
+  }
+
+  _createClass(WatchGroupSelect, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      $(this.dropdown).dropdown();
+    }
+  }, {
+    key: 'handleDropdown',
+    value: function handleDropdown() {
+      $(this.dropdown).dropdown('open');
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          _props$options = _props.options,
+          options = _props$options === undefined ? [] : _props$options,
+          className = _props.className;
+
+
+      return _react2.default.createElement(
+        'div',
+        { className: className },
+        _react2.default.createElement(
+          'a',
+          { className: 'btn btn-flat', ref: function ref(a) {
+              _this2.dropdown = a;
+            },
+            onClick: this.handleDropdown.bind(this),
+            'data-activates': 'load-list' },
+          'Load List'
+        ),
+        _react2.default.createElement(
+          'ul',
+          { name: 'load-list', id: 'load-list', className: 'dropdown-content' },
+          _react2.default.createElement(
+            'li',
+            null,
+            'Moo'
+          ),
+          options.map(function (item) {
+            var obj = (0, _lodash.isObject)(item);
+            return _react2.default.createElement(
+              'li',
+              { value: obj ? item.value : item },
+              obj ? item.name : item
+            );
+          })
+        )
+      );
+    }
+  }]);
+
+  return WatchGroupSelect;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    modal: state.page.modal
+  };
 };
 
-exports.default = WatchGroupSelect;
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    toggleModal: function (_toggleModal) {
+      function toggleModal() {
+        return _toggleModal.apply(this, arguments);
+      }
+
+      toggleModal.toString = function () {
+        return _toggleModal.toString();
+      };
+
+      return toggleModal;
+    }(function () {
+      return dispatch(toggleModal());
+    })
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WatchGroupSelect);
 
 });
 
@@ -1608,6 +1857,10 @@ var _SettingsModal = require('../components/SettingsModal');
 
 var _SettingsModal2 = _interopRequireDefault(_SettingsModal);
 
+var _WatchGroupSelect = require('../components/WatchGroupSelect');
+
+var _WatchGroupSelect2 = _interopRequireDefault(_WatchGroupSelect);
+
 var _watchListActions = require('../actions/watchListActions');
 
 var _timeUtils = require('../utils/timeUtils');
@@ -1682,12 +1935,18 @@ var WatchList = function (_Component) {
           { className: 'row' },
           _react2.default.createElement(
             'div',
-            { className: 'col s8' },
-            _react2.default.createElement(_SettingsModal2.default, null)
+            { className: 'col s9' },
+            _react2.default.createElement(_SettingsModal2.default, { className: 'left' }),
+            _react2.default.createElement(
+              'a',
+              { href: '', className: 'btn btn-flat left' },
+              'Save List As ...'
+            ),
+            _react2.default.createElement(_WatchGroupSelect2.default, { className: 'left' })
           ),
           _react2.default.createElement(
             'div',
-            { className: 'col s4 right-align' },
+            { className: 'col s3 right-align' },
             _react2.default.createElement(
               'a',
               { onClick: this.props.clearAll, className: 'btn btn-small btn-default' },
@@ -2869,7 +3128,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var watchgroups = function watchgroups() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var action = arguments[1];
 
 

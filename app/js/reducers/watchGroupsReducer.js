@@ -1,5 +1,5 @@
 
-const watchgroups = (state = {}, action) => {
+const watchgroups = (state = [], action) => {
 
     switch (action.type) {
       default:
