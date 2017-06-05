@@ -1,10 +1,18 @@
-import { isArray, filter } from 'lodash';
+import { isArray, filter, isString } from 'lodash';
 
 export function parsePosition(pos) {
   if(isArray(pos)) {
     return pos.join(', ').replace(/\:/g, ' ');
   } else if(pos) {
     return pos.replace(/\:/g, ' ');
+  }
+}
+
+export function parseAttrs(attr) {
+  if(isString(attr)) {
+    return filter(attr.split(','), (a) => {
+      return a.length > 0;
+    })
   }
 }
 

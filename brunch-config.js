@@ -32,6 +32,11 @@ exports.config = {
     sass: {
       mode: 'native', // set to 'native' to force libsass,
       sourceMapEmbed: true
+    },
+    postcss: {
+      processors: [
+        require('autoprefixer')(['last 8 versions'])
+      ]
     }
   },
 

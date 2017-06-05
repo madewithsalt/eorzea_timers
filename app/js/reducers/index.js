@@ -7,6 +7,7 @@ import watchlist from './watchListReducer';
 import settings from './settingsReducer';
 import page from './pageReducer';
 import watchgroups from './watchGroupsReducer';
+import notifications from './notifyReducer';
 
 const rootReducer = combineReducers({
   clock,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   watchlist,
   settings,
   page,
-  watchgroups
+  watchgroups,
+  notifications
 });
 
 export default rootReducer;

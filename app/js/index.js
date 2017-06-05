@@ -2,8 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { createStore } from 'redux';
-import throttle from 'lodash/throttle';
-import assign from 'lodash/assign';
+import { throttle, assign } from 'lodash';
 import IS_DEV from 'isdev';
 
 import App from './App';

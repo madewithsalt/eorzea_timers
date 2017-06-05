@@ -351,6 +351,25 @@ function toggleFeatureFilter(feature) {
 
 });
 
+;require.register("js/actions/notifyActions.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.nodeActive = nodeActive;
+var NODE_ACTIVE = exports.NODE_ACTIVE = 'NODE_ACTIVE';
+var NODE_INACTIVE = exports.NODE_INACTIVE = 'NODE_INACTIVE';
+
+function nodeActive(node) {
+  return {
+    type: NODE_ACTIVE,
+    node: node
+  };
+}
+
+});
+
 ;require.register("js/actions/pageActions.js", function(exports, require, module) {
 'use strict';
 
@@ -381,6 +400,24 @@ function search(query) {
   return {
     type: SEARCH_QUERY,
     query: query
+  };
+}
+
+});
+
+;require.register("js/actions/settingsActions.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateSetting = updateSetting;
+var UPDATE_SETTING = exports.UPDATE_SETTING = 'UPDATE_SETTING';
+
+function updateSetting(setting) {
+  return {
+    type: UPDATE_SETTING,
+    setting: setting
   };
 }
 
@@ -970,9 +1007,21 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactAudioPlayer = require('react-audio-player');
+
+var _reactAudioPlayer2 = _interopRequireDefault(_reactAudioPlayer);
+
 var _reactRedux = require('react-redux');
 
+var _lodash = require('lodash');
+
 var _pageActions = require('../actions/pageActions');
+
+var _settingsActions = require('../actions/settingsActions');
+
+var _sounds = require('../static/sounds');
+
+var _sounds2 = _interopRequireDefault(_sounds);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -985,21 +1034,28 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var SettingsModal = function (_Component) {
   _inherits(SettingsModal, _Component);
 
-  function SettingsModal() {
+  function SettingsModal(props) {
     _classCallCheck(this, SettingsModal);
 
-    return _possibleConstructorReturn(this, (SettingsModal.__proto__ || Object.getPrototypeOf(SettingsModal)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (SettingsModal.__proto__ || Object.getPrototypeOf(SettingsModal)).call(this, props));
+
+    _this.onUpdateSetting = _this.onUpdateSetting.bind(_this);
+    return _this;
   }
 
   _createClass(SettingsModal, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       $(this.modal).modal({
         dismissable: true,
         complete: this.onModalClose.bind(this)
       });
 
-      $(this.select).material_select();
+      $(this.select).on('change', function (evt) {
+        _this2.onUpdateSetting('alarm_sound', evt);
+      }).material_select();
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -1019,15 +1075,46 @@ var SettingsModal = function (_Component) {
       this.props.toggleModal();
     }
   }, {
+    key: 'onUpdateSetting',
+    value: function onUpdateSetting(name, evt) {
+      var setting = {};
+      var val = evt.target.value;
+
+      switch (name) {
+        case 'alarm_hour':
+        case 'alarm_style':
+        case 'alarm_sound':
+          setting[name] = val;
+          break;
+        case 'no_alarm':
+          setting[name] = evt.target.checked;
+          break;
+        default:
+      }
+
+      if (name === 'alarm_style' && val === 'desktop' && Notification && Notification.permission !== 'granted') {
+        Notification.requestPermission();
+      }
+
+      this.props.updateSetting(setting);
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _props = this.props,
           modal = _props.modal,
           toggleModal = _props.toggleModal,
-          className = _props.className;
+          className = _props.className,
+          settings = _props.settings;
+      var onUpdateSetting = this.onUpdateSetting;
 
+
+      var alarmSound = void 0;
+      if (settings.alarm_sound && settings.alarm_sound !== 'none') {
+        alarmSound = (0, _lodash.find)(_sounds2.default, { name: settings.alarm_sound });
+      }
 
       return _react2.default.createElement(
         'div',
@@ -1045,7 +1132,7 @@ var SettingsModal = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'modal modal-fixed-footer settings-modal', ref: function ref(modal) {
-              _this2.modal = modal;
+              _this3.modal = modal;
             } },
           _react2.default.createElement(
             'div',
@@ -1069,16 +1156,6 @@ var SettingsModal = function (_Component) {
               ),
               _react2.default.createElement(
                 'div',
-                { className: 'input-field col s3' },
-                _react2.default.createElement('input', { id: 'no_alarm', type: 'checkbox', value: 'no_alarm' }),
-                _react2.default.createElement(
-                  'label',
-                  { htmlFor: 'no_alarm' },
-                  'None (disable)'
-                )
-              ),
-              _react2.default.createElement(
-                'div',
                 { className: 'col s8' },
                 _react2.default.createElement(
                   'span',
@@ -1088,12 +1165,31 @@ var SettingsModal = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'input-field inline' },
-                  _react2.default.createElement('input', { type: 'number', id: 'alarm_hour' }),
+                  _react2.default.createElement('input', { type: 'number', id: 'alarm_hour',
+                    disabled: settings.no_alarm ? true : false,
+                    defaultValue: settings.alarm_hour || 0,
+                    onChange: function onChange(evt) {
+                      onUpdateSetting('alarm_hour', evt);
+                    } }),
                   _react2.default.createElement(
                     'label',
                     { htmlFor: 'alarm_hour' },
                     'Hours Notice'
                   )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'input-field col s3' },
+                _react2.default.createElement('input', { id: 'no_alarm', type: 'checkbox', value: 'no_alarm',
+                  defaultChecked: settings.no_alarm || false,
+                  onChange: function onChange(evt) {
+                    onUpdateSetting('no_alarm', evt);
+                  } }),
+                _react2.default.createElement(
+                  'label',
+                  { htmlFor: 'no_alarm' },
+                  'None (disable)'
                 )
               )
             ),
@@ -1115,7 +1211,11 @@ var SettingsModal = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'input-field col s4' },
-                  _react2.default.createElement('input', { type: 'radio', name: 'alarm_style', id: 'alarm_style_1', value: 'none' }),
+                  _react2.default.createElement('input', { type: 'radio', name: 'alarm_style', id: 'alarm_style_1', value: 'none',
+                    defaultChecked: settings.alarm_style === 'none',
+                    onChange: function onChange(evt) {
+                      onUpdateSetting('alarm_style', evt);
+                    } }),
                   _react2.default.createElement(
                     'label',
                     { htmlFor: 'alarm_style_1' },
@@ -1125,7 +1225,11 @@ var SettingsModal = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'input-field col s4' },
-                  _react2.default.createElement('input', { type: 'radio', name: 'alarm_style', id: 'alarm_style_2', value: 'popup' }),
+                  _react2.default.createElement('input', { type: 'radio', name: 'alarm_style', id: 'alarm_style_2', value: 'popup',
+                    defaultChecked: settings.alarm_style === 'popup',
+                    onChange: function onChange(evt) {
+                      onUpdateSetting('alarm_style', evt);
+                    } }),
                   _react2.default.createElement(
                     'label',
                     { htmlFor: 'alarm_style_2' },
@@ -1135,7 +1239,11 @@ var SettingsModal = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'input-field col s4' },
-                  _react2.default.createElement('input', { type: 'radio', name: 'alarm_style', id: 'alarm_style_3', value: 'desktop' }),
+                  _react2.default.createElement('input', { type: 'radio', name: 'alarm_style', id: 'alarm_style_3', value: 'desktop',
+                    defaultChecked: settings.alarm_style === 'desktop',
+                    onChange: function onChange(evt) {
+                      onUpdateSetting('alarm_style', evt);
+                    } }),
                   _react2.default.createElement(
                     'label',
                     { htmlFor: 'alarm_style_3' },
@@ -1163,18 +1271,26 @@ var SettingsModal = function (_Component) {
                 { className: 'input-field col s4' },
                 _react2.default.createElement(
                   'select',
-                  { name: 'alarm-sound', id: 'alarm-sound', ref: function ref(sel) {
-                      _this2.select = sel;
-                    }, defaultValue: 'none' },
+                  { name: 'alarm_sound', id: 'alarm_sound', ref: function ref(sel) {
+                      _this3.select = sel;
+                    },
+                    defaultValue: settings.alarm_sound || 'none' },
                   _react2.default.createElement(
                     'option',
                     { value: 'none', disabled: true },
                     'No Sound'
-                  )
+                  ),
+                  _sounds2.default.map(function (sound) {
+                    return _react2.default.createElement(
+                      'option',
+                      { value: sound.name, key: sound.name },
+                      sound.name
+                    );
+                  })
                 ),
                 _react2.default.createElement(
                   'label',
-                  { htmlFor: 'alarm-sound' },
+                  { htmlFor: 'alarm_sound' },
                   'Sound Effect'
                 )
               ),
@@ -1184,11 +1300,7 @@ var SettingsModal = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'sound-preview' },
-                  _react2.default.createElement(
-                    'i',
-                    { className: 'material-icons play' },
-                    'play_arrow'
-                  )
+                  alarmSound ? _react2.default.createElement(_reactAudioPlayer2.default, { src: '/sound/' + alarmSound.filename, controls: true }) : null
                 )
               )
             )
@@ -1216,7 +1328,8 @@ var SettingsModal = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    modal: state.page.modal
+    modal: state.page.modal,
+    settings: state.settings
   };
 };
 
@@ -1224,6 +1337,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     toggleModal: function toggleModal() {
       return dispatch((0, _pageActions.toggleModal)());
+    },
+    updateSetting: function updateSetting(setting) {
+      return dispatch((0, _settingsActions.updateSetting)(setting));
     }
   };
 };
@@ -1956,9 +2072,9 @@ var WatchList = function (_Component) {
         ),
         watchlist.length ? _react2.default.createElement(
           'div',
-          { className: 'row' },
+          { className: 'row watchlist-list ' + (watchlist.length >= 2 ? 'flex' : '') },
           this.sortNodes().map(function (node, i) {
-            return _react2.default.createElement(_WatchListItem2.default, { key: node.id, className: 'col s3', node: node });
+            return _react2.default.createElement(_WatchListItem2.default, { key: node.id, className: 'col', node: node });
           })
         ) : _react2.default.createElement(
           'div',
@@ -2041,13 +2157,7 @@ var _reactRouterRedux = require('react-router-redux');
 
 var _redux = require('redux');
 
-var _throttle = require('lodash/throttle');
-
-var _throttle2 = _interopRequireDefault(_throttle);
-
-var _assign = require('lodash/assign');
-
-var _assign2 = _interopRequireDefault(_assign);
+var _lodash = require('lodash');
 
 var _isdev = require('isdev');
 
@@ -2069,11 +2179,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var persistedState = (0, _storageUtils.loadState)() || {};
 
-var store = (0, _redux.createStore)(_reducers2.default, (0, _assign2.default)({}, persistedState, {
+var store = (0, _redux.createStore)(_reducers2.default, (0, _lodash.assign)({}, persistedState, {
   clock: (0, _timeUtils.setTime)()
 }), _isdev2.default ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : {});
 
-store.subscribe((0, _throttle2.default)(function () {
+store.subscribe((0, _lodash.throttle)(function () {
   (0, _storageUtils.saveState)({
     watchgroups: store.getState().watchgroups,
     settings: store.getState().settings,
@@ -2545,10 +2655,24 @@ var NodeListItem = function (_Component) {
 
       var slot = node.slot || '?',
           earthTimeRemaining,
+          status = '',
           selected = _lodash2.default.indexOf(watchlist, node.id) !== -1;
 
       if (active) {
         earthTimeRemaining = (0, _timeUtils.getEarthTimeRemaining)(node.time, node.duration, this.props.clock.time);
+
+        var mins = earthTimeRemaining.minutes;
+
+        switch (true) {
+          case mins <= 2 && mins > 1:
+            status = 'warning';
+            break;
+          case mins <= 1:
+            status = 'danger';
+            break;
+          default:
+            status = 'active';
+        }
       }
 
       return _react2.default.createElement(
@@ -2556,7 +2680,7 @@ var NodeListItem = function (_Component) {
         { className: className },
         _react2.default.createElement(
           'div',
-          { className: 'node node-list-item clearfix ' + (selected ? 'selected' : ''), onClick: toggleSelect.bind(this, node.id) },
+          { className: 'node node-list-item clearfix ' + (selected ? 'selected' : '') + ' ' + status, onClick: toggleSelect.bind(this, node.id) },
           _react2.default.createElement(
             'div',
             { className: 'left node-list-title' },
@@ -2699,10 +2823,10 @@ var WatchListItem = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: className },
+        { className: '' + className },
         _react2.default.createElement(
           'div',
-          { className: 'node watch-list-item clearfix ' + (active ? 'active' : '') + ' ' + status },
+          { className: 'node watchlist-item clearfix ' + (active ? 'active' : '') + ' ' + status },
           _react2.default.createElement(
             'div',
             { className: 'node-content' },
@@ -2751,7 +2875,7 @@ var WatchListItem = function (_Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'diff' },
-                time.minutes + 'm ' + time.seconds + 's'
+                '' + (time.hours > 0 ? time.hours + 'h ' : '') + time.minutes + 'm ' + time.seconds + 's'
               )
             ),
             _react2.default.createElement(
@@ -2759,19 +2883,24 @@ var WatchListItem = function (_Component) {
               { className: 'slot' },
               '[ slot ' + slot + ' ]'
             ),
+            node.type === 'fishing' && node.bait ? _react2.default.createElement(
+              'div',
+              { className: 'bait' },
+              node.bait.join(', ')
+            ) : null
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'node-list-footer' },
             _react2.default.createElement(
               'div',
-              { className: 'node-list-details' },
-              _react2.default.createElement(
-                'div',
-                { className: 'small location' },
-                node.location
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'small coords' },
-                node.pos
-              )
+              { className: 'small location' },
+              node.location
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'small coords' },
+              node.pos
             )
           )
         )
@@ -2864,6 +2993,10 @@ var _watchGroupsReducer = require('./watchGroupsReducer');
 
 var _watchGroupsReducer2 = _interopRequireDefault(_watchGroupsReducer);
 
+var _notifyReducer = require('./notifyReducer');
+
+var _notifyReducer2 = _interopRequireDefault(_notifyReducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
@@ -2874,7 +3007,8 @@ var rootReducer = (0, _redux.combineReducers)({
   watchlist: _watchListReducer2.default,
   settings: _settingsReducer2.default,
   page: _pageReducer2.default,
-  watchgroups: _watchGroupsReducer2.default
+  watchgroups: _watchGroupsReducer2.default,
+  notifications: _notifyReducer2.default
 });
 
 exports.default = rootReducer;
@@ -2940,6 +3074,10 @@ function nodes() {
               times = utils.parseTimes(node.times),
               pos = utils.parsePosition(node.pos),
               level = utils.parseLevel(node.level || 50);
+
+          if (node.bait) {
+            result.bait = utils.parseAttrs(node.bait);
+          }
 
           _lodash2.default.each(booleanValues, function (key) {
             result[key] = utils.parseBooleans(node[key]);
@@ -3037,6 +3175,31 @@ exports.default = node;
 
 });
 
+require.register("js/reducers/notifyReducer.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _notifyActions = require('../actions/notifyActions');
+
+var notifications = function notifications() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    active: []
+  };
+  var action = arguments[1];
+
+
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+exports.default = notifications;
+
+});
+
 require.register("js/reducers/pageReducer.js", function(exports, require, module) {
 'use strict';
 
@@ -3098,22 +3261,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 });
 
 ;require.register("js/reducers/settingsReducer.js", function(exports, require, module) {
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
+var _settingsActions = require('../actions/settingsActions');
+
 var settings = function settings() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var action = arguments[1];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
 
 
-    switch (action.type) {
+  switch (action.type) {
+    case _settingsActions.UPDATE_SETTING:
+      return Object.assign({}, state, action.setting);
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 };
 
 exports.default = settings;
@@ -3264,6 +3431,37 @@ exports.default = {
 
 });
 
+require.register("js/static/sounds.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = [{
+  name: 'chime',
+  filename: 'chime.wav'
+}, {
+  name: 'big ben',
+  filename: 'chime_big_ben.wav'
+}, {
+  name: 'chime up',
+  filename: 'chime_up.wav'
+}, {
+  name: 'cuckoo',
+  filename: 'cuckoo.wav'
+}, {
+  name: 'doorbell',
+  filename: 'doorbell.wav'
+}, {
+  name: 'floop',
+  filename: 'floop.wav'
+}, {
+  name: 'gong',
+  filename: 'gong.wav'
+}];
+
+});
+
 require.register("js/utils/parseUtils.js", function(exports, require, module) {
 'use strict';
 
@@ -3271,6 +3469,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.parsePosition = parsePosition;
+exports.parseAttrs = parseAttrs;
 exports.parseTimes = parseTimes;
 exports.parseLevel = parseLevel;
 exports.parseBooleans = parseBooleans;
@@ -3282,6 +3481,14 @@ function parsePosition(pos) {
     return pos.join(', ').replace(/\:/g, ' ');
   } else if (pos) {
     return pos.replace(/\:/g, ' ');
+  }
+}
+
+function parseAttrs(attr) {
+  if ((0, _lodash.isString)(attr)) {
+    return (0, _lodash.filter)(attr.split(','), function (a) {
+      return a.length > 0;
+    });
   }
 }
 

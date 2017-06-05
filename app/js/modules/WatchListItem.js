@@ -50,8 +50,8 @@ class WatchListItem extends Component {
     }
 
     return (
-      <div className={className}>
-        <div className={`node watch-list-item clearfix ${active ? 'active' : ''} ${status}`} >
+      <div className={`${className}`}>
+        <div className={`node watchlist-item clearfix ${active ? 'active' : ''} ${status}`} >
           <div className="node-content">
             <div className="node-list-title">
               <span className={`icon icon-${node.type} icon-sm`}></span>
@@ -71,16 +71,19 @@ class WatchListItem extends Component {
             <div className="time-remaining">
               <div className="small">{active ? 'time remaining' : 'time until'}:</div>
               <div className="diff">
-                { `${time.minutes}m ${time.seconds}s` }
+                { `${time.hours > 0 ? time.hours + 'h ' : ''}${time.minutes}m ${time.seconds}s` }
               </div>
             </div>
             <div className="slot">
               { `[ slot ${slot} ]` }
             </div>
-            <div className="node-list-details">
-              <div className="small location">{ node.location }</div>
-              <div className="small coords">{ node.pos }</div>
-            </div>
+            { node.type === 'fishing' && node.bait ? (
+              <div className="bait">{ node.bait.join(', ') }</div>
+            ) : null }
+          </div>
+          <div className="node-list-footer">
+            <div className="small location">{ node.location }</div>
+            <div className="small coords">{ node.pos }</div>
           </div>
         </div>
       </div>

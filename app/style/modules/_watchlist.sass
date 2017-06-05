@@ -1,7 +1,16 @@
 .watchlist-container
   margin-top: 30px
 
-.watch-list-item
+.watchlist-list
+  &.flex
+    @include flex-masonry
+
+    > div.col
+      @include flex-item
+      float: none
+      max-width: 50%
+
+.watchlist-item
   @extend .card
   padding: 4px
   border-radius: 4px
@@ -28,7 +37,7 @@
     border-color: $active_color
     color: $active_color
 
-    .node-list-details
+    .node-list-footer
       border-top: 1px solid $active_color
 
 
@@ -37,7 +46,7 @@
     color: $warning_color
     background-color: $warning_color_bg
 
-    .node-list-details
+    .node-list-footer
       border-top: 1px solid $warning_color
 
   &.danger
@@ -45,8 +54,11 @@
     color: $danger_color
     background-color: $danger_color_bg
 
-    .node-list-details
+    .node-list-footer
       border-top: 1px solid $danger_color
+
+  .node-content
+    min-height: 180px
 
   .node-list-name
     .name
@@ -68,10 +80,15 @@
   .slot
     margin: 12px auto
 
-  .node-list-details
+  .node-list-footer
     border-top: 1px solid $border
     padding-top: 4px
     margin-top: 4px
+    min-height: 50px
+
+  .bait
+    font-size: 11px
+    padding: 4px
 
   .time-remaining
     margin: 6px auto

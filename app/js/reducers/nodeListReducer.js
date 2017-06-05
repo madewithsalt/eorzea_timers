@@ -49,6 +49,10 @@ function nodes(state = defaultState, action) {
               pos = utils.parsePosition(node.pos),
               level = utils.parseLevel(node.level || 50);
 
+          if(node.bait) {
+            result.bait = utils.parseAttrs(node.bait);  
+          }
+
           _.each(booleanValues, (key) => {
             result[key] = utils.parseBooleans(node[key]);
           });

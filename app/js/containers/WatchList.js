@@ -58,7 +58,7 @@ class WatchList extends Component {
     } = this.props;
 
     return (
-      <div className="watchlist-container">
+      <div className={`watchlist-container`}>
         <div className="row">
           <div className="col s9">
             <SettingsModal className="left" />
@@ -70,10 +70,10 @@ class WatchList extends Component {
           </div>
         </div>
         { watchlist.length ? (
-          <div className="row">
+          <div className={`row watchlist-list ${watchlist.length >= 2 ? 'flex' : ''}`}>
             { this.sortNodes().map((node, i) => {
               return (
-                <WatchListItem key={node.id} className="col s3" node={node} />
+                <WatchListItem key={node.id} className="col" node={node} />
               )
             }) }
           </div>

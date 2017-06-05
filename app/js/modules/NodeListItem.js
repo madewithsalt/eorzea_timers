@@ -24,15 +24,29 @@ class NodeListItem extends Component {
 
     var slot = node.slot || '?',
         earthTimeRemaining,
+        status = '',
         selected = _.indexOf(watchlist, node.id) !== -1;
 
     if(active) {
       earthTimeRemaining = getEarthTimeRemaining(node.time, node.duration, this.props.clock.time);
+
+      let mins = earthTimeRemaining.minutes;
+
+      switch (true) {
+        case mins <= 2 && mins > 1:
+          status = 'warning';
+          break;
+        case mins <= 1:
+          status = 'danger';
+          break;
+        default:
+          status = 'active';
+      }
     }
 
     return (
       <Node className={className}>
-        <div className={`node node-list-item clearfix ${selected ? 'selected' : ''}`} onClick={toggleSelect.bind(this, node.id)}>
+        <div className={`node node-list-item clearfix ${selected ? 'selected' : ''} ${status}`} onClick={toggleSelect.bind(this, node.id)}>
           <div className="left node-list-title">
             <span className={`icon icon-${node.type} icon-sm`}></span>
             <span>

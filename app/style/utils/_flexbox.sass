@@ -1,0 +1,17 @@
+@mixin flex-wrapper
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: flex-start
+  align-items: stretch
+  align-content: stretch
+  max-width: 1200px
+
+@mixin flex-masonry
+  display: flex
+  flex-flow: row wrap
+  justify-content: flex-start
+  width: 100%
+
+@mixin flex-item
+  flex: 1 auto
