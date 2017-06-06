@@ -66,60 +66,6 @@ class FilterMenu extends Component {
       </div>
     );
   }
-
-  moo() {
-    return (
-      <div className="row">
-        <div className="col m5">
-          <div className="filter-menu">
-                <span className="menu-label small">Filter by:</span>
-                <ul className="menu-list" ref={(filters) => { this.filterMenuType = filters; }}>
-                    { filters.type.map((item) => {
-                      return (
-                        <a key={ item } className={`chip menu-item ${item === filterByType ? 'active' : ''}`}
-                            onClick={ _.bind(filter, this, item ) }>
-                          { item !== 'all' ? itemIcon(item) : '' }
-                          { _.capitalize(item) }
-                        </a>
-                      )
-                    })}
-                </ul>
-            </div>
-        </div>
-        <div className="col m3">
-          <div className="filter-menu">
-              <span className="menu-label small">Level Range:</span>
-              <div>
-                { filters.level.map((level) => {
-                  const isActive = filterByLevel &&  level === filterByLevel;
-                  return (
-                    <a key={ level } className={`chip menu-item ${isActive ? 'active' : ''}`}
-                        onClick={ _.bind(levelFilter, this, level ) }>
-                      { level }
-                    </a>
-                  )
-                })}
-              </div>
-            </div>
-        </div>
-        <div className="col m4">
-          <div className="filter-menu right-align">
-                <span className="menu-label small">Node Types:</span>
-                <div className="" ref={(filters) => { this.filterMenuFeature = filters; }}>
-                  { filters.feature.map(function(item) {
-                    return (
-                      <a key={ item } className={`chip menu-item ${_.indexOf(featureFilters, item) >= 0 ? 'active' : ''}`}
-                          onClick={ _.bind(filterFeature, this, item) }>
-                        { featureIcon(item) }
-                      </a>
-                    )
-                  })}
-                </div>
-            </div>
-        </div>
-      </div>
-    )
-  }
 }
 
 FilterMenu.defaultProps = {

@@ -83,7 +83,7 @@ class MainNav extends Component {
 const mapStateToProps = state => {
   return {
     clock: state.clock,
-    watchListCount: state.watchlist.length
+    watchListCount: state.watchlist.nodes.length
   };
 }
 

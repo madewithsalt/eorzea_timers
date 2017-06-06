@@ -57,6 +57,8 @@ class WatchList extends Component {
       modal
     } = this.props;
 
+    const flex = watchlist.length >= 2;
+
     return (
       <div className={`watchlist-container`}>
         <div className="row">
@@ -70,10 +72,10 @@ class WatchList extends Component {
           </div>
         </div>
         { watchlist.length ? (
-          <div className={`row watchlist-list ${watchlist.length >= 2 ? 'flex' : ''}`}>
+          <div className={`row watchlist-list flex`}>
             { this.sortNodes().map((node, i) => {
               return (
-                <WatchListItem key={node.id} className="col" node={node} />
+                <WatchListItem key={node.id} className={`col`} node={node} />
               )
             }) }
           </div>
@@ -93,7 +95,7 @@ class WatchList extends Component {
 const mapStateToProps = state => {
   return {
     nodelist: state.nodelist,
-    watchlist: state.watchlist,
+    watchlist: state.watchlist.nodes,
     clock: state.clock
   };
 }

@@ -1,30 +1,37 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import { throttle, assign } from 'lodash';
 import IS_DEV from 'isdev';
 
 import App from './App';
 import reducers from './reducers';
-import { loadState, saveState } from './utils/storageUtils';
+import { loadState, saveState, clearState } from './utils/storageUtils';
 import { setTime } from './utils/timeUtils';
 
 const persistedState = loadState() || {};
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk)
+);
 
 const store = createStore(
   reducers,
   assign({}, persistedState, {
     clock: setTime()
   }),
-  IS_DEV ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : {}
+  enhancer
 );
 
 store.subscribe(throttle(() => {
   saveState({
+    version: store.getState().version,
     watchgroups: store.getState().watchgroups,
     settings: store.getState().settings,
-    watchlist: store.getState().watchlist
+    watchlist: store.getState().watchlist,
+    customlist: store.getState().customlist
   });
 }, 1000));
 

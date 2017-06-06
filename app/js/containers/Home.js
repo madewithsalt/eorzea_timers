@@ -1,17 +1,21 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+
 import NodeList from '../modules/NodeList';
 import { search } from '../actions/searchActions';
 import SearchBar from '../components/SearchBar';
 import FilterMenu from '../components/FilterMenu';
-
-import _ from 'lodash';
+import NewTimerModal from '../components/NewTimerModal';
 
 import {
   filterTypeNodeList,
   filterLevelNodeList,
   toggleFeatureFilter
 } from '../actions/nodeListActions';
-import { connect } from 'react-redux';
+import {
+  toggleModal
+} from '../actions/pageActions';
 
 
 class Home extends Component {
@@ -71,6 +75,10 @@ class Home extends Component {
 
   }
 
+  handleAddTimer() {
+
+  }
+
   render() {
     const {
       search,
@@ -86,19 +94,23 @@ class Home extends Component {
       feature: featureFilters
     }
 
-    const { itemIcon, featureIcon, onSearchChange, handleFilterChange } = this;
-
+    const { itemIcon, featureIcon, onSearchChange, handleFilterChange, handleAddTimer } = this;
 
     return (
-      <div className="">
+      <div className="home-container">
           <div className="row">
-            <div className="col m12">
+            <div className="col m8">
               <SearchBar onChange={ search } helpText={"Search by Name or Location"}/>
             </div>
+            <div className="col m4">
+              <NewTimerModal />
+            </div>
+        </div>
+        <div className="row">
             <FilterMenu className="node-list-filters" values={filterValues}
               onChange={handleFilterChange.bind(this)} filters={availableFilters} />
-          </div>
-          <NodeList />
+        </div>
+        <NodeList />
       </div>
     );
   }

@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-const About = () => {
-  const googleSheetsLink = "https://docs.google.com/spreadsheets/d/1pqaKo0TM2rJghWWXqOQIqCueJvFV2dPuZUQnNrsRmt8/edit?usp=sharing";
+const VERSION = '2.0';
+const googleSheetsLink = "https://docs.google.com/spreadsheets/d/1pqaKo0TM2rJghWWXqOQIqCueJvFV2dPuZUQnNrsRmt8/edit?usp=sharing";
 
-  return (
+const About = () => (
     <div className="about-page">
       <div className="col-md-12">
         <h2>Eorzea Timers - An Open Source Project.</h2>
@@ -13,7 +13,7 @@ const About = () => {
         </h3>
 
         <p>Please report bugs and data errors at the Github repository
-          <a target="_blank" href="https://github.com/tnbKristi/eorzea_timers">here</a>, or contribute to the code via pull request.
+          <a target="_blank" href="https://github.com/tnbKristi/eorzea_timers"> here</a>, or contribute to the code via pull request.
           <br/>
           Keep in mind I am a real human with a job, and disrespectful comments &amp; angry demands will be ignored.</p>
 
@@ -31,7 +31,7 @@ const About = () => {
           <li>Add your own custom timers! Saved via LocalStorage until you remove them.</li>
           <li>Slots, and x/y coordinates included with all known unspoiled node locations.</li>
           <li>Incredibly easy to update and contribute!
-            <a target="_blank" href="https://github.com/tnbKristi/eorzea_timers">Learn more here.</a>
+            <a target="_blank" href="https://github.com/tnbKristi/eorzea_timers"> Learn more here.</a>
           </li>
         </ul>
 
@@ -40,7 +40,6 @@ const About = () => {
           <li>Completely re-written for speed and stability.</li>
           <li>
             Create and Manage <b>Watch Lists</b> - collections of your most commonly watched sets of nodes.</li>
-          <li>More fine-grained control over notifications, down to the node level.</li>
           <li>More data provided for each node.</li>
           <li>Ready to update for 4.0's level 70 nodes!</li>
         </ul>
@@ -51,7 +50,7 @@ const About = () => {
         <p>Eorzean time is calculated from Epoch time -- one hour is 2 minutes, 55 seconds Earth time. Because of this, sometimes the math that rounds the time up or down can be off by about 30 seconds.</p>
         <p>
           If your time is off by much more than 3 minutes, your computer/phone's time may be off.
-          Check out <a href="http://time.is/" target="_blank">http://time.is/</a>
+          Check out <a href="http://time.is/" target="_blank"> http://time.is/ </a>
           to see if it's a time sync issue.</p>
 
         <h4>There's a bunch of other timers out there. Why make another one?</h4>
@@ -62,18 +61,16 @@ const About = () => {
           <li>I frankly didn't like the look/feel or features of what exists currently!</li>
         </ul>
         <p>
-          I think it's great that there are lots of options, and I encourage you to 
+          I think it's great that there are lots of options, and I encourage you to
           <i>not</i> use mine if it doesn't work for you. :)
         </p>
 
         <h4>Can you add [insert feature here]?</h4>
 
         <p>Probably! Please make an suggestion as an issue on the github repo
-          <a target="_blank" href="https://github.com/tnbKristi/eorzea_timers">here</a>!</p>
+          <a target="_blank" href="https://github.com/tnbKristi/eorzea_timers"> here</a>!</p>
       </div>
     </div>
-
-  );
-}
+)
 
 export default About;

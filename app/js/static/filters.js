@@ -5,7 +5,8 @@ export default {
         'all',
         'botany',
         'mining',
-        'fishing'
+        'fishing',
+        'custom'
     ]
   },
   level: {

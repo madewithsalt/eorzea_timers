@@ -71,7 +71,7 @@ class NodeListItem extends Component {
 const mapStateToProps = state => {
   return {
     clock: state.clock,
-    watchlist: state.watchlist
+    watchlist: state.watchlist.nodes
   };
 };
 

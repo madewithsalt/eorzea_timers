@@ -10,9 +10,11 @@ import {
   getEarthTimeUntil,
   getTimeUntil
 } from '../utils/timeUtils';
+
 import {
   toggleSelect
 } from '../actions/watchListActions';
+
 import Stars from '../components/NodeStars';
 import { parsePosition } from '../utils/parseUtils';
 

@@ -53,6 +53,7 @@
     "redux-thunk": "^2.2.0",
     "sass-brunch": "^2.10.4",
     "uglify-js-brunch": "~2.0.1",
+    "uuid": "^3.0.1",
     "yargs": "^8.0.1"
   }
 }

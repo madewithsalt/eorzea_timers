@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Provider, connect } from 'react-redux';
 import Router from './routes';
 
+import Notifications from './modules/Notifications';
+
 import { recieveNodeList, requestNodeList } from './actions/nodeListActions';
 import { changeTime } from './actions/clockActions';
 
@@ -37,7 +39,10 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-          <Router />
+          <div>
+            <Router />
+            <Notifications />
+          </div>
       </Provider>
     )
   }

@@ -167,6 +167,10 @@ var _routes = require('./routes');
 
 var _routes2 = _interopRequireDefault(_routes);
 
+var _Notifications = require('./modules/Notifications');
+
+var _Notifications2 = _interopRequireDefault(_Notifications);
+
 var _nodeListActions = require('./actions/nodeListActions');
 
 var _clockActions = require('./actions/clockActions');
@@ -228,7 +232,12 @@ var App = function (_Component) {
       return _react2.default.createElement(
         _reactRedux.Provider,
         { store: store },
-        _react2.default.createElement(_routes2.default, null)
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_routes2.default, null),
+          _react2.default.createElement(_Notifications2.default, null)
+        )
       );
     }
   }]);
@@ -267,12 +276,105 @@ require.register("js/actions/clockActions.js", function(exports, require, module
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.UPDATE_LAST_ALARM = exports.CLOSE_NOTIFICATION = exports.DISPATCH_NOTIFICATION = exports.INCREMENT_CLOCK = undefined;
+exports.updateClock = updateClock;
+exports.dispatchNotification = dispatchNotification;
+exports.closeNotification = closeNotification;
+exports.updateLastAlarm = updateLastAlarm;
 exports.changeTime = changeTime;
-var INCREMENT_CLOCK = exports.INCREMENT_CLOCK = 'INCREMENT_CLOCK';
 
-function changeTime() {
+var _lodash = require('lodash');
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var INCREMENT_CLOCK = exports.INCREMENT_CLOCK = 'INCREMENT_CLOCK';
+var DISPATCH_NOTIFICATION = exports.DISPATCH_NOTIFICATION = 'DISPATCH_NOTIFICATION';
+var CLOSE_NOTIFICATION = exports.CLOSE_NOTIFICATION = 'CLOSE_NOTIFICATION';
+var UPDATE_LAST_ALARM = exports.UPDATE_LAST_ALARM = 'UPDATE_LAST_ALARM';
+
+function updateClock() {
   return {
     type: INCREMENT_CLOCK
+  };
+}
+
+function dispatchNotification(list) {
+  return {
+    type: DISPATCH_NOTIFICATION,
+    list: list
+  };
+}
+
+function closeNotification() {
+  return {
+    type: CLOSE_NOTIFICATION
+  };
+}
+
+function updateLastAlarm(hour) {
+  return {
+    type: UPDATE_LAST_ALARM,
+    hour: hour
+  };
+}
+
+function changeTime() {
+  return function (dispatch, getState) {
+    var _getState = getState(),
+        watchlist = _getState.watchlist,
+        nodelist = _getState.nodelist,
+        customlist = _getState.customlist,
+        settings = _getState.settings,
+        clock = _getState.clock;
+
+    var lastAlarm = clock.lastAlarm,
+        advanceHourNotice = settings.alarm_hour || 0;
+
+    if (watchlist.times.length) {
+      var nodes = watchlist.nodes.map(function (id) {
+        return (0, _lodash.find)([].concat(_toConsumableArray(nodelist.nodes), _toConsumableArray(customlist)), { id: id });
+      });
+
+      (0, _lodash.each)(watchlist.times, function (time) {
+        var alertTime = time.hour - advanceHourNotice;
+
+        if (clock.hour === alertTime && clock.lastAlarm !== clock.hour) {
+          var activeNodes = (0, _lodash.filter)(nodes, { time: time.time });
+
+          dispatch(dispatchNotification(activeNodes));
+          dispatch(updateLastAlarm(clock.hour));
+        }
+      });
+    }
+
+    dispatch(updateClock());
+  };
+}
+
+});
+
+;require.register("js/actions/customListActions.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addCustomNode = addCustomNode;
+exports.removeCustomNode = removeCustomNode;
+var ADD_CUSTOM_NODE = exports.ADD_CUSTOM_NODE = 'ADD_CUSTOM_NODE';
+var REMOVE_CUSTOM_NODE = exports.REMOVE_CUSTOM_NODE = 'REMOVE_CUSTOM_NODE';
+
+function addCustomNode(node) {
+  return {
+    type: ADD_CUSTOM_NODE,
+    node: node
+  };
+}
+
+function removeCustomNode(id) {
+  return {
+    type: REMOVE_CUSTOM_NODE,
+    id: id
   };
 }
 
@@ -351,25 +453,6 @@ function toggleFeatureFilter(feature) {
 
 });
 
-;require.register("js/actions/notifyActions.js", function(exports, require, module) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.nodeActive = nodeActive;
-var NODE_ACTIVE = exports.NODE_ACTIVE = 'NODE_ACTIVE';
-var NODE_INACTIVE = exports.NODE_INACTIVE = 'NODE_INACTIVE';
-
-function nodeActive(node) {
-  return {
-    type: NODE_ACTIVE,
-    node: node
-  };
-}
-
-});
-
 ;require.register("js/actions/pageActions.js", function(exports, require, module) {
 'use strict';
 
@@ -434,15 +517,71 @@ require.register("js/actions/watchListActions.js", function(exports, require, mo
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.CLEAR_ALL = exports.UPDATE_TIMES = exports.REMOVE_WATCHLIST = exports.ADD_WATCHLIST = undefined;
 exports.toggleSelect = toggleSelect;
 exports.clearAll = clearAll;
-var TOGGLE_SELECT = exports.TOGGLE_SELECT = 'TOGGLE_SELECT';
+
+var _lodash = require('lodash');
+
+var _timeUtils = require('../utils/timeUtils');
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var ADD_WATCHLIST = exports.ADD_WATCHLIST = 'ADD_WATCHLIST';
+var REMOVE_WATCHLIST = exports.REMOVE_WATCHLIST = 'REMOVE_WATCHLIST';
+var UPDATE_TIMES = exports.UPDATE_TIMES = 'UPDATE_TIMES';
 var CLEAR_ALL = exports.CLEAR_ALL = 'CLEAR_ALL';
 
-function toggleSelect(id) {
+function addToList(id) {
   return {
-    type: TOGGLE_SELECT,
+    type: ADD_WATCHLIST,
     id: id
+  };
+}
+
+function removeFromList(id) {
+  return {
+    type: REMOVE_WATCHLIST,
+    id: id
+  };
+}
+
+function updateNotifications() {
+
+  return function (dispatch, getState) {
+    var _getState = getState(),
+        watchlist = _getState.watchlist,
+        nodelist = _getState.nodelist,
+        customlist = _getState.customlist;
+
+    var times = watchlist.nodes.map(function (id) {
+      var node = (0, _lodash.find)([].concat(_toConsumableArray(nodelist.nodes), _toConsumableArray(customlist)), { id: id });
+      var timeObj = (0, _timeUtils.getTimeObjFromString)(node.time);
+
+      return Object.assign({}, timeObj, { time: node.time });
+    });
+
+    dispatch({
+      type: UPDATE_TIMES,
+      times: times
+    });
+  };
+}
+
+function toggleSelect(id) {
+
+  return function (dispatch, getState) {
+    var _getState2 = getState(),
+        watchlist = _getState2.watchlist,
+        existsAt = (0, _lodash.indexOf)(watchlist.nodes, id);
+
+    if (existsAt >= 0) {
+      dispatch(removeFromList(id));
+    } else {
+      dispatch(addToList(id));
+    }
+
+    dispatch(updateNotifications());
   };
 }
 
@@ -593,97 +732,6 @@ var FilterMenu = function (_Component) {
             )
           );
         })
-      );
-    }
-  }, {
-    key: 'moo',
-    value: function moo() {
-      var _this2 = this;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'row' },
-        _react2.default.createElement(
-          'div',
-          { className: 'col m5' },
-          _react2.default.createElement(
-            'div',
-            { className: 'filter-menu' },
-            _react2.default.createElement(
-              'span',
-              { className: 'menu-label small' },
-              'Filter by:'
-            ),
-            _react2.default.createElement(
-              'ul',
-              { className: 'menu-list', ref: function ref(filters) {
-                  _this2.filterMenuType = filters;
-                } },
-              filters.type.map(function (item) {
-                return _react2.default.createElement(
-                  'a',
-                  { key: item, className: 'chip menu-item ' + (item === filterByType ? 'active' : ''),
-                    onClick: _.bind(filter, _this2, item) },
-                  item !== 'all' ? itemIcon(item) : '',
-                  _.capitalize(item)
-                );
-              })
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col m3' },
-          _react2.default.createElement(
-            'div',
-            { className: 'filter-menu' },
-            _react2.default.createElement(
-              'span',
-              { className: 'menu-label small' },
-              'Level Range:'
-            ),
-            _react2.default.createElement(
-              'div',
-              null,
-              filters.level.map(function (level) {
-                var isActive = filterByLevel && level === filterByLevel;
-                return _react2.default.createElement(
-                  'a',
-                  { key: level, className: 'chip menu-item ' + (isActive ? 'active' : ''),
-                    onClick: _.bind(levelFilter, _this2, level) },
-                  level
-                );
-              })
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col m4' },
-          _react2.default.createElement(
-            'div',
-            { className: 'filter-menu right-align' },
-            _react2.default.createElement(
-              'span',
-              { className: 'menu-label small' },
-              'Node Types:'
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: '', ref: function ref(filters) {
-                  _this2.filterMenuFeature = filters;
-                } },
-              filters.feature.map(function (item) {
-                return _react2.default.createElement(
-                  'a',
-                  { key: item, className: 'chip menu-item ' + (_.indexOf(featureFilters, item) >= 0 ? 'active' : ''),
-                    onClick: _.bind(filterFeature, this, item) },
-                  featureIcon(item)
-                );
-              })
-            )
-          )
-        )
       );
     }
   }]);
@@ -861,11 +909,393 @@ var MainNav = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     clock: state.clock,
-    watchListCount: state.watchlist.length
+    watchListCount: state.watchlist.nodes.length
   };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(MainNav);
+
+});
+
+require.register("js/components/NewTimerModal.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _pageActions = require('../actions/pageActions');
+
+var _customListActions = require('../actions/customListActions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NewTimerModal = function (_Component) {
+  _inherits(NewTimerModal, _Component);
+
+  function NewTimerModal() {
+    _classCallCheck(this, NewTimerModal);
+
+    return _possibleConstructorReturn(this, (NewTimerModal.__proto__ || Object.getPrototypeOf(NewTimerModal)).apply(this, arguments));
+  }
+
+  _createClass(NewTimerModal, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      $(this.modal).modal({
+        dismissable: false,
+        complete: this.onModalClose.bind(this)
+      });
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.modal === true) {
+        $(this.modal).modal('open');
+      }
+    }
+  }, {
+    key: 'handleToggleModal',
+    value: function handleToggleModal() {
+      $(this.modal).modal('close');
+    }
+  }, {
+    key: 'onModalClose',
+    value: function onModalClose() {
+      this.props.toggleModal();
+    }
+  }, {
+    key: 'handleChange',
+    value: function handleChange(name, evt) {
+      var setting = {};
+      var val = evt.target.value;
+
+      setting[name] = val;
+
+      this.setState(setting);
+    }
+  }, {
+    key: 'handleTimerSave',
+    value: function handleTimerSave(evt) {
+      var _state = this.state,
+          name = _state.name,
+          location = _state.location,
+          slot = _state.slot,
+          level = _state.level,
+          x = _state.x,
+          y = _state.y,
+          time_hour = _state.time_hour,
+          time_minute = _state.time_minute,
+          meridien = _state.meridien,
+          dur_hours = _state.dur_hours,
+          dur_minutes = _state.dur_minutes,
+          notes = _state.notes;
+
+
+      var result = {
+        name: name,
+        location: location,
+        level: level || 70,
+        slot: slot,
+        pos: 'x' + x + ' y' + y,
+        time: (time_hour || 12) + ':' + (time_minute || '00') + ' ' + (meridien || 'AM'),
+        duration: (dur_hours || 0) + ':' + (dur_minutes || 55),
+        notes: notes
+      };
+
+      this.props.addCustomNode(result);
+      this.toggleModal();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var toggleModal = this.props.toggleModal;
+      var handleChange = this.handleChange;
+
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'new-timer-container right-align' },
+        _react2.default.createElement(
+          'a',
+          { className: 'btn btn-default add-timer-btn', onClick: toggleModal },
+          _react2.default.createElement(
+            'i',
+            { className: 'material-icons' },
+            'add'
+          ),
+          ' New Timer'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'modal modal-fixed-footer new-timer-modal left-align', ref: function ref(modal) {
+              _this2.modal = modal;
+            } },
+          _react2.default.createElement(
+            'div',
+            { className: 'modal-content' },
+            _react2.default.createElement(
+              'form',
+              { ref: function ref(form) {
+                  _this2.form = form;
+                } },
+              _react2.default.createElement(
+                'h3',
+                null,
+                'New Timer'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s12' },
+                  _react2.default.createElement('input', { type: 'text', name: 'name', defaultValue: 'My Custom Timer',
+                    onChange: handleChange.bind(this, 'name') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'name' },
+                    'Name'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s12' },
+                  _react2.default.createElement('input', { type: 'text', name: 'location', onChange: handleChange.bind(this, 'location') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'location' },
+                    'Location'
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col s12' },
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    'Level, Slot, Position'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s2' },
+                  _react2.default.createElement('input', { type: 'number', name: 'level', onChange: handleChange.bind(this, 'level') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'level' },
+                    'Level'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s4' },
+                  _react2.default.createElement('input', { type: 'text', name: 'slot', onChange: handleChange.bind(this, 'slot') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'slot' },
+                    'Slot'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col s6 position-fields' },
+                  _react2.default.createElement(
+                    'span',
+                    { className: '' },
+                    'Position: '
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'input-field inline' },
+                    _react2.default.createElement('input', { type: 'number', name: 'x', onChange: handleChange.bind(this, 'x') }),
+                    _react2.default.createElement(
+                      'label',
+                      { htmlFor: 'x' },
+                      'x'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'input-field inline' },
+                    _react2.default.createElement('input', { type: 'number', name: 'y', onChange: handleChange.bind(this, 'y') }),
+                    _react2.default.createElement(
+                      'label',
+                      { htmlFor: 'y' },
+                      'y'
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col s12' },
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    'Time'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s3' },
+                  _react2.default.createElement('input', { type: 'number', name: 'time_hour', defaultValue: '12',
+                    onChange: handleChange.bind(this, 'time_hour') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'time_hour' },
+                    'hour'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s3' },
+                  _react2.default.createElement('input', { type: 'number', name: 'time_minute', defaultValue: '00',
+                    onChange: handleChange.bind(this, 'time_minute') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'time_minute' },
+                    'minute'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s3' },
+                  _react2.default.createElement(
+                    'select',
+                    { name: 'meridien', id: '', className: 'browser-default',
+                      onChange: handleChange.bind(this, 'meridien') },
+                    _react2.default.createElement(
+                      'option',
+                      { value: 'am' },
+                      'AM'
+                    ),
+                    _react2.default.createElement(
+                      'option',
+                      { value: 'pm' },
+                      'PM'
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col s12' },
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    'Duration'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s3' },
+                  _react2.default.createElement('input', { type: 'number', name: 'dur_hours', defaultValue: '0',
+                    onChange: handleChange.bind(this, 'dur_hours') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'dur_hours' },
+                    'Hours'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s3' },
+                  _react2.default.createElement('input', { type: 'number', name: 'dur_minutes', defaultValue: '55',
+                    onChange: handleChange.bind(this, 'dur_minutes') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'dur_minutes' },
+                    'Minutes'
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col s12 input-field' },
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    'Notes'
+                  ),
+                  _react2.default.createElement('textarea', { className: 'materialize-textarea', name: 'notes', id: '', cols: '30', rows: '10', onChange: handleChange.bind(this, 'notes') })
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'modal-footer' },
+            _react2.default.createElement(
+              'div',
+              { className: 'right-align' },
+              _react2.default.createElement(
+                'a',
+                { onClick: this.handleTimerSave.bind(this), className: 'btn btn-default' },
+                'Save'
+              ),
+              _react2.default.createElement(
+                'a',
+                { onClick: this.handleToggleModal.bind(this), className: 'btn btn-flat' },
+                'Cancel'
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return NewTimerModal;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    modal: state.page.modal
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    toggleModal: function toggleModal() {
+      return dispatch((0, _pageActions.toggleModal)());
+    },
+    addCustomNode: function addCustomNode(node) {
+      return dispatch((0, _customListActions.addCustomNode)(node));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NewTimerModal);
 
 });
 
@@ -1482,9 +1912,10 @@ var _reactRedux = require('react-redux');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var About = function About() {
-  var googleSheetsLink = "https://docs.google.com/spreadsheets/d/1pqaKo0TM2rJghWWXqOQIqCueJvFV2dPuZUQnNrsRmt8/edit?usp=sharing";
+var VERSION = '2.0';
+var googleSheetsLink = "https://docs.google.com/spreadsheets/d/1pqaKo0TM2rJghWWXqOQIqCueJvFV2dPuZUQnNrsRmt8/edit?usp=sharing";
 
+var About = function About() {
   return _react2.default.createElement(
     'div',
     { className: 'about-page' },
@@ -1520,7 +1951,7 @@ var About = function About() {
         _react2.default.createElement(
           'a',
           { target: '_blank', href: 'https://github.com/tnbKristi/eorzea_timers' },
-          'here'
+          ' here'
         ),
         ', or contribute to the code via pull request.',
         _react2.default.createElement('br', null),
@@ -1580,7 +2011,7 @@ var About = function About() {
           _react2.default.createElement(
             'a',
             { target: '_blank', href: 'https://github.com/tnbKristi/eorzea_timers' },
-            'Learn more here.'
+            ' Learn more here.'
           )
         )
       ),
@@ -1607,11 +2038,6 @@ var About = function About() {
             'Watch Lists'
           ),
           ' - collections of your most commonly watched sets of nodes.'
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          'More fine-grained control over notifications, down to the node level.'
         ),
         _react2.default.createElement(
           'li',
@@ -1646,7 +2072,7 @@ var About = function About() {
         _react2.default.createElement(
           'a',
           { href: 'http://time.is/', target: '_blank' },
-          'http://time.is/'
+          ' http://time.is/ '
         ),
         'to see if it\'s a time sync issue.'
       ),
@@ -1702,7 +2128,7 @@ var About = function About() {
         _react2.default.createElement(
           'a',
           { target: '_blank', href: 'https://github.com/tnbKristi/eorzea_timers' },
-          'here'
+          ' here'
         ),
         '!'
       )
@@ -1773,6 +2199,12 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = require('react-redux');
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _NodeList = require('../modules/NodeList');
 
 var _NodeList2 = _interopRequireDefault(_NodeList);
@@ -1787,13 +2219,13 @@ var _FilterMenu = require('../components/FilterMenu');
 
 var _FilterMenu2 = _interopRequireDefault(_FilterMenu);
 
-var _lodash = require('lodash');
+var _NewTimerModal = require('../components/NewTimerModal');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _NewTimerModal2 = _interopRequireDefault(_NewTimerModal);
 
 var _nodeListActions = require('../actions/nodeListActions');
 
-var _reactRedux = require('react-redux');
+var _pageActions = require('../actions/pageActions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1874,6 +2306,9 @@ var Home = function (_Component) {
       }
     }
   }, {
+    key: 'handleAddTimer',
+    value: function handleAddTimer() {}
+  }, {
     key: 'render',
     value: function render() {
       var _props2 = this.props,
@@ -1893,20 +2328,30 @@ var Home = function (_Component) {
       var itemIcon = this.itemIcon,
           featureIcon = this.featureIcon,
           onSearchChange = this.onSearchChange,
-          handleFilterChange = this.handleFilterChange;
+          handleFilterChange = this.handleFilterChange,
+          handleAddTimer = this.handleAddTimer;
 
 
       return _react2.default.createElement(
         'div',
-        { className: '' },
+        { className: 'home-container' },
         _react2.default.createElement(
           'div',
           { className: 'row' },
           _react2.default.createElement(
             'div',
-            { className: 'col m12' },
+            { className: 'col m8' },
             _react2.default.createElement(_SearchBar2.default, { onChange: search, helpText: "Search by Name or Location" })
           ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col m4' },
+            _react2.default.createElement(_NewTimerModal2.default, null)
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'row' },
           _react2.default.createElement(_FilterMenu2.default, { className: 'node-list-filters', values: filterValues,
             onChange: handleFilterChange.bind(this), filters: availableFilters })
         ),
@@ -2043,6 +2488,8 @@ var WatchList = function (_Component) {
           modal = _props2.modal;
 
 
+      var flex = watchlist.length >= 2;
+
       return _react2.default.createElement(
         'div',
         { className: 'watchlist-container' },
@@ -2072,7 +2519,7 @@ var WatchList = function (_Component) {
         ),
         watchlist.length ? _react2.default.createElement(
           'div',
-          { className: 'row watchlist-list ' + (watchlist.length >= 2 ? 'flex' : '') },
+          { className: 'row watchlist-list flex' },
           this.sortNodes().map(function (node, i) {
             return _react2.default.createElement(_WatchListItem2.default, { key: node.id, className: 'col', node: node });
           })
@@ -2110,7 +2557,7 @@ var WatchList = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     nodelist: state.nodelist,
-    watchlist: state.watchlist,
+    watchlist: state.watchlist.nodes,
     clock: state.clock
   };
 };
@@ -2153,9 +2600,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = require('react-dom');
 
-var _reactRouterRedux = require('react-router-redux');
-
 var _redux = require('redux');
+
+var _reduxThunk = require('redux-thunk');
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
 var _lodash = require('lodash');
 
@@ -2179,15 +2628,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var persistedState = (0, _storageUtils.loadState)() || {};
 
+var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.compose;
+var enhancer = composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default));
+
 var store = (0, _redux.createStore)(_reducers2.default, (0, _lodash.assign)({}, persistedState, {
   clock: (0, _timeUtils.setTime)()
-}), _isdev2.default ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : {});
+}), enhancer);
 
 store.subscribe((0, _lodash.throttle)(function () {
   (0, _storageUtils.saveState)({
+    version: store.getState().version,
     watchgroups: store.getState().watchgroups,
     settings: store.getState().settings,
-    watchlist: store.getState().watchlist
+    watchlist: store.getState().watchlist,
+    customlist: store.getState().customlist
   });
 }, 1000));
 
@@ -2723,7 +3177,7 @@ var NodeListItem = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     clock: state.clock,
-    watchlist: state.watchlist
+    watchlist: state.watchlist.nodes
   };
 };
 
@@ -2736,6 +3190,131 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NodeListItem);
+
+});
+
+require.register("js/modules/Notifications.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _lodash = require('lodash');
+
+var _clockActions = require('../actions/clockActions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Notifications = function (_Component) {
+  _inherits(Notifications, _Component);
+
+  function Notifications(props) {
+    _classCallCheck(this, Notifications);
+
+    var _this = _possibleConstructorReturn(this, (Notifications.__proto__ || Object.getPrototypeOf(Notifications)).call(this, props));
+
+    _this.state = {
+      active: false
+    };
+    return _this;
+  }
+
+  _createClass(Notifications, [{
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps) {
+      var alarmList = this.props.alarmList;
+
+
+      if (!(0, _lodash.isEqual)(alarmList, nextProps.alarmList) && nextProps.alarmList.length) {
+        this.handleNotifications(nextProps);
+      }
+    }
+  }, {
+    key: 'handleNotifications',
+    value: function handleNotifications(props) {
+      var _this2 = this;
+
+      if (this.state.active) {
+        return;
+      }
+
+      var list = props.alarmList,
+          style = props.alarmStyle;
+
+      if (style === 'popup') {
+        this.setState({ popup: true, active: true });
+
+        return setTimeout(function () {
+          _this2.setState({ popup: false, active: false });
+          props.closeNotification();
+        }, 5000);
+      }
+
+      if (style === 'desktop') {
+        var single = list.length === 1,
+            firstNode = list[0],
+            title = single ? firstNode.name : list.length + ' Nodes Active';
+
+        var options = {};
+        if (firstNode.type === 'botany') {
+          options.icon = '/img/btn_icon_lg.png';
+        } else {
+          options.icon = '/img/min_icon_lg.png';
+        }
+
+        this.setState({ active: true });
+        var notification = new Notification(title, options);
+
+        return setTimeout(function () {
+          _this2.setState({ active: false });
+          props.closeNotification();
+        }, 5000);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var popup = this.state.popup;
+
+
+      return _react2.default.createElement('div', null);
+    }
+  }]);
+
+  return Notifications;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    alarmList: state.clock.alarm,
+    alarmStyle: state.settings.alarm_style
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    closeNotification: function closeNotification() {
+      return dispatch((0, _clockActions.closeNotification)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Notifications);
 
 });
 
@@ -2938,19 +3517,81 @@ Object.defineProperty(exports, "__esModule", {
 
 var _timeUtils = require('../utils/timeUtils');
 
+var _clockActions = require('../actions/clockActions');
+
 var clock = function clock() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
   switch (action.type) {
-    case 'INCREMENT_CLOCK':
-      return (0, _timeUtils.setTime)();
+    case _clockActions.INCREMENT_CLOCK:
+      return Object.assign({}, state, (0, _timeUtils.setTime)());
+
+    case _clockActions.UPDATE_LAST_ALARM:
+      return Object.assign({}, state, { lastAlarm: action.hour });
+
+    case _clockActions.DISPATCH_NOTIFICATION:
+      return Object.assign({}, state, { alarm: action.list });
+
+    case _clockActions.CLOSE_NOTIFICATION:
+      return Object.assign({}, state, { alarm: [] });
+
     default:
       return state;
   }
 };
 
 exports.default = clock;
+
+});
+
+require.register("js/reducers/customListReducer.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _v = require('uuid/v1');
+
+var _v2 = _interopRequireDefault(_v);
+
+var _customListActions = require('../actions/customListActions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var customlist = function customlist() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _customListActions.ADD_CUSTOM_NODE:
+      var node = Object.assign({}, action.node, {
+        id: (0, _v2.default)()
+      });
+
+      return [].concat(_toConsumableArray(state), [node]);
+
+    case _customListActions.REMOVE_CUSTOM_NODE:
+      var list = _.clone(state),
+          id = action.id,
+          existsAt = _.indexOf(list, id);
+
+      // if exists, remove from list
+      if (existsAt !== -1) {
+        list.splice(existsAt, 1);
+      }
+
+      return list;
+
+    default:
+      return state;
+  }
+};
+
+exports.default = customlist;
 
 });
 
@@ -2993,11 +3634,15 @@ var _watchGroupsReducer = require('./watchGroupsReducer');
 
 var _watchGroupsReducer2 = _interopRequireDefault(_watchGroupsReducer);
 
-var _notifyReducer = require('./notifyReducer');
+var _customListReducer = require('./customListReducer');
 
-var _notifyReducer2 = _interopRequireDefault(_notifyReducer);
+var _customListReducer2 = _interopRequireDefault(_customListReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var version = function version(state) {
+  return state || 2.0;
+};
 
 var rootReducer = (0, _redux.combineReducers)({
   clock: _clockReducer2.default,
@@ -3008,7 +3653,8 @@ var rootReducer = (0, _redux.combineReducers)({
   settings: _settingsReducer2.default,
   page: _pageReducer2.default,
   watchgroups: _watchGroupsReducer2.default,
-  notifications: _notifyReducer2.default
+  customlist: _customListReducer2.default,
+  version: version
 });
 
 exports.default = rootReducer;
@@ -3175,31 +3821,6 @@ exports.default = node;
 
 });
 
-require.register("js/reducers/notifyReducer.js", function(exports, require, module) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _notifyActions = require('../actions/notifyActions');
-
-var notifications = function notifications() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    active: []
-  };
-  var action = arguments[1];
-
-
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
-exports.default = notifications;
-
-});
-
 require.register("js/reducers/pageReducer.js", function(exports, require, module) {
 'use strict';
 
@@ -3326,28 +3947,31 @@ var _watchListActions = require('../actions/watchListActions');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function watchlist() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { nodes: [], times: [] };
   var action = arguments[1];
 
+  var list = _lodash2.default.clone(state.nodes),
+      id = action.id,
+      existsAt = _lodash2.default.indexOf(list, id);
+
   switch (action.type) {
-    case _watchListActions.TOGGLE_SELECT:
-      var list = _lodash2.default.clone(state),
-          id = action.id,
-          existsAt = _lodash2.default.indexOf(list, id);
-
-      // if exists, remove from list
-      if (existsAt !== -1) {
-        list.splice(existsAt, 1);
-
-        // otherwise we add it
-      } else {
+    case _watchListActions.ADD_WATCHLIST:
+      if (existsAt === -1) {
         list.push(id);
       }
+      return Object.assign({}, state, { nodes: list });
 
-      return list;
+    case _watchListActions.REMOVE_WATCHLIST:
+      if (existsAt !== -1) {
+        list.splice(existsAt, 1);
+      }
+      return Object.assign({}, state, { nodes: list });
+
+    case _watchListActions.UPDATE_TIMES:
+      return Object.assign({}, state, { times: action.times });
 
     case _watchListActions.CLEAR_ALL:
-      return [];
+      return Object.assign({}, state, { nodes: [] });
 
     default:
       return state;
@@ -3417,7 +4041,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   type: {
     name: 'By Class',
-    values: ['all', 'botany', 'mining', 'fishing']
+    values: ['all', 'botany', 'mining', 'fishing', 'custom']
   },
   level: {
     name: 'By Level',
@@ -3555,12 +4179,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var loadState = exports.loadState = function loadState() {
+  var version = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 2.0;
+
   try {
     var serializedState = localStorage.getItem('state');
     if (serializedState === null) {
       return undefined;
     }
-    return JSON.parse(serializedState);
+
+    var state = JSON.parse(serializedState);
+
+    if (!state || !state.version || state.version < version) {
+      clearState();
+      return saveState({ version: version });
+    }
+
+    return state;
   } catch (err) {
     return undefined;
   }
@@ -3570,9 +4204,17 @@ var saveState = exports.saveState = function saveState(state) {
   try {
     var serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
+
+    return state;
   } catch (err) {
     // Ignore write errors.
   }
+};
+
+var clearState = exports.clearState = function clearState(state) {
+  try {
+    localStorage.setItem('state', {});
+  } catch (err) {}
 };
 
 });
