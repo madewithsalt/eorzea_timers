@@ -917,6 +917,111 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(MainNav);
 
 });
 
+require.register("js/components/Modal.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Modal = function (_Component) {
+  _inherits(Modal, _Component);
+
+  function Modal() {
+    _classCallCheck(this, Modal);
+
+    return _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).apply(this, arguments));
+  }
+
+  _createClass(Modal, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      $(this.modal).modal({
+        dismissable: true,
+        complete: this.onModalClose.bind(this)
+      });
+
+      this.onModalOpen(this.props);
+    }
+  }, {
+    key: 'onModalOpen',
+    value: function onModalOpen(nextProps) {
+      var _this2 = this;
+
+      if (nextProps.open === true) {
+        $(this.modal).modal('open');
+      }
+
+      if (nextProps.timeout) {
+        setTimeout(function () {
+          $(_this2.modal).modal('close');
+          nextProps.timeout.callback();
+        }, nextProps.timeout.time || 5000);
+      }
+    }
+  }, {
+    key: 'onModalClose',
+    value: function onModalClose() {
+      this.props.onClose();
+    }
+  }, {
+    key: 'handleToggleModal',
+    value: function handleToggleModal() {
+      $(this.modal).modal('close');
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      var className = this.props.className;
+
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'modal ' + (className || ''), ref: function ref(m) {
+            _this3.modal = m;
+          } },
+        this.props.children,
+        _react2.default.createElement(
+          'div',
+          { className: 'modal-footer right-align' },
+          this.props.buttons,
+          _react2.default.createElement(
+            'a',
+            { onClick: this.handleToggleModal.bind(this), className: 'btn btn-flat' },
+            'Close'
+          )
+        )
+      );
+    }
+  }]);
+
+  return Modal;
+}(_react.Component);
+
+Modal.defaultProps = {
+  onClose: function onClose() {}
+};
+
+exports.default = Modal;
+
+});
+
 require.register("js/components/NewTimerModal.js", function(exports, require, module) {
 'use strict';
 
@@ -3210,6 +3315,18 @@ var _reactRedux = require('react-redux');
 
 var _lodash = require('lodash');
 
+var _reactAudioPlayer = require('react-audio-player');
+
+var _reactAudioPlayer2 = _interopRequireDefault(_reactAudioPlayer);
+
+var _Modal = require('../components/Modal');
+
+var _Modal2 = _interopRequireDefault(_Modal);
+
+var _sounds = require('../static/sounds');
+
+var _sounds2 = _interopRequireDefault(_sounds);
+
 var _clockActions = require('../actions/clockActions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -3257,18 +3374,12 @@ var Notifications = function (_Component) {
           style = props.alarmStyle;
 
       if (style === 'popup') {
-        this.setState({ popup: true, active: true });
+        this.setState({ active: true });
+      } else if (style === 'desktop') {
 
-        return setTimeout(function () {
-          _this2.setState({ popup: false, active: false });
-          props.closeNotification();
-        }, 5000);
-      }
-
-      if (style === 'desktop') {
         var single = list.length === 1,
             firstNode = list[0],
-            title = single ? firstNode.name : list.length + ' Nodes Active';
+            title = single ? firstNode.name : firstNode.name + ' & ' + (list.length - 1) + ' Others';
 
         var options = {};
         if (firstNode.type === 'botany') {
@@ -3287,12 +3398,46 @@ var Notifications = function (_Component) {
       }
     }
   }, {
+    key: 'renderPopupContent',
+    value: function renderPopupContent() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'popup-content-container' },
+        'Moo'
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var popup = this.state.popup;
+      var active = this.state.active;
+      var _props = this.props,
+          alarmSound = _props.alarmSound,
+          alarmStyle = _props.alarmStyle,
+          closeNotification = _props.closeNotification;
 
 
-      return _react2.default.createElement('div', null);
+      var hasSound = alarmSound && alarmSound !== 'none';
+      var soundFile = void 0;
+
+      if (hasSound) {
+        soundFile = (0, _lodash.find)(_sounds2.default, { name: alarmSound });
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'notification-container' },
+        active ? _react2.default.createElement(
+          'div',
+          null,
+          soundFile ? _react2.default.createElement(_reactAudioPlayer2.default, { src: '/sound/' + soundFile.filename, autoPlay: true, className: '' }) : null,
+          '}',
+          alarmStyle === 'popup' ? _react2.default.createElement(
+            _Modal2.default,
+            { open: active, timeout: { time: 5000, callback: closeNotification } },
+            this.renderPopupContent()
+          ) : null
+        ) : null
+      );
     }
   }]);
 
@@ -3302,7 +3447,8 @@ var Notifications = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     alarmList: state.clock.alarm,
-    alarmStyle: state.settings.alarm_style
+    alarmStyle: state.settings.alarm_style,
+    alarmSound: state.settings.alarm_sound
   };
 };
 

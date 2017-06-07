@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { isEqual } from 'lodash';
+import { isEqual, find } from 'lodash';
 
+import ReactAudioPlayer from 'react-audio-player';
+import Modal from '../components/Modal';
+
+import sounds from '../static/sounds';
 import { closeNotification } from '../actions/clockActions';
 
 class Notifications extends Component {
@@ -28,18 +32,12 @@ class Notifications extends Component {
           style = props.alarmStyle;
 
     if(style === 'popup') {
-      this.setState({ popup: true, active: true });
+      this.setState({ active: true });
+    } else if(style === 'desktop') {
 
-      return setTimeout(() => {
-        this.setState({ popup: false, active: false });
-        props.closeNotification();
-      }, 5000);
-    }
-
-    if(style === 'desktop') {
       const single = list.length === 1,
             firstNode = list[0],
-            title = single ? firstNode.name : `${list.length} Nodes Active`;
+            title = single ? firstNode.name : `${firstNode.name} & ${list.length - 1} Others`;
 
       let options = {};
       if(firstNode.type === 'botany') {
@@ -56,17 +54,48 @@ class Notifications extends Component {
         props.closeNotification();
       }, 5000);
     }
+  }
 
-
+  renderPopupContent() {
+    return (
+      <div className="popup-content-container">Moo</div>
+    )
   }
 
   render() {
     const {
-      popup
+      active
     } = this.state;
+    const {
+      alarmSound,
+      alarmStyle,
+      closeNotification
+    } = this.props;
+
+    const hasSound = alarmSound && alarmSound !== 'none';
+    let soundFile;
+
+    if(hasSound) {
+      soundFile = find(sounds, { name: alarmSound });
+    }
 
     return (
-      <div></div>
+      <div className="notification-container">
+        { active ? (
+          <div>
+            { soundFile ? (
+              <ReactAudioPlayer src={`/sound/${soundFile.filename}`} autoPlay className="" />
+              ) : null}
+            }
+            { alarmStyle === 'popup' ? (
+              <Modal open={active} timeout={{time: 5000, callback: closeNotification}}>
+                {this.renderPopupContent()}
+              </Modal>
+            ) : null}
+          </div>
+        ) : null }
+      </div>
+
     )
   }
 }
@@ -74,7 +103,8 @@ class Notifications extends Component {
 const mapStateToProps = state => {
   return {
     alarmList: state.clock.alarm,
-    alarmStyle: state.settings.alarm_style
+    alarmStyle: state.settings.alarm_style,
+    alarmSound: state.settings.alarm_sound
   };
 }
 
