@@ -10,7 +10,8 @@
     "fonts": "icon-font-generator iconfont/icons/*.svg -o iconfont/fonts --csspath iconfont/fonts/_fonticons.scss",
     "start": "brunch watch --server",
     "build": "brunch build --production",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest",
+    "deploy": "git subtree push --prefix priv origin gh-pages"
   },
   "dependencies": {
     "babel-cli": "^6.24.1",
