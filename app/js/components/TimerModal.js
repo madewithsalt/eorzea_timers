@@ -148,7 +148,7 @@ class NewTimerModal extends Component {
                     onChange={ handleChange.bind(this, 'level') }/>
                   <label htmlFor="level">Level</label>
                 </div>
-                <div className="input-field col s4">
+                <div className="input-field col s2">
                   <input type="text" name="slot" defaultValue={this.state.slot}
                     onChange={ handleChange.bind(this, 'slot') }/>
                   <label htmlFor="slot">Slot</label>

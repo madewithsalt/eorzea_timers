@@ -516,11 +516,62 @@ function updateSetting(setting) {
 });
 
 ;require.register("js/actions/watchGroupsActions.js", function(exports, require, module) {
-"use strict";
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addItem = addItem;
+exports.removeItem = removeItem;
+exports.createGroup = createGroup;
+exports.updateGroup = updateGroup;
+exports.removeGroup = removeGroup;
+var WATCHGROUP_ADD_ITEM = exports.WATCHGROUP_ADD_ITEM = 'WATCHGROUP_ADD_ITEM';
+var WATCHGROUP_REMOVE_ITEM = exports.WATCHGROUP_REMOVE_ITEM = 'WATCHGROUP_REMOVE_ITEM';
+var CREATE_WATCHGROUP = exports.CREATE_WATCHGROUP = 'CREATE_WATCHGROUP';
+var REMOVE_WATCHGROUP = exports.REMOVE_WATCHGROUP = 'REMOVE_WATCHGROUP';
+var UPDATE_WATCHGROUP = exports.UPDATE_WATCHGROUP = 'UPDATE_WATCHGROUP';
+
+function addItem(groupId, nodeId) {
+  return {
+    type: WATCHGROUP_ADD_ITEM,
+    groupId: groupId,
+    nodeId: nodeId
+  };
+}
+
+function removeItem(groupId, nodeId) {
+  return {
+    type: WATCHGROUP_REMOVE_ITEM,
+    groupId: groupId,
+    nodeId: nodeId
+  };
+}
+
+function createGroup(group) {
+  return {
+    type: CREATE_WATCHGROUP,
+    group: group
+  };
+}
+
+function updateGroup(group) {
+  return {
+    type: UPDATE_WATCHGROUP,
+    group: group
+  };
+}
+
+function removeGroup(id) {
+  return {
+    type: REMOVE_WATCHGROUP,
+    id: id
+  };
+}
 
 });
 
-require.register("js/actions/watchListActions.js", function(exports, require, module) {
+;require.register("js/actions/watchListActions.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -529,6 +580,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.CLEAR_ALL = exports.UPDATE_TIMES = exports.REMOVE_WATCHLIST = exports.ADD_WATCHLIST = undefined;
 exports.toggleSelect = toggleSelect;
 exports.clearAll = clearAll;
+exports.replaceList = replaceList;
 
 var _lodash = require('lodash');
 
@@ -597,6 +649,16 @@ function toggleSelect(id) {
 function clearAll() {
   return {
     type: CLEAR_ALL
+  };
+}
+
+function replaceList(list) {
+  return function (dispatch) {
+    dispatch(clearAll());
+
+    (0, _lodash.each)(list, function (id) {
+      dispatch(toggleSelect(id));
+    });
   };
 }
 
@@ -979,7 +1041,7 @@ var Modal = function (_Component) {
     value: function componentDidMount() {
       $(this.modal).modal({
         dismissable: true,
-        complete: this.onModalClose.bind(this)
+        complete: this.props.onClose
       });
 
       this.onModalOpen(this.props);
@@ -991,6 +1053,7 @@ var Modal = function (_Component) {
 
       if (nextProps.open === true) {
         $(this.modal).modal('open');
+        Materialize.updateTextFields();
       }
 
       if (nextProps.timeout) {
@@ -1003,11 +1066,14 @@ var Modal = function (_Component) {
   }, {
     key: 'onModalClose',
     value: function onModalClose() {
-      this.props.onClose();
+      var isValid = this.props.onBeforeClose();
+      if (isValid) {
+        this.handleModalClose();
+      }
     }
   }, {
-    key: 'handleToggleModal',
-    value: function handleToggleModal() {
+    key: 'handleModalClose',
+    value: function handleModalClose() {
       $(this.modal).modal('close');
     }
   }, {
@@ -1015,7 +1081,10 @@ var Modal = function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      var className = this.props.className;
+      var _props = this.props,
+          className = _props.className,
+          buttonName = _props.buttonName,
+          cancelButton = _props.cancelButton;
 
 
       return _react2.default.createElement(
@@ -1027,12 +1096,16 @@ var Modal = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'modal-footer right-align' },
-          this.props.buttons,
           _react2.default.createElement(
             'a',
-            { onClick: this.handleToggleModal.bind(this), className: 'btn btn-flat' },
-            'Close'
-          )
+            { onClick: this.onModalClose.bind(this), className: 'btn btn-primary' },
+            buttonName || Close
+          ),
+          cancelButton ? _react2.default.createElement(
+            'a',
+            { onClick: this.handleModalClose.bind(this), className: 'btn btn-flat' },
+            'Cancel'
+          ) : null
         )
       );
     }
@@ -1042,7 +1115,10 @@ var Modal = function (_Component) {
 }(_react.Component);
 
 Modal.defaultProps = {
-  onClose: function onClose() {}
+  onClose: function onClose() {},
+  onBeforeClose: function onBeforeClose() {
+    return true;
+  }
 };
 
 exports.default = Modal;
@@ -1763,7 +1839,7 @@ var NewTimerModal = function (_Component) {
                 ),
                 _react2.default.createElement(
                   'div',
-                  { className: 'input-field col s4' },
+                  { className: 'input-field col s2' },
                   _react2.default.createElement('input', { type: 'text', name: 'slot', defaultValue: this.state.slot,
                     onChange: handleChange.bind(this, 'slot') }),
                   _react2.default.createElement(
@@ -1958,6 +2034,237 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 });
 
+require.register("js/components/WatchGroupModal.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _lodash = require('lodash');
+
+var _Modal = require('./Modal');
+
+var _Modal2 = _interopRequireDefault(_Modal);
+
+var _watchGroupsActions = require('../actions/watchGroupsActions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WatchGroupModal = function (_Component) {
+  _inherits(WatchGroupModal, _Component);
+
+  function WatchGroupModal(props) {
+    _classCallCheck(this, WatchGroupModal);
+
+    var _this = _possibleConstructorReturn(this, (WatchGroupModal.__proto__ || Object.getPrototypeOf(WatchGroupModal)).call(this, props));
+
+    _this.state = {
+      open: false,
+      isNew: props.group ? false : true,
+      nodes: props.group ? [].concat(_toConsumableArray(props.group.nodes)) : [].concat(_toConsumableArray(props.watchlist)),
+      name: props.group ? props.group.name : null,
+      id: props.group ? props.group.id : null
+    };
+    return _this;
+  }
+
+  _createClass(WatchGroupModal, [{
+    key: 'handleOpenModal',
+    value: function handleOpenModal() {
+      this.setState({ open: true });
+    }
+  }, {
+    key: 'handleCloseModal',
+    value: function handleCloseModal() {
+      this.setState({ open: false });
+    }
+  }, {
+    key: 'handleChange',
+    value: function handleChange(name, evt) {
+      var setting = {};
+      var val = evt.target.value;
+
+      setting[name] = val;
+
+      this.setState(setting);
+    }
+  }, {
+    key: 'handleRemoveNode',
+    value: function handleRemoveNode(id) {
+      var list = [].concat(_toConsumableArray(this.state.nodes));
+      var existsAt = (0, _lodash.indexOf)(list, id);
+
+      list.splice(existsAt, 1);
+
+      this.setState({ nodes: list });
+    }
+  }, {
+    key: 'handleOnSave',
+    value: function handleOnSave() {
+      var _state = this.state,
+          name = _state.name,
+          nodes = _state.nodes,
+          id = _state.id,
+          isNew = _state.isNew;
+
+
+      if (!nodes.length || (0, _lodash.isEmpty)(name)) {
+        return this.setState({ error: 'You must have at least 1 node, and a name to save.' });
+      }
+
+      if (isNew) {
+        this.props.createGroup({ name: name, nodes: nodes });
+      } else {
+        this.props.updateGroup({ name: name, nodes: nodes, id: id });
+      }
+      this.setState({ error: false, open: false });
+
+      return true;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          className = _props.className,
+          nodelist = _props.nodelist,
+          customlist = _props.customlist,
+          watchlist = _props.watchlist;
+      var _state2 = this.state,
+          open = _state2.open,
+          nodes = _state2.nodes,
+          isNew = _state2.isNew,
+          error = _state2.error;
+
+
+      var fullList = (0, _lodash.union)(nodelist, customlist);
+
+      return _react2.default.createElement(
+        'div',
+        { className: '' + (className || '') },
+        !isNew ? _react2.default.createElement(
+          'a',
+          { className: 'edit-btn', onClick: this.handleOpenModal.bind(this) },
+          _react2.default.createElement(
+            'i',
+            { className: 'material-icons' },
+            'edit'
+          )
+        ) : _react2.default.createElement(
+          'a',
+          { onClick: this.handleOpenModal.bind(this), className: 'btn btn-flat' },
+          'Save List As ...'
+        ),
+        open ? _react2.default.createElement(
+          _Modal2.default,
+          { open: open, buttonName: 'Save', className: 'modal-fixed-footer',
+            onClose: this.handleCloseModal.bind(this),
+            onBeforeClose: this.handleOnSave.bind(this), cancelButton: true },
+          _react2.default.createElement(
+            'div',
+            { className: 'watch-group-create-container modal-content' },
+            error ? _react2.default.createElement(
+              'p',
+              { className: 'error-message' },
+              error
+            ) : null,
+            _react2.default.createElement(
+              'div',
+              { className: 'input-field' },
+              _react2.default.createElement('input', { type: 'text', name: 'name', defaultValue: this.state.name,
+                onChange: this.handleChange.bind(this, 'name') }),
+              _react2.default.createElement(
+                'label',
+                { htmlFor: 'name' },
+                'List Group Name:'
+              )
+            ),
+            _react2.default.createElement(
+              'h4',
+              null,
+              'Timers:'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'watch-items' },
+              nodes.map(function (id) {
+                var node = (0, _lodash.find)(fullList, { id: id });
+                return node ? _react2.default.createElement(
+                  'div',
+                  { className: 'node-item clearfix', key: node.id },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'left' },
+                    node.name,
+                    ' ',
+                    node.time
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'right' },
+                    _react2.default.createElement(
+                      'a',
+                      { className: 'delete-btn', onClick: _this2.handleRemoveNode.bind(_this2, node.id) },
+                      _react2.default.createElement(
+                        'i',
+                        { className: 'material-icons' },
+                        'close'
+                      )
+                    )
+                  )
+                ) : null;
+              })
+            )
+          )
+        ) : null
+      );
+    }
+  }]);
+
+  return WatchGroupModal;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    watchlist: state.watchlist.nodes,
+    customlist: state.customlist,
+    nodelist: state.nodelist.nodes
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createGroup: function createGroup(group) {
+      return dispatch((0, _watchGroupsActions.createGroup)(group));
+    },
+    updateGroup: function updateGroup(group) {
+      return dispatch((0, _watchGroupsActions.updateGroup)(group));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WatchGroupModal);
+
+});
+
 require.register("js/components/WatchGroupSelect.js", function(exports, require, module) {
 'use strict';
 
@@ -1974,6 +2281,8 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRedux = require('react-redux');
 
 var _lodash = require('lodash');
+
+var _watchListActions = require('../actions/watchListActions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1995,7 +2304,10 @@ var WatchGroupSelect = function (_Component) {
   _createClass(WatchGroupSelect, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      $(this.dropdown).dropdown();
+      $(this.dropdown).dropdown({
+        constrainWidth: false,
+        belowOrigin: true
+      });
     }
   }, {
     key: 'handleDropdown',
@@ -2003,19 +2315,25 @@ var WatchGroupSelect = function (_Component) {
       $(this.dropdown).dropdown('open');
     }
   }, {
+    key: 'handleGroupSelect',
+    value: function handleGroupSelect(list) {
+      this.props.replaceList(list);
+
+      $(this.dropdown).dropdown('close');
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
       var _props = this.props,
-          _props$options = _props.options,
-          options = _props$options === undefined ? [] : _props$options,
+          watchgroups = _props.watchgroups,
           className = _props.className;
 
 
       return _react2.default.createElement(
         'div',
-        { className: className },
+        { className: (className || '') + ' watchgroup-select-container' },
         _react2.default.createElement(
           'a',
           { className: 'btn btn-flat', ref: function ref(a) {
@@ -2028,17 +2346,15 @@ var WatchGroupSelect = function (_Component) {
         _react2.default.createElement(
           'ul',
           { name: 'load-list', id: 'load-list', className: 'dropdown-content' },
-          _react2.default.createElement(
-            'li',
-            null,
-            'Moo'
-          ),
-          options.map(function (item) {
-            var obj = (0, _lodash.isObject)(item);
+          watchgroups.map(function (group) {
             return _react2.default.createElement(
               'li',
-              { value: obj ? item.value : item },
-              obj ? item.name : item
+              { key: group.id },
+              _react2.default.createElement(
+                'a',
+                { onClick: _this2.handleGroupSelect.bind(_this2, group.nodes) },
+                group.name
+              )
             );
           })
         )
@@ -2051,25 +2367,15 @@ var WatchGroupSelect = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    modal: state.page.modal
+    watchgroups: state.watchgroups
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    toggleModal: function (_toggleModal) {
-      function toggleModal() {
-        return _toggleModal.apply(this, arguments);
-      }
-
-      toggleModal.toString = function () {
-        return _toggleModal.toString();
-      };
-
-      return toggleModal;
-    }(function () {
-      return dispatch(toggleModal());
-    })
+    replaceList: function replaceList(list) {
+      return dispatch((0, _watchListActions.replaceList)(list));
+    }
   };
 };
 
@@ -2339,7 +2645,13 @@ var _TimerModal = require('../components/TimerModal');
 
 var _TimerModal2 = _interopRequireDefault(_TimerModal);
 
+var _WatchGroupModal = require('../components/WatchGroupModal');
+
+var _WatchGroupModal2 = _interopRequireDefault(_WatchGroupModal);
+
 var _customListActions = require('../actions/customListActions');
+
+var _watchGroupsActions = require('../actions/watchGroupsActions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2359,12 +2671,14 @@ var CustomContent = function (_Component) {
   }
 
   _createClass(CustomContent, [{
-    key: 'handleOpenModal',
-    value: function handleOpenModal(id) {}
-  }, {
     key: 'handleRemoveNode',
     value: function handleRemoveNode(id) {
       this.props.removeCustomNode(id);
+    }
+  }, {
+    key: 'handleRemoveGroup',
+    value: function handleRemoveGroup(id) {
+      this.props.removeGroup(id);
     }
   }, {
     key: 'renderCustomNode',
@@ -2382,14 +2696,30 @@ var CustomContent = function (_Component) {
           ),
           _react2.default.createElement(
             'div',
-            { className: 'location' },
-            node.time + ' ' + (node.location ? '--' + node.location : '')
+            { className: 'meta' },
+            node.time + ' ' + (node.location ? ' • ' + node.location : ''),
+            node.slot ? _react2.default.createElement(
+              'span',
+              { className: 'slot' },
+              ' \u2022 slot ' + node.slot
+            ) : null,
+            node.pos ? _react2.default.createElement(
+              'span',
+              { className: 'pos' },
+              ' \u2022 ' + node.pos
+            ) : null
           ),
-          _react2.default.createElement(
+          node.notes ? _react2.default.createElement(
             'div',
             { className: 'notes' },
+            _react2.default.createElement(
+              'i',
+              null,
+              'notes: '
+            ),
+            _react2.default.createElement('br', null),
             node.notes
-          )
+          ) : null
         ),
         _react2.default.createElement(
           'div',
@@ -2408,11 +2738,55 @@ var CustomContent = function (_Component) {
       );
     }
   }, {
+    key: 'renderWatchGroup',
+    value: function renderWatchGroup(group) {
+      return _react2.default.createElement(
+        'div',
+        { className: 'watch-group-item clearfix', key: group.id },
+        _react2.default.createElement(
+          'div',
+          { className: 'left' },
+          _react2.default.createElement(
+            'h4',
+            null,
+            group.name,
+            ' \u2022 ',
+            _react2.default.createElement(
+              'small',
+              null,
+              group.nodes.length,
+              ' timers'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'right actions' },
+          _react2.default.createElement(
+            'div',
+            { className: 'right node-actions' },
+            _react2.default.createElement(_WatchGroupModal2.default, { group: group, className: 'inline-block' }),
+            _react2.default.createElement(
+              'a',
+              { className: 'delete-btn', onClick: this.handleRemoveGroup.bind(this, group.id) },
+              _react2.default.createElement(
+                'i',
+                { className: 'material-icons' },
+                'close'
+              )
+            )
+          )
+        )
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      var customlist = this.props.customlist;
+      var _props = this.props,
+          customlist = _props.customlist,
+          watchgroups = _props.watchgroups;
 
 
       return _react2.default.createElement(
@@ -2443,7 +2817,31 @@ var CustomContent = function (_Component) {
             _react2.default.createElement(
               'p',
               null,
-              'No Custom Timers Yet!'
+              'No Custom Timers Yet.'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'watchgroup-list' },
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Watch Groups'
+          ),
+          watchgroups.length ? _react2.default.createElement(
+            'div',
+            null,
+            watchgroups.map(function (group) {
+              return _this2.renderWatchGroup(group);
+            })
+          ) : _react2.default.createElement(
+            'div',
+            { className: 'empty-list' },
+            _react2.default.createElement(
+              'p',
+              null,
+              'No Watch Groups Created Yet.'
             )
           )
         )
@@ -2465,6 +2863,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     removeCustomNode: function removeCustomNode(id) {
       return dispatch((0, _customListActions.removeCustomNode)(id));
+    },
+    removeGroup: function removeGroup(id) {
+      return dispatch((0, _watchGroupsActions.removeGroup)(id));
     }
   };
 };
@@ -2755,6 +3156,10 @@ var _WatchGroupSelect = require('../components/WatchGroupSelect');
 
 var _WatchGroupSelect2 = _interopRequireDefault(_WatchGroupSelect);
 
+var _WatchGroupModal = require('../components/WatchGroupModal');
+
+var _WatchGroupModal2 = _interopRequireDefault(_WatchGroupModal);
+
 var _watchListActions = require('../actions/watchListActions');
 
 var _timeUtils = require('../utils/timeUtils');
@@ -2764,6 +3169,8 @@ var _WatchListItem = require('../modules/WatchListItem');
 var _WatchListItem2 = _interopRequireDefault(_WatchListItem);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2815,6 +3222,16 @@ var WatchList = function (_Component) {
       });
     }
   }, {
+    key: 'handleCreateWatchgroup',
+    value: function handleCreateWatchgroup() {
+      var group = {
+        name: '',
+        nodes: [].concat(_toConsumableArray(this.props.watchlist))
+      };
+
+      this.props.createGroup(group);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props2 = this.props,
@@ -2834,11 +3251,7 @@ var WatchList = function (_Component) {
             'div',
             { className: 'col s9' },
             _react2.default.createElement(_SettingsModal2.default, { className: 'left' }),
-            _react2.default.createElement(
-              'a',
-              { href: '', className: 'btn btn-flat left' },
-              'Save List As ...'
-            ),
+            watchlist.length ? _react2.default.createElement(_WatchGroupModal2.default, { className: 'left' }) : null,
             _react2.default.createElement(_WatchGroupSelect2.default, { className: 'left' })
           ),
           _react2.default.createElement(
@@ -2914,6 +3327,19 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return toggleModal;
     }(function () {
       return dispatch(toggleModal());
+    }),
+    createGroup: function (_createGroup) {
+      function createGroup(_x) {
+        return _createGroup.apply(this, arguments);
+      }
+
+      createGroup.toString = function () {
+        return _createGroup.toString();
+      };
+
+      return createGroup;
+    }(function (group) {
+      return dispatch(createGroup());
     })
   };
 };
@@ -4329,21 +4755,85 @@ exports.default = settings;
 });
 
 require.register("js/reducers/watchGroupsReducer.js", function(exports, require, module) {
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
+var _v = require('uuid/v1');
+
+var _v2 = _interopRequireDefault(_v);
+
+var _lodash = require('lodash');
+
+var _watchGroupsActions = require('../actions/watchGroupsActions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var watchgroups = function watchgroups() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var action = arguments[1];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
 
+  var list = [].concat(_toConsumableArray(state));
+  var targetGroup = void 0,
+      existsAt = void 0,
+      group = void 0;
 
-    switch (action.type) {
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case _watchGroupsActions.CREATE_WATCHGROUP:
+      if (!action.group) {
+        return state;
+      }
+
+      group = Object.assign({}, action.group, {
+        id: (0, _v2.default)()
+      });
+
+      return [].concat(_toConsumableArray(state), [group]);
+
+    case _watchGroupsActions.UPDATE_WATCHGROUP:
+      if (!action.group) {
+        return state;
+      }
+      group = (0, _lodash.find)(list, { id: action.group.id });
+
+      (0, _lodash.extend)(group, action.group);
+
+      return list;
+    case _watchGroupsActions.REMOVE_WATCHGROUP:
+      existsAt = (0, _lodash.findIndex)(list, { id: action.id });
+
+      if (existsAt !== -1) {
+        list.splice(existsAt, 1);
+      }
+
+      return list;
+
+    case _watchGroupsActions.WATCHGROUP_ADD_ITEM:
+      targetGroup = (0, _lodash.find)(list, { id: action.groupId });
+
+      if ((0, _lodash.indexOf)(targetGroup.nodes, action.nodeId) !== -1) {
+        targetGroup.nodes.push(action.nodeId);
+      }
+
+      return list;
+
+    case _watchGroupsActions.WATCHGROUP_REMOVE_ITEM:
+      targetGroup = (0, _lodash.find)(list, { id: action.groupId });
+      existsAt = (0, _lodash.indexOf)(targetGroup.nodes, action.nodeId);
+
+      if (existsAt !== -1) {
+        targetGroup.nodes.splice(existsAt, 1);
+      }
+
+      return list;
+
+    default:
+      return state;
+  }
 };
 
 exports.default = watchgroups;

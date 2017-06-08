@@ -4,10 +4,12 @@ import { find, sortBy, filter, indexOf, union } from 'lodash';
 import {NavLink} from 'react-router-dom';
 import SettingsModal from '../components/SettingsModal';
 import WatchGroupSelect from '../components/WatchGroupSelect';
+import WatchGroupModal from '../components/WatchGroupModal';
 
 import {
   clearAll
 } from '../actions/watchListActions';
+
 
 import {
   isActive,
@@ -52,6 +54,16 @@ class WatchList extends Component {
     });
   }
 
+  handleCreateWatchgroup() {
+    let group = {
+      name: '',
+      nodes: [... this.props.watchlist]
+    };
+
+
+    this.props.createGroup(group);
+  }
+
   render() {
     const {
       watchlist,
@@ -65,7 +77,9 @@ class WatchList extends Component {
         <div className="row">
           <div className="col s9">
             <SettingsModal className="left" />
-            <a href="" className="btn btn-flat left">Save List As ...</a>
+            { watchlist.length ? (
+              <WatchGroupModal className="left" />
+            ): null}
             <WatchGroupSelect className="left" />
           </div>
           <div className="col s3 right-align">
@@ -105,7 +119,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     clearAll: () => dispatch(clearAll()),
-    toggleModal: () => dispatch(toggleModal())
+    toggleModal: () => dispatch(toggleModal()),
+    createGroup: (group) => dispatch(createGroup())
   }
 }
 

@@ -1,4 +1,4 @@
-import { indexOf, find } from 'lodash';
+import { indexOf, find, each } from 'lodash';
 import {
   getTimeObjFromString
 } from '../utils/timeUtils';
@@ -65,5 +65,15 @@ export function toggleSelect(id) {
 export function clearAll() {
   return {
     type: CLEAR_ALL
+  }
+}
+
+export function replaceList(list) {
+  return function(dispatch) {
+    dispatch(clearAll());
+
+    each(list, (id) => {
+      dispatch(toggleSelect(id))
+    });
   }
 }
