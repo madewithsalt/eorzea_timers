@@ -35,6 +35,12 @@ $img_url: '/img/'
   &.icon-fishing
     background-image: url($img_url + 'fishermenu.png')
 
+  &.icon-custom
+    @extend .material-icons
+
+    &:after
+      content: "schedule"
+
   &.icon-is_collectable
     @extend .i
     @extend .i-collectible

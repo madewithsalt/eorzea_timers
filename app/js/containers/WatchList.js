@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { find, sortBy, filter, indexOf } from 'lodash';
+import { find, sortBy, filter, indexOf, union } from 'lodash';
 import {NavLink} from 'react-router-dom';
 import SettingsModal from '../components/SettingsModal';
 import WatchGroupSelect from '../components/WatchGroupSelect';
@@ -27,13 +27,15 @@ class WatchList extends Component {
   sortNodes() {
     const {
       watchlist,
+      customlist,
       nodelist,
       clock
     } = this.props;
 
-    if(!nodelist.nodes.length) { return []; }
+    const fullList = union(nodelist.nodes || [], customlist);
+    if(!fullList.length) { return []; }
 
-    const list = filter(nodelist.nodes, (node) => {
+    const list = filter(fullList, (node) => {
       return indexOf(watchlist, node.id) >= 0 ? true : false;
     })
 
@@ -53,7 +55,6 @@ class WatchList extends Component {
   render() {
     const {
       watchlist,
-      nodelist,
       modal
     } = this.props;
 
@@ -95,6 +96,7 @@ class WatchList extends Component {
 const mapStateToProps = state => {
   return {
     nodelist: state.nodelist,
+    customlist: state.customlist,
     watchlist: state.watchlist.nodes,
     clock: state.clock
   };

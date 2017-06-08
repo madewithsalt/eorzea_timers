@@ -6,7 +6,7 @@ import NodeList from '../modules/NodeList';
 import { search } from '../actions/searchActions';
 import SearchBar from '../components/SearchBar';
 import FilterMenu from '../components/FilterMenu';
-import NewTimerModal from '../components/NewTimerModal';
+import TimerModal from '../components/TimerModal';
 
 import {
   filterTypeNodeList,
@@ -103,7 +103,7 @@ class Home extends Component {
               <SearchBar onChange={ search } helpText={"Search by Name or Location"}/>
             </div>
             <div className="col m4">
-              <NewTimerModal />
+              <TimerModal />
             </div>
         </div>
         <div className="row">

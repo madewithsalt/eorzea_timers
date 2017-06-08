@@ -360,13 +360,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.addCustomNode = addCustomNode;
+exports.editCustomNode = editCustomNode;
 exports.removeCustomNode = removeCustomNode;
 var ADD_CUSTOM_NODE = exports.ADD_CUSTOM_NODE = 'ADD_CUSTOM_NODE';
+var EDIT_CUSTOM_NODE = exports.EDIT_CUSTOM_NODE = 'EDIT_CUSTOM_NODE';
 var REMOVE_CUSTOM_NODE = exports.REMOVE_CUSTOM_NODE = 'REMOVE_CUSTOM_NODE';
 
 function addCustomNode(node) {
   return {
     type: ADD_CUSTOM_NODE,
+    node: node
+  };
+}
+
+function editCustomNode(node) {
+  return {
+    type: EDIT_CUSTOM_NODE,
     node: node
   };
 }
@@ -780,51 +789,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var version = '2.0.0';
 
-var Menu = function Menu(props) {
-  var navItems = [{ url: '/watch', name: 'Watch List', count: props.watchCount }, {
-    url: '/about',
-    name: 'About'
-  }];
-  return _react2.default.createElement(
-    'ul',
-    (0, _lodash.omit)(props, ['clock', 'watchCount']),
-    _react2.default.createElement(
-      'li',
-      { className: 'nav-item' },
-      _react2.default.createElement(
-        _reactRouterDom.NavLink,
-        { exact: true, to: '/', activeClassName: 'active' },
-        'Home'
-      )
-    ),
-    navItems.map(function (item) {
-      return _react2.default.createElement(
-        'li',
-        { key: item.name.toLowerCase(), className: 'nav-item' },
-        _react2.default.createElement(
-          _reactRouterDom.NavLink,
-          { to: item.url, activeClassName: 'active' },
-          _react2.default.createElement(
-            'span',
-            null,
-            item.name
-          ),
-          item.count ? _react2.default.createElement(
-            'span',
-            { className: 'label' },
-            item.count
-          ) : null
-        )
-      );
-    }),
-    props.clock ? _react2.default.createElement(
-      'li',
-      { className: 'nav-clock nav-item ' + props.clock.meridiem.toLowerCase() },
-      _react2.default.createElement(_Clock2.default, { className: 'inline-block' })
-    ) : null
-  );
-};
-
 var MainNav = function (_Component) {
   _inherits(MainNav, _Component);
 
@@ -842,14 +806,69 @@ var MainNav = function (_Component) {
       });
     }
   }, {
+    key: 'renderMenu',
+    value: function renderMenu(className, id) {
+      var _props = this.props,
+          watchCount = _props.watchCount,
+          customCount = _props.customCount,
+          clock = _props.clock;
+
+
+      var navItems = [{ url: '/watch', name: 'Watch List', count: watchCount }, {
+        url: '/custom',
+        name: 'My Timers',
+        count: customCount
+      }, {
+        url: '/about',
+        name: 'About'
+      }];
+
+      return _react2.default.createElement(
+        'ul',
+        { className: className || '', id: id || null },
+        _react2.default.createElement(
+          'li',
+          { className: 'nav-item' },
+          _react2.default.createElement(
+            _reactRouterDom.NavLink,
+            { exact: true, to: '/', activeClassName: 'active' },
+            'Home'
+          )
+        ),
+        navItems.map(function (item) {
+          return _react2.default.createElement(
+            'li',
+            { key: item.name.toLowerCase(), className: 'nav-item' },
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              { to: item.url, activeClassName: 'active' },
+              _react2.default.createElement(
+                'span',
+                null,
+                item.name
+              ),
+              item.count ? _react2.default.createElement(
+                'span',
+                { className: 'label' },
+                item.count
+              ) : null
+            )
+          );
+        }),
+        id ? _react2.default.createElement(
+          'li',
+          { className: 'nav-clock nav-item ' + clock.meridiem.toLowerCase() },
+          _react2.default.createElement(_Clock2.default, { className: 'inline-block' })
+        ) : null
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
       var toggleSidebar = this.toggleSidebar,
-          _props = this.props,
-          clock = _props.clock,
-          watchListCount = _props.watchListCount;
+          clock = this.props.clock;
 
 
       return _react2.default.createElement(
@@ -891,11 +910,18 @@ var MainNav = function (_Component) {
               'menu'
             )
           ),
-          _react2.default.createElement(Menu, { className: 'nav navbar-nav right hide-on-med-and-down', watchCount: watchListCount }),
-          _react2.default.createElement(Menu, { ref: function ref(sidebar) {
-              _this2.sidebarNav = sidebar;
-            }, watchCount: watchListCount,
-            id: 'sidebar', className: 'side-nav', clock: clock })
+          _react2.default.createElement(
+            'div',
+            null,
+            this.renderMenu("nav navbar-nav right hide-on-med-and-down")
+          ),
+          _react2.default.createElement(
+            'div',
+            { ref: function ref(sidebar) {
+                _this2.sidebarNav = sidebar;
+              } },
+            this.renderMenu("side-nav", "sidebar")
+          )
         )
       );
     }
@@ -909,7 +935,8 @@ var MainNav = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     clock: state.clock,
-    watchListCount: state.watchlist.nodes.length
+    watchCount: state.watchlist.nodes.length,
+    customCount: state.customlist.length
   };
 };
 
@@ -1019,388 +1046,6 @@ Modal.defaultProps = {
 };
 
 exports.default = Modal;
-
-});
-
-require.register("js/components/NewTimerModal.js", function(exports, require, module) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = require('react-redux');
-
-var _pageActions = require('../actions/pageActions');
-
-var _customListActions = require('../actions/customListActions');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var NewTimerModal = function (_Component) {
-  _inherits(NewTimerModal, _Component);
-
-  function NewTimerModal() {
-    _classCallCheck(this, NewTimerModal);
-
-    return _possibleConstructorReturn(this, (NewTimerModal.__proto__ || Object.getPrototypeOf(NewTimerModal)).apply(this, arguments));
-  }
-
-  _createClass(NewTimerModal, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      $(this.modal).modal({
-        dismissable: false,
-        complete: this.onModalClose.bind(this)
-      });
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.modal === true) {
-        $(this.modal).modal('open');
-      }
-    }
-  }, {
-    key: 'handleToggleModal',
-    value: function handleToggleModal() {
-      $(this.modal).modal('close');
-    }
-  }, {
-    key: 'onModalClose',
-    value: function onModalClose() {
-      this.props.toggleModal();
-    }
-  }, {
-    key: 'handleChange',
-    value: function handleChange(name, evt) {
-      var setting = {};
-      var val = evt.target.value;
-
-      setting[name] = val;
-
-      this.setState(setting);
-    }
-  }, {
-    key: 'handleTimerSave',
-    value: function handleTimerSave(evt) {
-      var _state = this.state,
-          name = _state.name,
-          location = _state.location,
-          slot = _state.slot,
-          level = _state.level,
-          x = _state.x,
-          y = _state.y,
-          time_hour = _state.time_hour,
-          time_minute = _state.time_minute,
-          meridien = _state.meridien,
-          dur_hours = _state.dur_hours,
-          dur_minutes = _state.dur_minutes,
-          notes = _state.notes;
-
-
-      var result = {
-        name: name,
-        location: location,
-        level: level || 70,
-        slot: slot,
-        pos: 'x' + x + ' y' + y,
-        time: (time_hour || 12) + ':' + (time_minute || '00') + ' ' + (meridien || 'AM'),
-        duration: (dur_hours || 0) + ':' + (dur_minutes || 55),
-        notes: notes
-      };
-
-      this.props.addCustomNode(result);
-      this.toggleModal();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var toggleModal = this.props.toggleModal;
-      var handleChange = this.handleChange;
-
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'new-timer-container right-align' },
-        _react2.default.createElement(
-          'a',
-          { className: 'btn btn-default add-timer-btn', onClick: toggleModal },
-          _react2.default.createElement(
-            'i',
-            { className: 'material-icons' },
-            'add'
-          ),
-          ' New Timer'
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'modal modal-fixed-footer new-timer-modal left-align', ref: function ref(modal) {
-              _this2.modal = modal;
-            } },
-          _react2.default.createElement(
-            'div',
-            { className: 'modal-content' },
-            _react2.default.createElement(
-              'form',
-              { ref: function ref(form) {
-                  _this2.form = form;
-                } },
-              _react2.default.createElement(
-                'h3',
-                null,
-                'New Timer'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'row' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'input-field col s12' },
-                  _react2.default.createElement('input', { type: 'text', name: 'name', defaultValue: 'My Custom Timer',
-                    onChange: handleChange.bind(this, 'name') }),
-                  _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'name' },
-                    'Name'
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'input-field col s12' },
-                  _react2.default.createElement('input', { type: 'text', name: 'location', onChange: handleChange.bind(this, 'location') }),
-                  _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'location' },
-                    'Location'
-                  )
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'row' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'col s12' },
-                  _react2.default.createElement(
-                    'h5',
-                    null,
-                    'Level, Slot, Position'
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'input-field col s2' },
-                  _react2.default.createElement('input', { type: 'number', name: 'level', onChange: handleChange.bind(this, 'level') }),
-                  _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'level' },
-                    'Level'
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'input-field col s4' },
-                  _react2.default.createElement('input', { type: 'text', name: 'slot', onChange: handleChange.bind(this, 'slot') }),
-                  _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'slot' },
-                    'Slot'
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'col s6 position-fields' },
-                  _react2.default.createElement(
-                    'span',
-                    { className: '' },
-                    'Position: '
-                  ),
-                  _react2.default.createElement(
-                    'div',
-                    { className: 'input-field inline' },
-                    _react2.default.createElement('input', { type: 'number', name: 'x', onChange: handleChange.bind(this, 'x') }),
-                    _react2.default.createElement(
-                      'label',
-                      { htmlFor: 'x' },
-                      'x'
-                    )
-                  ),
-                  _react2.default.createElement(
-                    'div',
-                    { className: 'input-field inline' },
-                    _react2.default.createElement('input', { type: 'number', name: 'y', onChange: handleChange.bind(this, 'y') }),
-                    _react2.default.createElement(
-                      'label',
-                      { htmlFor: 'y' },
-                      'y'
-                    )
-                  )
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'row' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'col s12' },
-                  _react2.default.createElement(
-                    'h5',
-                    null,
-                    'Time'
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'input-field col s3' },
-                  _react2.default.createElement('input', { type: 'number', name: 'time_hour', defaultValue: '12',
-                    onChange: handleChange.bind(this, 'time_hour') }),
-                  _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'time_hour' },
-                    'hour'
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'input-field col s3' },
-                  _react2.default.createElement('input', { type: 'number', name: 'time_minute', defaultValue: '00',
-                    onChange: handleChange.bind(this, 'time_minute') }),
-                  _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'time_minute' },
-                    'minute'
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'input-field col s3' },
-                  _react2.default.createElement(
-                    'select',
-                    { name: 'meridien', id: '', className: 'browser-default',
-                      onChange: handleChange.bind(this, 'meridien') },
-                    _react2.default.createElement(
-                      'option',
-                      { value: 'am' },
-                      'AM'
-                    ),
-                    _react2.default.createElement(
-                      'option',
-                      { value: 'pm' },
-                      'PM'
-                    )
-                  )
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'row' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'col s12' },
-                  _react2.default.createElement(
-                    'h5',
-                    null,
-                    'Duration'
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'input-field col s3' },
-                  _react2.default.createElement('input', { type: 'number', name: 'dur_hours', defaultValue: '0',
-                    onChange: handleChange.bind(this, 'dur_hours') }),
-                  _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'dur_hours' },
-                    'Hours'
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'input-field col s3' },
-                  _react2.default.createElement('input', { type: 'number', name: 'dur_minutes', defaultValue: '55',
-                    onChange: handleChange.bind(this, 'dur_minutes') }),
-                  _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'dur_minutes' },
-                    'Minutes'
-                  )
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'row' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'col s12 input-field' },
-                  _react2.default.createElement(
-                    'h5',
-                    null,
-                    'Notes'
-                  ),
-                  _react2.default.createElement('textarea', { className: 'materialize-textarea', name: 'notes', id: '', cols: '30', rows: '10', onChange: handleChange.bind(this, 'notes') })
-                )
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'modal-footer' },
-            _react2.default.createElement(
-              'div',
-              { className: 'right-align' },
-              _react2.default.createElement(
-                'a',
-                { onClick: this.handleTimerSave.bind(this), className: 'btn btn-default' },
-                'Save'
-              ),
-              _react2.default.createElement(
-                'a',
-                { onClick: this.handleToggleModal.bind(this), className: 'btn btn-flat' },
-                'Cancel'
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return NewTimerModal;
-}(_react.Component);
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    modal: state.page.modal
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    toggleModal: function toggleModal() {
-      return dispatch((0, _pageActions.toggleModal)());
-    },
-    addCustomNode: function addCustomNode(node) {
-      return dispatch((0, _customListActions.addCustomNode)(node));
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NewTimerModal);
 
 });
 
@@ -1883,6 +1528,436 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 });
 
+require.register("js/components/TimerModal.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _pageActions = require('../actions/pageActions');
+
+var _customListActions = require('../actions/customListActions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NewTimerModal = function (_Component) {
+  _inherits(NewTimerModal, _Component);
+
+  function NewTimerModal(props) {
+    _classCallCheck(this, NewTimerModal);
+
+    var _this = _possibleConstructorReturn(this, (NewTimerModal.__proto__ || Object.getPrototypeOf(NewTimerModal)).call(this, props));
+
+    _this.state = Object.assign({}, {
+      isNew: props.timer ? false : true,
+      name: 'My Custom Timer',
+      time_hour: '12',
+      time_minute: '00',
+      meridien: 'AM',
+      dur_hours: '0',
+      dur_minutes: '55'
+    }, props.timer || {});
+
+    _this.handleOpenModal = _this.handleOpenModal.bind(_this);
+    _this.handleCloseModal = _this.handleCloseModal.bind(_this);
+    _this.handleTimerSave = _this.handleTimerSave.bind(_this);
+    return _this;
+  }
+
+  _createClass(NewTimerModal, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      $(this.modal).modal({
+        dismissable: false
+      });
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.open === true) {
+        $(this.modal).modal('open');
+      }
+    }
+  }, {
+    key: 'handleOpenModal',
+    value: function handleOpenModal() {
+      $(this.modal).modal('open');
+    }
+  }, {
+    key: 'handleCloseModal',
+    value: function handleCloseModal() {
+      $(this.modal).modal('close');
+    }
+  }, {
+    key: 'handleChange',
+    value: function handleChange(name, evt) {
+      var setting = {};
+      var val = evt.target.value;
+
+      setting[name] = val;
+
+      this.setState(setting);
+    }
+  }, {
+    key: 'handleTimerSave',
+    value: function handleTimerSave(evt) {
+      var _state = this.state,
+          isNew = _state.isNew,
+          name = _state.name,
+          location = _state.location,
+          slot = _state.slot,
+          level = _state.level,
+          x = _state.x,
+          y = _state.y,
+          time_hour = _state.time_hour,
+          time_minute = _state.time_minute,
+          meridien = _state.meridien,
+          dur_hours = _state.dur_hours,
+          dur_minutes = _state.dur_minutes,
+          notes = _state.notes;
+
+
+      var result = Object.assign({}, {
+        name: name,
+        location: location,
+        slot: slot,
+        x: x, y: y,
+        time_hour: time_hour,
+        time_minute: time_minute,
+        meridien: meridien,
+        dur_hours: dur_hours,
+        dur_minutes: dur_minutes,
+        notes: notes
+      }, {
+        type: 'custom',
+        level: level || 70,
+        pos: x && y ? 'x' + x + ' y' + y : null,
+        time: (time_hour || 12) + ':' + (time_minute || '00') + ' ' + (meridien || 'AM'),
+        duration: (dur_hours || 0) + ':' + (dur_minutes || 55)
+      });
+
+      if (isNew) {
+        this.props.addCustomNode(result);
+      } else {
+        this.props.editCustomNode(result);
+      }
+      this.handleCloseModal();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var className = this.props.className;
+      var handleChange = this.handleChange,
+          handleTimerSave = this.handleTimerSave,
+          handleOpenModal = this.handleOpenModal,
+          handleCloseModal = this.handleCloseModal;
+      var isNew = this.state.isNew;
+
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'timer-edit-container ' + (className || 'right-align') },
+        !isNew ? _react2.default.createElement(
+          'a',
+          { className: 'edit-btn', onClick: handleOpenModal },
+          _react2.default.createElement(
+            'i',
+            { className: 'material-icons' },
+            'edit'
+          )
+        ) : _react2.default.createElement(
+          'a',
+          { className: 'btn btn-default add-timer-btn', onClick: handleOpenModal },
+          _react2.default.createElement(
+            'i',
+            { className: 'material-icons' },
+            'add'
+          ),
+          !isNew ? 'Edit' : 'New',
+          ' Timer'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'modal modal-fixed-footer new-timer-modal left-align', ref: function ref(modal) {
+              _this2.modal = modal;
+            } },
+          _react2.default.createElement(
+            'div',
+            { className: 'modal-content' },
+            _react2.default.createElement(
+              'form',
+              { ref: function ref(form) {
+                  _this2.form = form;
+                } },
+              _react2.default.createElement(
+                'h3',
+                null,
+                'New Timer'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s12' },
+                  _react2.default.createElement('input', { type: 'text', name: 'name', defaultValue: this.state.name,
+                    onChange: handleChange.bind(this, 'name') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'name' },
+                    'Name'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s12' },
+                  _react2.default.createElement('input', { type: 'text', name: 'location', onChange: handleChange.bind(this, 'location'),
+                    defaultValue: this.state.location }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'location' },
+                    'Location'
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col s12' },
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    'Level, Slot, Position'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s2' },
+                  _react2.default.createElement('input', { type: 'number', name: 'level',
+                    defaultValue: this.state.level,
+                    onChange: handleChange.bind(this, 'level') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'level' },
+                    'Level'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s4' },
+                  _react2.default.createElement('input', { type: 'text', name: 'slot', defaultValue: this.state.slot,
+                    onChange: handleChange.bind(this, 'slot') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'slot' },
+                    'Slot'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col s6 position-fields' },
+                  _react2.default.createElement(
+                    'span',
+                    { className: '' },
+                    'Position: '
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'input-field inline' },
+                    _react2.default.createElement('input', { type: 'number', name: 'x',
+                      defaultValue: this.state.x,
+                      onChange: handleChange.bind(this, 'x') }),
+                    _react2.default.createElement(
+                      'label',
+                      { htmlFor: 'x' },
+                      'x'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'input-field inline' },
+                    _react2.default.createElement('input', { type: 'number', name: 'y',
+                      defaultValue: this.state.y,
+                      onChange: handleChange.bind(this, 'y') }),
+                    _react2.default.createElement(
+                      'label',
+                      { htmlFor: 'y' },
+                      'y'
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col s12' },
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    'Time'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s3' },
+                  _react2.default.createElement('input', { type: 'number', name: 'time_hour', defaultValue: this.state.time_hour,
+                    onChange: handleChange.bind(this, 'time_hour') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'time_hour' },
+                    'hour'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s3' },
+                  _react2.default.createElement('input', { type: 'number', name: 'time_minute', defaultValue: this.state.time_minute,
+                    onChange: handleChange.bind(this, 'time_minute') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'time_minute' },
+                    'minute'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s3' },
+                  _react2.default.createElement(
+                    'select',
+                    { name: 'meridien', id: '', className: 'browser-default',
+                      defaultValue: this.state.meridien,
+                      onChange: handleChange.bind(this, 'meridien') },
+                    _react2.default.createElement(
+                      'option',
+                      { value: 'am' },
+                      'AM'
+                    ),
+                    _react2.default.createElement(
+                      'option',
+                      { value: 'pm' },
+                      'PM'
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col s12' },
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    'Duration'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s3' },
+                  _react2.default.createElement('input', { type: 'number', name: 'dur_hours', defaultValue: this.state.dur_hours,
+                    onChange: handleChange.bind(this, 'dur_hours') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'dur_hours' },
+                    'Hours'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-field col s3' },
+                  _react2.default.createElement('input', { type: 'number', name: 'dur_minutes', defaultValue: this.state.dur_minutes,
+                    onChange: handleChange.bind(this, 'dur_minutes') }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'dur_minutes' },
+                    'Minutes'
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col s12 input-field' },
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    'Notes'
+                  ),
+                  _react2.default.createElement('textarea', { className: 'materialize-textarea', name: 'notes', defaultValue: this.state.notes,
+                    id: '', cols: '30', rows: '10', onChange: handleChange.bind(this, 'notes') })
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'modal-footer' },
+            _react2.default.createElement(
+              'div',
+              { className: 'right-align' },
+              _react2.default.createElement(
+                'a',
+                { onClick: handleTimerSave, className: 'btn btn-default' },
+                'Save'
+              ),
+              _react2.default.createElement(
+                'a',
+                { onClick: handleCloseModal, className: 'btn btn-flat' },
+                'Cancel'
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return NewTimerModal;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    addCustomNode: function addCustomNode(node) {
+      return dispatch((0, _customListActions.addCustomNode)(node));
+    },
+    editCustomNode: function editCustomNode(node) {
+      return dispatch((0, _customListActions.editCustomNode)(node));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NewTimerModal);
+
+});
+
 require.register("js/components/WatchGroupSelect.js", function(exports, require, module) {
 'use strict';
 
@@ -2245,6 +2320,159 @@ exports.default = About;
 
 });
 
+require.register("js/containers/CustomContent.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _TimerModal = require('../components/TimerModal');
+
+var _TimerModal2 = _interopRequireDefault(_TimerModal);
+
+var _customListActions = require('../actions/customListActions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CustomContent = function (_Component) {
+  _inherits(CustomContent, _Component);
+
+  function CustomContent() {
+    _classCallCheck(this, CustomContent);
+
+    return _possibleConstructorReturn(this, (CustomContent.__proto__ || Object.getPrototypeOf(CustomContent)).apply(this, arguments));
+  }
+
+  _createClass(CustomContent, [{
+    key: 'handleOpenModal',
+    value: function handleOpenModal(id) {}
+  }, {
+    key: 'handleRemoveNode',
+    value: function handleRemoveNode(id) {
+      this.props.removeCustomNode(id);
+    }
+  }, {
+    key: 'renderCustomNode',
+    value: function renderCustomNode(node) {
+      return _react2.default.createElement(
+        'div',
+        { className: 'custom-node-item clearfix', key: node.id },
+        _react2.default.createElement(
+          'div',
+          { className: 'left' },
+          _react2.default.createElement(
+            'div',
+            { className: 'name' },
+            node.name + ' [' + node.level + ']'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'location' },
+            node.time + ' ' + (node.location ? '--' + node.location : '')
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'notes' },
+            node.notes
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'right node-actions' },
+          _react2.default.createElement(_TimerModal2.default, { timer: node, className: 'inline-block' }),
+          _react2.default.createElement(
+            'a',
+            { className: 'delete-btn', onClick: this.handleRemoveNode.bind(this, node.id) },
+            _react2.default.createElement(
+              'i',
+              { className: 'material-icons' },
+              'close'
+            )
+          )
+        )
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var customlist = this.props.customlist;
+
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'custom-content-container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'header' },
+          _react2.default.createElement(_TimerModal2.default, null)
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'custom-node-list' },
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Custom Timers'
+          ),
+          customlist.length ? _react2.default.createElement(
+            'div',
+            null,
+            customlist.map(function (item) {
+              return _this2.renderCustomNode(item);
+            })
+          ) : _react2.default.createElement(
+            'div',
+            { className: 'empty-list' },
+            _react2.default.createElement(
+              'p',
+              null,
+              'No Custom Timers Yet!'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return CustomContent;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    customlist: state.customlist,
+    watchgroups: state.watchgroups
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    removeCustomNode: function removeCustomNode(id) {
+      return dispatch((0, _customListActions.removeCustomNode)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CustomContent);
+
+});
+
 require.register("js/containers/DevTools.js", function(exports, require, module) {
 'use strict';
 
@@ -2324,9 +2552,9 @@ var _FilterMenu = require('../components/FilterMenu');
 
 var _FilterMenu2 = _interopRequireDefault(_FilterMenu);
 
-var _NewTimerModal = require('../components/NewTimerModal');
+var _TimerModal = require('../components/TimerModal');
 
-var _NewTimerModal2 = _interopRequireDefault(_NewTimerModal);
+var _TimerModal2 = _interopRequireDefault(_TimerModal);
 
 var _nodeListActions = require('../actions/nodeListActions');
 
@@ -2451,7 +2679,7 @@ var Home = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'col m4' },
-            _react2.default.createElement(_NewTimerModal2.default, null)
+            _react2.default.createElement(_TimerModal2.default, null)
           )
         ),
         _react2.default.createElement(
@@ -2560,15 +2788,17 @@ var WatchList = function (_Component) {
     value: function sortNodes() {
       var _props = this.props,
           watchlist = _props.watchlist,
+          customlist = _props.customlist,
           nodelist = _props.nodelist,
           clock = _props.clock;
 
 
-      if (!nodelist.nodes.length) {
+      var fullList = (0, _lodash.union)(nodelist.nodes || [], customlist);
+      if (!fullList.length) {
         return [];
       }
 
-      var list = (0, _lodash.filter)(nodelist.nodes, function (node) {
+      var list = (0, _lodash.filter)(fullList, function (node) {
         return (0, _lodash.indexOf)(watchlist, node.id) >= 0 ? true : false;
       });
 
@@ -2589,7 +2819,6 @@ var WatchList = function (_Component) {
     value: function render() {
       var _props2 = this.props,
           watchlist = _props2.watchlist,
-          nodelist = _props2.nodelist,
           modal = _props2.modal;
 
 
@@ -2662,6 +2891,7 @@ var WatchList = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     nodelist: state.nodelist,
+    customlist: state.customlist,
     watchlist: state.watchlist.nodes,
     clock: state.clock
   };
@@ -2970,14 +3200,13 @@ var NodeList = function (_Component) {
     value: function sortAndFilterNodes(props) {
       var _ref = props || this.props,
           nodelist = _ref.nodelist,
+          customlist = _ref.customlist,
           search = _ref.search;
 
-      var list = nodelist.nodes || [];
+      var list = _lodash2.default.union(nodelist.nodes || [], customlist);
 
-      if (nodelist.nodes && nodelist.nodes.length && !_lodash2.default.isEmpty(search)) {
+      if (list.length && !_lodash2.default.isEmpty(search)) {
         list = (0, _searchUtils2.default)(nodelist.nodes, search);
-      } else {
-        list = nodelist.nodes || [];
       }
 
       if (!_lodash2.default.isEmpty(nodelist.filterByType) && nodelist.filterByType !== 'all') {
@@ -3141,6 +3370,7 @@ var NodeList = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     nodelist: state.nodelist,
+    customlist: state.customlist,
     search: state.search,
     clock: state.clock
   };
@@ -3400,10 +3630,35 @@ var Notifications = function (_Component) {
   }, {
     key: 'renderPopupContent',
     value: function renderPopupContent() {
+      var alarmList = this.props.alarmList;
+
+
       return _react2.default.createElement(
         'div',
-        { className: 'popup-content-container' },
-        'Moo'
+        { className: 'popup-content-container modal-content' },
+        _react2.default.createElement(
+          'h3',
+          null,
+          'Node Alert'
+        ),
+        alarmList.map(function (node) {
+          return _react2.default.createElement(
+            'div',
+            { key: 'popup-' + node.id },
+            _react2.default.createElement(
+              'h5',
+              null,
+              node.name,
+              ': ',
+              node.time
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              node.location
+            )
+          );
+        })
       );
     }
   }, {
@@ -3702,6 +3957,10 @@ var _v = require('uuid/v1');
 
 var _v2 = _interopRequireDefault(_v);
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _customListActions = require('../actions/customListActions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -3712,18 +3971,33 @@ var customlist = function customlist() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments[1];
 
+  var list = _lodash2.default.clone(state),
+      node = void 0,
+      existsAt = void 0;
+
   switch (action.type) {
     case _customListActions.ADD_CUSTOM_NODE:
-      var node = Object.assign({}, action.node, {
+      node = Object.assign({}, action.node, {
         id: (0, _v2.default)()
       });
 
       return [].concat(_toConsumableArray(state), [node]);
 
+    case _customListActions.EDIT_CUSTOM_NODE:
+      existsAt = _lodash2.default.indexOf(state, action.node.id);
+      node = _lodash2.default.find(list, { id: action.node.id });
+
+      var newNode = void 0;
+      if (node) {
+        list.splice(existsAt, 1);
+        newNode = Object.assign({}, node, action.node);
+        list.push(newNode);
+      }
+
+      return list;
+
     case _customListActions.REMOVE_CUSTOM_NODE:
-      var list = _.clone(state),
-          id = action.id,
-          existsAt = _.indexOf(list, id);
+      existsAt = _lodash2.default.findIndex(list, { id: action.id });
 
       // if exists, remove from list
       if (existsAt !== -1) {
@@ -4151,6 +4425,10 @@ var _WatchList = require('./containers/WatchList');
 
 var _WatchList2 = _interopRequireDefault(_WatchList);
 
+var _CustomContent = require('./containers/CustomContent');
+
+var _CustomContent2 = _interopRequireDefault(_CustomContent);
+
 var _MainNav = require('./components/MainNav');
 
 var _MainNav2 = _interopRequireDefault(_MainNav);
@@ -4170,6 +4448,7 @@ exports.default = function () {
         { className: 'container' },
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/watch', component: _WatchList2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/custom', component: _CustomContent2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default })
       )
     )

@@ -6,39 +6,6 @@ import {omit} from 'lodash';
 
 const version = '2.0.0';
 
-const Menu = (props) => {
-  const navItems = [
-    { url: '/watch', name: 'Watch List', count: props.watchCount },
-    {
-      url: '/about',
-      name: 'About'
-    }
-  ];
-  return (
-    <ul { ...omit(props, ['clock', 'watchCount']) }>
-      <li className='nav-item'>
-        <NavLink exact to="/" activeClassName="active">Home</NavLink>
-      </li>
-      { navItems.map(item => {
-        return (
-          <li key={item.name.toLowerCase()} className="nav-item">
-            <NavLink to={item.url} activeClassName="active">
-              <span>{ item.name }</span>
-              { item.count ? (
-                <span className="label">{item.count}</span>
-              ): null }
-            </NavLink>
-          </li>
-        )
-      })}
-      { props.clock ? (
-        <li className={`nav-clock nav-item ${props.clock.meridiem.toLowerCase()}`}>
-          <Clock className="inline-block"/>
-        </li>
-      ) : null }
-    </ul>
-  )
-}
 
 class MainNav extends Component {
   componentDidMount(nextProps, nextState) {
@@ -47,13 +14,59 @@ class MainNav extends Component {
     });
   }
 
+  renderMenu(className, id) {
+    const {
+      watchCount,
+      customCount,
+      clock
+    } = this.props;
+
+    const navItems = [
+      { url: '/watch', name: 'Watch List', count: watchCount },
+      {
+        url: '/custom',
+        name: 'My Timers',
+        count: customCount
+      },
+      {
+        url: '/about',
+        name: 'About'
+      }
+
+    ];
+
+    return (
+      <ul className={className || ''} id={ id || null }>
+        <li className='nav-item'>
+          <NavLink exact to="/" activeClassName="active">Home</NavLink>
+        </li>
+        { navItems.map(item => {
+          return (
+            <li key={item.name.toLowerCase()} className="nav-item">
+              <NavLink to={item.url} activeClassName="active">
+                <span>{ item.name }</span>
+                { item.count ? (
+                  <span className="label">{item.count}</span>
+                ): null }
+              </NavLink>
+            </li>
+          )
+        })}
+        { id ? (
+          <li className={`nav-clock nav-item ${clock.meridiem.toLowerCase()}`}>
+            <Clock className="inline-block"/>
+          </li>
+        ) : null }
+      </ul>
+    )
+  }
+
   render() {
     const {
             toggleSidebar
           } = this,
           {
-            clock,
-            watchListCount
+            clock
           } = this.props;
 
     return (
@@ -71,9 +84,10 @@ class MainNav extends Component {
             className="button-collapse right">
               <i className="material-icons">menu</i>
           </a>
-          <Menu className="nav navbar-nav right hide-on-med-and-down" watchCount={watchListCount} />
-          <Menu ref={(sidebar) => { this.sidebarNav = sidebar; }} watchCount={watchListCount}
-            id="sidebar" className="side-nav" clock={clock} />
+          <div>{ this.renderMenu("nav navbar-nav right hide-on-med-and-down") }</div>
+          <div ref={(sidebar) => { this.sidebarNav = sidebar; }}>
+            { this.renderMenu("side-nav", "sidebar") }
+          </div>
         </div>
       </nav>
     )
@@ -83,7 +97,8 @@ class MainNav extends Component {
 const mapStateToProps = state => {
   return {
     clock: state.clock,
-    watchListCount: state.watchlist.nodes.length
+    watchCount: state.watchlist.nodes.length,
+    customCount: state.customlist.length
   };
 }
 

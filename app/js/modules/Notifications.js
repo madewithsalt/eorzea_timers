@@ -57,8 +57,22 @@ class Notifications extends Component {
   }
 
   renderPopupContent() {
+    const {
+      alarmList
+    } = this.props;
+
     return (
-      <div className="popup-content-container">Moo</div>
+      <div className="popup-content-container modal-content">
+        <h3>Node Alert</h3>
+        { alarmList.map((node) => {
+          return (
+            <div key={`popup-${node.id}`}>
+              <h5>{node.name}: {node.time}</h5>
+              <p>{node.location}</p>
+            </div>
+          )
+        })}
+      </div>
     )
   }
 

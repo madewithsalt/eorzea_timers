@@ -109,15 +109,14 @@ class NodeList extends Component {
   sortAndFilterNodes(props) {
     const {
       nodelist,
+      customlist,
       search
     } = props || this.props;
 
-    let list = nodelist.nodes || [];
+    let list = _.union(nodelist.nodes || [], customlist);
 
-    if (nodelist.nodes && nodelist.nodes.length && !_.isEmpty(search)) {
+    if (list.length && !_.isEmpty(search)) {
       list = searchUtil(nodelist.nodes, search);
-    } else {
-      list = nodelist.nodes || [];
     }
 
     if (!_.isEmpty(nodelist.filterByType) && nodelist.filterByType !== 'all') {
@@ -241,6 +240,7 @@ class NodeList extends Component {
 const mapStateToProps = state => {
   return {
     nodelist: state.nodelist,
+    customlist: state.customlist,
     search: state.search,
     clock: state.clock
   };
