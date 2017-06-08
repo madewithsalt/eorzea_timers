@@ -67,6 +67,7 @@ class WatchList extends Component {
   render() {
     const {
       watchlist,
+      watchgroups,
       modal
     } = this.props;
 
@@ -80,7 +81,9 @@ class WatchList extends Component {
             { watchlist.length ? (
               <WatchGroupModal className="left" />
             ): null}
-            <WatchGroupSelect className="left" />
+            {watchgroups.length ? (
+              <WatchGroupSelect className="left" />
+            ): null }
           </div>
           <div className="col s3 right-align">
             <a onClick={this.props.clearAll} className="btn btn-small btn-default">clear all</a>
@@ -112,6 +115,7 @@ const mapStateToProps = state => {
     nodelist: state.nodelist,
     customlist: state.customlist,
     watchlist: state.watchlist.nodes,
+    watchgroups: state.watchgroups,
     clock: state.clock
   };
 }
