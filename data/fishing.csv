@@ -1,15 +1,15 @@
 name,level,location,times,weather,bait,duration,is_collectable,is_ephemeral,blue_scrip,red_scrip
-Caiman,60,"Sea of Clouds, Voor Siran Siran",6:00 PM,"Fair Skies,Clear Skies,","Blueclaw Shrimp (M),Bullfrog (M),,,",3:00,TRUE,TRUE,FALSE,FALSE
-Caiman,60,"Dravanian Forelands, The Iron Feast",6:00 PM,"Fair Skies,Clear Skies,","Blueclaw Shrimp (M),Bullfrog (M),,,",3:00,TRUE,TRUE,FALSE,FALSE
-Capelin,60,"Coerthas Western Highlands, Clearpool",12:00 AM,"Snow,Blizzards,Clouds","Purse Web Spider,Brute Leech,,,",5:00,TRUE,FALSE,FALSE,TRUE
-Dravanian Bass,60,"Dravanian Forelands, Whilom River",12:00 AM,"Fog,Clouds,Dust Storms","Brute Leech,Goblin Jig,Blueclaw Shrimp (M),,",6:00,TRUE,TRUE,FALSE,FALSE
-Dravanian Squeaker,60,"Churning Mists, Weston Waters",4:00 PM,"Fair Skies,Clear Skies,Umbral Static","Purse Web Spider,Stonefly Nymph,Brute Leech,,",4:00,TRUE,FALSE,FALSE,FALSE
-Manasail,60,"Churning Mists, Tharl Oom Khash",10:00 AM,"Fair Skies,Clear Skies,","Red Balloon,Sky Faerie (M),Rudderfish (M),,",4:00,TRUE,TRUE,FALSE,FALSE
-Noontide Oscar,60,"Churning Mists, Eli Tohm",6:00 AM,"Fair Skies,Clear Skies,Umbral Static","Purse Web Spider,Brute Leech,,,",6:00,TRUE,FALSE,TRUE,FALSE
-Pteranodon,60,"Churning Mists, Sohm Al Summit",9:00 AM,"Fair Skies,Clear Skies,Umbral Static","Giant Crane Fly,Sky Faerie (M),Rudderfish (M),,",8:00,TRUE,TRUE,FALSE,FALSE
-Sorcerer Fish,60,"Coerthas Western Highlands, Unfrozen Pond",8:00 AM,"Snow,Clouds,Blizzards","Abalathian Smelt (M),Ice Faerie (M),Stonefly Nymph,Goblin Jig,Brute Leech",12:00,TRUE,FALSE,FALSE,FALSE
-Thaliak Caiman,60,"Dravanian Hinterlands, Middle Thaliak River",3:00 PM,"Fair Skies,Clear Skies,","Sweetfish (M),Bullfrog (M),,,",3:00,TRUE,TRUE,FALSE,FALSE
-Thunderbolt Eel,60,"Dravanian Forelands, The Iron Feast",10:00 PM,"Clear Skies,Fair Skies,","Blueclaw Shrimp (M),Stonefly Nymph,Bladed Steel Jig,Brute Leech,",5:15,TRUE,FALSE,FALSE,TRUE
-Tiny Axolotl,60,"Azys Lla, The Pappus Tree",9:00 PM,"Fair Skies,Thunder,Clouds","Aether Eye (M),Purse Web Spider,Bladed Steel Jig,Brute Leech,",3:00,TRUE,FALSE,FALSE,TRUE
-Tupuxuara,60,"Azys Lla, The Habisphere",3:00 PM,"Fair Skies,Clouds,Thunder","Red Balloon,Sky Faerie (M),Rudderfish (M),,",3:00,TRUE,TRUE,FALSE,FALSE
-Weston Bowfin,60,"Churning Mists, Weston Waters",8:00 AM,"Fair Skies,Clear Skies,Umbral Static","Goblin Jig,Bladed Steel Jig,Brute Leech,,",4:00,TRUE,FALSE,TRUE,FALSE
+Caiman,60,"Sea of Clouds, Voor Siran Siran",6:00 PM,"Fair Skies,Clear Skies,","Blueclaw Shrimp (M),Bullfrog (M),,,",3:00,TRUE,TRUE,FALSE,
+Caiman,60,"Dravanian Forelands, The Iron Feast",6:00 PM,"Fair Skies,Clear Skies,","Blueclaw Shrimp (M),Bullfrog (M),,,",3:00,TRUE,TRUE,FALSE,
+Capelin,60,"Coerthas Western Highlands, Clearpool",12:00 AM,"Snow,Blizzards,Clouds","Purse Web Spider,Brute Leech,,,",5:00,TRUE,FALSE,TRUE,
+Dravanian Bass,60,"Dravanian Forelands, Whilom River",12:00 AM,"Fog,Clouds,Dust Storms","Brute Leech,Goblin Jig,Blueclaw Shrimp (M),,",6:00,TRUE,TRUE,FALSE,
+Dravanian Squeaker,60,"Churning Mists, Weston Waters",4:00 PM,"Fair Skies,Clear Skies,Umbral Static","Purse Web Spider,Stonefly Nymph,Brute Leech,,",4:00,TRUE,FALSE,FALSE,
+Manasail,60,"Churning Mists, Tharl Oom Khash",10:00 AM,"Fair Skies,Clear Skies,","Red Balloon,Sky Faerie (M),Rudderfish (M),,",4:00,TRUE,TRUE,FALSE,
+Noontide Oscar,60,"Churning Mists, Eli Tohm",6:00 AM,"Fair Skies,Clear Skies,Umbral Static","Purse Web Spider,Brute Leech,,,",6:00,TRUE,FALSE,TRUE,
+Pteranodon,60,"Churning Mists, Sohm Al Summit",9:00 AM,"Fair Skies,Clear Skies,Umbral Static","Giant Crane Fly,Sky Faerie (M),Rudderfish (M),,",8:00,TRUE,TRUE,FALSE,
+Sorcerer Fish,60,"Coerthas Western Highlands, Unfrozen Pond",8:00 AM,"Snow,Clouds,Blizzards","Abalathian Smelt (M),Ice Faerie (M),Stonefly Nymph,Goblin Jig,Brute Leech",12:00,TRUE,FALSE,FALSE,
+Thaliak Caiman,60,"Dravanian Hinterlands, Middle Thaliak River",3:00 PM,"Fair Skies,Clear Skies,","Sweetfish (M),Bullfrog (M),,,",3:00,TRUE,TRUE,FALSE,
+Thunderbolt Eel,60,"Dravanian Forelands, The Iron Feast",10:00 PM,"Clear Skies,Fair Skies,","Blueclaw Shrimp (M),Stonefly Nymph,Bladed Steel Jig,Brute Leech,",5:15,TRUE,FALSE,TRUE,
+Tiny Axolotl,60,"Azys Lla, The Pappus Tree",9:00 PM,"Fair Skies,Thunder,Clouds","Aether Eye (M),Purse Web Spider,Bladed Steel Jig,Brute Leech,",3:00,TRUE,FALSE,TRUE,
+Tupuxuara,60,"Azys Lla, The Habisphere",3:00 PM,"Fair Skies,Clouds,Thunder","Red Balloon,Sky Faerie (M),Rudderfish (M),,",3:00,TRUE,TRUE,FALSE,
+Weston Bowfin,60,"Churning Mists, Weston Waters",8:00 AM,"Fair Skies,Clear Skies,Umbral Static","Goblin Jig,Bladed Steel Jig,Brute Leech,,",4:00,TRUE,FALSE,TRUE,
