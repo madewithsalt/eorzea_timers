@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import Clock from './Clock';
 import {omit} from 'lodash';
 
-const version = '2.0.0';
+const version = '2.1.0';
 
 
 class MainNav extends Component {

@@ -23,7 +23,7 @@ export default {
       {value: 'is_collectable', name: 'Collectable'},
       {value: 'is_ephemeral', name: 'Ephemeral'},
       {value: 'red_scrip', name: 'Red Scrip'},
-      {value: 'blue_scrip', name: 'Blue Scrip'},
+      // {value: 'blue_scrip', name: 'Blue Scrip'},
       {value: 'yellow_scrip', name: 'Yellow Scrip'}
     ]
   }
