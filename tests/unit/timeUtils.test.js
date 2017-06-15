@@ -83,6 +83,16 @@ describe('Time Helpers Spec', function() {
       });
     });
 
+    describe('getEarthTimeUntil', function() {
+      test('should return 2 minutes, 55 seconds', function() {
+          var result = helpers.getEarthTimeUntil('12:00 AM', '11:00 PM');
+
+          expect(result.hours).toBe(0);
+          expect(result.minutes).toBe(2);
+          expect(result.seconds).toBe(55);
+      });
+    });
+
     describe('getEarthDurationfromEorzean', function() {
         test('should return 2 minutes 55 seconds', function () {
             var result = helpers.getEarthDurationfromEorzean('1:00');

@@ -1,4 +1,4 @@
-import { isArray, filter, isString } from 'lodash';
+import { isArray, filter, isString, trim } from 'lodash';
 
 export function parsePosition(pos) {
   if(isArray(pos)) {
@@ -21,7 +21,7 @@ export function parseTimes(times) {
     return times;
 
   } else {
-    var list = times.split(',');
+    var list = times.split(',').map((time) => trim(time));
 
     return filter(list, (time) => {
       return time.length > 0;

@@ -160,7 +160,7 @@ export const getTimeStringFromObject = (timeObj) => {
 };
 
 export const getTimeStringFromDuration = (stringStartTime, stringDuration) => {
-    if(!stringStartTime || stringDuration || !_.isString(stringDuration) || !_.isString(stringStartTime) ) {
+    if(!stringStartTime || !stringDuration || !_.isString(stringDuration) || !_.isString(stringStartTime) ) {
       return console.error('getTimeStringFromDuration expects 2 arguments <string:time>; ie "12:00 AM"');
     }
 
