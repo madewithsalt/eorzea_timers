@@ -3,7 +3,7 @@
   "description": "Brunch.io application",
   "private": true,
   "author": "Brunch",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "repository": "",
   "scripts": {
     "parse": "node ./bin/build-data-from-csv.js && cp ./data/nodes.json ./app/assets/data/nodes.json",
