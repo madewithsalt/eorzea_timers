@@ -1,9 +1,9 @@
 {
-  "name": "brunch-app",
-  "description": "Brunch.io application",
+  "name": "eorzea-timers",
+  "description": "Eorzea Timers",
   "private": true,
-  "author": "Brunch",
-  "version": "0.1.0",
+  "author": "tnbKristi",
+  "version": "2.1.0",
   "repository": "",
   "scripts": {
     "parse": "node ./bin/build-data-from-csv.js && cp ./data/nodes.json ./app/assets/data/nodes.json",
