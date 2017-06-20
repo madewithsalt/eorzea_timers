@@ -13,13 +13,15 @@ class SearchBar extends Component {
   render() {
     const {
       onChange,
+      defaultValue,
       helpText
     } = this.props;
 
     return (
       <div className="search-bar">
         <div className="input-field">
-          <input type="text" id="search" onChange={this.onChangeEvent.bind(this, onChange)}/>
+          <input type="text" id="search" defaultValue={defaultValue}
+            onChange={this.onChangeEvent.bind(this, onChange)} />
           <label htmlFor="search">
             <i className="material-icons">search</i>
             Search

@@ -7,10 +7,10 @@ export const loadState = (version = 2.0) => {
 
     const state = JSON.parse(serializedState);
 
-    if(!state || !state.version || state.version < version) {
-      clearState();
-      return saveState({ version });
-    }
+    // if(!state || !state.version || state.version < version) {
+    //   clearState();
+    //   return saveState({ version });
+    // }
 
     return state;
   } catch (err) {

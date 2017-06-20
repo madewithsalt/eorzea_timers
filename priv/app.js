@@ -849,8 +849,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var version = '2.1.0';
-
 var MainNav = function (_Component) {
   _inherits(MainNav, _Component);
 
@@ -951,7 +949,7 @@ var MainNav = function (_Component) {
             _react2.default.createElement(
               'span',
               { className: 'version' },
-              version
+              this.props.version.toString()
             )
           ),
           _react2.default.createElement(
@@ -998,7 +996,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     clock: state.clock,
     watchCount: state.watchlist.nodes.length,
-    customCount: state.customlist.length
+    customCount: state.customlist.length,
+    version: state.version
   };
 };
 
@@ -1213,6 +1212,7 @@ var SearchBar = function (_Component) {
     value: function render() {
       var _props = this.props,
           onChange = _props.onChange,
+          defaultValue = _props.defaultValue,
           helpText = _props.helpText;
 
 
@@ -1222,7 +1222,8 @@ var SearchBar = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'input-field' },
-          _react2.default.createElement('input', { type: 'text', id: 'search', onChange: this.onChangeEvent.bind(this, onChange) }),
+          _react2.default.createElement('input', { type: 'text', id: 'search', defaultValue: defaultValue,
+            onChange: this.onChangeEvent.bind(this, onChange) }),
           _react2.default.createElement(
             'label',
             { htmlFor: 'search' },
@@ -2398,10 +2399,9 @@ var _reactRedux = require('react-redux');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var VERSION = '2.0';
 var googleSheetsLink = "https://docs.google.com/spreadsheets/d/1pqaKo0TM2rJghWWXqOQIqCueJvFV2dPuZUQnNrsRmt8/edit?usp=sharing";
 
-var About = function About() {
+var About = function About(props) {
   return _react2.default.createElement(
     'div',
     { className: 'about-page' },
@@ -2417,7 +2417,7 @@ var About = function About() {
         'h3',
         { className: 'bordered-header' },
         'Version: ',
-        VERSION,
+        props.version,
         _react2.default.createElement(
           'span',
           { className: 'small' },
@@ -2622,7 +2622,13 @@ var About = function About() {
   );
 };
 
-exports.default = About;
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    version: state.version
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(About);
 
 });
 
@@ -2982,6 +2988,10 @@ var Home = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       $(this.tabMenu).tabs();
+
+      try {
+        Materialize.updateTextFields();
+      } catch (e) {}
     }
   }, {
     key: 'itemIcon',
@@ -3050,7 +3060,8 @@ var Home = function (_Component) {
           availableFilters = _props2.availableFilters,
           filterByType = _props2.filterByType,
           filterByLevel = _props2.filterByLevel,
-          featureFilters = _props2.featureFilters;
+          featureFilters = _props2.featureFilters,
+          searchValue = _props2.searchValue;
 
 
       var filterValues = {
@@ -3075,7 +3086,8 @@ var Home = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'col m8' },
-            _react2.default.createElement(_SearchBar2.default, { onChange: search, helpText: "Search by Name or Location" })
+            _react2.default.createElement(_SearchBar2.default, { onChange: search, defaultValue: searchValue,
+              helpText: "Search by Name or Location" })
           ),
           _react2.default.createElement(
             'div',
@@ -3104,7 +3116,8 @@ var mapStateToProps = function mapStateToProps(state) {
     filterByType: state.nodelist.filterByType,
     filterByLevel: state.nodelist.filterByLevel,
     featureFilters: state.nodelist.featureFilters,
-    availableFilters: state.nodelist.filters
+    availableFilters: state.nodelist.filters,
+    searchValue: state.search
   };
 };
 
@@ -4489,7 +4502,7 @@ var _customListReducer2 = _interopRequireDefault(_customListReducer);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var version = function version(state) {
-  return state || 2.0;
+  return "2.1.1";
 };
 
 var rootReducer = (0, _redux.combineReducers)({
@@ -5110,10 +5123,10 @@ var loadState = exports.loadState = function loadState() {
 
     var state = JSON.parse(serializedState);
 
-    if (!state || !state.version || state.version < version) {
-      clearState();
-      return saveState({ version: version });
-    }
+    // if(!state || !state.version || state.version < version) {
+    //   clearState();
+    //   return saveState({ version });
+    // }
 
     return state;
   } catch (err) {

@@ -21,6 +21,10 @@ import {
 class Home extends Component {
   componentDidMount() {
     $(this.tabMenu).tabs();
+    
+    try {
+      Materialize.updateTextFields();
+    } catch(e) {}
   }
 
   itemIcon(item) {
@@ -85,7 +89,8 @@ class Home extends Component {
       availableFilters,
       filterByType,
       filterByLevel,
-      featureFilters
+      featureFilters,
+      searchValue
     } = this.props;
 
     const filterValues = {
@@ -100,7 +105,8 @@ class Home extends Component {
       <div className="home-container">
           <div className="row">
             <div className="col m8">
-              <SearchBar onChange={ search } helpText={"Search by Name or Location"}/>
+              <SearchBar onChange={ search } defaultValue={ searchValue }
+                helpText={"Search by Name or Location"}/>
             </div>
             <div className="col m4">
               <TimerModal />
@@ -121,7 +127,8 @@ const mapStateToProps = state => {
     filterByType: state.nodelist.filterByType,
     filterByLevel: state.nodelist.filterByLevel,
     featureFilters: state.nodelist.featureFilters,
-    availableFilters: state.nodelist.filters
+    availableFilters: state.nodelist.filters,
+    searchValue: state.search
   };
 }
 

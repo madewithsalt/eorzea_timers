@@ -1,14 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-const VERSION = '2.0';
 const googleSheetsLink = "https://docs.google.com/spreadsheets/d/1pqaKo0TM2rJghWWXqOQIqCueJvFV2dPuZUQnNrsRmt8/edit?usp=sharing";
 
-const About = () => (
+const About = (props) => (
     <div className="about-page">
       <div className="col-md-12">
         <h2>Eorzea Timers - An Open Source Project.</h2>
-        <h3 className="bordered-header">Version: {VERSION}
+        <h3 className="bordered-header">Version: {props.version}
           <span className="small">(<a target="_blank" href="https://github.com/tnbKristi/eorzea_timers/releases">release notes</a>)</span>
         </h3>
 
@@ -73,4 +72,10 @@ const About = () => (
     </div>
 )
 
-export default About;
+const mapStateToProps = state => {
+  return {
+    version: state.version
+  };
+}
+
+export default connect(mapStateToProps)(About);

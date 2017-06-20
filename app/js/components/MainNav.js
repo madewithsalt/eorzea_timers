@@ -4,8 +4,6 @@ import {connect} from 'react-redux';
 import Clock from './Clock';
 import {omit} from 'lodash';
 
-const version = '2.1.0';
-
 
 class MainNav extends Component {
   componentDidMount(nextProps, nextState) {
@@ -74,7 +72,7 @@ class MainNav extends Component {
         <div className="nav-wrapper">
           <div className="brand-logo website-title">
             <span>Eorzea Timers</span>&nbsp;
-            <span className="version">{version}</span>
+            <span className="version">{this.props.version.toString()}</span>
           </div>
           <div className={`right nav-clock ${clock.meridiem.toLowerCase()}`}>
             <Clock className="inline-block"/>
@@ -98,7 +96,8 @@ const mapStateToProps = state => {
   return {
     clock: state.clock,
     watchCount: state.watchlist.nodes.length,
-    customCount: state.customlist.length
+    customCount: state.customlist.length,
+    version: state.version
   };
 }
 
