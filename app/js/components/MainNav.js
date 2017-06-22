@@ -10,6 +10,10 @@ class MainNav extends Component {
     $(this.menuToggle).sideNav({
       edge: 'right'
     });
+
+    $('#sidebar a').on('click', () => {
+      $(this.menuToggle).sideNav('hide');
+    })
   }
 
   renderMenu(className, id) {

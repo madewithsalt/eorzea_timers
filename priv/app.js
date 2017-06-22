@@ -861,8 +861,14 @@ var MainNav = function (_Component) {
   _createClass(MainNav, [{
     key: 'componentDidMount',
     value: function componentDidMount(nextProps, nextState) {
+      var _this2 = this;
+
       $(this.menuToggle).sideNav({
         edge: 'right'
+      });
+
+      $('#sidebar a').on('click', function () {
+        $(_this2.menuToggle).sideNav('hide');
       });
     }
   }, {
@@ -925,7 +931,7 @@ var MainNav = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var toggleSidebar = this.toggleSidebar,
           clock = this.props.clock;
@@ -960,7 +966,7 @@ var MainNav = function (_Component) {
           _react2.default.createElement(
             'a',
             { href: '#', ref: function ref(button) {
-                _this2.menuToggle = button;
+                _this3.menuToggle = button;
               },
               'data-activates': 'sidebar',
               className: 'button-collapse right' },
@@ -978,7 +984,7 @@ var MainNav = function (_Component) {
           _react2.default.createElement(
             'div',
             { ref: function ref(sidebar) {
-                _this2.sidebarNav = sidebar;
+                _this3.sidebarNav = sidebar;
               } },
             this.renderMenu("side-nav", "sidebar")
           )
@@ -3050,9 +3056,6 @@ var Home = function (_Component) {
       }
     }
   }, {
-    key: 'handleAddTimer',
-    value: function handleAddTimer() {}
-  }, {
     key: 'render',
     value: function render() {
       var _props2 = this.props,
@@ -4502,7 +4505,7 @@ var _customListReducer2 = _interopRequireDefault(_customListReducer);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var version = function version(state) {
-  return "2.1.1";
+  return "2.1.2";
 };
 
 var rootReducer = (0, _redux.combineReducers)({

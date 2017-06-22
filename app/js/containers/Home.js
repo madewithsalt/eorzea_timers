@@ -21,7 +21,7 @@ import {
 class Home extends Component {
   componentDidMount() {
     $(this.tabMenu).tabs();
-    
+
     try {
       Materialize.updateTextFields();
     } catch(e) {}
@@ -76,10 +76,6 @@ class Home extends Component {
         featureFilter(value)
         break;
     }
-
-  }
-
-  handleAddTimer() {
 
   }
 
