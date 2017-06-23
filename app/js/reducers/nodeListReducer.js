@@ -50,7 +50,7 @@ function nodes(state = defaultState, action) {
               level = utils.parseLevel(node.level || 50);
 
           if(node.bait) {
-            result.bait = utils.parseAttrs(node.bait);  
+            result.bait = utils.parseAttrs(node.bait);
           }
 
           _.each(booleanValues, (key) => {
@@ -91,7 +91,7 @@ function nodes(state = defaultState, action) {
       }
 
       return Object.assign({}, state, {
-        filterByLevel: parseFloat(newFilter)
+        filterByLevel: newFilter
       });
 
     case FILTER_FEATURE_TOGGLE_NODELIST:

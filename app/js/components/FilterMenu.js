@@ -15,10 +15,15 @@ class FilterMenu extends Component {
     const object = isObject(value);
     const { values } = this.props;
 
+    // if a filter is selected ...
     if(values[name]) {
       if(isArray(values[name])) {
         if(object) {
-          isActive = values[name].indexOf(value.value) >= 0;
+          if(isArray(value.value)) {
+            isActive = values[name] === value.value;
+          } else {
+            isActive = values[name].indexOf(value.value) >= 0;
+          }
         } else {
           isActive = values[name].indexOf(value) >= 0;
         }

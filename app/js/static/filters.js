@@ -12,9 +12,11 @@ export default {
   level: {
     name: 'By Level',
     values: [
-      50,
-      60,
-      70
+      { value: 50, name: '50' },
+      { value: [51, 59], name: '51-59'},
+      { value: 60, name: '60'},
+      { value: [61,69], name: '61-69'},
+      { value: 70, name: '70'}
     ]
   },
   feature: {

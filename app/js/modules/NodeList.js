@@ -124,7 +124,14 @@ class NodeList extends Component {
     }
 
     if(nodelist.filterByLevel) {
-      list = _.filter(list, { level: nodelist.filterByLevel })
+      if(_.isArray(nodelist.filterByLevel)) {
+        let levelRange = nodelist.filterByLevel;
+        list = _.filter(list, (item) => {
+          return item.level >= levelRange[0] && item.level <= levelRange[1];
+        });
+      } else {
+        list = _.filter(list, { level: nodelist.filterByLevel })
+      }
     }
 
     if (!_.isEmpty(nodelist.featureFilters)) {
