@@ -3,7 +3,7 @@
   "description": "Eorzea Timers",
   "private": true,
   "author": "tnbKristi",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "repository": "",
   "scripts": {
     "parse": "node ./bin/build-data-from-csv.js && cp ./data/nodes.json ./app/assets/data/nodes.json",
