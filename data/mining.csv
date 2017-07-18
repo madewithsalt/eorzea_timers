@@ -2,7 +2,7 @@ name,level,stars,location,pos,slot,duration,times,is_collectable,is_legendary,is
 Abalathian Rock Salt,60,,The Sea of Clouds,x7:y7,1,2:00,"10:00 AM, 10:00 PM",TRUE,FALSE,FALSE,450,
 Adamantite Ore,60,,Azys Lla,x24:y6,6,2:00,"12:00 AM, 12:00 PM",TRUE,FALSE,FALSE,470,
 Ala Mhigan Salt Crystal,69,,The Lochs,x20:y28,1,2:00,"12:00 AM, 12:00 PM",TRUE,,FALSE,,
-Almandine,70,1,The Lochs,x13:y16,?,4:00,"12:00 AM, 12:00 PM",TRUE,,TRUE,,
+Almandine,70,1,The Lochs,x13:y16,?,4:00,12:00 AM,TRUE,,TRUE,,
 Antumbral Rock,50,2,Eastern Thanalan,x26:y19,7,3:00,2:00 AM,FALSE,FALSE,FALSE,,
 Astral Moraine,60,1,Coerthas Western Highlands,x37:y16,4,2:00,"5:00 AM,5:00 PM,",TRUE,TRUE,FALSE,530,
 Astral Rock,50,1,Coerthas Central Highlands,x23:y23,7,3:00,"9:00 PM,,",FALSE,FALSE,FALSE,,
