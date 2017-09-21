@@ -11,7 +11,10 @@
     "start": "brunch watch --server",
     "build": "brunch build --production",
     "test": "NODE_ENV=test jest",
-    "deploy": "git push origin :gh-pages && git subtree push --prefix priv origin gh-pages"
+    "aws:clean": "aws s3 rm s3://eorzea-timers.com --recursive",
+    "aws:sync": "aws s3 sync ./priv s3://eorzea-timers.com",
+    "deploy": "npm run aws:clean && npm run aws:sync",
+    "deploy:github": "git push origin :gh-pages && git subtree push --prefix priv origin gh-pages"
   },
   "dependencies": {
     "babel-cli": "^6.24.1",

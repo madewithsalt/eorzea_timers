@@ -9,7 +9,7 @@ import page from './pageReducer';
 import watchgroups from './watchGroupsReducer';
 import customlist from './customListReducer';
 
-const version = (state) => "2.1.5";
+const version = (state) => "2.1.6";
 
 const rootReducer = combineReducers({
   clock,
