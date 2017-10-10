@@ -49,7 +49,7 @@ Lumythrite Ore,60,2,The Churning Mists,x9:y38,2,2:00,"2:00 AM, 2:00 PM",FALSE,TR
 Meteorite,60,2,Sea of Clouds,x37:y13,3,2:00,"1:00 AM, 1:00 PM,",FALSE,TRUE,FALSE,,
 Native Gold,50,2,Central Thanalan,x24:y16,6,3:00,"4:00 AM,,",FALSE,FALSE,FALSE,,
 Palladium Ore,70,1,Yanxia,x19:y8,6,2:00,"4:00 AM, 4:00 PM",TRUE,TRUE,,,TRUE
-Perlite,66,,Yanxia,x37:y19,?,4:00,4:00 PM,TRUE,FALSE,TRUE,,
+Perlite,66,,Yanxia,x37:y19,?,4:00,8:00 PM,TRUE,FALSE,TRUE,,
 Platinum Ore,50,3,Southern Thanalan,x19:y8,6,3:00,"4:00 AM,,",FALSE,FALSE,FALSE,,
 Pumice,50,3,Eastern La Noscea,x17:y26,1,3:00,"1:00 AM,,",FALSE,FALSE,FALSE,,
 Pyrite,55,,Dravanian Hinterlands,x26:y17,3,2:00,"10:00 AM,10:00 PM,",TRUE,FALSE,FALSE,,
