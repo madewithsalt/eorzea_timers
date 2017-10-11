@@ -1,8 +1,9 @@
 name,level,stars,location,pos,slot,duration,times,is_collectable,is_legendary,is_ephemeral,red_scrip,yellow_scrip
 Abalathian Mistletoe,60,,The Sea of Clouds,x35:y23,3,2:00,"6:00 AM,6:00 PM",TRUE,FALSE,FALSE,450,
 Apricot,50,2,Middle La Noscea,x19:y16,2,3:00,"9:00 AM,,",FALSE,FALSE,FALSE,,
-Bamboo Stick,50,2,Upper La Noscea,x28:y25,6,3:00,"7:00 AM,,",FALSE,FALSE,FALSE,,
+Azim Cotton Boll,70,1,The Azim Steppe,x19:y10,5,2:00,"12:00 AM, 12:00 PM",,TRUE,,,
 Bamboo Shoot,63,,Yanxia,x28:y25,8,2:00,"10:00 AM,10:00 PM",TRUE,,,450,
+Bamboo Stick,50,2,Upper La Noscea,x28:y25,6,3:00,"7:00 AM,,",FALSE,FALSE,FALSE,,
 Beech Branch,60,2,The Fringes,x10:y17,3,2:00,"6:00 AM, 6:00 PM",TRUE,,,450,
 Black Soil,60,,The Churning Mists,x19:y29,?,4:00,"4:00 PM,,",FALSE,FALSE,TRUE,,
 Black Soil,60,,The Dravanian Hinterlands,x13:y19,?,4:00,"4:00 AM,,",TRUE,FALSE,TRUE,,
@@ -61,8 +62,8 @@ Old World Fig,50,3,The Dravanian Forelands,x26:y12,2,2:00,"2:00 AM,2:00 PM,",TRU
 Old World Fig Seeds,,,The Dravanian Forelands,x26:y12,1,2:00,"2:00 AM,2:00 PM,",,,,,
 Old-growth Camphorwood Log,60,2,The Churning Mists,x11:y10,6,2:00,"8:00 AM, 8:00 PM",FALSE,TRUE,FALSE,,
 Othardian Plum,70,,The Azim Steppe,x27:y16,2,2:00,"2:00 AM, 2:00 PM",TRUE,,FALSE,,470
-Pearl Sprouts,60,,Coerthas Western Highlands,x31:y20,6,2:00,"10:00 AM,10:00 PM,",TRUE,FALSE,FALSE,,
 Pearl Sprout Seeds,52,,Coerthas Western Highlands,x31:y20,2,2:00,"10:00 AM,10:00 PM,",,,,,
+Pearl Sprouts,60,,Coerthas Western Highlands,x31:y20,6,2:00,"10:00 AM,10:00 PM,",TRUE,FALSE,FALSE,,
 Peat Moss,58,,The Churning Mists,x19:y29,?,4:00,"4:00 PM,,",FALSE,FALSE,TRUE,,
 Peat Moss,58,,The Dravanian Hinterlands,x13:y19,?,4:00,"4:00 AM,,",TRUE,FALSE,TRUE,,
 Peat Moss,58,,The Dravanian Forelands,x10:y32,?,4:00,"8:00 AM,,",TRUE,FALSE,TRUE,,
