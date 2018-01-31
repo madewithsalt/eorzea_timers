@@ -4484,7 +4484,7 @@ var _customListReducer2 = _interopRequireDefault(_customListReducer);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var version = function version(state) {
-  return "2.1.2";
+  return "2.2.0";
 };
 
 var rootReducer = (0, _redux.combineReducers)({

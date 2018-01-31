@@ -3,7 +3,7 @@
   "description": "Eorzea Timers",
   "private": true,
   "author": "tnbKristi",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "repository": "",
   "scripts": {
     "parse": "node ./bin/build-data-from-csv.js && cp ./data/nodes.json ./app/assets/data/nodes.json",
@@ -13,7 +13,7 @@
     "test": "NODE_ENV=test jest",
     "aws:clean": "aws s3 rm s3://eorzea-timers.com --recursive",
     "aws:sync": "aws s3 sync ./priv s3://eorzea-timers.com",
-    "deploy": "npm run aws:clean && npm run aws:sync",
+    "deploy": "npm run build && npm run aws:clean && npm run aws:sync",
     "deploy:github": "git push origin :gh-pages && git subtree push --prefix priv origin gh-pages"
   },
   "dependencies": {
