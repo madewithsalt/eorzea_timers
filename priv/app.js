@@ -267,7 +267,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
-
 });
 
 require.register("js/actions/clockActions.js", function(exports, require, module) {
@@ -350,7 +349,6 @@ function changeTime() {
     dispatch(updateClock());
   };
 }
-
 });
 
 ;require.register("js/actions/customListActions.js", function(exports, require, module) {
@@ -386,7 +384,6 @@ function removeCustomNode(id) {
     id: id
   };
 }
-
 });
 
 ;require.register("js/actions/nodeActions.js", function(exports, require, module) {
@@ -404,7 +401,6 @@ function toggleSelect(id) {
     id: id
   };
 }
-
 });
 
 ;require.register("js/actions/nodeListActions.js", function(exports, require, module) {
@@ -459,7 +455,6 @@ function toggleFeatureFilter(feature) {
     feature: feature
   };
 }
-
 });
 
 ;require.register("js/actions/pageActions.js", function(exports, require, module) {
@@ -476,7 +471,6 @@ function toggleModal() {
     type: TOGGLE_MODAL
   };
 }
-
 });
 
 ;require.register("js/actions/searchActions.js", function(exports, require, module) {
@@ -494,7 +488,6 @@ function search(query) {
     query: query
   };
 }
-
 });
 
 ;require.register("js/actions/settingsActions.js", function(exports, require, module) {
@@ -512,7 +505,6 @@ function updateSetting(setting) {
     setting: setting
   };
 }
-
 });
 
 ;require.register("js/actions/watchGroupsActions.js", function(exports, require, module) {
@@ -568,7 +560,6 @@ function removeGroup(id) {
     id: id
   };
 }
-
 });
 
 ;require.register("js/actions/watchListActions.js", function(exports, require, module) {
@@ -661,7 +652,6 @@ function replaceList(list) {
     });
   };
 }
-
 });
 
 ;require.register("js/components/Clock.js", function(exports, require, module) {
@@ -692,7 +682,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Clock);
-
 });
 
 require.register("js/components/FilterMenu.js", function(exports, require, module) {
@@ -820,7 +809,6 @@ FilterMenu.defaultProps = {
 };
 
 exports.default = FilterMenu;
-
 });
 
 require.register("js/components/MainNav.js", function(exports, require, module) {
@@ -1013,7 +1001,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(MainNav);
-
 });
 
 require.register("js/components/Modal.js", function(exports, require, module) {
@@ -1132,10 +1119,9 @@ Modal.defaultProps = {
 };
 
 exports.default = Modal;
-
 });
 
-require.register("js/components/NodeStars.js", function(exports, require, module) {
+;require.register("js/components/NodeStars.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1176,10 +1162,9 @@ var Stars = function Stars(props) {
 };
 
 exports.default = Stars;
-
 });
 
-require.register("js/components/SearchBar.js", function(exports, require, module) {
+;require.register("js/components/SearchBar.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1259,7 +1244,6 @@ var SearchBar = function (_Component) {
 }(_react.Component);
 
 exports.default = SearchBar;
-
 });
 
 require.register("js/components/SettingsModal.js", function(exports, require, module) {
@@ -1613,7 +1597,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SettingsModal);
-
 });
 
 require.register("js/components/TimerModal.js", function(exports, require, module) {
@@ -2043,7 +2026,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NewTimerModal);
-
 });
 
 require.register("js/components/WatchGroupModal.js", function(exports, require, module) {
@@ -2274,7 +2256,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WatchGroupModal);
-
 });
 
 require.register("js/components/WatchGroupSelect.js", function(exports, require, module) {
@@ -2392,7 +2373,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WatchGroupSelect);
-
 });
 
 require.register("js/containers/About.js", function(exports, require, module) {
@@ -2640,7 +2620,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(About);
-
 });
 
 require.register("js/containers/CustomContent.js", function(exports, require, module) {
@@ -2888,7 +2867,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CustomContent);
-
 });
 
 require.register("js/containers/DevTools.js", function(exports, require, module) {
@@ -2934,10 +2912,9 @@ _react2.default.createElement(
 // Exported from redux-devtools
 exports.default = DevTools;
 s;
-
 });
 
-require.register("js/containers/Home.js", function(exports, require, module) {
+;require.register("js/containers/Home.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3147,7 +3124,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Home);
-
 });
 
 require.register("js/containers/WatchList.js", function(exports, require, module) {
@@ -3368,7 +3344,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WatchList);
-
 });
 
 require.register("js/index.js", function(exports, require, module) {
@@ -3434,7 +3409,6 @@ var Root = function Root(props) {
 };
 
 exports.default = Root;
-
 });
 
 require.register("js/modules/Node.js", function(exports, require, module) {
@@ -3490,7 +3464,6 @@ var Node = function (_Component) {
 }(_react.Component);
 
 exports.default = Node;
-
 });
 
 require.register("js/modules/NodeList.js", function(exports, require, module) {
@@ -3833,7 +3806,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(NodeList);
-
 });
 
 require.register("js/modules/NodeListItem.js", function(exports, require, module) {
@@ -3981,7 +3953,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NodeListItem);
-
 });
 
 require.register("js/modules/Notifications.js", function(exports, require, module) {
@@ -4172,7 +4143,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Notifications);
-
 });
 
 require.register("js/modules/WatchListItem.js", function(exports, require, module) {
@@ -4362,7 +4332,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WatchListItem);
-
 });
 
 require.register("js/reducers/clockReducer.js", function(exports, require, module) {
@@ -4399,7 +4368,6 @@ var clock = function clock() {
 };
 
 exports.default = clock;
-
 });
 
 require.register("js/reducers/customListReducer.js", function(exports, require, module) {
@@ -4468,7 +4436,6 @@ var customlist = function customlist() {
 };
 
 exports.default = customlist;
-
 });
 
 require.register("js/reducers/index.js", function(exports, require, module) {
@@ -4517,7 +4484,7 @@ var _customListReducer2 = _interopRequireDefault(_customListReducer);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var version = function version(state) {
-  return "2.1.11";
+  return "2.1.2";
 };
 
 var rootReducer = (0, _redux.combineReducers)({
@@ -4534,7 +4501,6 @@ var rootReducer = (0, _redux.combineReducers)({
 });
 
 exports.default = rootReducer;
-
 });
 
 require.register("js/reducers/nodeListReducer.js", function(exports, require, module) {
@@ -4660,7 +4626,6 @@ function nodes() {
 }
 
 exports.default = nodes;
-
 });
 
 require.register("js/reducers/nodeReducer.js", function(exports, require, module) {
@@ -4694,10 +4659,9 @@ function node() {
 }
 
 exports.default = node;
-
 });
 
-require.register("js/reducers/pageReducer.js", function(exports, require, module) {
+;require.register("js/reducers/pageReducer.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4725,7 +4689,6 @@ var page = function page() {
 };
 
 exports.default = page;
-
 });
 
 require.register("js/reducers/searchReducer.js", function(exports, require, module) {
@@ -4754,7 +4717,6 @@ var _searchUtils2 = _interopRequireDefault(_searchUtils);
 var _searchActions = require('../actions/searchActions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 });
 
 ;require.register("js/reducers/settingsReducer.js", function(exports, require, module) {
@@ -4781,7 +4743,6 @@ var settings = function settings() {
 };
 
 exports.default = settings;
-
 });
 
 require.register("js/reducers/watchGroupsReducer.js", function(exports, require, module) {
@@ -4867,7 +4828,6 @@ var watchgroups = function watchgroups() {
 };
 
 exports.default = watchgroups;
-
 });
 
 require.register("js/reducers/watchListReducer.js", function(exports, require, module) {
@@ -4917,7 +4877,6 @@ function watchlist() {
       return state;
   }
 }
-
 });
 
 ;require.register("js/routes.js", function(exports, require, module) {
@@ -4974,7 +4933,6 @@ exports.default = function () {
     )
   );
 };
-
 });
 
 require.register("js/static/filters.js", function(exports, require, module) {
@@ -4999,7 +4957,6 @@ exports.default = {
     { value: 'yellow_scrip', name: 'Yellow Scrip' }]
   }
 };
-
 });
 
 require.register("js/static/sounds.js", function(exports, require, module) {
@@ -5030,7 +4987,6 @@ exports.default = [{
   name: 'gong',
   filename: 'gong.wav'
 }];
-
 });
 
 require.register("js/utils/parseUtils.js", function(exports, require, module) {
@@ -5090,7 +5046,6 @@ function parseBooleans(value) {
     return value;
   }
 }
-
 });
 
 ;require.register("js/utils/searchUtils.js", function(exports, require, module) {
@@ -5118,7 +5073,6 @@ function search(list) {
 
   return fuse.search(query);
 }
-
 });
 
 ;require.register("js/utils/storageUtils.js", function(exports, require, module) {
@@ -5165,10 +5119,9 @@ var clearState = exports.clearState = function clearState(state) {
     localStorage.setItem('state', {});
   } catch (err) {}
 };
-
 });
 
-require.register("js/utils/timeUtils.js", function(exports, require, module) {
+;require.register("js/utils/timeUtils.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5441,7 +5394,6 @@ var isActive = exports.isActive = function isActive(currentTime, startTime, dura
 
     return result;
 };
-
 });
 
 require.alias("buffer/index.js", "buffer");
