@@ -47,7 +47,7 @@ Lightning Cluster,60,,The Sea of Clouds,x34:y30,?,4:00,"4:00 PM,,",FALSE,FALSE,T
 Lightning Moraine,56,,Coerthas Western Highlands,x21:y28,?,4:00,"8:00 PM,,",TRUE,FALSE,TRUE,,
 Lightning Moraine,56,,The Sea of Clouds,x34:y30,?,4:00,"4:00 PM,,",TRUE,FALSE,TRUE,,
 Limonite,55,,Dravanian Forelands,x26:y17,4,2:00,"10:00 AM,10:00 PM,",TRUE,FALSE,FALSE,,
-Luminium Ore,60,3,Azys Lla,x5:y17,6,2:00,"4:00 AM, 4:00 PM,",FALSE,TRUE,FALSE,,
+Luminium Ore,60,3,Azys Lla,x5:y17,6,2:00,"6:00 AM, 6:00 PM",FALSE,TRUE,FALSE,,
 Lumythrite Ore,60,2,The Churning Mists,x9:y38,2,2:00,"2:00 AM, 2:00 PM",FALSE,TRUE,FALSE,,
 Meteorite,60,2,Sea of Clouds,x37:y13,3,2:00,"1:00 AM, 1:00 PM,",FALSE,TRUE,FALSE,,
 Native Gold,50,2,Central Thanalan,x24:y16,6,3:00,"4:00 AM,,",FALSE,FALSE,FALSE,,
