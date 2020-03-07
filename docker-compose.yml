@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  eorzea_timers:
+    command: brunch watch --server -n
+    build: .
+    container_name: eorzea_timers
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "3333:3333"
+      - "9485:9485"
