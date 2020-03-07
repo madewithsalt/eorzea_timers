@@ -13,46 +13,15 @@ function fetchCache(fileName) {
     let something = fs.readFileSync(`./bin/build-csv-from-garlandtools/_cache/${fileName}.json`);
     cacheData = something.toString('utf8');
   } catch (error) {
-    // console.error(error);
     return cacheData;
   }
-  // fs.readFileSync(`./bin/build-csv-from-garlandtools/_cache/${fileName}.json`, function(err, data) {
-  //   console.log(err);
-  //   // if(!err) {
-  //   console.log(`Cache for ${fileName} found`);
-  //   cacheData = data
-  //   console.log(data);
-  //   // }
-  // });
-  // console.log("fetch cache did something");
-  // console.log(cacheData);
-  // console.log("pebcak");
   return cacheData;
-
 }
 
 function cache(data, fileName)
 {
-  // console.log(cache);
   fs.writeFileSync(`./bin/build-csv-from-garlandtools/_cache/${fileName}.json`,  data, {flag: "w" });
-  //   function(err) {
-  //   // if(err) {
-  //   //   console.log(err);
-  //   //   return false;
-  //   // }
-  //   console.log(`${fileName}.json file was saved!`);
-  // });
-
-  // return data
 }
-//@todo integrate this
-// function checkStatus(res) {
-//   if (res.ok) { // res.status >= 200 && res.status < 300
-//     return res;
-//   } else {
-//     throw Error(res.statusText); //@todo Fill this in propperly
-//   }
-// },
 
 function getCacheName(url) {
   let explodedUrl = url.split('/');
@@ -87,5 +56,4 @@ module.exports = {
     return data;
 
   }
-
 }
