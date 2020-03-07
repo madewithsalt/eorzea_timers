@@ -3,9 +3,10 @@
   "description": "Eorzea Timers",
   "private": true,
   "author": "tnbKristi",
-  "version": "2.2.0",
+  "version": "2.2.4",
   "repository": "",
   "scripts": {
+    "generate": " node ./bin/build-csv-from-garlandtools.js",
     "parse": "node ./bin/build-data-from-csv.js && cp ./data/nodes.json ./app/assets/data/nodes.json",
     "fonts": "icon-font-generator iconfont/icons/*.svg -o iconfont/fonts --csspath iconfont/fonts/_fonticons.scss",
     "start": "brunch watch --server",
@@ -58,6 +59,8 @@
     "sass-brunch": "^2.10.4",
     "uglify-js-brunch": "~2.0.1",
     "uuid": "^3.0.1",
-    "yargs": "^8.0.1"
+    "yargs": "^8.0.1",
+    "sync-request": "4.1.0",
+    "json-csv": "^3.0.1"
   }
 }

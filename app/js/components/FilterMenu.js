@@ -28,7 +28,11 @@ class FilterMenu extends Component {
           isActive = values[name].indexOf(value) >= 0;
         }
       } else {
-        isActive = values[name] && values[name] === value;
+        if(object) {
+          isActive = values[name] && values[name] === value.value;
+        } else {
+          isActive = values[name] && values[name] === value;
+        }
       }
     }
 

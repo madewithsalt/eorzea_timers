@@ -25,9 +25,13 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
+# Data Cache Files
+bin/build-csv-from-garlandtools/_cache/*.*
+
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
 
 bower_components
+.idea/
